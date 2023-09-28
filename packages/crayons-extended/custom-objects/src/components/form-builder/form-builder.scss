@@ -82,6 +82,49 @@
       line-height: 18px;
     }
 
+    .form-builder-left-panel-sub-header-description {
+      width: 100%;
+      height: auto;
+      box-sizing: border-box;
+      padding-block-end: 0;
+      padding-inline: 2px;
+      padding-block-start: 2px;
+      margin-block-end: 8px;
+
+      .form-builder-left-panel-sub-header-description-label {
+        width: 100%;
+        margin-block-end: 0;
+        margin-inline: 0;
+        margin-block-start: -2px;
+        pointer-events: none;
+        user-select: none;
+        text-align: start;
+
+        color: $color-smoke-700;
+        font-size: $font-size-14;
+        font-weight: $font-weight-400;
+        line-height: 18px;
+      }
+
+      .form-builder-left-panel-sub-header-description-link-anchor {
+        margin-inline-start: 0px;
+        margin-block-end: 0;
+        margin-inline-end: 0;
+        margin-block-start: -2px;
+        text-align: start;
+        display: inline-block;
+
+        font-size: $font-size-14;
+        color: $color-azure-800;
+        font-weight: $font-weight-400;
+        text-decoration: none;
+
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+      }
+    }
+
     .form-builder-left-panel-header-desc-wo-header {
       width: 100%;
       margin-inline-start: 0;

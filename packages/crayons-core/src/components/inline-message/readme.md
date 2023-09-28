@@ -119,6 +119,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [fw-file-uploader-2](../file-uploader-2)
+
 ### Depends on
 
 - [fw-icon](../icon)
@@ -127,6 +131,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   fw-inline-message --> fw-icon
+  fw-file-uploader-2 --> fw-inline-message
   style fw-inline-message fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

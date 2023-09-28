@@ -823,11 +823,9 @@ function App() {
 </code-block>
 </code-group>
 
-## Row Actions:
+## Row Actions
 
 You can easily add an actions column by passing in rowActions prop to the component.
-
-*You can also use icons instead of text in buttons. Pass 'iconName' and 'iconLibrary' properties as part of configuration.*
 
 ```html live
   <fw-data-table id="datatable-4"  is-selectable="true" is-all-selectable="true" label="Data table 4">
@@ -1006,6 +1004,412 @@ You can easily add an actions column by passing in rowActions prop to the compon
 
     return (
       <FwDataTable columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table 3">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Using icons in row actions
+
+You can also use icons instead of text in buttons. You can either pass the props for the icon as an object via the 'graphicsProps' or pass 'iconName' and 'iconLibrary' properties as part of configuration.
+
+```html live
+  <fw-data-table id="datatable-icon-actions"  is-selectable="true" is-all-selectable="true" label="Data table Icon Actions">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "graphicsProps": { name: 'alert' }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-icon-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "iconName": "delete"
+      }]
+    }
+
+    var datatableIcon = document.getElementById('datatable-icon-actions');
+    datatableIcon.columns = data.columns;
+    datatableIcon.rows = data.rows;
+    datatableIcon.rowActions = data.rowActions;
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-icon-actions"  is-selectable="true" is-all-selectable="true" label="Data table Icon Actions">
+  </fw-data-table>
+```
+
+```javascript
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "graphicsProps": { name: 'alert' }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-icon-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "iconName": "delete"
+      }]
+    }
+
+    var datatableIcon = document.getElementById('datatable-icon-actions');
+    datatableIcon.columns = data.columns;
+    datatableIcon.rows = data.rows;
+    datatableIcon.rowActions = data.rowActions;
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "graphicsProps": { name: 'alert' }
+      }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-icon-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        // Use graphicsProps as an object or pass iconName and iconLibrary to display the icon
+        "iconName": "delete"
+      }]
+    }
+
+    return (
+      <FwDataTable id="datatable-icon-actions" columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table Icon Row Actions">
+      </FwDataTable>
+    );
+  }
+```
+
+</code-block>
+</code-group>
+
+## Row Actions as Menu
+
+You can display row actions as a menu by setting the property **showRowActionsAsMenu** to true.
+
+*You can use icons along with text in the menu dropdown by passing **rowActionsMenuVariant** as 'icon'. Pass the props for the icon as an object via the 'graphicsProps' as part of configuration.*
+
+*You can modify the header label of the row actions column by using the prop **rowActionsHeaderLabel**.*
+
+```html live
+  <fw-data-table id="datatable-actions"  is-selectable="true" is-all-selectable="true" label="Data table Row Actions">
+  </fw-data-table>
+
+  <script type="application/javascript">
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        "graphicsProps": { name: 'alert' }      
+        }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        "graphicsProps": { name: 'delete' }      
+      }]
+    }
+
+    var datatableActions = document.getElementById('datatable-actions');
+    datatableActions.columns = data.columns;
+    datatableActions.rows = data.rows;
+    datatableActions.rowActions = data.rowActions;
+    datatableActions.showRowActionsAsMenu = true;
+    datatableActions.rowActionsMenuVariant = "icon";
+    datatableActions.rowActionsHeaderLabel = "";
+  </script>
+```
+
+<code-group>
+<code-block title="HTML">
+
+```html
+  <fw-data-table id="datatable-actions"  is-selectable="true" is-all-selectable="true" label="Data table Row Actions">
+  </fw-data-table>
+```
+
+```javascript
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        "graphicsProps": { name: 'alert' }      
+        }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        "graphicsProps": { name: 'delete' }      
+      }]
+    }
+
+    var datatableActions = document.getElementById('datatable-actions');
+    datatableActions.columns = data.columns;
+    datatableActions.rows = data.rows;
+    datatableActions.rowActions = data.rowActions;
+    datatableActions.showRowActionsAsMenu = true;
+    datatableActions.rowActionsMenuVariant = "icon";
+    datatableActions.rowActionsHeaderLabel = "";
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+  import React from "react";
+  import ReactDOM from "react-dom";
+  import { FwDataTable } from "@freshworks/crayons/react";
+  function App() {
+
+    var data = {
+      columns: [{
+        "key": "name",
+        "text": "Name"
+      }, {
+        "key": "role",
+        "text": "Role"
+      }],
+      rows: [{
+        "id": "0001",
+        "name": "Alexander Goodman",
+        "role": "Member"
+      }, {
+        "id": "0002",
+        "name": "Ambrose Wayne",
+        "role": "Member"
+      }, {
+        "id": "0003",
+        "name": "August hines",
+        "role": "Administrator"
+      }],
+      rowActions: [{
+        "name": "Alert",
+        "handler": (rowData) => {
+          window.alert(rowData.name);
+        },
+        "graphicsProps": { name: 'alert' }      
+        }, {
+        "name": "Delete",
+        "handler": async (rowData) => {
+          let deletePromise = new Promise((resolve, reject) => {
+            const dataTable = document.querySelector('#datatable-actions');
+            setTimeout(() => {
+              if (dataTable) {
+                dataTable.rows = dataTable.rows.filter((row) => (row.id !== rowData.id));
+                resolve();
+              } else {
+                reject();
+              }
+            }, 3000); 
+          });
+          await deletePromise;
+        },
+        "hideForRowIds": ["0003"],
+        "graphicsProps": { name: 'delete' }      
+      }]
+    }
+
+    return (
+      <FwDataTable id="datatable-actions" columns={data.columns} rows={data.rows} rowActions={data.rowActions} label="Data Table 3">
       </FwDataTable>
     );
   }
@@ -1896,18 +2300,22 @@ Data table exposes couple of method to get and set column configuration.
 
 ## Properties
 
-| Property           | Attribute            | Description                                                                                                                                            | Type                | Default |
-| ------------------ | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------- | ------- |
-| `autoSaveSettings` | `auto-save-settings` | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table` | `boolean`           | `false` |
-| `columns`          | --                   | Columns Array of objects that provides information regarding the columns in the table.                                                                 | `DataTableColumn[]` | `[]`    |
-| `isAllSelectable`  | `is-all-selectable`  | isAllSelectable Boolean based on which select all option appears in the table header                                                                   | `boolean`           | `false` |
-| `isLoading`        | `is-loading`         | To disable table during async operations                                                                                                               | `boolean`           | `false` |
-| `isSelectable`     | `is-selectable`      | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                  | `boolean`           | `false` |
-| `label`            | `label`              | Label attribute is not visible on screen. There for accessibility purposes.                                                                            | `string`            | `''`    |
-| `rowActions`       | --                   | To enable bulk actions on the table.                                                                                                                   | `DataTableAction[]` | `[]`    |
-| `rows`             | --                   | Rows Array of objects to be displayed in the table.                                                                                                    | `DataTableRow[]`    | `[]`    |
-| `shimmerCount`     | `shimmer-count`      | shimmerCount number of shimmer rows to show during initial loading                                                                                     | `number`            | `4`     |
-| `showSettings`     | `show-settings`      | showSettings is used to show the settings button on the table.                                                                                         | `boolean`           | `false` |
+| Property                    | Attribute                  | Description                                                                                                                                                                                                        | Type                                                        | Default      |
+| --------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- | ------------ |
+| `autoSaveSettings`          | `auto-save-settings`       | autoSaveSettings to enable auto saving of table settings to `localstorage`. If set to `true`, make sure `id` attribute is also set to the `data-table`                                                             | `boolean`                                                   | `false`      |
+| `columns`                   | --                         | Columns Array of objects that provides information regarding the columns in the table.                                                                                                                             | `DataTableColumn[]`                                         | `[]`         |
+| `isAllSelectable`           | `is-all-selectable`        | isAllSelectable Boolean based on which select all option appears in the table header                                                                                                                               | `boolean`                                                   | `false`      |
+| `isLoading`                 | `is-loading`               | To disable table during async operations                                                                                                                                                                           | `boolean`                                                   | `false`      |
+| `isSelectable`              | `is-selectable`            | isSelectable Boolean based on which selectable options appears for rows in the table.                                                                                                                              | `boolean`                                                   | `false`      |
+| `label`                     | `label`                    | Label attribute is not visible on screen. There for accessibility purposes.                                                                                                                                        | `string`                                                    | `''`         |
+| `rowActions`                | --                         | To enable bulk actions on the table.                                                                                                                                                                               | `DataTableActionWithGraphics[] \| DataTableAction[]`        | `[]`         |
+| `rowActionsHeaderLabel`     | `row-actions-header-label` | Header label for row actions column                                                                                                                                                                                | `any`                                                       | `undefined`  |
+| `rowActionsMenuVariant`     | `row-actions-menu-variant` | Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop. | `"icon" \| "standard"`                                      | `'standard'` |
+| `rowActionsWidthProperties` | --                         | Ability to add width related properties to rowActions. Helps solve settings icon overlap with actions label.                                                                                                       | `{ width?: string; minWidth?: string; maxWidth?: string; }` | `null`       |
+| `rows`                      | --                         | Rows Array of objects to be displayed in the table.                                                                                                                                                                | `DataTableRow[]`                                            | `[]`         |
+| `shimmerCount`              | `shimmer-count`            | shimmerCount number of shimmer rows to show during initial loading                                                                                                                                                 | `number`                                                    | `4`          |
+| `showRowActionsAsMenu`      | `show-row-actions-as-menu` | To show row actions as a kebab menu                                                                                                                                                                                | `boolean`                                                   | `false`      |
+| `showSettings`              | `show-settings`            | showSettings is used to show the settings button on the table.                                                                                                                                                     | `boolean`                                                   | `false`      |
 
 
 ## Events
@@ -1985,6 +2393,7 @@ Type: `Promise<DataTableColumn[]>`
 
 ### Depends on
 
+- [fw-kebab-menu](../kebab-menu)
 - [fw-custom-cell-anchor](./custom-cells/anchor)
 - [fw-custom-cell-user](./custom-cells/user)
 - [fw-custom-cell-icon](./custom-cells/icon)
@@ -2000,6 +2409,7 @@ Type: `Promise<DataTableColumn[]>`
 ### Graph
 ```mermaid
 graph TD;
+  fw-data-table --> fw-kebab-menu
   fw-data-table --> fw-custom-cell-anchor
   fw-data-table --> fw-custom-cell-user
   fw-data-table --> fw-custom-cell-icon
@@ -2011,14 +2421,23 @@ graph TD;
   fw-data-table --> fw-input
   fw-data-table --> fw-drag-container
   fw-data-table --> fw-skeleton
+  fw-kebab-menu --> fw-popover
+  fw-kebab-menu --> fw-button
+  fw-kebab-menu --> fw-icon
+  fw-kebab-menu --> fw-list-options
+  fw-button --> fw-spinner
+  fw-button --> fw-icon
+  fw-list-options --> fw-select-option
+  fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-input --> fw-icon
   fw-custom-cell-user --> fw-avatar
   fw-custom-cell-icon --> fw-icon
   fw-custom-cell-paragraph --> fw-tooltip
   fw-tooltip --> fw-popover
-  fw-checkbox --> fw-icon
-  fw-button --> fw-spinner
-  fw-button --> fw-icon
-  fw-input --> fw-icon
   style fw-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

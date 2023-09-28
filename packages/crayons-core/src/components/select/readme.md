@@ -1391,6 +1391,472 @@ export default Select;
 </code-block>
 </code-group>
 
+### Using maxHeight property
+
+`maxHeight` property can be used to set the maximum height of select when there are multiple choices selected. If the content overflows the specified height, it adds a scroll bar.
+
+```html live
+<fw-select
+  id="maxHeightSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('maxHeightSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage for max-height property
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="maxHeightSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('maxHeightSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwSelect } from '@freshworks/crayons/react';
+function App() {
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Item ${i + 1}`,
+    value: i
+  }));
+
+  return (
+    <div>
+      <FwSelect
+        id="maxHeightSelect"
+        multiple
+        selectedOptions={selectedOptions}
+        maxHeight='100px'
+      ></FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
+### Using showDropdown and hideDropdown methods
+
+The dropdown panel can be manually shown using `showDropdown` method and can be manually hidden using `hideDropdown` method
+
+```html live
+<div>
+  <fw-button id="show-dropdown">Show Dropdown</fw-button>
+  <fw-button id="hide-dropdown">Hide Dropdown</fw-button>
+  <br />
+  <br />
+  <fw-select
+    id="manualSelect"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
+
+<script type="application/javascript">
+  var manualSelect = document.getElementById('manualSelect');
+  var showBtn = document.getElementById('show-dropdown');
+  var hideBtn = document.getElementById('hide-dropdown');
+  showBtn.addEventListener('fwClick', () => {
+    manualSelect.showDropdown();
+  });
+  hideBtn.addEventListener('fwClick', () => {
+    manualSelect.hideDropdown();
+  });
+</script>
+```
+
+### Usage for showDropdown and hideDropdown methods
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<div>
+  <fw-button id="show-dropdown">Show Dropdown</fw-button>
+  <fw-button id="hide-dropdown">Hide Dropdown</fw-button>
+  <br />
+  <br />
+  <fw-select
+    id="manualSelect"
+    label="House Name"
+    required="true"
+    value="1"
+    placeholder="Your choice"
+    hint-text="Select singluar option"
+  >
+    <fw-select-option value="1">Starks</fw-select-option>
+    <fw-select-option value="2">Lannisters</fw-select-option>
+  </fw-select>
+</div>
+
+<script type="application/javascript">
+  var manualSelect = document.getElementById('manualSelect');
+  var showBtn = document.getElementById('show-dropdown');
+  var hideBtn = document.getElementById('hide-dropdown');
+  showBtn.addEventListener('fwClick', () => {
+    manualSelect.showDropdown();
+  });
+  hideBtn.addEventListener('fwClick', () => {
+    manualSelect.hideDropdown();
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwButton, FwSelect, FwSelectOption } from '@freshworks/crayons/react';
+
+function App() {
+
+  const selectRef = React.useRef();
+
+  const handleShow = () => {
+    selectRef.current.showDropdown();
+  };
+
+  const handleHide = () => {
+    selectRef.current.hideDropdown();
+  };
+
+  return (
+    <div>
+      <FwButton onFwClick={handleShow}>Show Dropdown</FwButton>
+      <FwButton onFwClick={handleHide}>Hide Dropdown</FwButton>
+      <FwSelect
+        ref={selectRef}
+        label='House Name'
+        required
+        value='1'
+        placeholder='Your choice'
+        hintText='Select singluar option'
+      >
+        <FwSelectOption value='1'>Starks</FwSelectOption>
+        <FwSelectOption value='2'>Lannisters</FwSelectOption>
+      </FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
+### Using tagProps property
+
+`tagProps` property can be used to set the properties of fw-tag component when there are multiple choices selected.
+
+```html live
+<fw-select
+  id="tagPropsSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selected Item No: ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('tagPropsSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.tagProps={
+    showEllipsisOnOverflow: true,
+    closable: false
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage for tagProps property
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="tagPropsSelect"
+  multiple
+  max-height='100px'
+>
+</fw-select>
+
+<script type="application/javascript">
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selected Item No: ${i + 1}`,
+    value: i
+  }));
+  var maxHeightSelect = document.getElementById('tagPropsSelect');
+  maxHeightSelect.selectedOptions = selectedOptions;
+  maxHeightSelect.creatableProps = {
+    isCreatable: true,
+  };
+  maxHeightSelect.tagProps={
+    showEllipsisOnOverflow: true,
+    closable: false
+  };
+  maxHeightSelect.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+</code-block>
+
+<code-block title="React">
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { FwSelect } from '@freshworks/crayons/react';
+function App() {
+  var selectedOptions = Array.from(Array(50), (_,i) => ({
+    text: `Selcted Item No: ${i + 1}`,
+    value: i
+  }));
+
+  return (
+    <div>
+      <FwSelect
+        id="maxHeightSelect"
+        multiple
+        selectedOptions={selectedOptions}
+        maxHeight='100px'
+        tagProps={{
+          showEllipsisOnOverflow: true,
+          closable: false
+        }}
+      ></FwSelect>
+    </div>
+  );
+}
+```
+
+</code-block>
+</code-group>
+
+### Demo with search variant
+
+```html live
+<fw-select
+  id="search"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  caret="false"
+  variant="search"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var searchVariant = document.getElementById('search');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      text: 'Rick Sanchez',
+      subText: 'Human',
+      value: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+### Usage of search variant
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-select
+  id="search"
+  label="Rick & Morty Characters"
+  no-data-text="Type to search.."
+  not-found-text="Not available in this universe"
+  placeholder="Your choices"
+  hint-text="Select multiple options"
+  options-variant="avatar"
+  tag-variant="avatar"
+  multiple
+  caret="false"
+  variant="search"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var searchVariant = document.getElementById('search');
+  baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  searchVariant.selectedOptions = [
+    {
+      text: 'Rick Sanchez',
+      subText: 'Human',
+      value: '1',
+      graphicsProps: {
+        image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+      },
+    },
+  ];
+  searchVariant.search = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+</script>
+```
+
+</code-block>
+<code-block title="React">
+
+```jsx
+function Select() {
+  var baseURL = 'https://api.sampleapis.com/rickandmorty/characters';
+  const searchFn = (value, source) => {
+    // Sample function to mimic the dynamic filter over network
+    return fetch(baseURL)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const result = data.filter((x) =>
+          x.name.toLowerCase().includes(value.toLowerCase())
+        );
+        return result.map((x) => {
+          return {
+            text: x.name,
+            subText: x.type,
+            value: x.id.toString(),
+            graphicsProps: { image: x.image },
+          };
+        });
+      });
+  };
+  return (
+    <FwSelect
+      id='search'
+      label={'Rick & Morty Characters'}
+      notFoundText='Not available in this universe'
+      placeholder='Your choices'
+      hintText='Select multiple options'
+      optionsVariant='avatar'
+      tagVariant='avatar'
+      search={searchFn}
+      multiple
+      selectedOptions={[
+        {
+          text: 'Rick Sanchez',
+          subText: 'Human',
+          value: '1',
+          graphicsProps: {
+            image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+          },
+        },
+      ]}
+      variant="search"
+      caret={false}
+    ></FwSelect>
+  );
+}
+export default Select;
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1401,44 +1867,47 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 
 ## Properties
 
-| Property           | Attribute           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Type                                                                                                                                                                 | Default                                                                                                                            |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `allowDeselect`    | `allow-deselect`    | Whether clicking on the already selected option disables it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
-| `boundary`         | --                  | Describes the select's boundary HTMLElement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `HTMLElement`                                                                                                                                                        | `undefined`                                                                                                                        |
-| `caret`            | `caret`             | Whether the arrow/caret should be shown in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
-| `checkbox`         | `checkbox`          | Place a checkbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `creatableProps`   | --                  | Props to be passed for creatable select isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered. If return value is true, error state of the newly created option will be false and if return value is false, then the error state of the newly created option will be true. formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument. | `{ isCreatable: boolean; validateNewOption: (_value: any) => boolean; formatCreateLabel: (label: any) => string; }`                                                  | `{     isCreatable: false,     validateNewOption: (_value): boolean => true,     formatCreateLabel: (label): string => label,   }` |
-| `debounceTimer`    | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `number`                                                                                                                                                             | `300`                                                                                                                              |
-| `disabled`         | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `errorText`        | `error-text`        | Error text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `forceSelect`      | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
-| `hintText`         | `hint-text`         | Hint text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `hoist`            | `hoist`             | Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `label`            | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `labelledBy`       | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `max`              | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `number`                                                                                                                                                             | `Number.MAX_VALUE`                                                                                                                 |
-| `multiple`         | `multiple`          | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `name`             | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `noDataText`       | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `notFoundText`     | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
-| `optionLabelPath`  | `option-label-path` | Key for determining the label for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'text'`                                                                                                                           |
-| `optionValuePath`  | `option-value-path` | Key for determining the value for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'value'`                                                                                                                          |
-| `options`          | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
-| `optionsPlacement` | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                                                                                                         |
-| `optionsVariant`   | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.                                                                                                                                                                                                                                                                                                                                                                           | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |
-| `placeholder`      | `placeholder`       | Text displayed in the list box before an option is selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`                                                                                                                                                             | `undefined`                                                                                                                        |
-| `readonly`         | `readonly`          | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `required`         | `required`          | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
-| `sameWidth`        | `same-width`        | Whether the select width to be same as that of the options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
-| `search`           | `search`            | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.                                                                                                                                                                                                                                                                                                                                                                                     | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
-| `searchable`       | `searchable`        | Allow to search for value. Default is true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
-| `selectedOptions`  | --                  | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                           | `any[]`                                                                                                                                                              | `[]`                                                                                                                               |
-| `state`            | `state`             | Theme based on which the list box is styled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`                                                                                                                         |
-| `tagVariant`       | `tag-variant`       | The variant of tag to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `"avatar" \| "standard"`                                                                                                                                             | `'standard'`                                                                                                                       |
-| `type`             | `type`              | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"number" \| "text"`                                                                                                                                                 | `'text'`                                                                                                                           |
-| `value`            | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
-| `variant`          | `variant`           | The UI variant of the select to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"button" \| "mail" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |
-| `warningText`      | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| Property             | Attribute           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Type                                                                                                                                                                 | Default                                                                                                                            |
+| -------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `allowDeselect`      | `allow-deselect`    | Whether clicking on the already selected option disables it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
+| `boundary`           | --                  | Describes the select's boundary HTMLElement                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `HTMLElement`                                                                                                                                                        | `undefined`                                                                                                                        |
+| `caret`              | `caret`             | Whether the arrow/caret should be shown in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
+| `checkbox`           | `checkbox`          | Place a checkbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `creatableProps`     | --                  | Props to be passed for creatable select isCreatable: boolean - If true, select accepts user input that are not present as options and add them as options validateNewOption: (value) => boolean - If passed, this function will determine the error state for every new option entered. If return value is true, error state of the newly created option will be false and if return value is false, then the error state of the newly created option will be true. formatCreateLabel: (label) => string - Gets the label for the "create new ..." option in the menu. Current input value is provided as argument. | `{ isCreatable: boolean; validateNewOption: (_value: any) => boolean; formatCreateLabel: (label: any) => string; }`                                                  | `{     isCreatable: false,     validateNewOption: (_value): boolean => true,     formatCreateLabel: (label): string => label,   }` |
+| `debounceTimer`      | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `number`                                                                                                                                                             | `300`                                                                                                                              |
+| `disabled`           | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `errorText`          | `error-text`        | Error text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `fallbackPlacements` | --                  | Alternative placement for popover if the default placement is not possible.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `[PopoverPlacementType]`                                                                                                                                             | `['top']`                                                                                                                          |
+| `forceSelect`        | `force-select`      | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
+| `hintText`           | `hint-text`         | Hint text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `hoist`              | `hoist`             | Option to prevent the select options from being clipped when the component is placed inside a container with `overflow: auto\|hidden\|scroll`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `label`              | `label`             | Label displayed on the interface, for the component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `labelledBy`         | `labelled-by`       | If the default label prop is not used, then use this prop to pass the id of the label.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `max`                | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `number`                                                                                                                                                             | `Number.MAX_VALUE`                                                                                                                 |
+| `maxHeight`          | `max-height`        | Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `'none'`                                                                                                                           |
+| `multiple`           | `multiple`          | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `name`               | `name`              | Name of the component, saved as part of form data.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `noDataText`         | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `notFoundText`       | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `optionLabelPath`    | `option-label-path` | Key for determining the label for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'text'`                                                                                                                           |
+| `optionValuePath`    | `option-value-path` | Key for determining the value for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'value'`                                                                                                                          |
+| `options`            | `options`           | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
+| `optionsPlacement`   | `options-placement` | Placement of the options list with respect to select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                                                                                                         |
+| `optionsVariant`     | `options-variant`   | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.                                                                                                                                                                                                                                                                                                                                                                           | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |
+| `placeholder`        | `placeholder`       | Text displayed in the list box before an option is selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`                                                                                                                                                             | `undefined`                                                                                                                        |
+| `readonly`           | `readonly`          | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `required`           | `required`          | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
+| `sameWidth`          | `same-width`        | Whether the select width to be same as that of the options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
+| `search`             | `search`            | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.                                                                                                                                                                                                                                                                                                                                                                                     | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
+| `searchable`         | `searchable`        | Allow to search for value. Default is true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
+| `selectedOptions`    | --                  | Array of the options that is displayed as the default selection, in the list box. Must be a valid option corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                           | `any[]`                                                                                                                                                              | `[]`                                                                                                                               |
+| `state`              | `state`             | Theme based on which the list box is styled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `"error" \| "normal" \| "warning"`                                                                                                                                   | `'normal'`                                                                                                                         |
+| `tagProps`           | --                  | Props to be passed for fw-tag components displayed in multi-select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `{}`                                                                                                                                                                 | `{}`                                                                                                                               |
+| `tagVariant`         | `tag-variant`       | The variant of tag to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `"avatar" \| "standard"`                                                                                                                                             | `'standard'`                                                                                                                       |
+| `type`               | `type`              | Type of option accepted as the input value. If a user tries to enter an option other than the specified type, the list is not populated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"number" \| "text"`                                                                                                                                                 | `'text'`                                                                                                                           |
+| `value`              | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
+| `variant`            | `variant`           | The UI variant of the select to be used.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `"button" \| "mail" \| "search" \| "standard"`                                                                                                                       | `'standard'`                                                                                                                       |
+| `warningText`        | `warning-text`      | Warning text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `string`                                                                                                                                                             | `''`                                                                                                                               |
 
 
 ## Events
@@ -1455,6 +1924,16 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 ### `getSelectedItem() => Promise<any>`
 
 
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `hideDropdown() => Promise<any>`
+
+Hides the dropdown panel
 
 #### Returns
 
@@ -1485,6 +1964,16 @@ Type: `Promise<any>`
 ### `setSelectedValues(values: string | string[]) => Promise<any>`
 
 
+
+#### Returns
+
+Type: `Promise<any>`
+
+
+
+### `showDropdown() => Promise<any>`
+
+Shows the dropdown panel
 
 #### Returns
 

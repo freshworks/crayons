@@ -320,6 +320,78 @@ describe('fw-data-table', () => {
     expect(actionButton).toBeTruthy();
   });
 
+  it('should display row action header label when rowActionsHeaderLabel is passed to datatable', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+      rowActionsHeaderLabel: 'Operations',
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const actionColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:last-child'
+    );
+    const actionButton = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions fw-button'
+    );
+    expect(actionColumn.innerText).toEqual('Operations');
+    expect(actionButton).toBeTruthy();
+  });
+
+  it('should display row action header label when rowActionsHeaderLabel is passed as empty string to datatable', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+      rowActionsHeaderLabel: '',
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const actionColumn = await page.find(
+      'fw-data-table >>> thead > tr > th:last-child'
+    );
+    const actionButton = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions fw-button'
+    );
+    expect(actionColumn.innerText).toEqual('');
+    expect(actionButton).toBeTruthy();
+  });
+
   it('should call the handler when action button is clicked', async () => {
     const myMock = jest.fn();
     const data = {
@@ -362,6 +434,163 @@ describe('fw-data-table', () => {
     actionButton.click();
     await page.waitForChanges();
     expect(myMock).toHaveBeenCalled();
+  });
+
+  it('should render fw-kebab-menu when showRowActionsAsMenu is true', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+      rowActionsHeaderLabel: '',
+      showRowActionsAsMenu: true,
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const actionMenu = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions fw-kebab-menu'
+    );
+    expect(actionMenu).toBeTruthy();
+  });
+
+  it('should call the handler when an action is clicked from the kebab menu', async () => {
+    const myMock = jest.fn();
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+        },
+      ],
+      showRowActionsAsMenu: true,
+    };
+    await page.exposeFunction('actionHandler', () => {
+      myMock();
+    });
+    await page.$eval(
+      'fw-data-table',
+      (elm: any, data: any) => {
+        data.rowActions[0].handler = (window as any).actionHandler;
+        Object.assign(elm, data);
+      },
+      data
+    );
+    await page.waitForChanges();
+    const actionMenu = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions fw-kebab-menu'
+    );
+    expect(actionMenu).toBeTruthy();
+    actionMenu.click();
+    await page.waitForChanges();
+    const rowActions = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions'
+    );
+    const popover = await rowActions.find('fw-kebab-menu >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBe(1);
+    await options[0].click();
+    await page.waitForChanges();
+    expect(myMock).toHaveBeenCalled();
+  });
+
+  it('should not render fw-kebab-menu for the row whose id is mentioned in hideInRowIds', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+          hideForRowIds: ['1234'],
+        },
+      ],
+      rowActionsHeaderLabel: '',
+      showRowActionsAsMenu: true,
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const rowActions = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions'
+    );
+    const actionMenu = await rowActions.find('fw-kebab-menu >>> fw-icon');
+    expect(actionMenu).toBeFalsy();
+  });
+
+  it('should not render row action button for the row whose id is mentioned in hideInRowIds', async () => {
+    const data = {
+      rows: [
+        {
+          id: '1234',
+          name: 'Alexander Goodman',
+        },
+      ],
+      columns: [
+        {
+          key: 'name',
+          text: 'Name',
+        },
+      ],
+      rowActions: [
+        {
+          name: 'Edit',
+          handler: (rowData) => {
+            console.log(rowData.name);
+          },
+          hideForRowIds: ['1234'],
+        },
+      ],
+      rowActionsHeaderLabel: '',
+    };
+    await loadDataIntoGrid(data);
+    await page.waitForChanges();
+    const actionButton = await page.find(
+      'fw-data-table >>> tbody > tr > td.row-actions fw-button'
+    );
+    expect(actionButton).toBeFalsy();
   });
 
   it('should hide a column when hide is passed in column configuration', async () => {
@@ -713,5 +942,65 @@ describe('fw-data-table', () => {
       'fw-data-table >>> .table-settings-content-checkboxes fw-checkbox[checked]'
     );
     expect(checkboxes.length).toBe(1);
+  });
+
+  it('should apply saved settings if text of column is changed', async () => {
+    const currentData = {
+      ...manyColumnData,
+      showSettings: true,
+      autoSaveSettings: true,
+    };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    dataTable.setProperty('id', 'best-1');
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const modifiedColumn = currentData.columns.map((column: any) =>
+      Object.assign({}, column, { text: column.text + '-1' })
+    );
+    dataTable.setProperty('columns', modifiedColumn);
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(1);
+  });
+
+  it('should not apply saved settings if structural definition of column is changed', async () => {
+    const currentData = {
+      ...manyColumnData,
+      showSettings: true,
+      autoSaveSettings: true,
+    };
+    await loadDataIntoGrid(currentData);
+    await page.waitForChanges();
+    const dataTable = await page.find('fw-data-table');
+    dataTable.setProperty('id', 'best-2');
+    const settingsButton = await page.find(
+      'fw-data-table >>> .table-settings-button'
+    );
+    settingsButton.click();
+    await page.waitForChanges();
+    const firstCheckbox = await page.find('fw-data-table >>> fw-checkbox');
+    const applySettings = await page.find('fw-data-table >>> #apply-settings');
+    firstCheckbox.click();
+    await page.waitForChanges();
+    applySettings.click();
+    await page.waitForChanges();
+    const modifiedColumn = currentData.columns.map((column: any) =>
+      Object.assign({}, column, { text: column.text + '-1', lock: true })
+    );
+    dataTable.setProperty('columns', modifiedColumn);
+    await page.waitForChanges();
+    const columns = await page.findAll('fw-data-table >>> th:not(.hidden)');
+    expect(columns.length).toBe(2);
   });
 });

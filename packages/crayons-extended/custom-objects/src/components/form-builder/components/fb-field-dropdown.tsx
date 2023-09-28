@@ -11,6 +11,7 @@ import {
   State,
 } from '@stencil/core';
 import {
+  createUUID,
   deepCloneObject,
   getMaxLimitProperty,
   hasCustomProperty,
@@ -45,6 +46,10 @@ export class FbFieldDropdown {
    */
   @Prop({ mutable: true }) showErrors = false;
   /**
+   * Disables all the options which can't be edited, reordered or deleted if set to true.
+   */
+  @Prop() disabled = false;
+  /**
    * Triggered on data change for error handling on parent
    */
   @Event() fwChange!: EventEmitter;
@@ -61,6 +66,13 @@ export class FbFieldDropdown {
 
   componentWillLoad(): void {
     this.validate();
+    if (this.errorType && this.errorType !== '') {
+      this.fwChange.emit({
+        type: 'VALUE_CHANGE',
+        errorType: this.errorType,
+        value: [...this.dataProvider],
+      });
+    }
   }
 
   private validate = () => {
@@ -130,6 +142,9 @@ export class FbFieldDropdown {
   private deleteItemHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
 
     const intDeleteIndex = event.detail.index;
     const isNewChoice = event.detail.isNewChoice;
@@ -161,6 +176,9 @@ export class FbFieldDropdown {
   private choiceValueChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
 
     const intIndex = event.detail.index;
     const strValue = event.detail.value;
@@ -184,6 +202,9 @@ export class FbFieldDropdown {
   private elementDropHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
 
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
@@ -198,9 +219,10 @@ export class FbFieldDropdown {
       arrFields.splice(intDroppedIndex, 0, objField);
       const intLength = arrFields.length;
       for (let i1 = intDroppedIndex; i1 < intLength; i1++) {
-        arrFields[i1].id = i1 + 1;
+        // Fix for drag container to re-render on drop to change the key
+        arrFields[i1].repositionKey = createUUID();
       }
-      this.dataProvider = arrFields;
+      this.dataProvider = [...arrFields];
       this.fwChange.emit({
         type: 'REPOSITION',
         errorType: this.errorType,
@@ -210,15 +232,19 @@ export class FbFieldDropdown {
   };
 
   private renderNameEditorElement(dataItem, intIndex) {
+    const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
     const boolNewChoice = !hasCustomProperty(dataItem, 'id');
-    const itemId = !boolNewChoice ? dataItem.id : intIndex;
+    const itemKey = hasRepositionIndex
+      ? dataItem.repositionKey
+      : `new_choice_${intIndex + 1}`;
 
     return (
       <fw-fb-field-dropdown-item
-        key={itemId}
+        key={itemKey}
         index={intIndex}
         dataProvider={dataItem}
         isNewChoice={boolNewChoice}
+        disabled={this.disabled}
         isLoading={this.isLoading}
         showErrors={this.showErrors}
         onFwChange={this.choiceValueChangeHandler}
@@ -263,14 +289,16 @@ export class FbFieldDropdown {
             {dropdownElements}
           </fw-drag-container>
           <div class={`${strBaseClassName}-footer`}>
-            <fw-button
-              id='addNewChoiceBtn'
-              color='link'
-              disabled={this.boolExceededChoiceLimit}
-              onFwClick={this.addNewChoiceHandler}
-            >
-              {i18nText('addChoice')}
-            </fw-button>
+            {!this.disabled && (
+              <fw-button
+                id='addNewChoiceBtn'
+                color='link'
+                disabled={this.boolExceededChoiceLimit}
+                onFwClick={this.addNewChoiceHandler}
+              >
+                {i18nText('addChoice')}
+              </fw-button>
+            )}
             {this.boolExceededChoiceLimit && (
               <label class={`${strBaseClassName}-warning-text`}>
                 {strExceedLimitChoicesWarning}

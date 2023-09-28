@@ -64,7 +64,7 @@ $disabled-color: $input-disabled-color;
 }
 
 .input-container {
-  width: calc(100% - 10px);
+  width: calc(100% - 12px);
   border: var(--fw-select-border, 1px solid $input-border);
   border-radius: var(--fw-select-border-radius, 4px);
   padding-inline-start: 10px;
@@ -85,6 +85,9 @@ $disabled-color: $input-disabled-color;
       display: flex;
       flex-wrap: wrap;
       min-width: inherit;
+      flex-grow: 1;
+      overflow-y: auto;
+      padding-inline-start: 2px;
 
       &.avatar {
         min-height: 40px;
@@ -103,6 +106,7 @@ $disabled-color: $input-disabled-color;
         margin-block-start: 4px;
         display: flex;
         min-width: inherit;
+        --fw-popover-min-width: 0;
       }
     }
 
@@ -252,6 +256,10 @@ $disabled-color: $input-disabled-color;
 
   .dropdown-status-icon.expanded {
     transform: rotate(180deg);
+  }
+
+  .dropdown-status-icon.disabled {
+    opacity: 0.5;
   }
 
   &.error {

@@ -36,11 +36,15 @@ export class FormControl {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP' = 'TEXT';
+    | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
+    | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
   @Prop()
   label: any;
+  @Prop()
+  hidden = false;
   @Prop()
   required = false;
   @Prop()
@@ -69,6 +73,16 @@ export class FormControl {
    * Default to true.
    */
   @Prop() shouldRender = true;
+  /**
+   * Value of the slotted custom field on fw-form-control
+   */
+  @Prop() value;
+  /**
+   * Disable the field from being editable
+   */
+  @Prop()
+  disabled = false;
+
   private slotElement;
   private crayonsControlRef;
 
@@ -94,6 +108,7 @@ export class FormControl {
           placeholder: this.placeholder,
           label: this.label,
           required: this.required,
+          disabled: this.disabled,
           type: type,
           ...this.controlProps?.inputProps(this.name, type),
           state: (this.touched && this.error && 'error') || 'normal',
@@ -119,6 +134,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -146,6 +162,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -173,6 +190,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -201,6 +219,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: '',
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.checkboxProps(
               this.name,
               this.type?.toLowerCase()
@@ -247,19 +266,26 @@ export class FormControl {
               {...componentProps}
               ref={(el) => (this.crayonsControlRef = el)}
             >
-              {this.choices?.map((ch) => {
-                const val = ch[componentProps.optionValuePath] || ch.value;
-                const label = ch[componentProps.optionLabelPath] || ch.value;
-                return (
-                  <fw-radio
-                    name={this.name}
-                    value={val}
-                    state={this.touched && this.error ? 'error' : 'normal'}
-                  >
-                    {label}
-                  </fw-radio>
-                );
-              })}
+              {this.choices
+                .sort((a, b) => {
+                  const apos = a?.position ?? 0;
+                  const bpos = b?.position ?? 0;
+                  return apos - bpos;
+                })
+                ?.map((ch) => {
+                  const val = ch[componentProps.optionValuePath] || ch.value;
+                  const label = ch[componentProps.optionLabelPath] || ch.value;
+                  return (
+                    <fw-radio
+                      name={this.name}
+                      value={val}
+                      disabled={this.disabled}
+                      state={this.touched && this.error ? 'error' : 'normal'}
+                    >
+                      {label}
+                    </fw-radio>
+                  );
+                })}
             </fw-radio-group>
           );
         }
@@ -281,6 +307,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             multiple: this.type === 'MULTI_SELECT',
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
@@ -292,7 +319,11 @@ export class FormControl {
           componentProps = {
             ...componentProps,
             ...controlProps,
-            options: this.choices,
+            options: this.choices.sort((a, b) => {
+              const apos = a?.position ?? 0;
+              const bpos = b?.position ?? 0;
+              return apos - bpos;
+            }),
           };
           // This is to handle formserv payload which might contain a field_options object, which has parameters, option_value_path and option_label_path,
           // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value
@@ -310,6 +341,7 @@ export class FormControl {
         break;
 
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -324,6 +356,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             state: (this.touched && this.error && 'error') || 'normal',
             ['hint-text']: this.hint,
             ['error-text']: TranslationController.t(this.error, {
@@ -332,7 +365,7 @@ export class FormControl {
           };
 
           if (
-            Array.isArray(controlProps.value) &&
+            Array.isArray(controlProps?.value) &&
             typeof controlProps.value[0] === 'object'
             // handle multi_select, select [{}] initialValues
           ) {
@@ -343,7 +376,7 @@ export class FormControl {
             this.crayonsControlRef?.setSelectedOptions(
               componentProps.selectedOptions
             );
-          } else if (!controlProps.value) {
+          } else if (!controlProps?.value) {
             this.crayonsControlRef?.setSelectedOptions([]);
           }
           componentProps.noDataText =
@@ -371,6 +404,7 @@ export class FormControl {
             placeholder: this.placeholder,
             label: this.label,
             required: this.required,
+            disabled: this.disabled,
             ...this.controlProps?.inputProps(
               this.name,
               this.type?.toLowerCase()
@@ -389,12 +423,46 @@ export class FormControl {
           );
         }
         break;
+      case 'FILES':
+        {
+          const multiple = this.fieldProps?.multiple ? true : false;
+          const errorText =
+            this.touched && this.error
+              ? TranslationController.t(this.error, {
+                  field: this.label || this.name,
+                })
+              : '';
+          const controlProps = this.controlProps?.fileProps(
+            this.name,
+            multiple
+          );
+          const componentProps = {
+            ...this.fieldProps,
+            name: this.name,
+            description: this.placeholder,
+            required: this.required,
+            isBatchUpload: true,
+            isFormLabel: true,
+            hintText: this.hint,
+            errorText: errorText,
+          };
+          if (controlProps?.value) {
+            componentProps.initialFiles = controlProps.value;
+          }
+          cmp = (
+            <fw-file-uploader-2
+              {...componentProps}
+              ref={(el) => (this.crayonsControlRef = el)}
+            ></fw-file-uploader-2>
+          );
+        }
+        break;
     }
     return cmp;
   }
 
-  componentWillLoad(): void {
-    this.handleSlotChange();
+  componentWillUpdate(): void {
+    this.setSlotElementValue();
   }
 
   /**
@@ -414,12 +482,33 @@ export class FormControl {
     this.slotElement = [...this.el.querySelectorAll('*')].filter((el: any) => {
       return NATIVE_CONTROLS.includes(el?.tagName?.toLowerCase());
     })?.[0];
+
+    this.setSlotElementValue();
+  }
+
+  /**
+   * Set Value on the slotted control field on fw-form-control.
+   * Useful for setting initialValues on the slotted control field
+   * Assumes that the slotted control field has a prop named `value`
+   */
+  private setSlotElementValue() {
+    if (this.slotElement) {
+      setTimeout(() => {
+        switch (this.type) {
+          case 'CHECKBOX':
+            this.slotElement.checked = this.value ?? false;
+            break;
+          default:
+            this.slotElement.value = this.value ?? '';
+        }
+      }, 100);
+    }
   }
 
   render(): JSX.Element {
     return (
       this.shouldRender && (
-        <div class='form-control-container'>
+        <div class={`form-control-container ${this.hidden ? 'd-none' : ''}`}>
           {this.renderControl()}
           {this.hasSlot && (
             <label

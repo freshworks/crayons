@@ -10,6 +10,7 @@ import {
   Fragment,
   State,
   Watch,
+  Method,
 } from '@stencil/core';
 import {
   deepCloneObject,
@@ -17,6 +18,7 @@ import {
   getMappedCustomFieldType,
   getMaximumLimitsConfig,
   hasCustomProperty,
+  hasPermission,
   i18nText,
   isPrimaryFieldType,
   isUniqueField,
@@ -48,6 +50,22 @@ export class FormBuilder {
   @Prop() productName: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES' =
     'CUSTOM_OBJECTS';
   /**
+   * Show explore plans button and disable features for free-plan users
+   */
+  @Prop() role: 'trial' | 'admin' = 'admin';
+  /**
+   * Permission object to restrict features based on permissions
+   * "view" needs to be set to true for the rest of the permissions to be applicable
+   * By default, all the permissions are set to true to give access to all the features
+   * Example permission object : { view: true, create: true, edit: true, delete: true }
+   */
+  @Prop() permission: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  } = { view: true, create: true, edit: true, delete: true };
+  /**
    * Prop to store the expanded field index
    */
   @Prop({ mutable: true }) expandedFieldIndex = -1;
@@ -59,6 +77,10 @@ export class FormBuilder {
    * object to store the lookup target entities
    */
   @Prop({ mutable: true }) lookupTargetObjects = null;
+  /**
+   * flag to show lookupField for CONVERSATION_PROPERTIES or not
+   */
+  @Prop({ mutable: true }) showLookupField = true;
   /**
    * variable to store customize widget fields
    */
@@ -124,6 +146,10 @@ export class FormBuilder {
    */
   @State() selectedFieldTypeFilterOption = this.FILTER_ALL_FIELDS;
   /**
+   * State to re-render the drag container children after re render
+   */
+  @State() fieldRerenderCount = 0;
+  /**
    * Triggered on Add/Save field button click from the field list items
    */
   @Event() fwSaveField!: EventEmitter;
@@ -169,20 +195,72 @@ export class FormBuilder {
   }
 
   @Watch('formValues')
-  watchFormValuesChangeHandler(): void {
+  watchFormValuesChangeHandler(newValue: any): void {
+    this.validateFormValues(newValue);
+  }
+
+  @Watch('productName')
+  watchProductNameChangeHandler(): void {
+    this.validateFormValues();
+  }
+
+  /**
+   * Method to force render the drag container's children containing all the added fields
+   */
+  @Method()
+  async forceRenderFields(): Promise<void> {
+    this.fieldRerenderCount++;
+  }
+
+  componentWillLoad(): void {
+    this.initializeSearchDebounce();
+    this.validateFormValues();
+    this.supportedFieldTypes = [
+      'TEXT',
+      'EMAIL',
+      'CHECKBOX',
+      'PARAGRAPH',
+      'NUMBER',
+      'DECIMAL',
+      'DATE',
+      'DROPDOWN',
+      'RELATIONSHIP',
+      'MULTI_SELECT',
+    ];
+  }
+
+  disconnectedCallback(): void {
+    this.debouncedHandleInput = null;
+    this.removeResizeObserver();
+  }
+
+  private validateFormValues(objFormValue = null) {
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
-    this.localFormValues = this.formValues
+    this.localFormValues = objFormValue
+      ? deepCloneObject(objFormValue)
+      : this.formValues
       ? deepCloneObject(this.formValues)
       : null;
 
     if (this.localFormValues) {
       const arrFields = this.localFormValues?.fields;
-      const mappedFieldTypes =
-        formMapper[this.productName]['reverseMappedFieldTypes'];
+      const objMapper = formMapper[this.productName];
+      const mappedFieldTypes = objMapper['reverseMappedFieldTypes'];
+      const objProductConfig = objMapper.config;
+      const boolSupportsDefaultField =
+        objProductConfig?.showDefaultTag &&
+        objProductConfig?.defaultTagKey &&
+        objProductConfig.defaultTagKey !== ''
+          ? true
+          : false;
+      const strDefaultFieldKey = boolSupportsDefaultField
+        ? objProductConfig.defaultTagKey
+        : '';
 
       // Maximum limits validation
       if (arrFields && arrFields.length > 0) {
+        let intValidActiveFieldCount = 0;
         const intFieldCount = arrFields.length;
 
         for (let i1 = 0; i1 < intFieldCount; i1++) {
@@ -225,10 +303,22 @@ export class FormBuilder {
             }
             this.fieldTypesCount[strParsedFieldType]++;
           }
+
+          if (!boolSupportsDefaultField) {
+            intValidActiveFieldCount++;
+          } else if (
+            strDefaultFieldKey &&
+            strDefaultFieldKey !== '' &&
+            hasCustomProperty(objField, strDefaultFieldKey) &&
+            objField[strDefaultFieldKey]
+          ) {
+            intValidActiveFieldCount++;
+          }
         }
 
         const objMaxLimits = getMaximumLimitsConfig(this.productName);
-        this.enableFieldType = intFieldCount < objMaxLimits.fields.count;
+        this.enableFieldType =
+          intValidActiveFieldCount < objMaxLimits.fields.count;
         this.enableFilterable =
           objMaxLimitCount.filterable < objMaxLimits.filterable.count;
         this.enableUnique = objMaxLimitCount.unique < objMaxLimits.unique.count;
@@ -239,33 +329,6 @@ export class FormBuilder {
         this.fieldTypesCount = null;
       }
     }
-  }
-
-  @Watch('productName')
-  watchProductNameChangeHandler(): void {
-    this.watchFormValuesChangeHandler();
-  }
-
-  componentWillLoad(): void {
-    this.initializeSearchDebounce();
-    this.watchFormValuesChangeHandler();
-    this.supportedFieldTypes = [
-      'TEXT',
-      'EMAIL',
-      'CHECKBOX',
-      'PARAGRAPH',
-      'NUMBER',
-      'DECIMAL',
-      'DATE',
-      'DROPDOWN',
-      'RELATIONSHIP',
-      'MULTI_SELECT',
-    ];
-  }
-
-  disconnectedCallback(): void {
-    this.debouncedHandleInput = null;
-    this.removeResizeObserver();
   }
 
   private getInterpolatedMaxLimitLabel = (strProperty) => {
@@ -413,6 +476,15 @@ export class FormBuilder {
 
     // New field type element dropped inside the container
     if (objDetail.dragFromId !== objDetail.dropToId) {
+      const boolCreationAllowed = hasPermission(
+        this.role,
+        this.permission,
+        'CREATE'
+      );
+      if (!boolCreationAllowed) {
+        return;
+      }
+
       this.composeNewField(
         elFieldType.dataProvider.type,
         { ...elFieldType.dataProvider },
@@ -437,6 +509,17 @@ export class FormBuilder {
   };
 
   private addNewFieldTypeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const boolCreationAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'CREATE'
+    );
+    if (!boolCreationAllowed) {
+      return;
+    }
+
     // Observer added to scroll to the bottom on new field addition by click of the + button
     this.resizeObserver = new ResizeObserver(() => {
       this.removeResizeObserver();
@@ -629,6 +712,20 @@ export class FormBuilder {
     )
       ? objLabelsDb.subHeaderProduct
       : '';
+
+    const objSubHeaderLink = hasCustomProperty(
+      objLabelsDb,
+      'subHeaderProductLink'
+    )
+      ? objLabelsDb.subHeaderProductLink
+      : null;
+    const strSubHeaderLinkLabel = objSubHeaderLink
+      ? i18nText(objSubHeaderLink.label)
+      : '';
+    const strSubHeaderLinkHref = objSubHeaderLink ? objSubHeaderLink.href : '';
+    const boolShowSubHeaderLink =
+      strSubHeaderLinkLabel && strSubHeaderLinkLabel !== '' ? true : false;
+
     const strFieldTypesHeader = hasCustomProperty(
       objLabelsDb,
       'fieldTypesHeader'
@@ -653,9 +750,24 @@ export class FormBuilder {
           </label>
         )}
         {strProductSubHeader && strProductSubHeader !== '' && (
-          <label class={`${strBaseClassName}-left-panel-header-desc`}>
-            {i18nText(strProductSubHeader)}
-          </label>
+          <span class={'form-builder-left-panel-sub-header-description'}>
+            <label
+              class={'form-builder-left-panel-sub-header-description-label'}
+            >
+              {i18nText(strProductSubHeader)}
+            </label>
+            {boolShowSubHeaderLink && (
+              <a
+                class={
+                  'form-builder-left-panel-sub-header-description-link-anchor'
+                }
+                href={strSubHeaderLinkHref}
+                target='_blank'
+              >
+                {strSubHeaderLinkLabel}
+              </a>
+            )}
+          </span>
         )}
         {boolFieldsHeaderPresent && (
           <label class={`${strBaseClassName}-left-panel-header-label`}>
@@ -667,6 +779,60 @@ export class FormBuilder {
         )}
       </div>
     );
+  }
+
+  private renderDisableFieldCreateByRole(
+    objProductPresetConfig,
+    strBaseClassName
+  ) {
+    if (this.role === 'trial') {
+      return (
+        <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+          <fw-icon name='lock' size='30'></fw-icon>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-header`}>
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledHeader)}
+          </label>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-message`}>
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledMessage)}
+          </label>
+          <fw-button
+            color='primary'
+            onFwClick={this.explorePlanHandler}
+            class={`${strBaseClassName}-left-panel-list-disabled-button`}
+          >
+            {i18nText(objProductPresetConfig?.freePlanFieldAddDisabledButton)}
+          </fw-button>
+        </div>
+      );
+    }
+  }
+
+  private renderDisableFieldCreateByPermission(
+    objProductPresetConfig,
+    strBaseClassName
+  ) {
+    const boolCreationAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'CREATE'
+    );
+    if (!boolCreationAllowed && this.role !== 'trial') {
+      return (
+        <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
+          <fw-icon name='lock' size='30'></fw-icon>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-header`}>
+            {i18nText(
+              objProductPresetConfig?.noCreatePermissionFieldAddDisabledHeader
+            )}
+          </label>
+          <label class={`${strBaseClassName}-left-panel-list-disabled-message`}>
+            {i18nText(
+              objProductPresetConfig?.noCreatePermissionFieldAddDisabledMessage
+            )}
+          </label>
+        </div>
+      );
+    }
   }
 
   private renderFieldTypeElement(
@@ -810,11 +976,12 @@ export class FormBuilder {
     );
     const boolItemExpanded =
       this.expandedFieldIndex === intIndex ? true : false;
+    const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
       <fw-field-editor
         index={intIndex}
-        key={dataItem.id}
+        key={strKey}
         productName={this.productName}
         dataProvider={dataItem}
         entityName={strEntityName}
@@ -823,6 +990,8 @@ export class FormBuilder {
         pinned={isPrimaryField ? 'top' : ''}
         disabled={boolFieldEditingState}
         disabledSort={this.searching}
+        permission={this.permission}
+        role={this.role}
         enableUnique={this.enableUnique}
         enableFilterable={this.enableFilterable}
         defaultFieldTypeSchema={objDefaultFieldTypeSchema}
@@ -878,9 +1047,19 @@ export class FormBuilder {
     const objFieldTypes = presetSchema.fieldTypes;
     const objProductPreset = formMapper[this.productName];
     const objProductPresetConfig = objProductPreset?.config;
+    const objLabelsDb = objProductPreset?.labels;
     const arrFieldOrder = objProductPreset?.fieldOrder;
+    if (!this.showLookupField) {
+      const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
+      if (relationshipIndex > -1) {
+        arrFieldOrder.splice(relationshipIndex, 1);
+      }
+    }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
+    const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
+      ? objLabelsDb.fieldsHeader
+      : '';
 
     const fieldTypeElements =
       arrFieldOrder && arrFieldOrder.length > 0
@@ -986,33 +1165,13 @@ export class FormBuilder {
               >
                 {fieldTypeElements}
               </fw-drag-container>
-              {this.userPlan === 'trial' && (
-                <div class={`${strBaseClassName}-left-panel-list-disabled-div`}>
-                  <fw-icon name='lock' size='30'></fw-icon>
-                  <label
-                    class={`${strBaseClassName}-left-panel-list-disabled-header`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledHeader
-                    )}
-                  </label>
-                  <label
-                    class={`${strBaseClassName}-left-panel-list-disabled-message`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledMessage
-                    )}
-                  </label>
-                  <fw-button
-                    color='primary'
-                    onFwClick={this.explorePlanHandler}
-                    class={`${strBaseClassName}-left-panel-list-disabled-button`}
-                  >
-                    {i18nText(
-                      objProductPresetConfig?.freePlanFieldAddDisabledButton
-                    )}
-                  </fw-button>
-                </div>
+              {this.renderDisableFieldCreateByRole(
+                objProductPresetConfig,
+                strBaseClassName
+              )}
+              {this.renderDisableFieldCreateByPermission(
+                objProductPresetConfig,
+                strBaseClassName
               )}
             </div>
           </div>
@@ -1021,7 +1180,7 @@ export class FormBuilder {
               <div class={`${strBaseClassName}-right-panel-header-content`}>
                 {!boolHasFilterByFieldTypes && (
                   <label class={`${strBaseClassName}-right-panel-header-label`}>
-                    {i18nText('headerFields')}
+                    {i18nText(strFieldEditHeader)}
                   </label>
                 )}
                 {boolHasFilterByFieldTypes && (
@@ -1070,6 +1229,7 @@ export class FormBuilder {
             >
               {!boolShowEmptySearchResults && (
                 <fw-drag-container
+                  key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
                   class={`${strBaseClassName}-right-panel-field-editor-list`}
                   id='fieldsContainer'
                   acceptFrom='fieldTypesList'

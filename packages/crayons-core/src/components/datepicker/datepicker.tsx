@@ -31,6 +31,7 @@ import {
   renderHiddenField,
   getFocusableChildren,
   hasSlot,
+  debounce,
 } from '../../utils';
 import FieldControl from '../../function-components/field-control';
 
@@ -110,6 +111,7 @@ export class Datepicker {
   @State() timeValue = '';
   @State() dateFormat = '';
   @State() selectedTime: any;
+  @State() timepickerDate;
 
   @Element() host: HTMLElement;
 
@@ -120,7 +122,7 @@ export class Datepicker {
   /**
    *   Earliest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
-  @Prop() minDate: string;
+  @Prop({ mutable: true }) minDate: string;
   /**
    *   Latest date a user can select in the calendar, if mode is range. Must be a valid ISO date format if set.
    */
@@ -164,17 +166,17 @@ export class Datepicker {
   /**
    * Theme based on which the input of the datepicker is styled.
    */
-  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  @Prop({ mutable: true }) state: 'normal' | 'warning' | 'error' = 'normal';
 
   /**
    * Minimum year that needs to be displayed in the year dropdown.
    */
-  @Prop() minYear = 1970;
+  @Prop({ mutable: true }) minYear = 1970;
 
   /**
    * Maximum year that needs to be displayed in the year dropdown.
    */
-  @Prop() maxYear = new Date().getFullYear();
+  @Prop({ mutable: true }) maxYear = new Date().getFullYear();
 
   /**
    *   Locale for which datepicker needs to be shown. Defaults to browser's current locale.
@@ -228,14 +230,40 @@ export class Datepicker {
    */
   @Prop({ mutable: true }) timeFormat: string;
   /**
-   *   Triggered when the update button clicked
+   * Debounce timer for date input.
+   */
+  @Prop() debounceTimer = 800;
+  /**
+   * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
+   */
+  @Prop() showErrorOnInvalidDate = true;
+  /**
+   * Error text displayed on the tooltip for invalid date inputs.
+   */
+  @Prop() tooltipErrorText;
+  /**
+   * To make the datepicker occupy full width of the container. Default value is false.
+   */
+  @Prop() fullWidth = false;
+  /**
+   * Option to prevent the tooltip from being clipped when the component is placed inside a container with
+   * `overflow: auto|hidden|scroll`.
+   */
+  @Prop() hoistTooltip = true;
+  /**
+   * Triggered when the update button clicked
    */
   @Event() fwChange: EventEmitter;
 
   /**
-   *   Triggered when the input box loses focus.
+   * Triggered when the input box loses focus.
    */
   @Event() fwBlur: EventEmitter;
+
+  /**
+   * Triggered when text is entered in  input box.
+   */
+  @Event() fwDateInput: EventEmitter;
 
   private escapeHandler = null;
   private madeInert;
@@ -243,6 +271,13 @@ export class Datepicker {
   private isDisplayFormatSet = false;
   private isPlaceholderSet = false;
   private langChangRemoveListener;
+  private isNextMonthRestricted = false;
+  private isPrevMonthRestricted = false;
+  private isDateInvalid = false;
+  private initState = this.state;
+  private isDateWithinMinDate = true;
+  private isDateWithinMaxDate = true;
+  private clickedDateValue;
 
   private makeDatePickerInert() {
     if (!this.madeInert) {
@@ -397,12 +432,9 @@ export class Datepicker {
 
   @Listen('fwClick')
   handleButtonClick(e) {
-    const isUpdateRange = e
-      .composedPath()[0]
-      .classList.value.includes('update-range-value');
-    const isUpdateDate = e
-      .composedPath()[0]
-      .classList.value.includes('update-date-value');
+    const target = e.composedPath()[0];
+    const isUpdateRange = target.classList.value.includes('update-range-value');
+    const isUpdateDate = target.classList.value.includes('update-date-value');
     const cancelText =
       this.cancelText || TranslationController.t('datepicker.cancel');
     const updateText =
@@ -415,10 +447,11 @@ export class Datepicker {
     } else if (isUpdateDate) {
       this.timeValue = this.selectedTime;
       if (this.isValidDateTime()) {
+        this.setDateAndErrorState();
         this.updateValueAndEmitEvent(e);
       }
     }
-    if (e.composedPath()[0].innerText === cancelText && !this.value) {
+    if (target.innerText === cancelText && !this.value) {
       if (this.mode === 'range') {
         this.startDate = this.endDate = undefined;
       } else {
@@ -426,16 +459,13 @@ export class Datepicker {
       }
     }
 
-    if (e.composedPath()[0].innerText === cancelText) {
+    if (target.innerText === cancelText) {
       this.handlePopoverClose(e);
     }
 
     // Close datepicker only for fwClick event of Update and cancel buttons. Since this will
     // be triggered for month and year select dropdown as well the below check is added.
-    if (
-      e.composedPath()[0].innerText === updateText ||
-      e.composedPath()[0].innerText === cancelText
-    ) {
+    if (target.innerText === updateText || target.innerText === cancelText) {
       this.showDatePicker = false;
       this.host.shadowRoot.querySelector('fw-popover').hide();
     }
@@ -446,130 +476,8 @@ export class Datepicker {
    */
   @Listen('fwInput')
   handleInputChanges(e) {
-    e.stopImmediatePropagation();
-    if (e.composedPath()[0].classList.value.includes('range-date-input')) {
-      // Range input
-      const val = e.composedPath()[0].value;
-
-      if (!val) {
-        this.value = undefined;
-      }
-
-      let [fromDate, toDate] =
-        val?.split(TranslationController.t('datepicker.to')) || [];
-      fromDate = fromDate?.trim();
-      toDate = toDate?.trim();
-
-      if (
-        !isMatch(fromDate, this.displayFormat, {
-          locale: this.langModule,
-        }) ||
-        !isMatch(toDate, this.displayFormat, {
-          locale: this.langModule,
-        })
-      )
-        return;
-
-      const parsedFromDate = parse(fromDate, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      });
-
-      const parsedToDate = parse(toDate, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      });
-
-      const isValidFromDate = isValid(parsedFromDate);
-      const isValidToDate = isValid(parsedToDate);
-
-      if (!isValidFromDate || !isValidToDate) {
-        // Invalid date format
-        return;
-      }
-
-      const year = getYear(
-        parse(fromDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        })
-      );
-
-      if (year < this.minYear || year > this.maxYear) {
-        return;
-      }
-
-      this.year = year;
-
-      this.month = getMonth(
-        parse(fromDate, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        })
-      );
-      this.startDate = parse(fromDate, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      }).valueOf();
-
-      this.endDate = parse(toDate, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      }).valueOf();
-
-      this.toMonth = this.month === 11 ? 0 : this.month + 1;
-      this.toYear =
-        this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
-    } else {
-      // Single Date input
-      const val = e.composedPath()[0].value;
-
-      if (!val) {
-        this.value = undefined;
-      }
-
-      if (
-        !isMatch(val, this.displayFormat, {
-          locale: this.langModule,
-        })
-      )
-        return;
-
-      const parsedDate = parse(val, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      });
-
-      const isValidDate = isValid(parsedDate);
-
-      if (!isValidDate) {
-        // Invalid date format
-        return;
-      }
-
-      const year = getYear(
-        parse(val, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        })
-      );
-
-      if (year < this.minYear || year > this.maxYear) {
-        return;
-      }
-
-      this.year = year;
-
-      this.month = getMonth(
-        parse(val, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        })
-      );
-      this.selectedDay = getDate(
-        parse(val, this.displayFormat, new Date(), {
-          locale: this.langModule,
-        })
-      );
-      this.value = format(
-        new Date(this.year, this.month, this.selectedDay),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
-    }
+    const target = e.composedPath();
+    this.handleInputChangeWithDebounce(e, target);
   }
 
   /**
@@ -595,6 +503,37 @@ export class Datepicker {
     this.monthDetails = this.getMonthDetails(this.year, this.month);
   }
 
+  handleInputChangeWithDebounce = debounce(
+    (e, target) => {
+      e.stopImmediatePropagation();
+      this.emitEvent(e, target[0].value);
+      this.fwDateInput.emit({
+        event: e,
+        name: this.name,
+        value: target[0].value,
+      });
+      if (this.mode === 'range') {
+        // Range input
+        const val = target[0].value;
+
+        if (!val) {
+          this.value = undefined;
+        }
+
+        this.processRangeValueChange(val);
+      } else {
+        // Single Date input
+        const val = target[0].value;
+        if (!val) {
+          this.value = undefined;
+        }
+        this.processValueChange(val);
+      }
+    },
+    this,
+    this.debounceTimer
+  );
+
   handleSingleDateDropDownUpdate(e, newValue) {
     const isMonthUpdate = e
       .composedPath()[0]
@@ -609,9 +548,9 @@ export class Datepicker {
     } else if (isYearUpdate) {
       this.year = newValue;
     } else if (isTimeUpdate) {
-      // this.timeValue = newValue;
-      this.selectedTime = newValue;
+      this.timeValue = this.selectedTime = newValue;
     }
+    this.checkYearRestriction();
   }
 
   handleDateRangeDropDownUpdate(e, newValue) {
@@ -699,6 +638,12 @@ export class Datepicker {
       (this.nextMonthDetails = this.getMonthDetails(this.toYear, this.toMonth));
   }
 
+  handleUserTimeZoneOffset(date) {
+    return (
+      new Date(date).valueOf() + new Date(date).getTimezoneOffset() * 60 * 1000
+    );
+  }
+
   async componentWillLoad() {
     if (this.mode === 'range' && this.showTimePicker) {
       throw Error('Time picker not supported in Date Range');
@@ -752,6 +697,14 @@ export class Datepicker {
 
     if (this.mode === 'range') {
       const today = new Date();
+      let [fromDate, toDate] =
+        this.value?.split(TranslationController.t('datepicker.to')) || [];
+      fromDate = fromDate?.trim();
+      toDate = toDate?.trim();
+      if (isValid(parseISO(fromDate)) && isValid(parseISO(toDate))) {
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+      }
       if (
         (this.fromDate && !isValid(parseISO(this.fromDate))) ||
         (this.toDate && !isValid(parseISO(this.toDate)))
@@ -760,31 +713,14 @@ export class Datepicker {
         this.year = getYear(today);
         this.month = getMonth(today);
       } else {
-        const fromDate = new Date(this.fromDate);
+        const fromDate = new Date(this.handleUserTimeZoneOffset(this.fromDate));
         this.year = this.fromDate ? getYear(fromDate) : getYear(today);
         this.month = this.fromDate ? getMonth(fromDate) : getMonth(today);
       }
     } else {
-      const today = new Date();
-      if (this.value && !isValid(parseISO(this.value))) {
-        // Show current date if invalid date is provided
-        this.year = getYear(today);
-        this.month = getMonth(today);
-        this.selectedDay = getDate(today);
-      } else {
-        const date = new Date(this.value);
-        this.year = this.value ? getYear(date) : getYear(today);
-        this.month = this.value ? getMonth(date) : getMonth(today);
-        this.selectedDay = this.value && getDate(date);
-        if (this.value) {
-          // The value of the timepicker will always be the format of HH:mm
-          this.timeValue = format(getTime(date), 'HH:mm', {
-            locale: this.langModule,
-          });
-          this.selectedTime = this.timeValue;
-        }
-      }
+      this.processInitDateValue();
     }
+    this.setMinMaxYearAndDateValues();
     this.toMonth = this.month === 11 ? 0 : this.month + 1;
     this.toYear =
       this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
@@ -795,13 +731,26 @@ export class Datepicker {
     this.shortMonthNames = monthNames.shortMonthNames;
     this.longMonthNames = monthNames.longMonthNames;
     this.weekDays = getWeekDays(this.langModule);
-
-    this.value = this.value
-      ? format(new Date(this.value), this.displayFormat, {
-          locale: this.langModule,
-        })
-      : this.value;
+    if (this.value && this.mode !== 'range') {
+      this.setDateAndErrorState(true);
+      const utcTimeRegex =
+        /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+      this.value =
+        this.showTimePicker || utcTimeRegex.test(this.value)
+          ? format(new Date(this.value), this.displayFormat, {
+              locale: this.langModule,
+            })
+          : format(
+              new Date(this.handleUserTimeZoneOffset(this.value)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
+    }
+    this.showTimePicker && this.setTimepickerDate();
     this.setInitialValues();
+    this.checkYearRestriction();
   }
 
   setInitialValues() {
@@ -819,54 +768,12 @@ export class Datepicker {
     this.supportedYears = this.getSupportedYears();
     this.startDate =
       this.fromDate !== undefined
-        ? parse(this.fromDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf()
+        ? parseISO(this.fromDate).valueOf()
         : undefined;
     this.endDate =
-      this.toDate !== undefined
-        ? parse(this.toDate, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf()
-        : undefined;
-    if (this.mode === 'range' && this.startDate && this.endDate) {
-      const formattedFromDate = format(
-        new Date(this.startDate),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
-      const formattedToDate = format(
-        new Date(this.endDate),
-        this.displayFormat,
-        {
-          locale: this.langModule,
-        }
-      );
-      this.value = `${formattedFromDate} to ${formattedToDate}`;
-    }
-  }
-
-  @Watch('value')
-  watchValueChanged(value) {
-    if (!value) {
-      this.startDate = undefined;
-      this.endDate = undefined;
-      this.selectedDay = undefined;
-      this.value = undefined;
-      const date = new Date();
-      this.year = getYear(date);
-      this.month = getMonth(date);
-      this.monthDetails = this.getMonthDetails(this.year, this.month);
-    } else {
-      if (this.mode !== 'range') {
-        const date = new Date();
-        date.setMonth(this.month, 1);
-        date.setFullYear(this.year);
-        date.setDate(this.selectedDay);
-        this.value = this.formatDateTime();
-      } else {
+      this.toDate !== undefined ? parseISO(this.toDate).valueOf() : undefined;
+    if (this.mode === 'range') {
+      if (this.startDate && this.endDate) {
         const formattedFromDate = format(
           new Date(this.startDate),
           this.displayFormat,
@@ -881,12 +788,320 @@ export class Datepicker {
             locale: this.langModule,
           }
         );
+        this.setDateAndErrorState();
         this.value = `${formattedFromDate} to ${formattedToDate}`;
+      } else this.value = undefined;
+    }
+  }
+  setDateAndErrorState(checkDate = false) {
+    if (this.mode === 'range' && this.fromDate && this.toDate) {
+      const fromDate = parse(this.fromDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      }).valueOf();
+      const toDate = parse(this.toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      }).valueOf();
+      this.isDateInvalid = !this.isDatewithinRange(fromDate, toDate);
+    } else if (this.mode !== 'range') {
+      this.isDateInvalid =
+        checkDate &&
+        !this.isDateWithinMinMaxDate(parseISO(this.value).valueOf());
+    }
+    this.state =
+      this.showErrorOnInvalidDate && this.isDateInvalid
+        ? 'error'
+        : this.initState;
+  }
+
+  setMinMaxYearAndDateValues() {
+    if (this.minDate && this.maxDate)
+      this.minDate =
+        parseISO(this.minDate).valueOf() > parseISO(this.maxDate).valueOf()
+          ? undefined
+          : this.minDate;
+    this.maxYear = this.maxDate
+      ? getYear(new Date(this.handleUserTimeZoneOffset(this.maxDate)))
+      : this.maxYear;
+    this.minYear =
+      this.maxYear > this.minYear
+        ? this.minDate
+          ? getYear(new Date(this.handleUserTimeZoneOffset(this.minDate)))
+          : this.minYear
+        : 1970;
+  }
+
+  processInitDateValue() {
+    const today = new Date();
+    if (!this.value) {
+      this.year = getYear(today);
+      this.month = getMonth(today);
+    } else {
+      if (!isValid(parseISO(this.value))) {
+        // Show current date if invalid date is provided
+        this.year = getYear(today);
+        this.month = getMonth(today);
+        this.selectedDay = getDate(today);
+        this.value = undefined;
+      } else {
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+        const date =
+          this.showTimePicker || utcTimeRegex.test(this.value)
+            ? new Date(this.value)
+            : new Date(this.handleUserTimeZoneOffset(this.value));
+        this.year = getYear(date);
+        this.month = getMonth(date);
+        this.selectedDay = getDate(date);
+        this.timeValue = format(getTime(date), 'HH:mm', {
+          locale: this.langModule,
+        });
+        this.selectedTime = this.timeValue;
       }
     }
   }
 
-  getDate = (): string => {
+  processRangeValueChange(val, emitChange = false) {
+    let [fromDate, toDate] =
+      val?.split(TranslationController.t('datepicker.to')) || [];
+    fromDate = fromDate?.trim();
+    toDate = toDate?.trim();
+
+    const parsedFromDate = parse(fromDate, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    });
+
+    const parsedToDate = parse(toDate, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    });
+
+    const isValidFromDate = isValid(parsedFromDate);
+    const isValidToDate = isValid(parsedToDate);
+
+    const year = getYear(
+      parse(fromDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    const toYear = getYear(
+      parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (
+      !isValidFromDate ||
+      !isValidToDate ||
+      !isMatch(fromDate, this.displayFormat, {
+        locale: this.langModule,
+      }) ||
+      !isMatch(toDate, this.displayFormat, {
+        locale: this.langModule,
+      }) ||
+      year < this.minYear ||
+      year > this.maxYear ||
+      toYear < this.minYear ||
+      toYear > this.maxYear ||
+      !this.isDatewithinRange(parsedFromDate.valueOf(), parsedToDate.valueOf())
+    ) {
+      // Invalid date format
+      this.isDateInvalid = !!val;
+      this.state =
+        this.showErrorOnInvalidDate && this.isDateInvalid
+          ? 'error'
+          : this.initState;
+      this.startDate = this.endDate = undefined;
+      this.fromDate = this.toDate = undefined;
+      if (!emitChange) this.value = val;
+      return;
+    }
+
+    this.year = year;
+    this.fromDate = fromDate;
+    this.toDate = toDate;
+    const chosenFromMonth = getMonth(
+      parse(fromDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    const chosenToMonth = getMonth(
+      parse(toDate, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (chosenFromMonth === chosenToMonth && this.toMonth === chosenFromMonth) {
+      this.toMonth = chosenFromMonth;
+      this.month = this.toMonth - 1;
+    } else {
+      this.month = getMonth(
+        parse(fromDate, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        })
+      );
+      this.toMonth = this.month === 11 ? 0 : this.month + 1;
+    }
+    this.startDate = parse(fromDate, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    }).valueOf();
+
+    this.endDate = parse(toDate, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    }).valueOf();
+    this.toYear =
+      this.toMonth === 0 ? this.yearCalculation(this.year, 1) : this.year;
+    const formattedFromDate = format(
+      new Date(this.startDate),
+      this.displayFormat,
+      {
+        locale: this.langModule,
+      }
+    );
+    const formattedToDate = format(new Date(this.endDate), this.displayFormat, {
+      locale: this.langModule,
+    });
+    this.value = `${formattedFromDate} to ${formattedToDate}`;
+    this.isDateInvalid = false;
+    this.state =
+      this.showErrorOnInvalidDate && this.isDateInvalid
+        ? 'error'
+        : this.initState;
+    emitChange &&
+      this.fwChange.emit({
+        value: val,
+      });
+  }
+
+  processValueChange(val, emitChange = false) {
+    // show error if not ISO format and not display format
+    const parsedDate = parse(val, this.displayFormat, new Date(), {
+      locale: this.langModule,
+    });
+    const year = getYear(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (
+      year < this.minYear ||
+      year > this.maxYear ||
+      !isValid(parsedDate) ||
+      !isMatch(val, this.displayFormat, {
+        locale: this.langModule,
+      }) ||
+      !this.isDateWithinMinMaxDate(parsedDate.valueOf(), false)
+    ) {
+      this.isDateInvalid = !!val;
+      this.state =
+        this.showErrorOnInvalidDate && this.isDateInvalid
+          ? 'error'
+          : this.initState;
+      this.selectedDay = undefined;
+      if (!emitChange) this.value = this.clickedDateValue = val;
+      return;
+    }
+
+    this.year = year;
+
+    this.month = getMonth(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    this.selectedDay = getDate(
+      parse(val, this.displayFormat, new Date(), {
+        locale: this.langModule,
+      })
+    );
+    if (this.showTimePicker) {
+      this.timeValue = format(getTime(new Date(val)), 'HH:mm', {
+        locale: this.langModule,
+      });
+      this.selectedTime = this.timeValue;
+      // set the date value in date field
+      this.setTimepickerDate();
+    }
+    this.value = this.formatDateTime();
+
+    this.clickedDateValue = this.value;
+    this.setDateAndErrorState();
+    emitChange &&
+      this.fwChange.emit({
+        value: val,
+      });
+  }
+
+  @Watch('value')
+  watchValueChanged(value) {
+    if (!value) {
+      this.startDate = undefined;
+      this.endDate = undefined;
+      this.selectedDay = undefined;
+      this.value = undefined;
+      const date = new Date();
+      this.year = getYear(date);
+      this.month = getMonth(date);
+      this.monthDetails = this.getMonthDetails(this.year, this.month);
+      this.timepickerDate = this.selectedTime = undefined;
+      this.timeValue = '';
+    } else {
+      if (this.mode !== 'range') {
+        // if the value is of the ISO UTC time format, timezone offset need not be calculated
+        // when datepicker is used in form component, the value will be passed to form in UTC ISO format, hence skipping.
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+        // If ISO format, format it to display format and validate
+        try {
+          if (isValid(parseISO(value)))
+            value =
+              this.showTimePicker || utcTimeRegex.test(value)
+                ? format(new Date(value), this.displayFormat, {
+                    locale: this.langModule,
+                  })
+                : format(
+                    new Date(this.handleUserTimeZoneOffset(value)),
+                    this.displayFormat,
+                    {
+                      locale: this.langModule,
+                    }
+                  );
+          this.processValueChange(value, true);
+          this.checkYearRestriction();
+        } catch (e) {
+          console.log('Invalid date provided !', e);
+        }
+      } else {
+        try {
+          // If ISO format, format it to display format and validate
+          let [fromDate, toDate] =
+            value?.split(TranslationController.t('datepicker.to')) || [];
+          fromDate = fromDate?.trim();
+          toDate = toDate?.trim();
+          if (isValid(parseISO(fromDate)) && isValid(parseISO(toDate))) {
+            this.fromDate = fromDate;
+            this.toDate = toDate;
+            fromDate = format(
+              new Date(this.handleUserTimeZoneOffset(this.fromDate)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
+            toDate = format(
+              new Date(this.handleUserTimeZoneOffset(this.toDate)),
+              this.displayFormat,
+              {
+                locale: this.langModule,
+              }
+            );
+            value = `${fromDate} to ${toDate}`;
+          }
+          this.processRangeValueChange(value, true);
+        } catch (e) {
+          console.log('Invalid date provided !', e);
+        }
+      }
+    }
+  }
+
+  setTimepickerDate = (): string => {
     try {
       const date = format(
         new Date(this.year, this.month, this.selectedDay),
@@ -895,21 +1110,44 @@ export class Datepicker {
           locale: this.langModule,
         }
       );
-      return date ?? '';
+      this.timepickerDate = date ?? '';
     } catch (error) {
       return '';
     }
   };
 
   isValidDateTime = (): boolean => {
+    const dateNodes = this.host.shadowRoot.querySelectorAll('.c-day-container');
+    // To check if user has selected any date and clicked update, since this.selectedDay will be set if any previous date value already exists.
+    const isDateSelected =
+      dateNodes?.length > 0 &&
+      Object.values(dateNodes).some((node) => {
+        return node.classList.contains('highlight-blue');
+      });
     if (this.showTimePicker) {
-      return !!(this.selectedDay && this.timeValue);
+      return !!(isDateSelected && this.selectedDay && this.timeValue);
+    }
+    if (this.clickedDateValue || this.value) {
+      const parsedDate = parse(
+        this.clickedDateValue || this.value || this.formatDateTime(),
+        this.displayFormat,
+        new Date(),
+        {
+          locale: this.langModule,
+        }
+      ).valueOf();
+      return (
+        this.selectedDay &&
+        isDateSelected &&
+        this.isDateWithinMinMaxDate(parsedDate)
+      );
     }
     return this.selectedDay;
   };
 
   formatDateTime = (): string => {
     if (this.showTimePicker) {
+      if (!this.timeValue) return;
       const [hour, minute] = this.timeValue.split(':');
       return format(
         new Date(
@@ -953,7 +1191,7 @@ export class Datepicker {
   };
 
   private _getValidDateInMonth(date, args) {
-    if (date < 0) {
+    if (date < 0 || args.year > this.maxYear || this.minYear > args.year) {
       return -1;
     }
     if (this.minDate !== undefined && this.maxDate !== undefined) {
@@ -1018,7 +1256,61 @@ export class Datepicker {
     return monthArray;
   };
 
+  isDateWithinMinMaxDate(date, checkYear = true) {
+    this.isDateWithinMaxDate =
+      this.maxDate && !(date <= parseISO(this.maxDate).valueOf())
+        ? false
+        : true;
+    this.isDateWithinMinDate =
+      this.minDate && !(parseISO(this.minDate).valueOf() <= date)
+        ? false
+        : true;
+    if (checkYear)
+      return (
+        this.isDateWithinMaxDate &&
+        this.isDateWithinMinDate &&
+        this.year <= this.maxYear &&
+        this.minYear <= this.year
+      );
+    else return this.isDateWithinMaxDate && this.isDateWithinMinDate;
+  }
+
+  isDatewithinRange(fromDate, toDate) {
+    if (this.minDate && !this.maxDate)
+      return (
+        parseISO(this.minDate).valueOf() <= toDate &&
+        parseISO(this.minDate).valueOf() <= fromDate &&
+        fromDate <= toDate
+      );
+    if (this.maxDate && !this.minDate)
+      return (
+        toDate <= parseISO(this.maxDate).valueOf() &&
+        fromDate <= parseISO(this.maxDate).valueOf() &&
+        fromDate <= toDate
+      );
+    if (this.maxDate && this.minDate)
+      return (
+        toDate <= parseISO(this.maxDate).valueOf() &&
+        parseISO(this.minDate).valueOf() <= fromDate &&
+        fromDate <= toDate
+      );
+    else return fromDate <= toDate;
+  }
+
+  checkYearRestriction() {
+    this.isNextMonthRestricted =
+      Number(this.year) >= this.maxYear && this.month === 11 ? true : false;
+    this.isPrevMonthRestricted =
+      Number(this.year) <= this.minYear && this.month === 0 ? true : false;
+  }
+
   setMonth = (offset) => {
+    if (
+      (offset === 1 && this.isNextMonthRestricted) ||
+      (offset === -1 && this.isPrevMonthRestricted)
+    )
+      return;
+
     let year = Number(this.year);
     let month = this.month + offset;
     if (month === -1) {
@@ -1038,6 +1330,7 @@ export class Datepicker {
       this.month === 11
         ? this.getMonthDetails(this.yearCalculation(this.year, 1), 0)
         : this.getMonthDetails(this.year, this.month + 1);
+    this.checkYearRestriction();
   };
 
   isCurrentDay = (day) => {
@@ -1046,9 +1339,14 @@ export class Datepicker {
 
   isSelectedDay = ({ date, timestamp }) => {
     if (this.mode !== 'range') {
-      const parsedDate = parse(this.value, this.displayFormat, new Date(), {
-        locale: this.langModule,
-      });
+      const parsedDate = parse(
+        this.clickedDateValue || this.value,
+        this.displayFormat,
+        new Date(),
+        {
+          locale: this.langModule,
+        }
+      );
       const isValidDate = isValid(parsedDate);
       return isValidDate
         ? date === this.selectedDay &&
@@ -1086,21 +1384,21 @@ export class Datepicker {
       ) {
         // Range Container
         this.onDateClick(e, day);
-        this.startDateFormatted = format(
-          new Date(this.startDate),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
-        this.endDateFormatted = format(
-          new Date(this.endDate),
-          this.displayFormat,
-          {
-            locale: this.langModule,
-          }
-        );
         if (this.startDate && this.endDate) {
+          this.startDateFormatted = format(
+            new Date(this.startDate),
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          );
+          this.endDateFormatted = format(
+            new Date(this.endDate),
+            this.displayFormat,
+            {
+              locale: this.langModule,
+            }
+          );
           this.value = this.startDateFormatted + ' to ' + this.endDateFormatted;
           this.emitEvent(e, {
             fromDate: this.formatDate(this.startDateFormatted),
@@ -1154,6 +1452,7 @@ export class Datepicker {
   updateValueAndEmitEvent(e) {
     if (this.showSingleDatePicker()) {
       this.value = this.formatDateTime();
+      this.showTimePicker && this.setTimepickerDate();
       this.emitEvent(e, this.formatDate(this.value));
     } else if (this.showDateRangePicker()) {
       this.startDateFormatted = format(this.startDate, this.displayFormat, {
@@ -1178,7 +1477,10 @@ export class Datepicker {
   onDateClick = (e, { date, timestamp }) => {
     if (this.showSingleDatePicker()) {
       this.selectedDay = date;
+      this.clickedDateValue = this.formatDateTime();
+      this.showTimePicker && this.setTimepickerDate();
       if (!this.showFooter) {
+        if (this.showTimePicker) this.timeValue = this.selectedTime;
         this.updateValueAndEmitEvent(e);
         this.showDatePicker = false;
         this.host.shadowRoot.querySelector('fw-popover').hide();
@@ -1207,6 +1509,8 @@ export class Datepicker {
       }
     }
     this.value = undefined;
+    this.isDateInvalid = false;
+    this.state = this.initState;
   }
 
   handleInputClear = (e: any) => {
@@ -1219,57 +1523,83 @@ export class Datepicker {
     if (['FW-SELECT', 'FW-TIMEPICKER'].includes(e.target?.tagName)) return;
     if (this.mode === 'range') {
       // handle resetting of startDate and endDate on clicking cancel
-      if (this.value) {
+      if (this.value && !this.isDateInvalid) {
         let [fromDateStr, toDateStr] =
           this.value?.split(TranslationController.t('datepicker.to')) || [];
         fromDateStr = fromDateStr?.trim();
         toDateStr = toDateStr?.trim();
-        const startDate = getDate(new Date(this.startDate));
-        const endDate = getDate(new Date(this.endDate));
-
-        const fromDate = getDate(
-          parse(fromDateStr, this.displayFormat, new Date(), {
+        const parsedFromDate = parse(
+          fromDateStr,
+          this.displayFormat,
+          new Date(),
+          {
             locale: this.langModule,
-          })
-        );
-        const toDate = getDate(
-          parse(toDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        if (startDate !== fromDate) {
-          this.startDate = parse(fromDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf();
+          }
+        ).valueOf();
+        const parsedToDate = parse(toDateStr, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        }).valueOf();
+        if (this.startDate !== parsedFromDate) {
+          this.startDate = parsedFromDate;
         }
-        if (endDate !== toDate) {
-          this.endDate = parse(toDateStr, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          }).valueOf();
+        if (this.endDate !== parsedToDate) {
+          this.endDate = parsedToDate;
         }
-      } else if (!this.startDate && !this.endDate) {
+      } else if ((!this.startDate && !this.endDate) || this.isDateInvalid) {
         this.startDate = this.endDate = undefined;
       }
     } else {
       // handle resetting of selectedDay on clicking cancel
       if (this.value) {
-        const date = getDate(
-          parse(this.value, this.displayFormat, new Date(), {
-            locale: this.langModule,
-          })
-        );
-        if (this.selectedDay !== date) {
-          this.selectedDay = date;
+        this.clickedDateValue = this.value;
+        const parsedDate = parse(this.value, this.displayFormat, new Date(), {
+          locale: this.langModule,
+        });
+        const date = getDate(parsedDate);
+        if (!this.isDateInvalid) {
+          if (this.selectedDay !== date) this.selectedDay = date;
+        } else {
+          this.selectedDay = this.clickedDateValue = undefined;
         }
-      } else this.selectedDay = undefined;
-
+        if (this.showTimePicker) {
+          this.timeValue = format(getTime(new Date(this.value)), 'HH:mm', {
+            locale: this.langModule,
+          });
+          this.timepickerDate = format(new Date(this.value), this.dateFormat, {
+            locale: this.langModule,
+          });
+        }
+      } else {
+        this.selectedDay = undefined;
+        if (this.showTimePicker) {
+          this.timepickerDate = undefined;
+          this.timeValue = '';
+        }
+      }
       if (this.timeValue) {
         if (this.selectedTime !== this.timeValue) {
           this.selectedTime = this.timeValue;
         }
-      } else this.selectedTime = undefined;
+      } else this.selectedTime = this.timepickerDate = undefined;
     }
   };
+
+  renderInvalidAlert() {
+    return (
+      <div class='invalid-alert' slot='input-suffix'>
+        <fw-tooltip
+          distance='13'
+          content={
+            this.tooltipErrorText ||
+            TranslationController.t('datepicker.tooltipError')
+          }
+          hoist={this.hoistTooltip}
+        >
+          <fw-icon name='alert' size={14} color='#d72d30'></fw-icon>
+        </fw-tooltip>
+      </div>
+    );
+  }
 
   private handleRangeSelection(timestamp) {
     if (this.startDate && this.endDate) {
@@ -1297,10 +1627,17 @@ export class Datepicker {
     if (this.isCurrentDay(day)) {
       cellStyle += ' highlight';
     }
-    if (this.isSelectedDay(day) || day.timestamp === this.dateHovered) {
+    if (this.isSelectedDay(day)) {
       cellStyle += ' highlight-blue';
     }
-    if (this.isInRange(day) || this.isHoverInRange(day)) {
+    if (this.startDate && this.endDate && this.isInRange(day)) {
+      cellStyle += ' highlight-range';
+    }
+    if (
+      ((this.startDate && !this.endDate) ||
+        (!this.startDate && this.endDate)) &&
+      this.isHoverInRange(day)
+    ) {
       cellStyle += ' highlight-range';
     }
     if (day.timestamp === this.startDate) {
@@ -1395,7 +1732,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class='mdpchb-inner'
+            class={`mdpchb-inner ${this.isPrevMonthRestricted && 'disabled'}`}
             onClick={() => this.setMonth(-1)}
             onKeyDown={handleKeyDown(() => this.setMonth(-1))}
           >
@@ -1406,7 +1743,7 @@ export class Datepicker {
           <div
             role='button'
             tabindex='0'
-            class='mdpchb-inner'
+            class={`mdpchb-inner ${this.isNextMonthRestricted && 'disabled'}`}
             onClick={() => this.setMonth(1)}
             onKeyDown={handleKeyDown(() => this.setMonth(1))}
           >
@@ -1417,12 +1754,27 @@ export class Datepicker {
     );
   }
 
-  renderSupportedYears(): JSX.Element {
-    return this.supportedYears.map((year, i) => (
-      <fw-select-option value={year} key={i} selected={+year === +this.year}>
-        {year}
-      </fw-select-option>
-    ));
+  renderSupportedYears(chosenYear) {
+    // The if/else block adds the year value to the year dropdown if its not present, i.e for invalid dates, we will add and remove it once the user moves to a valid month calendar
+    // this is to overcome the issue of year dropdown select value disappearing, if the year value is not present and selected in the dropdown
+    // https://github.com/freshworks/crayons/issues/826
+    const isChosenYearPresent = this.supportedYears.find((year) => {
+      return +year === +chosenYear;
+    });
+    if (!isChosenYearPresent) {
+      this.supportedYears.push(chosenYear.toString());
+      this.supportedYears.sort();
+    } else {
+      +this.supportedYears[this.supportedYears.length - 1] !== +this.maxYear &&
+        +this.supportedYears[this.supportedYears.length - 1] !== +chosenYear &&
+        this.supportedYears.pop(); // to avoid re rendering array.pop is used rather than filtering and destructuring
+    }
+    return this.supportedYears.map((year, i) => ({
+      value: year,
+      key: i,
+      selected: +year === +chosenYear,
+      text: year,
+    }));
   }
 
   renderFooter(): JSX.Element {
@@ -1450,7 +1802,7 @@ export class Datepicker {
           <span>{TranslationController.t('datepicker.date')}</span>
           <fw-input
             placeholder={this.dateFormat}
-            value={this.getDate()}
+            value={this.timepickerDate}
             readonly
           ></fw-input>
         </div>
@@ -1512,14 +1864,13 @@ export class Datepicker {
             onKeyUp={() => !this.disabled && (this.showDatePicker = true)}
             slot='popover-trigger'
             style={{
-              display: 'inline-flex',
+              display: this.fullWidth ? 'block' : 'inline-flex',
               alignItems: 'center',
             }}
           >
             <fw-input
               value={this.value}
               name={this.name}
-              class={(this.mode === 'range' ? 'range-' : '') + 'date-input'}
               disabled={this.disabled}
               placeholder={this.placeholder}
               required={this.required}
@@ -1529,7 +1880,17 @@ export class Datepicker {
               readonly={this.showTimePicker || this.readonly}
               clearInput={this.clearInput}
               onFwInputClear={this.handleInputClear}
+              style={{
+                width: this.fullWidth
+                  ? '100%'
+                  : this.mode === 'range'
+                  ? '235px'
+                  : '200px',
+              }}
             >
+              {this.isDateInvalid &&
+                this.showErrorOnInvalidDate &&
+                this.renderInvalidAlert()}
               <div class='icon-calendar' slot='input-suffix'>
                 <div
                   class='separator'
@@ -1586,11 +1947,10 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        options={this.renderSupportedYears(this.year)}
                         allow-deselect='false'
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   {this.renderNavButtons()}
@@ -1641,11 +2001,10 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        options={this.renderSupportedYears(this.year)}
                         allow-deselect='false'
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   <div class='mdpch-container-right'>
@@ -1673,11 +2032,10 @@ export class Datepicker {
                         same-width='false'
                         options-placement='bottom-start'
                         variant='button'
+                        options={this.renderSupportedYears(this.toYear)}
                         allow-deselect='false'
                         boundary={this.popoverContentElement}
-                      >
-                        {this.renderSupportedYears()}
-                      </fw-select>
+                      ></fw-select>
                     </span>
                   </div>
                   {this.renderNavButtons()}

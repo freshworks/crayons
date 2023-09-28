@@ -231,18 +231,28 @@
       "editInternalName": false,
       "internalNamePrefix": "",
       "showDefaultTag": false,
+      "showDeleteModalInlineMessage": false,
+      "showFieldLabelInDeleteModalTitle": true,
       "defaultTagKey": "",
       "defaultTagLabel": "",
+      "dropdownFieldWithoutChoicesKey": "",
       "freePlanFieldAddDisabledHeader": "",
       "freePlanFieldAddDisabledMessage": "",
-      "freePlanFieldAddDisabledButton": ""
+      "freePlanFieldAddDisabledButton": "",
+      "noCreatePermissionFieldAddDisabledHeader": "",
+      "noCreatePermissionFieldAddDisabledMessage": "",
+      "boolShowRelationshipTypeSelect": true,
+      "boolShowCustomToggle": false,
+      "showCustomToggleField": ""
     },
     "labels": {
       "headerProduct": "",
       "subHeaderProduct": "",
       "dragDropFieldTypes": "fieldTypesDragDrop",
       "fieldTypesHeader": "headerFieldTypes",
-      "fieldsHeader": "headerFields"
+      "fieldsHeader": "headerFields",
+      "deleteFieldModalHeader": "deleteFieldTitle",
+      "deleteFieldModalMessage": "deleteFieldMessage"
     },
     "maximumLimits": {
       "widgets": { "count": 5, "message": "" },
@@ -281,7 +291,8 @@
       "DATE": 17,
       "DROPDOWN": 2,
       "CHECKBOX": 5,
-      "MULTI_SELECT": 18
+      "MULTI_SELECT": 18,
+      "RELATIONSHIP": 16
     },
     "reverseMappedFieldTypes": {
       "1": "TEXT",
@@ -291,7 +302,8 @@
       "17": "DATE",
       "2": "DROPDOWN",
       "5": "CHECKBOX",
-      "18": "MULTI_SELECT"
+      "18": "MULTI_SELECT",
+      "16": "RELATIONSHIP"
     },
     "fieldOrder": [
       "TEXT",
@@ -301,11 +313,24 @@
       "DATE",
       "DROPDOWN",
       "CHECKBOX",
-      "MULTI_SELECT"
+      "MULTI_SELECT",
+      "RELATIONSHIP"
     ],
     "fieldProps": {
       "TEXT": {
         "display_label": "fieldTypeSingleLineText",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequiredResolveConv",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "PARAGRAPH": {
+        "display_label": "fieldTypeMultiLineText",
         "checkboxes": [
           {
             "key": "required",
@@ -316,16 +341,13 @@
           }
         ]
       },
-      "PARAGRAPH": {
-        "display_label": "fieldTypeMultiLineText"
-      },
       "NUMBER": {
         "display_label": "fieldTypeNumber",
         "checkboxes": [
           {
             "key": "required",
             "tag": "fieldRequiredTag",
-            "display_label": "fieldRequired",
+            "display_label": "fieldRequiredResolveConv",
             "enabled": true,
             "selected": false
           }
@@ -337,7 +359,7 @@
           {
             "key": "required",
             "tag": "fieldRequiredTag",
-            "display_label": "fieldRequired",
+            "display_label": "fieldRequiredResolveConv",
             "enabled": true,
             "selected": false
           }
@@ -349,7 +371,7 @@
           {
             "key": "required",
             "tag": "fieldRequiredTag",
-            "display_label": "fieldRequired",
+            "display_label": "fieldRequiredResolveConv",
             "enabled": true,
             "selected": false
           }
@@ -361,7 +383,7 @@
           {
             "key": "required",
             "tag": "fieldRequiredTag",
-            "display_label": "fieldRequired",
+            "display_label": "fieldRequiredResolveConv",
             "enabled": true,
             "selected": false
           }
@@ -373,7 +395,7 @@
           {
             "key": "required",
             "tag": "fieldRequiredTag",
-            "display_label": "fieldRequired",
+            "display_label": "fieldRequiredResolveConv",
             "enabled": true,
             "selected": false
           }
@@ -381,6 +403,19 @@
       },
       "MULTI_SELECT": {
         "display_label": "fieldTypeMultiSelectDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequiredResolveConv",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "RELATIONSHIP": {
+        "display_label": "fieldTypeLookupField",
+        "has_bottom_border": true,
         "checkboxes": [
           {
             "key": "required",
@@ -399,44 +434,59 @@
       "editInternalName": true,
       "internalNamePrefix": "cf_",
       "showDefaultTag": true,
+      "showDeleteModalInlineMessage": true,
+      "showFieldLabelInDeleteModalTitle": false,
       "defaultTagKey": "custom",
       "defaultTagLabel": "nonCustomDefaultFieldTag",
+      "dropdownFieldWithoutChoicesKey": "field_options.reference",
       "freePlanFieldAddDisabledHeader": "freePlanFieldAddDisabledHeader",
       "freePlanFieldAddDisabledMessage": "freePlanFieldAddDisabledMessage",
-      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton"
+      "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton",
+      "noCreatePermissionFieldAddDisabledHeader": "noCreatePermissionFieldAddDisabledHeader",
+      "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage",
+      "boolShowRelationshipTypeSelect": false,
+      "boolShowCustomToggle": true,
+      "showCustomToggleField": "status"
     },
     "labels": {
       "headerProduct": "headerProductConvProps",
       "subHeaderProduct": "subHeaderProductConvProps",
       "dragDropFieldTypes": "fieldTypesDragDropConvProps",
       "fieldTypesHeader": "",
-      "fieldsHeader": "headerFields"
+      "fieldsHeader": "headerProperties",
+      "subHeaderProductLink": {
+        "label": "subHeaderProductConvPropsLinkLabel",
+        "href": "https://crmsupport.freshworks.com/en/support/solutions/articles/50000005665?cloud=freshchat"
+      },
+      "deleteFieldModalHeader": "deleteFieldTitleConversationProp",
+      "deleteFieldModalMessage": "deleteFieldMessageConversationProp"
     },
     "maximumLimits": {
       "widgets": { "count": 0, "message": "" },
-      "fields": { "count": 250, "message": "maximumLimits.fields" },
+      "fields": { "count": 50, "message": "maximumLimits.fields" },
       "filterable": { "count": 0, "message": "" },
       "unique": { "count": 0, "message": "" },
-      "NUMBER": { "count": 30, "message": "maximumLimits.fields" },
+      "NUMBER": { "count": 20, "message": "maximumLimits.fields" },
       "CHECKBOX": { "count": 30, "message": "maximumLimits.fields" },
       "DECIMAL": { "count": 10, "message": "maximumLimits.fields" },
-      "MULTI_SELECT": { "count": 250, "message": "maximumLimits.fields" },
+      "MULTI_SELECT": { "count": 10, "message": "maximumLimits.fields" },
       "DATE": { "count": 30, "message": "maximumLimits.fields" },
-      "TEXT": { "count": 200, "message": "maximumLimits.fields" },
-      "PARAGRAPH": { "count": 50, "message": "maximumLimits.fields" },
-      "DROPDOWN": { "count": 250, "message": "maximumLimits.fields" },
+      "TEXT": { "count": 50, "message": "maximumLimits.fields" },
+      "PARAGRAPH": { "count": 10, "message": "maximumLimits.fields" },
+      "DROPDOWN": { "count": 50, "message": "maximumLimits.fields" },
       "maxLabelChars": {
         "count": 255,
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxInternalNameChars": {
-        "count": 50,
+        "count": 47,
         "message": "maximumLimits.maxCharsWarning"
       },
       "maxDropdownChoices": {
         "count": 2000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
-      }
+      },
+      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" }
     }
   }
 }

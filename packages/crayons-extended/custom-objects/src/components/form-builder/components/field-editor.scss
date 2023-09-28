@@ -262,6 +262,28 @@
           height: auto;
           box-sizing: border-box;
         }
+
+        .fw-field-editor-status-toggle {
+          border: 1px solid $color-smoke-100;
+
+          .fw-field-editor-status-toggle-item {
+            display: grid;
+            font-size: $font-size-14;
+            font-weight: $font-weight-600;
+            grid-template-columns: 1fr 1fr;
+            padding-inline-start: $font-size-20;
+            padding-block-end: 8px;
+            padding-inline-end: 0;
+            padding-block-start: 8px;
+
+            &.header {
+              background: $color-smoke-50;
+              border: 1px solid $color-smoke-100;
+              border-width: 0 1px 1px 1px;
+              font-size: $font-size-12;
+            }
+          }
+        }
       }
     }
 
@@ -396,4 +418,14 @@
       flex-direction: column;
     }
   }
+}
+
+.fw-field-editor-delete-modal-content {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block-start: 4px;
 }

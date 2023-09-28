@@ -19,6 +19,7 @@ import {
   FormUtils,
   FormProps,
   FormSubmit,
+  FormRequired,
 } from './form-declaration';
 import {
   validateYupSchema,
@@ -29,9 +30,10 @@ import {
   serializeForm,
   translateErrors,
   getMappedSchema,
+  getValueForField,
   LEGO,
 } from './form-util';
-import { debounce } from '../../utils';
+import { debounce, hasSlot } from '../../utils';
 
 @Component({
   tag: 'fw-form',
@@ -85,21 +87,21 @@ export class Form {
   @Prop() mapperType: 'LEGO' | 'FORMSERV' | 'CUSTOM' = LEGO;
 
   /**
-      * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
-      * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
-      * In the example below, `1` is the type of a field in your schema
-      * that needs to correspond to `TEXT` type.
-      * Please pass include the mapper for all the field types that you want to support.
-      * Example typeMapper object : {
-             'CUSTOM_TEXT': { type: 'TEXT' },
-             'SELECT': { type: 'DROPDOWN' },
-             'TEL': { type: 'PHONE_NUMBER' },
-             'CHECKBOX': { type: 'CHECKBOX' },
-             'TEXTAREA': { type: 'PARAGRAPH' },
-             'DATETIME': { type: 'DATE_TIME' },
-             'INTEGER': { type: 'NUMBER' },
-           }
-      */
+   * A custom type mapper object that maps the type of your fields in the schema to the Internal Field Types.
+   * Internal Field Types are `TEXT`, `DROPDOWN`, `EMAIL` etc.
+   * In the example below, `1` is the type of a field in your schema
+   * that needs to correspond to `TEXT` type.
+   * Please pass include the mapper for all the field types that you want to support.
+   * Example typeMapper object : {
+          'CUSTOM_TEXT': { type: 'TEXT' },
+          'SELECT': { type: 'DROPDOWN' },
+          'TEL': { type: 'PHONE_NUMBER' },
+          'CHECKBOX': { type: 'CHECKBOX' },
+          'TEXTAREA': { type: 'PARAGRAPH' },
+          'DATETIME': { type: 'DATE_TIME' },
+          'INTEGER': { type: 'NUMBER' },
+        }
+   */
   @Prop() customTypeMapper: any = {};
 
   @State() values: FormValues = {} as any;
@@ -110,11 +112,19 @@ export class Form {
   @State() formInitialValues;
 
   @State() formSchemaState = this.formSchema;
+  @State() hasSlot = false;
+
+  @State() fieldSearchText;
 
   /**
    * fwFormValuesChanged - event that gets emitted when values change.
    */
   @Event() fwFormValuesChanged: EventEmitter;
+
+  /**
+   * fwFormValueChanged - event that gets emitted when value in a form field changes.
+   */
+  @Event() fwFormValueChanged: EventEmitter;
 
   private debouncedHandleInput: any;
   private handleInputListener: any;
@@ -152,10 +162,13 @@ export class Form {
 
   @Watch('initialValues')
   async initialValuesHandler(initialValues) {
-    await this.handleFormSchemaAndInitialValuesChange(
-      this.formSchema,
-      initialValues
-    );
+    let schema = this.formSchemaState;
+
+    if (this.hasSlot) {
+      // for static form get the schema from slots
+      schema = this.getFormSchemaFromSlots();
+    }
+    await this.handleFormSchemaAndInitialValuesChange(schema, initialValues);
   }
 
   @Watch('values')
@@ -206,7 +219,7 @@ export class Form {
   // get Form Controls and pass props to children
   componentDidLoad() {
     this.controls = this.getFormControls();
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
     // adding a timeout since this lifecycle method is called before its child in React apps.
     // Bug with react wrapper.
     setTimeout(() => {
@@ -219,11 +232,21 @@ export class Form {
     if (!this.controls || !this.controls.length) {
       this.controls = this.getFormControls();
     }
-    this.passPropsToChildren(this.controls);
+    if (this.hasSlot) this.passPropsToChildren(this.controls);
   }
 
   handleSlotChange() {
+    this.hasSlot = hasSlot(this.el);
     this.controls = this.getFormControls();
+
+    /** Create implicit validation rules based
+     *  on slotted form-controls for static form
+     */
+    // setup initialValues and validation rules
+    this.handleFormSchemaAndInitialValuesChange(
+      this.getFormSchemaFromSlots(),
+      this.initialValues
+    );
   }
 
   disconnectedCallback() {
@@ -326,12 +349,27 @@ export class Form {
   handleInput = async (event: Event) => {
     const details = (event as any).detail;
     if (!details || !details.name) return;
-    const { name, value, meta } = details;
+    const { name, value, meta, files } = details;
+
+    let componentValue;
+
+    if (meta && 'checked' in meta) {
+      componentValue = meta.checked;
+    } else if (files) {
+      componentValue = files;
+    } else {
+      componentValue = value;
+    }
 
     this.values = {
       ...this.values,
-      [name]: meta && 'checked' in meta ? meta.checked : value,
+      [name]: componentValue,
     };
+
+    this.fwFormValueChanged.emit({
+      field: name,
+      value: componentValue,
+    });
 
     if (meta && meta.shouldValidate === false) {
       return;
@@ -399,6 +437,7 @@ export class Form {
     control.error = error ?? '';
     control.touched = touched || false;
     control.shouldRender = this.shouldRenderFormControl(control);
+    control.value = getValueForField(this.values, control);
   }
 
   private composedUtils = (): FormUtils => {
@@ -421,6 +460,18 @@ export class Form {
           : this.values[field] ?? '',
     });
 
+    const fileProps = (field: string, multiple: boolean) => {
+      let value: any = [];
+      if (this.values[field]) {
+        if (multiple) {
+          value = this.values[field];
+        } else {
+          value = this.values[field][0] ? [this.values[field][0]] : [];
+        }
+      }
+      return { value };
+    };
+
     const formProps: FormProps = {
       action: 'javascript:void(0);',
       onSubmit: this.handleSubmit,
@@ -432,6 +483,7 @@ export class Form {
       selectProps,
       checkboxProps,
       radioProps,
+      fileProps,
       formProps,
     };
   };
@@ -439,16 +491,44 @@ export class Form {
   private shouldRenderFormControl = (control) => {
     const type = control?.type;
     const isValidType = type !== '' && type !== null && type !== undefined;
-    const shouldRender = isValidType;
+    const shouldRender = isValidType
+      ? this.fieldSearchText
+        ? control.label
+            ?.toLowerCase()
+            ?.includes(this.fieldSearchText.toLowerCase())
+        : true
+      : false;
     return shouldRender;
   };
+
+  private getFormSchemaFromSlots = () => {
+    const fields = this.controls.map((control) => ({
+      type: control.type,
+      name: control.name,
+      required: control.required,
+    }));
+
+    return { fields };
+  };
+
+  /** Return if a field is disabled or not
+   * if `editable` property is set to `false` in the field object of the form schema,
+   * then the field is considered to be disabled.
+   */
+  private isDisabledField(field) {
+    if (!field) return false;
+    const isDisabled =
+      Object.prototype.hasOwnProperty.call(field, 'editable') &&
+      field.editable === false;
+    return isDisabled;
+  }
 
   /**
    * Method to set value on the form field.
    *
-   * @param field - name of the form field
-   * @param value - value of the form field
-   * @param shouldValidate - should this form field be validated with the updated value
+   * param: field - name of the form field
+   * param: value - value of the form field
+   * param: shouldValidate - should this form field be validated with the updated value. Default to true.
    */
   @Method()
   async setFieldValue(
@@ -456,6 +536,10 @@ export class Form {
     value: any,
     shouldValidate = true
   ): Promise<void> {
+    // Don't set value if the field is disabled
+    const isDisabledField = this.isDisabledField(this.fields?.[field]);
+    if (isDisabledField) return;
+
     this.values = { ...this.values, [field]: value };
 
     if (shouldValidate) {
@@ -465,9 +549,49 @@ export class Form {
   }
 
   /**
+   * Method to set values on the form fields.
+   *
+   * param: valuesObj - Object with key as form field name and value as the updated value for the field
+   * example: `{ first_name: "new name", last_name: "new last name" }`
+   * param: shouldValidate - should this form be validated with the updated values. Default to true.
+   */
+  @Method()
+  async setFieldsValue(
+    valuesObj: FormValues,
+    shouldValidate = true
+  ): Promise<void> {
+    if (!valuesObj) return;
+
+    let newValues = { ...this.values };
+    let newTouchedFields = { ...this.touched };
+
+    Object.keys(valuesObj).forEach((field) => {
+      // Don't set value if the field is disabled
+      const isDisabledField = this.isDisabledField(this.fields?.[field]);
+      if (!isDisabledField) {
+        newValues = { ...newValues, [field]: valuesObj[field] };
+        if (shouldValidate) {
+          newTouchedFields = { ...newTouchedFields, [field]: true };
+        }
+      }
+    });
+
+    this.values = { ...newValues };
+    this.touched = { ...newTouchedFields };
+
+    if (shouldValidate) {
+      await this.handleValidation();
+    }
+  }
+
+  /**
    * Method to set errors on the form fields.
    *
-   * @param errorObj - key value pair of [fieldName]: ErrorMessage
+   * If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event).
+   * Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).
+   *
+   * param: errorObj - key value pair of [fieldName]: ErrorMessage
+   * example: `{ first_name: 'firstname is required' }`
    */
   @Method()
   async setFieldErrors(errorObj: FormErrors<FormValues>): Promise<void> {
@@ -517,6 +641,70 @@ export class Form {
   }
 
   /**
+   * Method to set hidden fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.
+   *
+   * param: hiddenFields - key value pair of [fieldName]: true | false
+   * example: `setHiddenFields({ first_name: true, last_name: false })`
+   */
+  @Method()
+  async setHiddenFields(hiddenFields: any = {}): Promise<void> {
+    return this._handleFieldModifier('hidden', hiddenFields);
+  }
+
+  /**
+   * Method to set disabled fields on the form dynamically.
+   *
+   * Note: You must always pass all the fields that you want to disable
+   *
+   * param: disabledFields - key value pair of [fieldName]: true | false
+   * example: `setDisabledFields({ first_name: true, last_name: false })`
+   */
+  @Method()
+  async setDisabledFields(disabledFields: any = {}): Promise<void> {
+    return this._handleFieldModifier('editable', disabledFields);
+  }
+
+  private _handleFieldModifier(
+    key: 'editable' | 'hidden',
+    fieldsObj: any = {}
+  ) {
+    let errorsObj = { ...this.errors };
+    let touchedObj = { ...this.touched };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f: any) => {
+          if (Object.prototype.hasOwnProperty.call(fieldsObj, f.name)) {
+            // Whenever a hidden/disabled state of a field changes,
+            // we will reset the error state and touched state of the field.
+            errorsObj = { ...errorsObj, [f.name]: undefined };
+            touchedObj = { ...this.touched, [f.name]: false };
+            return {
+              ...f,
+              // inverting the value if key is editable
+              [key]:
+                key === 'editable'
+                  ? !fieldsObj[f.name]
+                  : Boolean(fieldsObj[f.name]),
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+    this.touched = { ...touchedObj };
+    // Skip disabled/hidden field from validation schema
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
+  /**
    * getValues
    * @returns An Object containing values and serializedValues.
    * serializedValues are those that contains the transformed values based on field type.
@@ -557,6 +745,56 @@ export class Form {
     this.handleReset(event);
   }
 
+  /**
+   *
+   * Method to filter the display of fields in the form based
+   * on the passed text.
+   *
+   * @param text
+   *
+   */
+  @Method()
+  async setFieldSearchText(text: string) {
+    this.fieldSearchText = text;
+  }
+
+  /**
+   * Method to set required status on form fields
+   *
+   * param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked
+   * as required or not
+   * example: `{ first_name: true, last_name: false }`
+   */
+  @Method()
+  async setFieldsRequiredStatus(
+    requiredStatusObj: FormRequired<FormValues>
+  ): Promise<void> {
+    let errorsObj = { ...this.errors };
+    this.formSchemaState = {
+      ...this.formSchemaState,
+      fields:
+        this.formSchemaState?.fields?.map((f) => {
+          if (Object.prototype.hasOwnProperty.call(requiredStatusObj, f.name)) {
+            const isRequired = !!requiredStatusObj?.[f.name];
+            if (!isRequired) errorsObj = { ...errorsObj, [f.name]: undefined };
+            return {
+              ...f,
+              required: isRequired,
+            };
+          }
+          return f;
+        }) ?? [],
+    };
+
+    this.errors = { ...errorsObj };
+
+    this.formValidationSchema =
+      generateDynamicValidationSchema(
+        this.formSchemaState,
+        this.validationSchema
+      ) || {};
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -577,6 +815,10 @@ export class Form {
                     required={field.required}
                     hint={field.hint}
                     placeholder={field.placeholder}
+                    hidden={field.hidden}
+                    error={this.errors[field.name]}
+                    touched={this.touched[field.name]}
+                    disabled={this.isDisabledField(field)}
                     choices={field.choices}
                     fieldProps={field}
                     controlProps={utils}

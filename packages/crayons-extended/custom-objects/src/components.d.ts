@@ -51,6 +51,10 @@ export namespace Components {
          */
         "dataProvider": any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -69,6 +73,10 @@ export namespace Components {
           * variable to store the data source
          */
         "dataProvider": any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
         /**
           * index attached inside the parent group component
          */
@@ -96,9 +104,17 @@ export namespace Components {
          */
         "dataResponse": any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
+        /**
           * variable to store form values
          */
         "formValues": any;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -170,6 +186,15 @@ export namespace Components {
          */
         "name": string;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned": 'top' | 'bottom' | '';
@@ -177,6 +202,10 @@ export namespace Components {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -296,6 +325,10 @@ export namespace Components {
          */
         "expandedFieldIndex": number;
         /**
+          * Method to force render the drag container's children containing all the added fields
+         */
+        "forceRenderFields": () => Promise<void>;
+        /**
           * variable to store form values
          */
         "formValues": any;
@@ -312,9 +345,26 @@ export namespace Components {
          */
         "lookupTargetObjects": any;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans button and disable features for free-plan users
+         */
+        "role": 'trial' | 'admin';
+        /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField": boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -362,6 +412,11 @@ export namespace Components {
          */
         "clearTableSelection": () => Promise<void>;
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles": { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable": boolean;
@@ -390,9 +445,17 @@ export namespace Components {
          */
         "sortableColumns": {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight": string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps": {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth": string;
     }
     interface FwSearchDropdown {
         /**
@@ -720,6 +783,10 @@ declare namespace LocalJSX {
          */
         "dataProvider"?: any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
@@ -741,6 +808,10 @@ declare namespace LocalJSX {
           * variable to store the data source
          */
         "dataProvider"?: any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
         /**
           * index attached inside the parent group component
          */
@@ -776,6 +847,10 @@ declare namespace LocalJSX {
          */
         "dataResponse"?: any;
         /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
+        /**
           * variable to store form values
          */
         "formValues"?: any;
@@ -783,6 +858,10 @@ declare namespace LocalJSX {
           * Triggered on data change for error handling on parent
          */
         "onFwChange"?: (event: FwFbFieldLookupCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -870,6 +949,15 @@ declare namespace LocalJSX {
          */
         "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * Pinned position of the drag item, other drag item cannot be placed above or below it.
          */
         "pinned"?: 'top' | 'bottom' | '';
@@ -877,6 +965,10 @@ declare namespace LocalJSX {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: string;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1052,9 +1144,26 @@ declare namespace LocalJSX {
          */
         "onFwSearchField"?: (event: FwFormBuilderCustomEvent<any>) => void;
         /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: 'CUSTOM_OBJECTS' | 'CONVERSATION_PROPERTIES';
+        /**
+          * Show explore plans button and disable features for free-plan users
+         */
+        "role"?: 'trial' | 'admin';
+        /**
+          * flag to show lookupField for CONVERSATION_PROPERTIES or not
+         */
+        "showLookupField"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -1098,6 +1207,11 @@ declare namespace LocalJSX {
     }
     interface FwPlatformTable {
         /**
+          * Custom css styles (background/margins/width/height etc.)
+          * @type {({[k: string]: string} | string)}
+         */
+        "customStyles"?: { [key: string]: string } | string;
+        /**
           * Whether the checkbox should be visible.
          */
         "isSelectable"?: boolean;
@@ -1134,9 +1248,17 @@ declare namespace LocalJSX {
          */
         "sortableColumns"?: {};
         /**
+          * Height of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableHeight"?: string;
+        /**
           * Props for the fw-pagination component
          */
         "tableProps"?: {};
+        /**
+          * Width of the data-table ex. 100vh, 100%, auto etc.
+         */
+        "tableWidth"?: string;
     }
     interface FwSearchDropdown {
         /**

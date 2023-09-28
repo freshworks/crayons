@@ -384,6 +384,8 @@ promise that resolves to true
 
  - [fw-custom-cell-paragraph](../data-table/custom-cells/paragraph)
  - [fw-data-table](../data-table)
+ - [fw-datepicker](../datepicker)
+ - [fw-file-2](../file-uploader-2/file-2)
  - [fw-tag](../tag)
 
 ### Depends on
@@ -396,6 +398,8 @@ graph TD;
   fw-tooltip --> fw-popover
   fw-custom-cell-paragraph --> fw-tooltip
   fw-data-table --> fw-tooltip
+  fw-datepicker --> fw-tooltip
+  fw-file-2 --> fw-tooltip
   fw-tag --> fw-tooltip
   style fw-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```

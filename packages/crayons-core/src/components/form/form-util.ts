@@ -6,6 +6,7 @@ import toPath from 'lodash/toPath';
 import * as Yup from 'yup';
 import { FormValues } from './form-declaration';
 import { TranslationController } from '../../global/Translation';
+
 export const isSelectType = (type: string): boolean =>
   !!type && type === 'select';
 
@@ -162,7 +163,7 @@ function mergeSchema(first: any = {}, second: any = {}) {
 }
 
 function createYupSchema(schema: any, config: any) {
-  const { type, required, name } = config;
+  const { type, required, name, hidden, editable } = config;
   let yupType;
   switch (type) {
     case 'TEXT':
@@ -178,6 +179,8 @@ function createYupSchema(schema: any, config: any) {
       break;
     case 'MULTI_SELECT':
     case 'RELATIONSHIP':
+    case 'AUTO_COMPLETE':
+    case 'FILES':
       yupType = 'array';
       break;
     case 'NUMBER':
@@ -190,7 +193,7 @@ function createYupSchema(schema: any, config: any) {
     default:
       yupType = 'string';
   }
-  if (!type) return schema;
+  if (!type || !editable || hidden) return schema;
   if (!Yup[yupType as keyof typeof Yup]) {
     return schema;
   }
@@ -214,12 +217,27 @@ function createYupSchema(schema: any, config: any) {
   if (
     (type === 'DROPDOWN' ||
       type === 'MULTI_SELECT' ||
+      type === 'AUTO_COMPLETE' ||
       type === 'RELATIONSHIP') &&
     required
   )
     validator = validator.min(1, `form.required`);
 
-  if (type === 'RELATIONSHIP')
+  if (type === 'FILES' && required)
+    validator = validator
+      .transform((_value) => {
+        return _value.filter(
+          (file) =>
+            !file.progress ||
+            (file.progress &&
+              file.progress !== -1 &&
+              file.progress >= 0 &&
+              file.progress < 100)
+        );
+      })
+      .min(1, `form.required`);
+
+  if (type === 'RELATIONSHIP' || type === 'AUTO_COMPLETE')
     validator = validator.transform((_value, originalVal) => {
       return Array.isArray(originalVal)
         ? originalVal
@@ -233,26 +251,53 @@ function createYupSchema(schema: any, config: any) {
   schema[name] = validator;
   return schema;
 }
+
 export const generateDynamicValidationSchema = (
   formSchema: any = {},
   validationSchema: any = {}
 ): any => {
-  const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
-  const dynamicValidationSchema =
-    yupSchema && Yup.object().shape(yupSchema as any);
-  const formValidationSchema = mergeSchema(
-    dynamicValidationSchema || Yup.object(),
-    validationSchema && Object.keys(validationSchema).length
-      ? validationSchema
-      : Yup.object()
-  );
-  return formValidationSchema;
+  let dynamicValidationSchema = Yup.object();
+  try {
+    const yupSchema = formSchema?.fields?.reduce(createYupSchema, {});
+
+    // form the implicit validation schema based on the fields in formSchema
+    dynamicValidationSchema =
+      (yupSchema && Yup.object().shape(yupSchema as any)) ?? Yup.object();
+
+    const formValidationSchema = mergeSchema(
+      dynamicValidationSchema || Yup.object(),
+      validationSchema && Object.keys(validationSchema).length
+        ? validationSchema
+        : Yup.object()
+    );
+    return formValidationSchema;
+  } catch (err) {
+    console.error(
+      'Error in merging validationSchema with implicit validation rules. Please check if you are using `0.32` version of `Yup` for `validationSchema` ',
+      err.message
+    );
+    return dynamicValidationSchema;
+  }
 };
 
 export const generateDynamicInitialValues = (
   formSchema: any,
   initialValues: FormValues = {}
 ): FormValues => {
+  const getInitialValueFromType = (type) => {
+    let initialValue;
+    switch (type) {
+      case 'CHECKBOX':
+        initialValue = false;
+        break;
+      case 'FILES':
+        initialValue = [];
+        break;
+      default:
+        break;
+    }
+    return initialValue;
+  };
   const dynamicInitialValues =
     formSchema?.fields?.reduce((acc: any, field: any) => {
       if (!field?.type) {
@@ -260,7 +305,7 @@ export const generateDynamicInitialValues = (
       }
       return {
         ...acc,
-        [field.name]: field.type === 'CHECKBOX' ? false : undefined,
+        [field.name]: getInitialValueFromType(field.type),
       };
     }, {}) || {};
   const formInitialValues = { ...dynamicInitialValues, ...initialValues };
@@ -282,7 +327,20 @@ export const serializeForm = (
         return { ...acc, [key]: isNaN(parsed) ? undefined : parsed };
       case 'DATE':
         if (!val) return { ...acc, [key]: undefined };
-        const date = new Date(val);
+        // if the value is of the ISO UTC time format, timezone offset need not be calculated
+        // when datepicker is used in form component, the value will be passed to form in UTC ISO format, hence skipping.
+        const utcTimeRegex =
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[+-](\d{2}):(\d{2})/;
+        // If ISO format, format it to display format and validate
+
+        let date;
+
+        if (utcTimeRegex.test(val)) {
+          date = new Date(val);
+        } else {
+          date = new Date(handleUserTimeZoneOffset(val));
+        }
+
         if (date.toString() === 'Invalid Date') {
           return { ...acc, [key]: undefined };
         }
@@ -296,6 +354,7 @@ export const serializeForm = (
 
         return { ...acc, [key]: `${year}-${month}-${dt}` };
       case 'RELATIONSHIP':
+      case 'AUTO_COMPLETE':
         if (Array.isArray(val) && typeof val[0] === 'object') {
           if (val.length > 1) {
             // multiselect
@@ -305,7 +364,12 @@ export const serializeForm = (
         }
 
         return { ...acc, [key]: val };
-
+      case 'FILES':
+        const data = new DataTransfer();
+        val.forEach((uploaderFile) => {
+          data.items.add(uploaderFile.file);
+        });
+        return { ...acc, [key]: data.files };
       default:
         return { ...acc, [key]: val };
     }
@@ -395,3 +459,28 @@ export function getMappedSchema({
     return newSchema;
   }
 }
+
+export function getValueForField(values, field) {
+  let value;
+  const type = field?.type?.toUpperCase() ?? 'TEXT';
+  switch (type) {
+    case 'CHECKBOX':
+      value = !!values[field.name];
+      break;
+    case 'MULTI_SELECT':
+      value = values[field.name] ?? [];
+      break;
+    case 'DROPDOWN':
+      value = values[field.name] ?? '';
+      break;
+    default:
+      value = values[field.name];
+  }
+  return value;
+}
+
+const handleUserTimeZoneOffset = (date) => {
+  return (
+    new Date(date).valueOf() + new Date(date).getTimezoneOffset() * 60 * 1000
+  );
+};

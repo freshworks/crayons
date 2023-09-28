@@ -83,9 +83,9 @@ The library registration happens via a `resolver` function. If you wish to apply
 ``` html
 <html>
 <head>
-    <script type="module" src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
     <script type="module" >
-        import { registerIconLibrary } from 'https://unpkg.com/@freshworks/crayons@v4/dist/crayons/index.esm.js';
+        import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/index.esm.js';
         registerIconLibrary('feather', {
                 resolver: (name) => `https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/icons/${name}.svg`,
                 mutator: (svg,name) => (name==='feather') ? svg.setAttribute('fill', 'currentColor') : false
@@ -153,7 +153,7 @@ See the code below for implementation.
 ```html
 <html>
 <head>
-   <script type="module" src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
+   <script type="module" src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js" ></script>
    <script type="module">
        import { header, add_contact } from '@freshworks/crayons-icon';
        const circle = `<svg viewBox='0 0 100 100'><ellipse cx='50' cy='50' rx='50' ry='50'></ellipse></svg>`;
@@ -247,10 +247,12 @@ It comes packed with a ultra tuned svgo-config. We support YML Config convention
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
  - [fw-drag-item](../drag-item)
+ - [fw-file-2](../file-uploader-2/file-2)
  - [fw-file-uploader-file](../file-uploader/file)
  - [fw-file-uploader-progress](../file-uploader/progress)
  - [fw-inline-message](../inline-message)
  - [fw-input](../input)
+ - [fw-kebab-menu](../kebab-menu)
  - [fw-menu-item](../menu-item)
  - [fw-modal](../modal)
  - [fw-modal-title](../modal-title)
@@ -272,10 +274,12 @@ graph TD;
   fw-data-table --> fw-icon
   fw-datepicker --> fw-icon
   fw-drag-item --> fw-icon
+  fw-file-2 --> fw-icon
   fw-file-uploader-file --> fw-icon
   fw-file-uploader-progress --> fw-icon
   fw-inline-message --> fw-icon
   fw-input --> fw-icon
+  fw-kebab-menu --> fw-icon
   fw-menu-item --> fw-icon
   fw-modal --> fw-icon
   fw-modal-title --> fw-icon

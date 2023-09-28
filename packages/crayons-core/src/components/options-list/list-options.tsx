@@ -194,7 +194,6 @@ export class ListOptions {
           )
         : [];
     }
-    this.isInternalValueChange = true;
     this.setValue(this.selectedOptionsState);
   }
 
@@ -260,16 +259,16 @@ export class ListOptions {
       this.selectedOptionsState = this.options?.filter((option) =>
         this.isValueEqual(values, option)
       );
-      this.isInternalValueChange = true;
       this.setValue(this.selectedOptionsState);
     }
   }
 
   @Method()
   async setSelectedOptions(options: any[]): Promise<any> {
-    this.selectedOptionsState = options;
-    this.isInternalValueChange = true;
-    this.setValue(options);
+    if (options !== undefined) {
+      this.selectedOptionsState = options;
+      this.setValue(options);
+    }
   }
 
   @Method()
@@ -332,6 +331,11 @@ export class ListOptions {
   @Watch('filterText')
   onFilterTextChange(newValue) {
     this.handleSearchWithDebounce(newValue);
+  }
+
+  @Watch('selectedOptions')
+  onSelectedOptionsChange(newValue) {
+    this.setSelectedOptions(newValue);
   }
 
   valueExists() {
@@ -471,12 +475,17 @@ export class ListOptions {
   }
 
   setValue(options) {
+    let finalValue;
     if (options?.length > 0) {
-      this.value = this.multiple
+      finalValue = this.multiple
         ? options.map((option) => option[this.optionValuePath])
         : options[0][this.optionValuePath];
     } else {
-      this.value = this.multiple ? [] : '';
+      finalValue = this.multiple ? [] : '';
+    }
+    if (!isEqual(this.value, finalValue)) {
+      this.isInternalValueChange = true;
+      this.value = finalValue;
     }
   }
 
@@ -506,6 +515,13 @@ export class ListOptions {
         option.disabled ||
         (!this.allowDeselect && option.selected) ||
         (this.multiple && !option.selected && this.value?.length >= this.max);
+      const isDefaultOption = [
+        this.noDataText,
+        TranslationController.t('search.noDataAvailable'),
+        this.notFoundText,
+        TranslationController.t('search.noItemsFound'),
+      ].includes(option[this.optionLabelPath]);
+      const checkbox = !isDefaultOption && (this.checkbox || option.checkbox);
       return (
         <fw-select-option
           id={`${this.host.id}-option-${option[this.optionValuePath]}`}
@@ -515,6 +531,7 @@ export class ListOptions {
           text={option[this.optionLabelPath]}
           value={option[this.optionValuePath]}
           disabled={isDisabled}
+          checkbox={checkbox}
         ></fw-select-option>
       );
     });

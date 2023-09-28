@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.7...@freshworks/crayons-i18n@4.2.0-beta.8) (2023-06-27)
+
+### Features
+
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
+## [4.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.4...@freshworks/crayons-i18n@4.2.0-beta.5) (2023-04-05)
+
+### Bug Fixes
+
+- **fw-datepicker:** fix datepicker validation issues ([b3915a3](https://github.com/freshworks/crayons/commit/b3915a3d1ddc8935b7e5d61c0f1d91597dd014ba))
+- **fw-datepicker:** fix value disappearing when year value is not presnt in the dropdown ([3720f85](https://github.com/freshworks/crayons/commit/3720f8533359acc60abfe37388137129bb6da8ec))
+
+## [4.2.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.2...@freshworks/crayons-i18n@4.2.0-beta.3) (2023-03-02)
+
+### Features
+
+- **fb-permission:** Integrated functionality to restrict features in form builder based on role and permission ([#812](https://github.com/freshworks/crayons/issues/812)) ([7694f67](https://github.com/freshworks/crayons/commit/7694f67f2c99af05f62d28e284ba5b6172d24e7b))
+
+## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.1.0...@freshworks/crayons-i18n@4.2.0-beta.0) (2023-02-06)
+
+### Features
+
+- **file-uploader-2:** adding new version of file uploader component ([#753](https://github.com/freshworks/crayons/issues/753)) ([0541e0b](https://github.com/freshworks/crayons/commit/0541e0b53720b1f664d38d2e1b165573659a75fc))
+
 ## [4.1.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.1.0-beta.0...@freshworks/crayons-i18n@4.1.0-beta.1) (2023-01-23)
 
 ### Features

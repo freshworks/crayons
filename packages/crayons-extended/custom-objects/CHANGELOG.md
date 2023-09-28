@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.1-beta.2...@freshworks/crayons-custom-objects@1.4.0-beta.0) (2023-08-14)
+
+### Features
+
+- **fw-platform-table:** [Enhancement] - Ability to modify CSS or (change height or width) of fw-data-table of FwPlatformTable ([#886](https://github.com/freshworks/crayons/issues/886)) ([1eaf33a](https://github.com/freshworks/crayons/commit/1eaf33a73561747ef8cd074d90c39e8f7b5cfcc4))
+
+## [1.3.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.18...@freshworks/crayons-custom-objects@1.3.0-beta.19) (2023-06-27)
+
+### Features
+
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
+## [1.3.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.17...@freshworks/crayons-custom-objects@1.3.0-beta.18) (2023-06-10)
+
+### Bug Fixes
+
+- **filter-condition:** avoid passing value to date picker when mode is range ([#867](https://github.com/freshworks/crayons/issues/867)) ([7a6f372](https://github.com/freshworks/crayons/commit/7a6f37266a78e53b8a6b820748fc00b599c1fb16))
+
+## [1.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.4...@freshworks/crayons-custom-objects@1.3.0-beta.5) (2023-03-22)
+
+### Features
+
+- **fb-max-limits:** exclude default fields from max limits feature implemented ([#822](https://github.com/freshworks/crayons/issues/822)) ([98fd48a](https://github.com/freshworks/crayons/commit/98fd48a20677e9163a81849e647776323066955b))
+
+## [1.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.0-beta.3...@freshworks/crayons-custom-objects@1.3.0-beta.4) (2023-03-16)
+
+### Bug Fixes
+
+- **fchat-fixes-1403:** fix for label warning message retain and blank dropdown choices been added ([#819](https://github.com/freshworks/crayons/issues/819)) ([0db591c](https://github.com/freshworks/crayons/commit/0db591c42c1f354e2f4aad73a2c53106982d51d0))
+
+## [1.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.1-beta.2...@freshworks/crayons-custom-objects@1.3.0-beta.0) (2023-03-02)
+
+### Features
+
+- **fb-permission:** Integrated functionality to restrict features in form builder based on role and permission ([#812](https://github.com/freshworks/crayons/issues/812)) ([7694f67](https://github.com/freshworks/crayons/commit/7694f67f2c99af05f62d28e284ba5b6172d24e7b))
+
 ## [1.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.2.0-beta.8...@freshworks/crayons-custom-objects@1.2.0-beta.9) (2023-01-23)
 
 ### Features

@@ -5,6 +5,7 @@ import {
   createToastStack,
   createToastNotification,
   ToastResult,
+  preventDuplicates,
 } from '../components/toast/toast-util';
 
 import {
@@ -24,7 +25,13 @@ export function ToastController(
   const toastContainer = createToastStack(config);
 
   function trigger(opts: ToastOptions) {
-    createToastNotification(opts, toastContainer, config);
+    const hasDuplicates = opts.shouldPreventDuplicates
+      ? preventDuplicates(toastContainer.children, opts)
+      : false;
+
+    if (!hasDuplicates) {
+      createToastNotification(opts, toastContainer, config);
+    }
   }
 
   return { trigger };

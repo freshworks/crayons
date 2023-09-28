@@ -13,9 +13,11 @@ import {
 import { createPopper, Instance } from '@popperjs/core';
 import { TranslationController } from '../../global/Translation';
 import {
+  WidthStyles,
   DataTableColumn,
   DataTableRow,
   DataTableAction,
+  DataTableActionWithGraphics,
 } from '../../utils/types';
 import { popperModifierRTL } from '../../utils';
 
@@ -81,7 +83,31 @@ export class DataTable {
   /**
    * To enable bulk actions on the table.
    */
-  @Prop({ mutable: false }) rowActions: DataTableAction[] = [];
+  @Prop({ mutable: false }) rowActions:
+    | DataTableAction[]
+    | DataTableActionWithGraphics[] = [];
+
+  /**
+   * To show row actions as a kebab menu
+   */
+  @Prop() showRowActionsAsMenu = false;
+
+  /**
+   * Header label for row actions column
+   */
+  @Prop() rowActionsHeaderLabel;
+
+  /**
+   * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row.
+   * The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+   */
+  @Prop() rowActionsMenuVariant: 'standard' | 'icon' = 'standard';
+
+  /**
+   * Ability to add width related properties to rowActions.
+   * Helps solve settings icon overlap with actions label.
+   */
+  @Prop() rowActionsWidthProperties: null | WidthStyles = null;
 
   /**
    * Rows Array of objects to be displayed in the table.
@@ -307,8 +333,53 @@ export class DataTable {
    * @param newColumns recent datatable columns value
    */
   @Watch('columns')
-  columnsChangeHandler(newColumns: DataTableColumn[]) {
+  async columnsChangeHandler(newColumns: DataTableColumn[]) {
+    let hasStructuralChanges = false;
+    const existingColumnSettings = await this.getTableSettings();
     this.columnOrdering(newColumns);
+    const currentColumnSettings = await this.getTableSettings();
+
+    // Observe for structural changes
+    for (const currentColumn in currentColumnSettings) {
+      if (
+        Object.prototype.hasOwnProperty.call(
+          currentColumnSettings,
+          currentColumn
+        )
+      ) {
+        const currentColumnSetting = currentColumnSettings[currentColumn];
+        const oldColumnSetting = existingColumnSettings[currentColumn];
+
+        if (currentColumnSetting && oldColumnSetting) {
+          if (oldColumnSetting.lock !== currentColumnSetting.lock) {
+            hasStructuralChanges = true;
+          }
+        } else {
+          hasStructuralChanges = true;
+        }
+      }
+    }
+
+    if (!hasStructuralChanges) {
+      await this.setTableSettings(existingColumnSettings);
+    } else {
+      if (localStorage && this.autoSaveSettings) {
+        try {
+          const tableId = this.el.id ? `-${this.el.id}` : null;
+          if (tableId) {
+            localStorage.setItem(
+              `fw-table${tableId}`,
+              JSON.stringify(currentColumnSettings)
+            );
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      console.warn(
+        'Table structural change. Old table settings removed, saved new settings.'
+      );
+    }
   }
 
   /**
@@ -823,6 +894,19 @@ export class DataTable {
   }
 
   /**
+   * Function to check if a row action contains graphicsProps or not
+   * @param action data table row action
+   */
+  isActionWithGraphics(
+    action: DataTableAction | DataTableActionWithGraphics
+  ): action is DataTableActionWithGraphics {
+    if ('graphicsProps' in action) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * WorkAround for wait until next render in stenciljs
    * https://github.com/ionic-team/stencil/issues/2744
    */
@@ -941,7 +1025,10 @@ export class DataTable {
    * @param action action object - has information related to the action to be performed
    * @param rowData rowData - complete data of the current row
    */
-  async performRowAction(action: DataTableAction, rowData: DataTableRow) {
+  async performRowAction(
+    action: DataTableAction | DataTableActionWithGraphics,
+    rowData: DataTableRow
+  ) {
     const selectAll: any = this.el.shadowRoot.querySelector(
       'fw-checkbox#select-all'
     );
@@ -959,6 +1046,68 @@ export class DataTable {
     if (selectAll && Object.keys(this.rowsLoading).length === 0) {
       selectAll.disabled = false;
     }
+  }
+
+  /**
+   * getRowActionMenuProps
+   * @param rowData rowData - complete data of the current row
+   * @returns props for kebab menu
+   */
+  getRowActionMenuProps(rowData: DataTableRow) {
+    const options = [];
+    let handlers;
+    this.rowActions.forEach((action: DataTableActionWithGraphics) => {
+      if (
+        !action.hideForRowIds ||
+        (action.hideForRowIds && !action.hideForRowIds.includes(rowData.id))
+      ) {
+        const actionId = action.name.toLowerCase();
+        options.push({
+          text: action.name,
+          value: actionId,
+          ...(action?.graphicsProps
+            ? {
+                graphicsProps: action.graphicsProps,
+              }
+            : {}),
+        });
+        handlers = {
+          ...handlers,
+          [actionId]: action,
+        };
+      }
+    });
+    return options.length
+      ? {
+          options,
+          onFwSelect: async (event) => {
+            if (event?.detail?.value) {
+              await this.performRowAction(
+                handlers[event.detail.value],
+                rowData
+              );
+            }
+          },
+        }
+      : null;
+  }
+
+  /**
+   * renderKebabMenu
+   * @param rowData rowData - complete data of the current row
+   * @returns kebab menu component
+   */
+  renderKebabMenu(rowData: DataTableRow) {
+    const kebabMenuProps = this.getRowActionMenuProps(rowData);
+    if (kebabMenuProps) {
+      return (
+        <fw-kebab-menu
+          variant={this.rowActionsMenuVariant}
+          {...kebabMenuProps}
+        ></fw-kebab-menu>
+      );
+    }
+    return null;
   }
 
   /**
@@ -1212,8 +1361,11 @@ export class DataTable {
                 ? this.orderedColumns.length + 2
                 : this.orderedColumns.length + 1
             }
+            style={this.rowActionsWidthProperties}
           >
-            {TranslationController.t('datatable.actions')}
+            {!this.rowActionsHeaderLabel && this.rowActionsHeaderLabel !== ''
+              ? TranslationController.t('datatable.actions')
+              : this.rowActionsHeaderLabel}
           </th>
         )}
       </tr>
@@ -1311,49 +1463,60 @@ export class DataTable {
                       : this.orderedColumns.length + 1
                   }
                 >
-                  {this.rowActions.map((action: DataTableAction) => {
-                    let actionTemplate = null;
-                    if (
-                      !action.hideForRowIds ||
-                      (action.hideForRowIds &&
-                        !action.hideForRowIds.includes(row.id))
-                    ) {
-                      const buttonSize: 'icon-small' | 'small' = action.iconName
-                        ? 'icon-small'
-                        : 'small';
-                      actionTemplate = (
-                        <fw-tooltip content={action.name} distance='5'>
-                          <fw-button
-                            tabIndex={0}
-                            size={buttonSize}
-                            color='secondary'
-                            onKeyUp={(event) =>
-                              (event.code === 'Space' ||
-                                event.code === 'Enter') &&
-                              this.performRowAction(action, row)
-                            }
-                            onClick={() => this.performRowAction(action, row)}
-                            aria-label={action.name}
-                          >
-                            {action.iconName ? (
-                              <fw-icon
-                                name={action.iconName}
-                                library={
-                                  action.iconLibrary
+                  {this.showRowActionsAsMenu
+                    ? this.renderKebabMenu(row)
+                    : this.rowActions.map(
+                        (
+                          action: DataTableAction | DataTableActionWithGraphics
+                        ) => {
+                          let actionTemplate = null;
+                          if (
+                            !action.hideForRowIds ||
+                            (action.hideForRowIds &&
+                              !action.hideForRowIds.includes(row.id))
+                          ) {
+                            const iconProps = this.isActionWithGraphics(action)
+                              ? action.graphicsProps
+                              : action.iconName
+                              ? {
+                                  name: action.iconName,
+                                  library: action.iconLibrary
                                     ? action.iconLibrary
-                                    : 'crayons'
+                                    : 'crayons',
+                                  size: 10,
                                 }
-                                size={10}
-                              ></fw-icon>
-                            ) : (
-                              action.name
-                            )}
-                          </fw-button>
-                        </fw-tooltip>
-                      );
-                    }
-                    return actionTemplate;
-                  })}
+                              : null;
+                            const buttonSize: 'icon-small' | 'small' = iconProps
+                              ? 'icon-small'
+                              : 'small';
+                            actionTemplate = (
+                              <fw-tooltip content={action.name} distance='5'>
+                                <fw-button
+                                  tabIndex={0}
+                                  size={buttonSize}
+                                  color='secondary'
+                                  onKeyUp={(event) =>
+                                    (event.code === 'Space' ||
+                                      event.code === 'Enter') &&
+                                    this.performRowAction(action, row)
+                                  }
+                                  onClick={() =>
+                                    this.performRowAction(action, row)
+                                  }
+                                  aria-label={action.name}
+                                >
+                                  {iconProps ? (
+                                    <fw-icon {...iconProps}></fw-icon>
+                                  ) : (
+                                    action.name
+                                  )}
+                                </fw-button>
+                              </fw-tooltip>
+                            );
+                          }
+                          return actionTemplate;
+                        }
+                      )}
                 </td>
               )}
             </tr>

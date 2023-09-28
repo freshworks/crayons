@@ -8,20 +8,23 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                                                               | Type                                                                                                                                                                                        | Default     |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `choices`      | `choices`       |                                                                                                                                                           | `any`                                                                                                                                                                                       | `[]`        |
-| `controlProps` | `control-props` | Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots. | `any`                                                                                                                                                                                       | `undefined` |
-| `error`        | `error`         |                                                                                                                                                           | `string`                                                                                                                                                                                    | `''`        |
-| `fieldProps`   | `field-props`   | Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.                         | `any`                                                                                                                                                                                       | `{}`        |
-| `hint`         | `hint`          |                                                                                                                                                           | `string`                                                                                                                                                                                    | `''`        |
-| `label`        | `label`         |                                                                                                                                                           | `any`                                                                                                                                                                                       | `undefined` |
-| `name`         | `name`          |                                                                                                                                                           | `any`                                                                                                                                                                                       | `undefined` |
-| `placeholder`  | `placeholder`   |                                                                                                                                                           | `string`                                                                                                                                                                                    | `''`        |
-| `required`     | `required`      |                                                                                                                                                           | `boolean`                                                                                                                                                                                   | `false`     |
-| `shouldRender` | `should-render` | Prop to determine whether to render the form-control or not. Default to true.                                                                             | `boolean`                                                                                                                                                                                   | `true`      |
-| `touched`      | `touched`       |                                                                                                                                                           | `boolean`                                                                                                                                                                                   | `false`     |
-| `type`         | `type`          |                                                                                                                                                           | `"CHECKBOX" \| "DATE" \| "DATE_TIME" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "RELATIONSHIP" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+| Property       | Attribute       | Description                                                                                                                                               | Type                                                                                                                                                                                                                      | Default     |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `choices`      | `choices`       |                                                                                                                                                           | `any`                                                                                                                                                                                                                     | `[]`        |
+| `controlProps` | `control-props` | Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots. | `any`                                                                                                                                                                                                                     | `undefined` |
+| `disabled`     | `disabled`      | Disable the field from being editable                                                                                                                     | `boolean`                                                                                                                                                                                                                 | `false`     |
+| `error`        | `error`         |                                                                                                                                                           | `string`                                                                                                                                                                                                                  | `''`        |
+| `fieldProps`   | `field-props`   | Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.                         | `any`                                                                                                                                                                                                                     | `{}`        |
+| `hidden`       | `hidden`        |                                                                                                                                                           | `boolean`                                                                                                                                                                                                                 | `false`     |
+| `hint`         | `hint`          |                                                                                                                                                           | `string`                                                                                                                                                                                                                  | `''`        |
+| `label`        | `label`         |                                                                                                                                                           | `any`                                                                                                                                                                                                                     | `undefined` |
+| `name`         | `name`          |                                                                                                                                                           | `any`                                                                                                                                                                                                                     | `undefined` |
+| `placeholder`  | `placeholder`   |                                                                                                                                                           | `string`                                                                                                                                                                                                                  | `''`        |
+| `required`     | `required`      |                                                                                                                                                           | `boolean`                                                                                                                                                                                                                 | `false`     |
+| `shouldRender` | `should-render` | Prop to determine whether to render the form-control or not. Default to true.                                                                             | `boolean`                                                                                                                                                                                                                 | `true`      |
+| `touched`      | `touched`       |                                                                                                                                                           | `boolean`                                                                                                                                                                                                                 | `false`     |
+| `type`         | `type`          |                                                                                                                                                           | `"AUTO_COMPLETE" \| "CHECKBOX" \| "DATE" \| "DATE_TIME" \| "DECIMAL" \| "DROPDOWN" \| "EMAIL" \| "FILES" \| "MULTI_SELECT" \| "NUMBER" \| "PARAGRAPH" \| "RADIO" \| "RELATIONSHIP" \| "TEL" \| "TEXT" \| "TIME" \| "URL"` | `'TEXT'`    |
+| `value`        | `value`         | Value of the slotted custom field on fw-form-control                                                                                                      | `any`                                                                                                                                                                                                                     | `undefined` |
 
 
 ## Methods
@@ -53,6 +56,7 @@ Type: `Promise<void>`
 - [fw-radio](../radio)
 - [fw-select](../select)
 - [fw-timepicker](../timepicker)
+- [fw-file-uploader-2](../file-uploader-2)
 
 ### Graph
 ```mermaid
@@ -65,18 +69,16 @@ graph TD;
   fw-form-control --> fw-radio
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
+  fw-form-control --> fw-file-uploader-2
   fw-input --> fw-icon
-  fw-datepicker --> fw-select-option
+  fw-datepicker --> fw-tooltip
+  fw-datepicker --> fw-icon
   fw-datepicker --> fw-button
   fw-datepicker --> fw-input
   fw-datepicker --> fw-timepicker
   fw-datepicker --> fw-popover
-  fw-datepicker --> fw-icon
   fw-datepicker --> fw-select
-  fw-select-option --> fw-icon
-  fw-select-option --> fw-checkbox
-  fw-select-option --> fw-avatar
-  fw-checkbox --> fw-icon
+  fw-tooltip --> fw-popover
   fw-button --> fw-spinner
   fw-button --> fw-icon
   fw-timepicker --> fw-select
@@ -90,9 +92,18 @@ graph TD;
   fw-tag --> fw-tooltip
   fw-tag --> fw-avatar
   fw-tag --> fw-icon
-  fw-tooltip --> fw-popover
   fw-list-options --> fw-select-option
   fw-list-options --> fw-input
+  fw-select-option --> fw-icon
+  fw-select-option --> fw-checkbox
+  fw-select-option --> fw-avatar
+  fw-checkbox --> fw-icon
+  fw-file-uploader-2 --> fw-file-2
+  fw-file-uploader-2 --> fw-inline-message
+  fw-file-2 --> fw-icon
+  fw-file-2 --> fw-tooltip
+  fw-file-2 --> fw-spinner
+  fw-inline-message --> fw-icon
   fw-form --> fw-form-control
   style fw-form-control fill:#f9f,stroke:#333,stroke-width:4px
 ```

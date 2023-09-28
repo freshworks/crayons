@@ -3,6 +3,219 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.4...@freshworks/crayons@4.3.0-beta.5) (2023-09-26)
+
+### Bug Fixes
+
+- **file-uploader:** correcting MB to KB conversion formula ([#893](https://github.com/freshworks/crayons/issues/893)) ([ef33ea2](https://github.com/freshworks/crayons/commit/ef33ea244a736060050830ffccc01f1eb9a39a4e))
+
+## [4.3.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.3...@freshworks/crayons@4.3.0-beta.4) (2023-09-12)
+
+### Features
+
+- **file-uploader-2:** adding part support of file uploader component ([#892](https://github.com/freshworks/crayons/issues/892)) ([32c0e66](https://github.com/freshworks/crayons/commit/32c0e661cb506bd4b3a6a5aded2a1e988b73317f))
+
+## [4.3.0-beta.3](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.2...@freshworks/crayons@4.3.0-beta.3) (2023-09-06)
+
+### Features
+
+- handles the prevention for toastercontroller approach as well ([#890](https://github.com/freshworks/crayons/issues/890)) ([6419e94](https://github.com/freshworks/crayons/commit/6419e9417c92a1655318368d6703a536f9ec54ae))
+
+## [4.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.1...@freshworks/crayons@4.3.0-beta.2) (2023-09-06)
+
+### Features
+
+- **fw-toast:** Handles prevent rendering the duplicate toaster multiple times with in the timeout period ([#888](https://github.com/freshworks/crayons/issues/888)) ([8fd296a](https://github.com/freshworks/crayons/commit/8fd296a9452531b846b1dccadba0166b5a300660))
+
+## [4.3.0-beta.1](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.0...@freshworks/crayons@4.3.0-beta.1) (2023-07-27)
+
+### Features
+
+- **fw-select:** add search variant ([d184338](https://github.com/freshworks/crayons/commit/d18433873cce8d66d46f7a2e28d5941b07ae1fb4))
+
+## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.1-beta.0...@freshworks/crayons@4.3.0-beta.0) (2023-07-25)
+
+### Features
+
+- **fw-select:** fix styling for tag container, focus on tags on click/key press, tagProps ([445c3a0](https://github.com/freshworks/crayons/commit/445c3a040679f33e08d7e02f4d8a3144d4517f9e))
+
+## [4.2.0-beta.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.19...@freshworks/crayons@4.2.0-beta.20) (2023-06-27)
+
+### Features
+
+- **component:** lookupField added for CONVERSATION_PROPERTIES form ([#866](https://github.com/freshworks/crayons/issues/866)) ([63c90f0](https://github.com/freshworks/crayons/commit/63c90f01488fdb41db2b1bb29334e73e0703a1be))
+
+## [4.2.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.18...@freshworks/crayons@4.2.0-beta.19) (2023-06-10)
+
+### Bug Fixes
+
+- **select, kebab-menu:** modify popover attribute name to avoid attribute conflict ([8cb9bbe](https://github.com/freshworks/crayons/commit/8cb9bbe209ef0db2f48b5aa5389d80df604e94a0))
+
+## [4.2.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.17...@freshworks/crayons@4.2.0-beta.18) (2023-06-05)
+
+### Features
+
+- **component:** to support hide and disable form fields dynamically by invoking form methods ([74605c9](https://github.com/freshworks/crayons/commit/74605c960c3095fa812acb0e5d72eada6a40d257))
+
+## [4.2.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.16...@freshworks/crayons@4.2.0-beta.17) (2023-05-25)
+
+### Bug Fixes
+
+- **form:** handle timezone for datepicker when serializing form values ([#859](https://github.com/freshworks/crayons/issues/859)) ([d3fceaa](https://github.com/freshworks/crayons/commit/d3fceaa15d479142bf1daf4e08e24d70f105a1c7))
+
+### Features
+
+- (fw-select-option): Add default case for select-option ([892d1fe](https://github.com/freshworks/crayons/commit/892d1feb42fe71a201c842eedf1ade4503dec0b1))
+
+## [4.2.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.15...@freshworks/crayons@4.2.0-beta.16) (2023-05-22)
+
+### Bug Fixes
+
+- **fw-list-options:** remove checkbox for default options ([ebeebc6](https://github.com/freshworks/crayons/commit/ebeebc65f1c8e21690e5366af4b5705c2d70fa52))
+
+## [4.2.0-beta.15](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.14...@freshworks/crayons@4.2.0-beta.15) (2023-05-18)
+
+### Bug Fixes
+
+- **datepicker:** fix timezone offset issue for datepicker in form ([a621fa1](https://github.com/freshworks/crayons/commit/a621fa1ab694f45474ab9071b9f67f376e07d052))
+- **datepicker:** restore date range emitted value format ([730339b](https://github.com/freshworks/crayons/commit/730339bb63c50906feeeef3c90962d698b5c2211))
+
+## [4.2.0-beta.14](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.13...@freshworks/crayons@4.2.0-beta.14) (2023-05-15)
+
+### Features
+
+- **fw-select:** add methods to show/hide the dropdown ([954ad1a](https://github.com/freshworks/crayons/commit/954ad1a5bf1f5d7b7be24d365226952b62044f31))
+
+## [4.2.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.12...@freshworks/crayons@4.2.0-beta.13) (2023-05-12)
+
+### Bug Fixes
+
+- fix styling of checkbox in select option, dynamically change checkbox property ([e043a71](https://github.com/freshworks/crayons/commit/e043a7152a321ec76443f82d88e8bb9ceea0fadf))
+- **timepicker:** fix review comments ([5c911ef](https://github.com/freshworks/crayons/commit/5c911ef13fce0fc233ca1649d9c2c2fccc0dbaca))
+- **timepicker:** fix timepicker issues ([d3848bd](https://github.com/freshworks/crayons/commit/d3848bdfb787408ba610de0e17dfdba2325e5512))
+
+## [4.2.0-beta.11](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.10...@freshworks/crayons@4.2.0-beta.11) (2023-04-20)
+
+### Bug Fixes
+
+- **datepicker:** handle user timezone offset ([0175e7f](https://github.com/freshworks/crayons/commit/0175e7f27e135e64482cc0254fe10b539bb6c8ce))
+
+### Features
+
+- add keydown event in input component ([20554bc](https://github.com/freshworks/crayons/commit/20554bc5a0e037d847ef00dc63d4259f68f98228))
+
+## [4.2.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.9...@freshworks/crayons@4.2.0-beta.10) (2023-04-12)
+
+### Features
+
+- **datepicker:** add a prop to make the datepicker occupy full width ([444fcd7](https://github.com/freshworks/crayons/commit/444fcd71e7eff1abec9ec9ad3c30dd750b450bd0))
+
+## [4.2.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.8...@freshworks/crayons@4.2.0-beta.9) (2023-04-05)
+
+### Bug Fixes
+
+- **datepicker:** fix min/max issue and add error validation for invalid input ([4434ed2](https://github.com/freshworks/crayons/commit/4434ed22fe6feabf5321cc18b46491ab588c7098))
+- **datepicker:** fix value not being update don input field when it is updtaed ([79f7868](https://github.com/freshworks/crayons/commit/79f7868270438efdf1c6a08758a4325c72558f9f))
+- **datepicker:** fox comments ([d59ec1d](https://github.com/freshworks/crayons/commit/d59ec1df12e1d9262902b8acdce51dfcbb4e6193))
+- **datepicker:** handle clear input scenario for invalid inputs ([518cbb9](https://github.com/freshworks/crayons/commit/518cbb9430ebfd495557306012833ca7c3ad42c4))
+- **daterangepicker:** add toYear check to input validations ([95b224b](https://github.com/freshworks/crayons/commit/95b224b180c3deff9ed7e3238d360aee6815d99a))
+- **datetimepicker:** fix value not being updated dynamically for date time picker ([6f5b4eb](https://github.com/freshworks/crayons/commit/6f5b4eb8318f79fbad1884716b3cb58d6d44443e))
+- **fw-datepicker:** fix comments ([4aaab60](https://github.com/freshworks/crayons/commit/4aaab60e92abe8b3cbfb738dc0992e3034a77f69))
+- **fw-datepicker:** fix datepicker validation issues ([b3915a3](https://github.com/freshworks/crayons/commit/b3915a3d1ddc8935b7e5d61c0f1d91597dd014ba))
+- **fw-datepicker:** fix value disappearing when year value is not presnt in the dropdown ([3720f85](https://github.com/freshworks/crayons/commit/3720f8533359acc60abfe37388137129bb6da8ec))
+- **fw-datepicker:** fix year value disappearing issue ([44e4be5](https://github.com/freshworks/crayons/commit/44e4be5ef5d6d9e7464d7081d729e694250344fe))
+- **fw-datepicker:** handle cancel scenario for single and date range picker ([8df612d](https://github.com/freshworks/crayons/commit/8df612d4715be213db029e63a83d8f391c4ec624))
+- **fw-dateranepicker:** fix error validations ([00fc391](https://github.com/freshworks/crayons/commit/00fc391768c9c26021fe2cc1b66cb2e929db6a52))
+- **fw-daterangepicker:** add input validations for date range picker ([d2882ad](https://github.com/freshworks/crayons/commit/d2882ad6b6cf83c138aa0830918a7894417b8117))
+
+## [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.7...@freshworks/crayons@4.2.0-beta.8) (2023-03-31)
+
+### Bug Fixes
+
+- **data-table:** saved settings reset only on structural change ([#831](https://github.com/freshworks/crayons/issues/831)) ([60edac2](https://github.com/freshworks/crayons/commit/60edac2b87f0f8f9212cfc62e078f365b135ce14))
+
+### Features
+
+- **form:** setFieldsValue method to dynamically set values in form fields ([#833](https://github.com/freshworks/crayons/issues/833)) ([18e31fb](https://github.com/freshworks/crayons/commit/18e31fbc0eb6ddf365dbfc022569874caf1b8dc8))
+- **fw-textarea:** added maxRows to fw-textarea for dynamic Resizing ([#830](https://github.com/freshworks/crayons/issues/830)) ([df9334f](https://github.com/freshworks/crayons/commit/df9334f6541c61b75f78d4556e12342a6c36e494))
+
+## [4.2.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.6...@freshworks/crayons@4.2.0-beta.7) (2023-03-22)
+
+### Bug Fixes
+
+- **data-table:** adding widthProperties capability for actions column ([#823](https://github.com/freshworks/crayons/issues/823)) ([81b18dc](https://github.com/freshworks/crayons/commit/81b18dcf1be4d92486a62c98eed0a27afb1dd825))
+
+## [4.2.0-beta.6](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.5...@freshworks/crayons@4.2.0-beta.6) (2023-03-16)
+
+### Bug Fixes
+
+- **form:** reset the value of the form field when setFieldChoices is called ([#821](https://github.com/freshworks/crayons/issues/821)) ([a83284a](https://github.com/freshworks/crayons/commit/a83284a19227a7cd21fe6e972e0b0031bec4c960))
+
+### Features
+
+- add components.d.ts ([5631c66](https://github.com/freshworks/crayons/commit/5631c66a7ce0f05e8b174aaeead77d99f2711c79))
+- add max height prop for select ([dfaaf2b](https://github.com/freshworks/crayons/commit/dfaaf2b5f6bd608480ecdb50c81af80ac8cfb5c3))
+- **file-uploader-2:** file uploader as part of form ([#810](https://github.com/freshworks/crayons/issues/810)) ([befbc62](https://github.com/freshworks/crayons/commit/befbc62f5f7e7eacf0c9063d8eb1fad55eb0de7b))
+
+## [4.2.0-beta.5](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.4...@freshworks/crayons@4.2.0-beta.5) (2023-03-10)
+
+### Bug Fixes
+
+- fix deletion when readonly is set to true ([5ab6fee](https://github.com/freshworks/crayons/commit/5ab6fee0e419721d365a1f757794a5c75508a6f2))
+
+### Features
+
+- **form:** setFieldsRequiredStatus method to dynamically set required status on form fields ([#817](https://github.com/freshworks/crayons/issues/817)) ([e470930](https://github.com/freshworks/crayons/commit/e470930c937e3ab4865003e61cc24c3fee6499a0))
+
+## [4.2.0-beta.4](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.3...@freshworks/crayons@4.2.0-beta.4) (2023-03-07)
+
+### Bug Fixes
+
+- add tests for the fix ([d16feb4](https://github.com/freshworks/crayons/commit/d16feb4e1d02cb0c4141b218868281196bf10d8c))
+- fix re-render value on options change ([f2a1409](https://github.com/freshworks/crayons/commit/f2a14094e17f6ef18712b9b58b7963e3a46f950a))
+- replace equality fn ([6cfefbd](https://github.com/freshworks/crayons/commit/6cfefbdb34079886e66e10051b8bd87a5ec48ea1))
+
+## [4.2.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.2.0-beta.1...@freshworks/crayons@4.2.0-beta.2) (2023-02-27)
+
+### Bug Fixes
+
+- disable caret when disabled in fw-select ([f7672b2](https://github.com/freshworks/crayons/commit/f7672b27f653b737166b687dc8d27c4dbee5862c))
+
+### Features
+
+- add kebab menu component, modify row actions in datatable ([2353d66](https://github.com/freshworks/crayons/commit/2353d66cf868ddc5df643573e0ae57da779215b8))
+- **form:** support passing initialValues and validation for static form ([#804](https://github.com/freshworks/crayons/issues/804)) ([cc25b62](https://github.com/freshworks/crayons/commit/cc25b62ace511a11396ca76b7dc6820688f54490))
+- refactor kebab menu, add UT ([902b793](https://github.com/freshworks/crayons/commit/902b793afb0efa14b4a17633e4871204dc7dac0d))
+- update documentation, add graphicsProps to kebab menu, update prop decorators ([27b15bd](https://github.com/freshworks/crayons/commit/27b15bdd77d52dc5d2c51c5a4b22aa5fcfe783e4))
+
+## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0...@freshworks/crayons@4.2.0-beta.0) (2023-02-06)
+
+### Features
+
+- **file-uploader-2:** adding new version of file uploader component ([#753](https://github.com/freshworks/crayons/issues/753)) ([0541e0b](https://github.com/freshworks/crayons/commit/0541e0b53720b1f664d38d2e1b165573659a75fc))
+
+## 4.1.0 (2023-02-06)
+
+### Bug Fixes
+
+- **datepicker:** replace event.path with event.composedPath as it is deprecated from chrome 109 v ([8980943](https://github.com/freshworks/crayons/commit/89809437a31dcc5dc1e33acc6d37d627f5393ad7))
+
+## [4.1.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.9...@freshworks/crayons@4.1.0-beta.10) (2023-02-06)
+
+### Bug Fixes
+
+- **date-picker:** fix min/max year restriction issue ([55ce4a5](https://github.com/freshworks/crayons/commit/55ce4a5fbfc86022513bdf757b7c7704f5ea432f))
+- **date-picker:** fix review comments ([297a972](https://github.com/freshworks/crayons/commit/297a9729e1e5ae621f6c56b71b9b534ea38c46fc))
+- **datepicker:** add unit test cases ([256d19b](https://github.com/freshworks/crayons/commit/256d19b1bae908501237832d68b14026c1ecb1ae))
+- **time-picker:** fix timpicker spinner issue ([b10dc2b](https://github.com/freshworks/crayons/commit/b10dc2bf129dad08823a5e5e4a19e5c845c1fd59))
+
+### Features
+
+- **form:** disable form fields by setting editable property to false and emit event on value change([#787](https://github.com/freshworks/crayons/issues/787)) ([9066189](https://github.com/freshworks/crayons/commit/90661895eee3e94b5d4d71a57dbc4593c76ad595))
+- **form:** setFieldSearchText method to filter the display of fields in the form ([#784](https://github.com/freshworks/crayons/issues/784)) ([176b51e](https://github.com/freshworks/crayons/commit/176b51e75603b6c9bf288bbe7a2b5a396797f92d))
+- **fw-spinner:** adding a micro variant size for spinner component ([#781](https://github.com/freshworks/crayons/issues/781)) ([1b67d6a](https://github.com/freshworks/crayons/commit/1b67d6aaf9c40807282e25d9fd10b494b4b0f055))
+- wrap select input to tags container ([964a55c](https://github.com/freshworks/crayons/commit/964a55ca5d271a84b7a834f777c8e548ea9baddd))
+
 ## [4.1.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.1.0-beta.8...@freshworks/crayons@4.1.0-beta.9) (2023-01-23)
 
 ### Features
@@ -79,6 +292,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - add i18n strings for sort-select and datatable ([a9eee87](https://github.com/freshworks/crayons/commit/a9eee871f5c5e6fae52432b64b4ff0edde90f500))
+
+## 4.0.5 (2023-01-25)
+
+### Bug Fixes
+
+- **datepicker:** replace event.path with event.composedPath as it is deprecated from chrome 109 v ([8980943](https://github.com/freshworks/crayons/commit/89809437a31dcc5dc1e33acc6d37d627f5393ad7))
 
 ## [4.0.3-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.0.2...@freshworks/crayons@4.0.3-beta.0) (2022-10-12)
 

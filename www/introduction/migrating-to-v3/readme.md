@@ -25,10 +25,13 @@ To view the comprehensive list, check the breaking changes [guide](https://githu
 
 ---
 
-- [Global Styles](#global-styles)
-- [Input Control Events](#input-control-events)
-- [Usage via CDN](#usage-via-cdn)
-- [Usage via Node Modules](#usage-via-node-modules)
+- [Migrating to v3](#migrating-to-v3)
+  - [What's new in v3](#whats-new-in-v3)
+  - [Migration Guide](#migration-guide)
+    - [Global Styles](#global-styles)
+    - [Input Control Events](#input-control-events)
+      - [Usage via CDN](#usage-via-cdn)
+      - [Usage via Node Modules](#usage-via-node-modules)
 
 ### Global Styles
 
@@ -118,11 +121,11 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v3/dist/crayons/crayons.esm.js"
 ></script>
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@v4/dist/crayons/crayons.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v3/dist/crayons/crayons.js"
 ></script>
 ```
 
@@ -134,7 +137,7 @@ You can now use the Crayons components just like how you would use any other htm
 >
 ```
 
-You can use [UNPKG](https://unpkg.com/) to query specific versions in your app.
+You can use [jsDelivr](https://jsdelivr.com/) to query specific versions in your app.
 
 #### Usage via Node Modules
 

@@ -299,6 +299,7 @@ Type: `Promise<any>`
 
  - [fw-data-table](../data-table)
  - [fw-datepicker](../datepicker)
+ - [fw-kebab-menu](../kebab-menu)
  - [fw-modal-footer](../modal-footer)
  - [fw-pagination](../pagination)
  - [fw-select](../select)
@@ -315,6 +316,7 @@ graph TD;
   fw-button --> fw-icon
   fw-data-table --> fw-button
   fw-datepicker --> fw-button
+  fw-kebab-menu --> fw-button
   fw-modal-footer --> fw-button
   fw-pagination --> fw-button
   fw-select --> fw-button

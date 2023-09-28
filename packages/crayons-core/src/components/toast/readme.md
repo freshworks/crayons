@@ -280,15 +280,16 @@ Refer [usage](#usage)
 
 ## Properties
 
-| Property         | Attribute          | Description                                              | Type                                                | Default        |
-| ---------------- | ------------------ | -------------------------------------------------------- | --------------------------------------------------- | -------------- |
-| `actionLinkText` | `action-link-text` | The Content of the action link                           | `string`                                            | `''`           |
-| `content`        | `content`          | The content to be displayed in toast                     | `string`                                            | `undefined`    |
-| `pauseOnHover`   | `pause-on-hover`   | Pause the toast from hiding on mouse hover               | `boolean`                                           | `undefined`    |
-| `position`       | `position`         | position of the toast notification in screen             | `"top-center" \| "top-left" \| "top-right"`         | `'top-center'` |
-| `sticky`         | `sticky`           | won't close automatically                                | `boolean`                                           | `false`        |
-| `timeout`        | `timeout`          | Time duration of the toast visibility                    | `number`                                            | `4000`         |
-| `type`           | `type`             | Type of the toast - success,failure, warning, inprogress | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'`    |
+| Property                  | Attribute                   | Description                                               | Type                                                | Default        |
+| ------------------------- | --------------------------- | --------------------------------------------------------- | --------------------------------------------------- | -------------- |
+| `actionLinkText`          | `action-link-text`          | The Content of the action link                            | `string`                                            | `''`           |
+| `content`                 | `content`                   | The content to be displayed in toast                      | `string`                                            | `undefined`    |
+| `pauseOnHover`            | `pause-on-hover`            | Pause the toast from hiding on mouse hover                | `boolean`                                           | `undefined`    |
+| `position`                | `position`                  | position of the toast notification in screen              | `"top-center" \| "top-left" \| "top-right"`         | `'top-center'` |
+| `shouldPreventDuplicates` | `should-prevent-duplicates` | Prevent rendering the duplicate toasters at the same time | `boolean`                                           | `undefined`    |
+| `sticky`                  | `sticky`                    | won't close automatically                                 | `boolean`                                           | `false`        |
+| `timeout`                 | `timeout`                   | Time duration of the toast visibility                     | `number`                                            | `4000`         |
+| `type`                    | `type`                      | Type of the toast - success,failure, warning, inprogress  | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'`    |
 
 
 ## Methods

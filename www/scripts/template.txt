@@ -13,20 +13,20 @@ From your app’s root `html` file add the following scripts:
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@freshworks/crayons@{{key}}/dist/crayons/crayons.esm.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@{{key}}/dist/crayons/crayons.esm.js"
   integrity="{{{esm}}}"
 ></script>
 
 <script
   nomodule
-  src="https://unpkg.com/@freshworks/crayons@{{key}}/dist/crayons/crayons.js"
+  src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@{{key}}/dist/crayons/crayons.js"
   integrity="{{{es5}}}"
 ></script>
 
 {{#css}}
 <link
   rel="stylesheet"
-  href="https://unpkg.com/@freshworks/crayons@{{key}}/css/crayons-min.css"
+  href="https://cdn.jsdelivr.net/npm/@freshworks/crayons@{{key}}/css/crayons-min.css"
   integrity="{{{css}}}"
   crossorigin="anonymous"
 />

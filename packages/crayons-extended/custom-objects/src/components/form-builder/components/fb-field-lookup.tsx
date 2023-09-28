@@ -16,6 +16,7 @@ import {
   isUniqueField,
 } from '../utils/form-builder-utils';
 import presetSchema from '../assets/form-builder-preset.json';
+import formMapper from '../assets/form-mapper.json';
 
 @Component({
   tag: 'fw-fb-field-lookup',
@@ -28,6 +29,10 @@ export class FbFieldDropdown {
   private targetObjectLabel = '';
   private isNativeTargetObject = false;
 
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /**
    * variable to store form values
    */
@@ -48,6 +53,10 @@ export class FbFieldDropdown {
    * property to show the errors on click of the save/add button from the parent
    */
   @Prop({ mutable: true }) showErrors = false;
+  /**
+   * Disables all the options which can't be edited, reordered or deleted if set to true.
+   */
+  @Prop() disabled = false;
   /**
    * variable to store the selected relationship type
    */
@@ -144,6 +153,9 @@ export class FbFieldDropdown {
   private relationshipChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
     this.dataResponse.relationship = event.detail.value;
     this.selectedRelationshipValue = event.detail.value;
     this.fwChange.emit({ value: deepCloneObject(this.dataResponse) });
@@ -152,6 +164,9 @@ export class FbFieldDropdown {
   private targetObjectChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
     this.updateIsNativeObject(event.detail.value);
     this.dataResponse.target = event.detail.value;
     this.selectedTargetValue = event.detail.value;
@@ -191,6 +206,11 @@ export class FbFieldDropdown {
     const boolShowDescription =
       strDescription && strDescription !== '' ? true : false;
 
+    const objProductPreset = formMapper[this.productName];
+    const objProductPresetConfig = objProductPreset?.config;
+    const boolShowRelationshipTypeSelect =
+      objProductPresetConfig?.boolShowRelationshipTypeSelect;
+
     return (
       <Host tabIndex='-1'>
         <div class={`${strBaseClassName}-root`}>
@@ -204,21 +224,25 @@ export class FbFieldDropdown {
               value={this.sourceObjectName}
               disabled
             ></fw-input>
-            <div class={`${strBaseClassName}-relationship-select-container`}>
-              <fw-select
-                readonly={true}
-                required={true}
-                state={strRelationshipState}
-                class={`${strBaseClassName}-relationship-select`}
-                placeholder={i18nText('lookupRelationshipPlaceholder')}
-                label={i18nText('lookupRelationshipLabel')}
-                errorText={i18nText('errors.emptyRelationshipType')}
-                disabled={!boolNewField}
-                options={this.i18RelationshipType}
-                value={this.selectedRelationshipValue}
-                onFwChange={this.relationshipChangeHandler}
-              ></fw-select>
-            </div>
+            {boolShowRelationshipTypeSelect ? (
+              <div class={`${strBaseClassName}-relationship-select-container`}>
+                <fw-select
+                  readonly={true}
+                  required={true}
+                  state={strRelationshipState}
+                  class={`${strBaseClassName}-relationship-select`}
+                  placeholder={i18nText('lookupRelationshipPlaceholder')}
+                  label={i18nText('lookupRelationshipLabel')}
+                  errorText={i18nText('errors.emptyRelationshipType')}
+                  disabled={!boolNewField || this.disabled}
+                  options={this.i18RelationshipType}
+                  value={this.selectedRelationshipValue}
+                  onFwChange={this.relationshipChangeHandler}
+                ></fw-select>
+              </div>
+            ) : (
+              <div></div>
+            )}
             <div class={`${strBaseClassName}-target-select-container`}>
               <fw-select
                 required={true}
@@ -227,7 +251,7 @@ export class FbFieldDropdown {
                 placeholder={i18nText('lookupTargetPlaceholder')}
                 label={i18nText('lookupTargetLabel')}
                 errorText={i18nText('errors.emptyTargetObject')}
-                disabled={!boolNewField}
+                disabled={!boolNewField || this.disabled}
                 value={this.selectedTargetValue}
                 options={this.targetObjects}
                 onFwChange={this.targetObjectChangeHandler}

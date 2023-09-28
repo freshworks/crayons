@@ -47,10 +47,10 @@ function App() {
 
 ## Properties
 
-| Property | Attribute | Description                                                                | Type                                          | Default     |
-| -------- | --------- | -------------------------------------------------------------------------- | --------------------------------------------- | ----------- |
-| `color`  | `color`   | Color in which the loader is displayed, specified as a standard CSS color. | `string`                                      | `''`        |
-| `size`   | `size`    | Size of the loader.                                                        | `"default" \| "large" \| "medium" \| "small"` | `'default'` |
+| Property | Attribute | Description                                                                | Type                                                     | Default     |
+| -------- | --------- | -------------------------------------------------------------------------- | -------------------------------------------------------- | ----------- |
+| `color`  | `color`   | Color in which the loader is displayed, specified as a standard CSS color. | `string`                                                 | `''`        |
+| `size`   | `size`    | Size of the loader.                                                        | `"default" \| "large" \| "medium" \| "micro" \| "small"` | `'default'` |
 
 
 ## CSS Custom Properties
@@ -65,6 +65,7 @@ function App() {
 ### Used by
 
  - [fw-button](../button)
+ - [fw-file-2](../file-uploader-2/file-2)
  - [fw-select](../select)
  - [fw-toast-message](../toast-message)
 
@@ -72,6 +73,7 @@ function App() {
 ```mermaid
 graph TD;
   fw-button --> fw-spinner
+  fw-file-2 --> fw-spinner
   fw-select --> fw-spinner
   fw-toast-message --> fw-spinner
   style fw-spinner fill:#f9f,stroke:#333,stroke-width:4px

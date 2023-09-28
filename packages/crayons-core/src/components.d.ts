@@ -7,9 +7,9 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant } from "./utils/types";
+import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
-import { FormErrors, FormSubmit, FormValues } from "./components/form/form-declaration";
+import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
 export namespace Components {
     interface FwAccordion {
@@ -303,7 +303,20 @@ export namespace Components {
         /**
           * To enable bulk actions on the table.
          */
-        "rowActions": DataTableAction[];
+        "rowActions": | DataTableAction[]
+    | DataTableActionWithGraphics[];
+        /**
+          * Header label for row actions column
+         */
+        "rowActionsHeaderLabel": any;
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+         */
+        "rowActionsMenuVariant": 'standard' | 'icon';
+        /**
+          * Ability to add width related properties to rowActions. Helps solve settings icon overlap with actions label.
+         */
+        "rowActionsWidthProperties": null | WidthStyles;
         /**
           * Rows Array of objects to be displayed in the table.
          */
@@ -323,6 +336,10 @@ export namespace Components {
          */
         "shimmerCount": number;
         /**
+          * To show row actions as a kebab menu
+         */
+        "showRowActionsAsMenu": boolean;
+        /**
           * showSettings is used to show the settings button on the table.
          */
         "showSettings": boolean;
@@ -337,6 +354,10 @@ export namespace Components {
           * Clears the input value and unselects selected date.
          */
         "clearValue": () => Promise<void>;
+        /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer": number;
         /**
           * Make the datepicker box as disabled. Default `false`
          */
@@ -354,6 +375,10 @@ export namespace Components {
          */
         "fromDate": string;
         /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth": boolean;
+        /**
           * Returns the date value in ISO format.
          */
         "getValue": () => Promise<string | { fromDate: string; toDate: string; }>;
@@ -361,6 +386,10 @@ export namespace Components {
           * Hint text displayed below the text box.
          */
         "hintText": string;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip": boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -410,6 +439,10 @@ export namespace Components {
          */
         "setFocus": () => Promise<void>;
         /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
+         */
+        "showErrorOnInvalidDate": boolean;
+        /**
           * Indicates if footer needs to be shown. Default `true`.
          */
         "showFooter": boolean;
@@ -433,6 +466,10 @@ export namespace Components {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate": string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText": any;
         "updateText": string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
@@ -786,21 +823,38 @@ export namespace Components {
          */
         "mapperType": 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * Method to set disabled fields on the form dynamically.  Note: You must always pass all the fields that you want to disable  param: disabledFields - key value pair of [fieldName]: true | false example: `setDisabledFields({ first_name: true, last_name: false })`
+         */
+        "setDisabledFields": (disabledFields?: any) => Promise<void>;
+        /**
           * setFieldChoices Method to set field choices for a DROPDOWN/MULTI_SELECT/RADIO fields in formschema. choices must be in the form of array with the below format: [{  id: 1,  value: 'open',  position: 1,  dependent_ids: {}, }]. fieldOptions is an optional parameter, must be an object with keys being option_label_path and option_value_path. option_label_path refers to the key used for displaying the text. option_value_path refers to the key which corresponds to the value of item.
          */
         "setFieldChoices": (field: string, choices: Array<any>, fieldOptions?: any) => Promise<void>;
         /**
-          * Method to set errors on the form fields.
-          * @param errorObj - key value pair of [fieldName]: ErrorMessage
+          * Method to set errors on the form fields.  If you use `setErrors`, your errors will be wiped out by next `validate` or `validationSchema` call which can be triggered by the user typing (a change event) or blurring an input (a blur event). Note: this assumed you have not manually set `validateOnInput` and `validateOnBlur` props to `false` (they are `true` by default).  param: errorObj - key value pair of [fieldName]: ErrorMessage example: `{ first_name: 'firstname is required' }`
          */
         "setFieldErrors": (errorObj: FormErrors<FormValues>) => Promise<void>;
         /**
-          * Method to set value on the form field.
-          * @param field - name of the form field
-          * @param value - value of the form field
-          * @param shouldValidate - should this form field be validated with the updated value
+          * Method to filter the display of fields in the form based on the passed text.
+          * @param text
+         */
+        "setFieldSearchText": (text: string) => Promise<void>;
+        /**
+          * Method to set value on the form field.  param: field - name of the form field param: value - value of the form field param: shouldValidate - should this form field be validated with the updated value. Default to true.
          */
         "setFieldValue": (field: string, value: any, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set required status on form fields  param: requiredStatusObj - Object with key as form field name and value denoting if the field should be marked as required or not example: `{ first_name: true, last_name: false }`
+         */
+        "setFieldsRequiredStatus": (requiredStatusObj: FormRequired<FormValues>) => Promise<void>;
+        /**
+          * Method to set values on the form fields.  param: valuesObj - Object with key as form field name and value as the updated value for the field example: `{ first_name: "new name", last_name: "new last name" }` param: shouldValidate - should this form be validated with the updated values. Default to true.
+         */
+        "setFieldsValue": (valuesObj: FormValues, shouldValidate?: boolean) => Promise<void>;
+        /**
+          * Method to set hidden fields on the form dynamically.  Note: You must always pass all the fields that you want to hide. Also, note that the validation for hidden fields will be skipped.  param: hiddenFields - key value pair of [fieldName]: true | false example: `setHiddenFields({ first_name: true, last_name: false })`
+         */
+        "setHiddenFields": (hiddenFields?: any) => Promise<void>;
         /**
           * Validate the form's values with an async function. Should return a Promise which resolves to an errors object. The keys in the errors object must match with the field names.
          */
@@ -828,11 +882,16 @@ export namespace Components {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled": boolean;
         "error": string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden": boolean;
         "hint": string;
         "label": any;
         "name": any;
@@ -861,7 +920,13 @@ export namespace Components {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
+    | 'FILES';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value": any;
     }
     interface FwFormatDate {
         /**
@@ -1639,10 +1704,18 @@ export namespace Components {
          */
         "errorText": string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements": [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect": boolean;
         "getSelectedItem": () => Promise<any>;
+        /**
+          * Hides the dropdown panel
+         */
+        "hideDropdown": () => Promise<any>;
         /**
           * Hint text displayed below the text box.
          */
@@ -1663,6 +1736,10 @@ export namespace Components {
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max": number;
+        /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight": string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
@@ -1731,9 +1808,17 @@ export namespace Components {
         "setSelectedOptions": (options: any[]) => Promise<any>;
         "setSelectedValues": (values: string | string[]) => Promise<any>;
         /**
+          * Shows the dropdown panel
+         */
+        "showDropdown": () => Promise<any>;
+        /**
           * Theme based on which the list box is styled.
          */
         "state": 'normal' | 'warning' | 'error';
+        /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps": {};
         /**
           * The variant of tag to be used.
          */
@@ -1749,7 +1834,7 @@ export namespace Components {
         /**
           * The UI variant of the select to be used.
          */
-        "variant": 'button' | 'standard' | 'mail';
+        "variant": 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */
@@ -1857,7 +1942,7 @@ export namespace Components {
         /**
           * Size of the loader.
          */
-        "size": 'small' | 'medium' | 'large' | 'default';
+        "size": 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -1985,6 +2070,14 @@ export namespace Components {
           * Label displayed on the interface, for the component.
          */
         "label": string;
+        /**
+          * Max number of rows the textarea can create when user writes content greater than regular rows.
+         */
+        "maxRows"?: number;
+        /**
+          * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
+         */
+        "maxRowsDebounceTimer"?: number;
         /**
           * Maximum number of characters a user can enter in the input box.
          */
@@ -2141,6 +2234,10 @@ export namespace Components {
           * position of the toast notification in screen
          */
         "position": 'top-center' | 'top-left' | 'top-right';
+        /**
+          * Prevent rendering the duplicate toasters at the same time
+         */
+        "shouldPreventDuplicates": boolean;
         /**
           * won't close automatically
          */
@@ -3176,7 +3273,20 @@ declare namespace LocalJSX {
         /**
           * To enable bulk actions on the table.
          */
-        "rowActions"?: DataTableAction[];
+        "rowActions"?: | DataTableAction[]
+    | DataTableActionWithGraphics[];
+        /**
+          * Header label for row actions column
+         */
+        "rowActionsHeaderLabel"?: any;
+        /**
+          * Standard is the default option without any graphics other option is icon which places the icon at the beginning of the row. The props for the icon are passed as iconName and iconLibrary via the rowActions prop.
+         */
+        "rowActionsMenuVariant"?: 'standard' | 'icon';
+        /**
+          * Ability to add width related properties to rowActions. Helps solve settings icon overlap with actions label.
+         */
+        "rowActionsWidthProperties"?: null | WidthStyles;
         /**
           * Rows Array of objects to be displayed in the table.
          */
@@ -3185,6 +3295,10 @@ declare namespace LocalJSX {
           * shimmerCount number of shimmer rows to show during initial loading
          */
         "shimmerCount"?: number;
+        /**
+          * To show row actions as a kebab menu
+         */
+        "showRowActionsAsMenu"?: boolean;
         /**
           * showSettings is used to show the settings button on the table.
          */
@@ -3196,6 +3310,10 @@ declare namespace LocalJSX {
           * Displays a clear icon in the text box. Clicking the icon clears the value. Default `false`
          */
         "clearInput"?: boolean;
+        /**
+          * Debounce timer for date input.
+         */
+        "debounceTimer"?: number;
         /**
           * Make the datepicker box as disabled. Default `false`
          */
@@ -3213,9 +3331,17 @@ declare namespace LocalJSX {
          */
         "fromDate"?: string;
         /**
+          * To make the datepicker occupy full width of the container. Default value is false.
+         */
+        "fullWidth"?: boolean;
+        /**
           * Hint text displayed below the text box.
          */
         "hintText"?: string;
+        /**
+          * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
+         */
+        "hoistTooltip"?: boolean;
         /**
           * Label displayed on the interface, for the component.
          */
@@ -3257,6 +3383,10 @@ declare namespace LocalJSX {
          */
         "onFwChange"?: (event: FwDatepickerCustomEvent<any>) => void;
         /**
+          * Triggered when text is entered in  input box.
+         */
+        "onFwDateInput"?: (event: FwDatepickerCustomEvent<any>) => void;
+        /**
           * Text displayed in the input box before a user selects a date or date range.
          */
         "placeholder"?: string;
@@ -3268,6 +3398,10 @@ declare namespace LocalJSX {
           * Specifies the input box as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
          */
         "required"?: boolean;
+        /**
+          * Displays alert icon and tooltip when user inputs an invalid date in the textbox. Default value is true.
+         */
+        "showErrorOnInvalidDate"?: boolean;
         /**
           * Indicates if footer needs to be shown. Default `true`.
          */
@@ -3292,6 +3426,10 @@ declare namespace LocalJSX {
           * Ending date of the date range that is preselected in the calendar, if mode is range. Must be a date earlier than the max-date value and valid ISO date format.
          */
         "toDate"?: string;
+        /**
+          * Error text displayed on the tooltip for invalid date inputs.
+         */
+        "tooltipErrorText"?: any;
         "updateText"?: string;
         /**
           * Date that is preselected in the calendar, if mode is single date or undefined. If set this must be valid ISO date format.
@@ -3658,6 +3796,10 @@ declare namespace LocalJSX {
          */
         "mapperType"?: 'LEGO' | 'FORMSERV' | 'CUSTOM';
         /**
+          * fwFormValueChanged - event that gets emitted when value in a form field changes.
+         */
+        "onFwFormValueChanged"?: (event: FwFormCustomEvent<any>) => void;
+        /**
           * fwFormValuesChanged - event that gets emitted when values change.
          */
         "onFwFormValuesChanged"?: (event: FwFormCustomEvent<any>) => void;
@@ -3688,11 +3830,16 @@ declare namespace LocalJSX {
           * Contains values for crayons components. Useful when rendering crayons components implicitly via form-control. Not required when using controls via slots.
          */
         "controlProps"?: any;
+        /**
+          * Disable the field from being editable
+         */
+        "disabled"?: boolean;
         "error"?: string;
         /**
           * Additional props can be passed here for crayons components. Useful when rendering crayons components implicitly via form-control.
          */
         "fieldProps"?: any;
+        "hidden"?: boolean;
         "hint"?: string;
         "label"?: any;
         "name"?: any;
@@ -3717,7 +3864,13 @@ declare namespace LocalJSX {
     | 'TEL'
     | 'TIME'
     | 'DATE_TIME'
-    | 'RELATIONSHIP';
+    | 'RELATIONSHIP'
+    | 'AUTO_COMPLETE'
+    | 'FILES';
+        /**
+          * Value of the slotted custom field on fw-form-control
+         */
+        "value"?: any;
     }
     interface FwFormatDate {
         /**
@@ -3964,6 +4117,10 @@ declare namespace LocalJSX {
           * Triggered when clear icon is clicked.
          */
         "onFwInputClear"?: (event: FwInputCustomEvent<any>) => void;
+        /**
+          * Triggered on key down in the input box.
+         */
+        "onFwInputKeyDown"?: (event: FwInputCustomEvent<any>) => void;
         /**
           * Text displayed in the text box before a user enters a value.
          */
@@ -4520,6 +4677,10 @@ declare namespace LocalJSX {
          */
         "errorText"?: string;
         /**
+          * Alternative placement for popover if the default placement is not possible.
+         */
+        "fallbackPlacements"?: [PopoverPlacementType];
+        /**
           * If true, the user must select a value. The default value is not displayed.
          */
         "forceSelect"?: boolean;
@@ -4543,6 +4704,10 @@ declare namespace LocalJSX {
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
         "max"?: number;
+        /**
+          * Sets the max height of select with multiple options selected and displays a scroll when maxHeight value is exceeded
+         */
+        "maxHeight"?: string;
         /**
           * Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.
          */
@@ -4624,6 +4789,10 @@ declare namespace LocalJSX {
          */
         "state"?: 'normal' | 'warning' | 'error';
         /**
+          * Props to be passed for fw-tag components displayed in multi-select.
+         */
+        "tagProps"?: {};
+        /**
           * The variant of tag to be used.
          */
         "tagVariant"?: TagVariant;
@@ -4638,7 +4807,7 @@ declare namespace LocalJSX {
         /**
           * The UI variant of the select to be used.
          */
-        "variant"?: 'button' | 'standard' | 'mail';
+        "variant"?: 'button' | 'standard' | 'mail' | 'search';
         /**
           * Warning text displayed below the text box.
          */
@@ -4761,7 +4930,7 @@ declare namespace LocalJSX {
         /**
           * Size of the loader.
          */
-        "size"?: 'small' | 'medium' | 'large' | 'default';
+        "size"?: 'micro' | 'small' | 'medium' | 'large' | 'default';
     }
     interface FwTab {
         /**
@@ -4892,6 +5061,14 @@ declare namespace LocalJSX {
           * Label displayed on the interface, for the component.
          */
         "label"?: string;
+        /**
+          * Max number of rows the textarea can create when user writes content greater than regular rows.
+         */
+        "maxRows"?: number;
+        /**
+          * Debounce timer for setting rows dynamically based on user input and maxRows, default is 200ms.
+         */
+        "maxRowsDebounceTimer"?: number;
         /**
           * Maximum number of characters a user can enter in the input box.
          */
@@ -5064,6 +5241,10 @@ declare namespace LocalJSX {
           * position of the toast notification in screen
          */
         "position"?: 'top-center' | 'top-left' | 'top-right';
+        /**
+          * Prevent rendering the duplicate toasters at the same time
+         */
+        "shouldPreventDuplicates"?: boolean;
         /**
           * won't close automatically
          */

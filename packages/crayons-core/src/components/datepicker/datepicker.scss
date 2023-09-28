@@ -114,6 +114,10 @@
   width: 20px;
   position: absolute;
   margin-block-start: -11px;
+
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 .mdpch-button-right .mdpchb-inner {
@@ -282,8 +286,16 @@
   pointer-events: none;
 }
 
-.date-input {
-  width: 200px;
+.invalid-alert {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  fw-icon {
+    cursor: pointer;
+    margin-block-start: 4px;
+    margin-inline-start: 4px;
+  }
 }
 
 .icon-calendar {
@@ -309,10 +321,6 @@
   align-items: center;
   justify-content: center;
   background-color: $color-smoke-50;
-}
-
-.range-date-input {
-  width: 235px;
 }
 
 .c-day-container.disabled .cdc-day span {
