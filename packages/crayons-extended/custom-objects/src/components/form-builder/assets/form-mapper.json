@@ -292,7 +292,8 @@
       "DROPDOWN": 2,
       "CHECKBOX": 5,
       "MULTI_SELECT": 18,
-      "RELATIONSHIP": 16
+      "RELATIONSHIP": 16,
+      "DEPENDENT_DROPDOWN": 20
     },
     "reverseMappedFieldTypes": {
       "1": "TEXT",
@@ -303,7 +304,8 @@
       "2": "DROPDOWN",
       "5": "CHECKBOX",
       "18": "MULTI_SELECT",
-      "16": "RELATIONSHIP"
+      "16": "RELATIONSHIP",
+      "20": "DEPENDENT_DROPDOWN"
     },
     "fieldOrder": [
       "TEXT",
@@ -312,6 +314,7 @@
       "DECIMAL",
       "DATE",
       "DROPDOWN",
+      "DEPENDENT_DROPDOWN",
       "CHECKBOX",
       "MULTI_SELECT",
       "RELATIONSHIP"
@@ -379,6 +382,18 @@
       },
       "DROPDOWN": {
         "display_label": "fieldTypeDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequiredResolveConv",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DEPENDENT_DROPDOWN": {
+        "display_label": "fieldTypeDependent",
         "checkboxes": [
           {
             "key": "required",
@@ -486,7 +501,8 @@
         "count": 2000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
       },
-      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" }
+      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },
+      "DEPENDENT_DROPDOWN": { "count": 10, "message": "maximumLimits.fields" }
     }
   }
 }

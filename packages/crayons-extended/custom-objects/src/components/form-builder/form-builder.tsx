@@ -224,6 +224,7 @@ export class FormBuilder {
       'DECIMAL',
       'DATE',
       'DROPDOWN',
+      'DEPENDENT_DROPDOWN',
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];

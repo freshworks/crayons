@@ -41,6 +41,11 @@
       "type": "MULTI_SELECT",
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "DEPENDENT_DROPDOWN": {
+      "type": "DEPENDENT_DROPDOWN",
+      "icon": { "name": "list-bullets", "bg_color": "#FEF1E0" },
+      "choices": [{ "value": "" }, { "value": "" }]
     }
   },
   "relationshipTypes": [
