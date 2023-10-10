@@ -42,10 +42,62 @@
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
     },
-    "DEPENDENT_DROPDOWN": {
-      "type": "DEPENDENT_DROPDOWN",
-      "icon": { "name": "list-bullets", "bg_color": "#FEF1E0" },
-      "choices": [{ "value": "" }, { "value": "" }]
+    "DEPENDENT_FIELD": {
+      "type": "DEPENDENT_FIELD",
+      "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
+      "field_options": { "dependent": true },
+      "choices": [
+        {
+          "id": "l1_1",
+          "value": "category 1",
+          "dependent_ids": {
+            "choice": [ "l2_1" ]
+          }
+        },
+        {
+          "id": "l1_2",
+          "value": "category 2",
+          "dependent_ids": {
+            "choice": [ "l2_2" ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "field_options": { "dependent": true },
+          "choices": [
+            {
+              "id": "l2_1",
+              "value": "subcategory 1",
+              "dependent_ids": {
+                "choice": [ "l3_1" ]
+              }
+            },
+            {
+              "id": "l2_2",
+              "value": "subcategory 2",
+              "dependent_ids": {
+                "choice": [ "l3_2" ]
+              }
+            }
+          ],
+          "fields": [
+            {
+              "field_options": { "dependent": true },
+              "choices": [
+                {
+                  "id": "l3_1",
+                  "value": "subcategory 1"
+                },
+                {
+                  "id": "l3_2",
+                  "value": "subcategory 2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "relationshipTypes": [

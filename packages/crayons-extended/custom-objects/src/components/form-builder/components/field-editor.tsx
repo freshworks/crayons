@@ -42,6 +42,7 @@ export class FieldEditor {
   private isInternalNameEdited = false;
   private internalNamePrefix = '';
   private isNewField = false;
+  private isDependentField = false;
   private oldFormValues;
   private errorType;
 
@@ -201,6 +202,12 @@ export class FieldEditor {
       const objDP = this.dataProvider;
       this.isNewField =
         hasCustomProperty(objDP, 'isNew') && objDP['isNew'] === true
+          ? true
+          : false;
+
+      this.isDependentField =
+        hasCustomProperty(objDP.field_options, 'dependent') &&
+        objDP?.field_options?.dependent === true
           ? true
           : false;
 
@@ -685,6 +692,18 @@ export class FieldEditor {
     }
   };
 
+  private dependentDropdownChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.isValuesChanged = true;
+
+    const strType = event.detail.type;
+    switch (strType) {
+      default:
+        break;
+    }
+  };
+
   private statusToggleHandler = (event: CustomEvent) => {
     this.isValuesChanged = true;
     const objPayload = this.dataProvider;
@@ -965,6 +984,21 @@ export class FieldEditor {
     );
   }
 
+  private renderDependentDropdown(boolDisableDropdowns) {
+    const objFormValue = this.fieldBuilderOptions;
+
+    return (
+      <fw-fb-field-dropdown
+        ref={(el) => (this.dictInteractiveElements['choices'] = el)}
+        dataProvider={objFormValue.choices}
+        productName={this.productName}
+        showErrors={this.showErrors}
+        disabled={boolDisableDropdowns}
+        onFwChange={this.dropdownChangeHandler}
+      ></fw-fb-field-dropdown>
+    );
+  }
+
   private renderStatusToggle(objFormValue) {
     const strBaseClassName = 'fw-field-editor';
     const choices = objFormValue.choices;
@@ -1169,6 +1203,10 @@ export class FieldEditor {
         ? this.renderDropdown(boolDisableDropdowns)
         : null;
 
+    const elementDependentDropdown = this.isDependentField
+      ? this.renderDependentDropdown(boolDisableDropdowns)
+      : null;
+
     const isLookupType = strFieldType === 'RELATIONSHIP';
     const elementRelationship = isLookupType
       ? this.renderLookup(boolDisableDropdowns)
@@ -1239,6 +1277,11 @@ export class FieldEditor {
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
             {elementDropdown}
+          </div>
+        )}
+        {this.isDependentField && (
+          <div class={`${strBaseClassName}-content-dependent-dropdown`}>
+            {elementDependentDropdown}
           </div>
         )}
       </div>

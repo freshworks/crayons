@@ -82,6 +82,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showLookupField = true;
   /**
+   * flag to show dependentField for CONVERSATION_PROPERTIES or not
+   */
+  @Prop({ mutable: true }) showDependentField = true;
+  /**
    * variable to store customize widget fields
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
@@ -224,7 +228,7 @@ export class FormBuilder {
       'DECIMAL',
       'DATE',
       'DROPDOWN',
-      'DEPENDENT_DROPDOWN',
+      'DEPENDENT_FIELD',
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];
@@ -963,6 +967,11 @@ export class FormBuilder {
     if (!dataItem) {
       return null;
     }
+
+    if (dataItem?.field_options?.dependent) {
+      dataItem = { ...dataItem, type: 'DEPENDENT_FIELD' };
+    }
+
     const strFieldType = dataItem.type;
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
@@ -1054,6 +1063,12 @@ export class FormBuilder {
       const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
       if (relationshipIndex > -1) {
         arrFieldOrder.splice(relationshipIndex, 1);
+      }
+    }
+    if (!this.showDependentField) {
+      const dependentIndex = arrFieldOrder.indexOf('DEPENDENT_FIELD');
+      if (dependentIndex > -1) {
+        arrFieldOrder.splice(dependentIndex, 1);
       }
     }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
