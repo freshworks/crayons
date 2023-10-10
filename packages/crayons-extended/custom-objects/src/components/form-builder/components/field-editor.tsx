@@ -994,7 +994,7 @@ export class FieldEditor {
         productName={this.productName}
         showErrors={this.showErrors}
         disabled={boolDisableDropdowns}
-        onFwChange={this.dropdownChangeHandler}
+        onFwChange={this.dependentDropdownChangeHandler}
       ></fw-fb-field-dropdown>
     );
   }
