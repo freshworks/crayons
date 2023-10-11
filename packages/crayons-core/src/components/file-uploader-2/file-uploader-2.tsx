@@ -761,6 +761,7 @@ export class FileUploader {
           'file-uploader__body__dropzone--error': !!this.errorText.length,
         }}
         key='dropzone'
+        part='fw-file-uploader-dropzone'
         tabIndex={0}
         onDrop={(event) =>
           !this.isBatchUploadInProgress && this.dropHandler(event)
@@ -845,7 +846,10 @@ export class FileUploader {
               this.restrictAttachmentBlock,
           }}
         >
-          <div class='file-uploader__body__files__center'>
+          <div
+            class='file-uploader__body__files__center'
+            part='fw-file-uploader-attachments-block'
+          >
             {this.files.map((file) => {
               return (
                 <fw-file-2

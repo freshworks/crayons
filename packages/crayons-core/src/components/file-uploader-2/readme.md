@@ -1078,12 +1078,14 @@ fileUploadPromise
 
 ## Shadow Parts
 
-| Part                           | Description |
-| ------------------------------ | ----------- |
-| `"fw-file-uploader-clickable"` |             |
-| `"fw-file-uploader-desc"`      |             |
-| `"fw-file-uploader-error"`     |             |
-| `"fw-file-uploader-text"`      |             |
+| Part                                   | Description |
+| -------------------------------------- | ----------- |
+| `"fw-file-uploader-attachments-block"` |             |
+| `"fw-file-uploader-clickable"`         |             |
+| `"fw-file-uploader-desc"`              |             |
+| `"fw-file-uploader-dropzone"`          |             |
+| `"fw-file-uploader-error"`             |             |
+| `"fw-file-uploader-text"`              |             |
 
 
 ## CSS Custom Properties
