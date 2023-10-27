@@ -50,6 +50,10 @@ export class FbFieldDropdownItem {
    */
   @Prop() index = -1;
   /**
+   * should invoke fwSelect on dependentField
+   */
+  @Prop() isDependentField = false;
+  /**
    * Triggered on delete button click
    */
   @Event() fwDelete!: EventEmitter;
@@ -57,6 +61,10 @@ export class FbFieldDropdownItem {
    * Triggered on choice input blur
    */
   @Event() fwChange!: EventEmitter;
+  /**
+   * Triggered on choice selection
+   */
+  @Event() fwSelect!: EventEmitter;
 
   /**
    * function called on reorder button mousedown to enable the parent as draggable
@@ -118,6 +126,17 @@ export class FbFieldDropdownItem {
 
   private nameChangeHandler = (event: CustomEvent) => {
     this.performLabelChange(event, false);
+  };
+
+  private nameFocusHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    if (this.isDependentField) {
+      this.fwSelect.emit({
+        index: this.index,
+        value: this.dataProvider,
+      });
+    }
   };
 
   private deleteButtonClickHandler = (event: MouseEvent) => {
@@ -201,6 +220,7 @@ export class FbFieldDropdownItem {
               disabled={this.disabled}
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
+              onFwFocus={this.nameFocusHandler}
             ></fw-input>
           </div>
           <span

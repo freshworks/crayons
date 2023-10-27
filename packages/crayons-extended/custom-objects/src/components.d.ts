@@ -55,9 +55,17 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Flag to invoke and rerender options based on level | index
+         */
+        "isDependentField": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
+        /**
+          * level - used only for dependent dropdown
+         */
+        "level": number;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
@@ -81,6 +89,10 @@ export namespace Components {
           * index attached inside the parent group component
          */
         "index": number;
+        /**
+          * should invoke fwSelect on dependentField
+         */
+        "isDependentField": boolean;
         /**
           * flag to notify if an api call is in progress
          */
@@ -791,9 +803,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Flag to invoke and rerender options based on level | index
+         */
+        "isDependentField"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
+        /**
+          * level - used only for dependent dropdown
+         */
+        "level"?: number;
         /**
           * Triggered on data change for error handling on parent
          */
@@ -821,6 +841,10 @@ declare namespace LocalJSX {
          */
         "index"?: number;
         /**
+          * should invoke fwSelect on dependentField
+         */
+        "isDependentField"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
@@ -836,6 +860,10 @@ declare namespace LocalJSX {
           * Triggered on delete button click
          */
         "onFwDelete"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
+        /**
+          * Triggered on choice selection
+         */
+        "onFwSelect"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */

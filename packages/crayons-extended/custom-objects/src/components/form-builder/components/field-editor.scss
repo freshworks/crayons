@@ -17,6 +17,22 @@
   }
 }
 
+.flex {
+  display: flex;
+
+  &-space-between {
+    justify-content: space-between;
+
+    div {
+      width: 100%;
+    }
+
+    fw-fb-field-dropdown {
+      width: 270px;
+    }
+  }
+}
+
 .fw-field-editor {
   max-width: $form-builder-field-editor-max-width;
   width: 100%;

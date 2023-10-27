@@ -423,9 +423,10 @@ export class FormBuilder {
   };
 
   private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
-    const objNewField = deepCloneObject(
-      presetSchema.fieldTypes[strNewFieldType]
-    );
+    const fieldType = objFieldData?.field_options?.dependent
+      ? 'DEPENDENT_FIELD'
+      : strNewFieldType;
+    const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
@@ -968,11 +969,9 @@ export class FormBuilder {
       return null;
     }
 
-    if (dataItem?.field_options?.dependent) {
-      dataItem = { ...dataItem, type: 'DEPENDENT_FIELD' };
-    }
-
-    const strFieldType = dataItem.type;
+    const strFieldType = dataItem?.field_options?.dependent
+      ? 'DEPENDENT_FIELD'
+      : dataItem.type;
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
     if (!objDefaultFieldTypeSchema) {

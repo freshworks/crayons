@@ -275,3 +275,38 @@ export function checkIfCustomToggleField(
     fieldName === dbConfig?.config?.showCustomToggleField
   );
 }
+
+export function filterDropdownValues(choices, idsToFilter) {
+  if (!idsToFilter.length) {
+    return choices;
+  }
+
+  return choices.filter((choice) => idsToFilter.includes(choice.id));
+}
+
+export function assignFieldChoices(dependentField, fieldSchema, fieldLevels) {
+  const assignChoices = (json, fieldJson, ids) => {
+    fieldJson.choices =
+      hasCustomProperty(json, 'choices') && json.choices.length > 0
+        ? deepCloneObject(filterDropdownValues(json.choices, ids))
+        : [];
+    fieldJson.label = hasCustomProperty(json, 'label') ? json.label : '';
+    fieldJson.name = hasCustomProperty(json, 'name') ? json.name : '';
+    fieldJson.field_options = hasCustomProperty(json, 'field_options')
+      ? json.field_options
+      : {};
+
+    if (json.fields && json.fields.length) {
+      const fieldLevel = fieldLevels[`level${json.field_options.level}`] || 0;
+      assignChoices(
+        json.fields[0],
+        fieldJson.fields[0],
+        json.choices[fieldLevel]?.dependent_ids?.choice || []
+      );
+    }
+  };
+
+  assignChoices(dependentField, fieldSchema, []);
+
+  return fieldSchema;
+}

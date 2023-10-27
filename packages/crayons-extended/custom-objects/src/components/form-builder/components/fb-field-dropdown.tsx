@@ -53,6 +53,14 @@ export class FbFieldDropdown {
    * Triggered on data change for error handling on parent
    */
   @Event() fwChange!: EventEmitter;
+  /**
+   * level - used only for dependent dropdown
+   */
+  @Prop({ mutable: true }) level = 0;
+  /**
+   * Flag to invoke and rerender options based on level | index
+   */
+  @Prop() isDependentField = false;
 
   @Method()
   async validateErrors(): Promise<any> {
@@ -128,7 +136,15 @@ export class FbFieldDropdown {
     event.stopPropagation();
 
     const objNewChoice = { value: '' };
-    this.dataProvider = [...this.dataProvider, objNewChoice];
+    const objNewChoiceWithId = {
+      id: createUUID(),
+      dependent_ids: { choice: [] },
+    };
+
+    this.dataProvider = [
+      ...this.dataProvider,
+      { ...objNewChoice, ...(this.isDependentField ? objNewChoiceWithId : {}) },
+    ];
     this.errorType = i18nText('errors.emptyChoice');
     this.validateMaximumChoiceLimits();
 
@@ -136,6 +152,8 @@ export class FbFieldDropdown {
       type: 'ADD',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      level: this.level,
+      id: objNewChoiceWithId.id,
     });
   };
 
@@ -231,6 +249,20 @@ export class FbFieldDropdown {
     }
   };
 
+  private selectItemChoice = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
+    if (event.detail.value.value && event.detail.value.value !== '') {
+      this.fwChange.emit({
+        type: 'DF_SELECT',
+        level: this.level,
+        index: event.detail.index,
+        value: event.detail.value,
+      });
+    }
+  };
+
   private renderNameEditorElement(dataItem, intIndex) {
     const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
     const boolNewChoice = !hasCustomProperty(dataItem, 'id');
@@ -247,8 +279,10 @@ export class FbFieldDropdown {
         disabled={this.disabled}
         isLoading={this.isLoading}
         showErrors={this.showErrors}
+        isDependentField={this.isDependentField}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
+        onFwSelect={this.selectItemChoice}
       ></fw-fb-field-dropdown-item>
     );
   }
