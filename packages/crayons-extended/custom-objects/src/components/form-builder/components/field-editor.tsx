@@ -18,13 +18,13 @@ import {
   hasCustomProperty,
   getNestedKeyValueFromObject,
   i18nText,
-  removeFirstOccurrence,
   getMaxLimitProperty,
   getMaximumLimitsConfig,
   deriveInternalNameFromLabel,
   hasPermission,
   checkIfCustomToggleField,
   assignFieldChoices,
+  updateDependentField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -165,6 +165,11 @@ export class FieldEditor {
    */
   @State() isDeleting = false;
   /**
+   * Internal dataProviderClone - To track dependent field
+   * properties
+   */
+  @State() dataProviderClone = {};
+  /**
    * dependentFieldLevels
    */
   @State() dependentFieldLevels = {};
@@ -219,32 +224,24 @@ export class FieldEditor {
 
       if (this.isNewField) {
         this.isInternalNameEdited = false;
-        const fieldTypeSchemaDataProvider = assignFieldChoices(
-          deepCloneObject(this.defaultFieldTypeSchema),
-          deepCloneObject(this.dataProvider),
-          this.dependentFieldLevels
-        );
+        const fieldTypeSchemaDataProvider =
+          this.updateChoicesinDataProviderClone(
+            this.defaultFieldTypeSchema,
+            this.dataProvider
+          );
+        this.dataProviderClone = deepCloneObject(fieldTypeSchemaDataProvider);
         this.setCheckboxesAvailability(fieldTypeSchemaDataProvider);
       } else {
         this.isInternalNameEdited = true;
         const objDefaultFieldTypeSchema = deepCloneObject(
-          this.defaultFieldTypeSchema
-        );
-
-        // Choices assigned to objDefaultFieldTypeSchema in util
-        // in expected format for dropdown && dependentFields
-        assignFieldChoices(
-          this.dataProvider,
-          objDefaultFieldTypeSchema,
-          this.dependentFieldLevels
+          this.updateChoicesinDataProviderClone(
+            this.dataProvider,
+            this.defaultFieldTypeSchema
+          )
         );
 
         objDefaultFieldTypeSchema.label = this.dataProvider.label || '';
-        objDefaultFieldTypeSchema.name =
-          removeFirstOccurrence(
-            this.dataProvider.name,
-            this.internalNamePrefix
-          ) || '';
+        this.dataProviderClone = deepCloneObject(objDefaultFieldTypeSchema);
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
     } else {
@@ -260,6 +257,15 @@ export class FieldEditor {
 
     this.watchDataproviderChangeHandler();
     this.dictInteractiveElements = {};
+  }
+
+  private updateChoicesinDataProviderClone(dataProvider, objFieldData) {
+    return assignFieldChoices(
+      dataProvider,
+      objFieldData,
+      this.dependentFieldLevels,
+      this.internalNamePrefix
+    );
   }
 
   private getInterpolatedMaxLimitLabel = (strProperty) => {
@@ -702,7 +708,7 @@ export class FieldEditor {
         this.errorType = event.detail.errorType;
         this.assignValueToParent(event);
         break;
-      case 'DF_SELECT':
+      case 'SELECT':
         this.dependentFieldLevels[`level${event.detail.level}`] =
           event.detail.index;
         this.watchDataproviderChangeHandler();
@@ -791,7 +797,11 @@ export class FieldEditor {
     }
   };
 
-  private performLabelChange = (event: CustomEvent, isBlur = false) => {
+  private performLabelChange = (
+    event: CustomEvent,
+    isBlur = false,
+    level = '0'
+  ) => {
     if (event) {
       event.stopImmediatePropagation();
       event.stopPropagation();
@@ -847,17 +857,40 @@ export class FieldEditor {
           }
         );
       }
-
-      this.fieldBuilderOptions = {
-        ...this.fieldBuilderOptions,
-        label: strInputValue,
-        name: strInternalName,
-      };
+      if (this.isDependentField) {
+        updateDependentField(
+          this.dataProviderClone,
+          strInputValue,
+          level,
+          'label'
+        );
+        updateDependentField(
+          this.dataProviderClone,
+          strInternalName,
+          level,
+          'name'
+        );
+      } else {
+        this.fieldBuilderOptions = {
+          ...this.fieldBuilderOptions,
+          label: strInputValue,
+          name: strInternalName,
+        };
+      }
     } else {
-      this.fieldBuilderOptions = {
-        ...this.fieldBuilderOptions,
-        label: strInputValue,
-      };
+      if (this.isDependentField) {
+        updateDependentField(
+          this.dataProviderClone,
+          strInputValue,
+          level,
+          'label'
+        );
+      } else {
+        this.fieldBuilderOptions = {
+          ...this.fieldBuilderOptions,
+          label: strInputValue,
+        };
+      }
     }
 
     if (this.showErrors) {
@@ -865,15 +898,19 @@ export class FieldEditor {
     }
   };
 
-  private labelInputHandler = (event: CustomEvent) => {
-    this.performLabelChange(event);
+  private labelInputHandler = (event: CustomEvent, level: string) => {
+    this.performLabelChange(event, false, level);
   };
 
   private labelBlurHandler = (event: CustomEvent) => {
     this.performLabelChange(event, true);
   };
 
-  private performInternalNameChange = (event: CustomEvent, isBlur = false) => {
+  private performInternalNameChange = (
+    event: CustomEvent,
+    isBlur = false,
+    level = '0'
+  ) => {
     if (event) {
       event.stopImmediatePropagation();
       event.stopPropagation();
@@ -907,10 +944,19 @@ export class FieldEditor {
         this.internalNameWarningMessage = '';
       }
 
-      this.fieldBuilderOptions = {
-        ...this.fieldBuilderOptions,
-        name: strInputValue,
-      };
+      if (this.isDependentField) {
+        updateDependentField(
+          this.dataProviderClone,
+          strInputValue,
+          level,
+          'name'
+        );
+      } else {
+        this.fieldBuilderOptions = {
+          ...this.fieldBuilderOptions,
+          name: strInputValue,
+        };
+      }
     } else {
       this.internalNameWarningMessage = '';
     }
@@ -920,12 +966,12 @@ export class FieldEditor {
     }
   };
 
-  private internalNameInputHandler = (event: CustomEvent) => {
-    this.performInternalNameChange(event);
+  private internalNameInputHandler = (event: CustomEvent, level: string) => {
+    this.performInternalNameChange(event, false, level);
   };
 
-  private internalNameBlurHandler = (event: CustomEvent) => {
-    this.performInternalNameChange(event, true);
+  private internalNameBlurHandler = (event: CustomEvent, level: string) => {
+    this.performInternalNameChange(event, true, level);
   };
 
   private renderFwLabel(dataItem) {
@@ -1124,6 +1170,7 @@ export class FieldEditor {
       ? this.internalNameWarningMessage
       : '';
     const numNameMaxChars = objMaxLimits?.['maxInternalNameChars']?.count || 50;
+    const level = objFieldBuilder?.field_options?.level || '0';
 
     return (
       <div class={`${strBaseClassName}-internal-name-base`}>
@@ -1158,7 +1205,7 @@ export class FieldEditor {
                 : 'normal'
             }
             onFwBlur={this.internalNameBlurHandler}
-            onFwInput={this.internalNameInputHandler}
+            onFwInput={(event) => this.internalNameInputHandler(event, level)}
           ></fw-input>
         </div>
       </div>
@@ -1196,6 +1243,7 @@ export class FieldEditor {
       ? this.labelWarningMessage
       : '';
     const strInputError = boolShowLabelError ? this.labelErrorMessage : '';
+    const level = fieldBuilderOptions?.field_options?.level || '0';
 
     return (
       <fw-input
@@ -1218,7 +1266,7 @@ export class FieldEditor {
         }
         disabled={boolDIsableInputLabel}
         onFwBlur={this.labelBlurHandler}
-        onFwInput={this.labelInputHandler}
+        onFwInput={(event) => this.labelInputHandler(event, level)}
       ></fw-input>
     );
   }

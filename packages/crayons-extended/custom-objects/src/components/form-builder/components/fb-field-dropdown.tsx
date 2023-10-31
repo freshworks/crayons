@@ -255,7 +255,7 @@ export class FbFieldDropdown {
 
     if (event.detail.value.value && event.detail.value.value !== '') {
       this.fwChange.emit({
-        type: 'DF_SELECT',
+        type: 'SELECT',
         level: this.level,
         index: event.detail.index,
         value: event.detail.value,

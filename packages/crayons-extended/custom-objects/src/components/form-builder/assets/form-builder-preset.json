@@ -45,7 +45,7 @@
     "DEPENDENT_FIELD": {
       "type": "DROPDOWN",
       "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
-      "field_options": { "dependent": true, "level": 1 },
+      "field_options": { "dependent": true, "level": "1" },
       "choices": [
         {
           "id": "l1_1",
@@ -64,7 +64,7 @@
       ],
       "fields": [
         {
-          "field_options": { "dependent": true, "level": 2 },
+          "field_options": { "dependent": true, "level": "2" },
           "choices": [
             {
               "id": "l2_1",
@@ -83,7 +83,7 @@
           ],
           "fields": [
             {
-              "field_options": { "dependent": true, "level": 3 },
+              "field_options": { "dependent": true, "level": "3" },
               "choices": [
                 {
                   "id": "l3_1",

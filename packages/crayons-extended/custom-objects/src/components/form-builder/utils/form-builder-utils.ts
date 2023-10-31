@@ -284,17 +284,27 @@ export function filterDropdownValues(choices, idsToFilter) {
   return choices.filter((choice) => idsToFilter.includes(choice.id));
 }
 
-export function assignFieldChoices(dependentField, fieldSchema, fieldLevels) {
+export function assignFieldChoices(
+  dataProvider,
+  objFieldData,
+  fieldLevels,
+  internalNamePrefix
+) {
+  const fieldSchema = deepCloneObject(objFieldData);
+
   const assignChoices = (json, fieldJson, ids) => {
     fieldJson.choices =
       hasCustomProperty(json, 'choices') && json.choices.length > 0
         ? deepCloneObject(filterDropdownValues(json.choices, ids))
         : [];
     fieldJson.label = hasCustomProperty(json, 'label') ? json.label : '';
-    fieldJson.name = hasCustomProperty(json, 'name') ? json.name : '';
-    fieldJson.field_options = hasCustomProperty(json, 'field_options')
-      ? json.field_options
-      : {};
+    fieldJson.name = hasCustomProperty(json, 'name')
+      ? removeFirstOccurrence(json.name, internalNamePrefix)
+      : '';
+
+    if (hasCustomProperty(json, 'field_options')) {
+      fieldJson.field_options = json.field_options;
+    }
 
     if (json.fields && json.fields.length) {
       const fieldLevel = fieldLevels[`level${json.field_options.level}`] || 0;
@@ -306,7 +316,21 @@ export function assignFieldChoices(dependentField, fieldSchema, fieldLevels) {
     }
   };
 
-  assignChoices(dependentField, fieldSchema, []);
+  assignChoices(dataProvider, fieldSchema, []);
 
   return fieldSchema;
+}
+
+export function updateDependentField(objFieldData, value, level, type) {
+  const onUpdateField = (json) => {
+    if (json?.field_options?.level === level) {
+      json[type] = value;
+    } else {
+      onUpdateField(json.fields[0]);
+    }
+  };
+
+  onUpdateField(objFieldData);
+
+  return objFieldData;
 }
