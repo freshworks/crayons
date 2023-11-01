@@ -279,19 +279,27 @@ export function checkIfCustomToggleField(
 export function updateNameLabelDependentField(
   fieldBuilderOption,
   level,
-  boolInternalNameUpdated,
   strInputValue,
-  strInternalName
+  strInternalName,
+  types
 ) {
   const objFieldData = deepCloneObject(fieldBuilderOption);
 
+  if (level.includes('name_level_')) {
+    level = removeFirstOccurrence(level, 'name_level_');
+  }
+
+  if (level.includes('internalName_level_')) {
+    level = removeFirstOccurrence(level, 'internalName_level_');
+  }
+
   const onUpdateNameLabel = (json, level) => {
     if (json?.field_options?.level === level) {
-      if (boolInternalNameUpdated) {
+      if (types.includes('label')) {
         json.label = strInputValue;
+      }
+      if (types.includes('name')) {
         json.name = strInternalName;
-      } else {
-        json.label = strInputValue;
       }
     }
 
