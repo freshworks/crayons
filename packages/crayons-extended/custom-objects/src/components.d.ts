@@ -45,6 +45,29 @@ export namespace Components {
          */
         "value": any;
     }
+    interface FwFbFieldDependent {
+        /**
+          * variable to store the data source for all the choices
+         */
+        "dataProvider": any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled": boolean;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading": boolean;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors": boolean;
+        "validateErrors": () => Promise<any>;
+    }
     interface FwFbFieldDropdown {
         /**
           * variable to store the data source for all the choices
@@ -362,6 +385,10 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         /**
+          * flag to show dependentField for CONVERSATION_PROPERTIES or not
+         */
+        "showDependentField": boolean;
+        /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
         "showLookupField": boolean;
@@ -541,6 +568,10 @@ export interface FwCoExportFieldCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportFieldElement;
 }
+export interface FwFbFieldDependentCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwFbFieldDependentElement;
+}
 export interface FwFbFieldDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwFbFieldDropdownElement;
@@ -611,6 +642,12 @@ declare global {
     var HTMLFwDateConditionElement: {
         prototype: HTMLFwDateConditionElement;
         new (): HTMLFwDateConditionElement;
+    };
+    interface HTMLFwFbFieldDependentElement extends Components.FwFbFieldDependent, HTMLStencilElement {
+    }
+    var HTMLFwFbFieldDependentElement: {
+        prototype: HTMLFwFbFieldDependentElement;
+        new (): HTMLFwFbFieldDependentElement;
     };
     interface HTMLFwFbFieldDropdownElement extends Components.FwFbFieldDropdown, HTMLStencilElement {
     }
@@ -712,6 +749,7 @@ declare global {
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
+        "fw-fb-field-dependent": HTMLFwFbFieldDependentElement;
         "fw-fb-field-dropdown": HTMLFwFbFieldDropdownElement;
         "fw-fb-field-dropdown-item": HTMLFwFbFieldDropdownItemElement;
         "fw-fb-field-lookup": HTMLFwFbFieldLookupElement;
@@ -776,6 +814,32 @@ declare namespace LocalJSX {
           * The value of the input
          */
         "value"?: any;
+    }
+    interface FwFbFieldDependent {
+        /**
+          * variable to store the data source for all the choices
+         */
+        "dataProvider"?: any;
+        /**
+          * Disables all the options which can't be edited, reordered or deleted if set to true.
+         */
+        "disabled"?: boolean;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading"?: boolean;
+        /**
+          * Triggered on data change for error handling on parent
+         */
+        "onFwChange"?: (event: FwFbFieldDependentCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        /**
+          * property to show the errors on click of the save/add button from the parent
+         */
+        "showErrors"?: boolean;
     }
     interface FwFbFieldDropdown {
         /**
@@ -1161,6 +1225,10 @@ declare namespace LocalJSX {
          */
         "role"?: 'trial' | 'admin';
         /**
+          * flag to show dependentField for CONVERSATION_PROPERTIES or not
+         */
+        "showDependentField"?: boolean;
+        /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
         "showLookupField"?: boolean;
@@ -1348,6 +1416,7 @@ declare namespace LocalJSX {
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
+        "fw-fb-field-dependent": FwFbFieldDependent;
         "fw-fb-field-dropdown": FwFbFieldDropdown;
         "fw-fb-field-dropdown-item": FwFbFieldDropdownItem;
         "fw-fb-field-lookup": FwFbFieldLookup;
@@ -1373,6 +1442,7 @@ declare module "@stencil/core" {
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
+            "fw-fb-field-dependent": LocalJSX.FwFbFieldDependent & JSXBase.HTMLAttributes<HTMLFwFbFieldDependentElement>;
             "fw-fb-field-dropdown": LocalJSX.FwFbFieldDropdown & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownElement>;
             "fw-fb-field-dropdown-item": LocalJSX.FwFbFieldDropdownItem & JSXBase.HTMLAttributes<HTMLFwFbFieldDropdownItemElement>;
             "fw-fb-field-lookup": LocalJSX.FwFbFieldLookup & JSXBase.HTMLAttributes<HTMLFwFbFieldLookupElement>;

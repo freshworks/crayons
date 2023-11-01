@@ -312,6 +312,7 @@
       "DECIMAL",
       "DATE",
       "DROPDOWN",
+      "DEPENDENT_FIELD",
       "CHECKBOX",
       "MULTI_SELECT",
       "RELATIONSHIP"
@@ -379,6 +380,18 @@
       },
       "DROPDOWN": {
         "display_label": "fieldTypeDropdown",
+        "checkboxes": [
+          {
+            "key": "required",
+            "tag": "fieldRequiredTag",
+            "display_label": "fieldRequiredResolveConv",
+            "enabled": true,
+            "selected": false
+          }
+        ]
+      },
+      "DEPENDENT_FIELD": {
+        "display_label": "fieldTypeDependent",
         "checkboxes": [
           {
             "key": "required",
@@ -486,7 +499,8 @@
         "count": 2000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
       },
-      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" }
+      "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },
+      "DEPENDENT_FIELD": { "count": 5000, "message": "maximumLimits.fields" }
     }
   }
 }

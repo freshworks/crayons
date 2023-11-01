@@ -82,6 +82,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showLookupField = true;
   /**
+   * flag to show dependentField for CONVERSATION_PROPERTIES or not
+   */
+  @Prop({ mutable: true }) showDependentField = true;
+  /**
    * variable to store customize widget fields
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
@@ -224,6 +228,7 @@ export class FormBuilder {
       'DECIMAL',
       'DATE',
       'DROPDOWN',
+      'DEPENDENT_DROPDOWN',
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];
@@ -418,9 +423,10 @@ export class FormBuilder {
   };
 
   private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
-    const objNewField = deepCloneObject(
-      presetSchema.fieldTypes[strNewFieldType]
-    );
+    const fieldType = objFieldData?.field_options?.dependent
+      ? 'DEPENDENT_FIELD'
+      : strNewFieldType;
+    const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
@@ -962,7 +968,9 @@ export class FormBuilder {
     if (!dataItem) {
       return null;
     }
-    const strFieldType = dataItem.type;
+    const strFieldType = dataItem?.field_options?.dependent
+      ? 'DEPENDENT_FIELD'
+      : dataItem.type;
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
     if (!objDefaultFieldTypeSchema) {
@@ -1053,6 +1061,12 @@ export class FormBuilder {
       const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
       if (relationshipIndex > -1) {
         arrFieldOrder.splice(relationshipIndex, 1);
+      }
+    }
+    if (!this.showDependentField) {
+      const dependentIndex = arrFieldOrder.indexOf('DEPENDENT_FIELD');
+      if (dependentIndex > -1) {
+        arrFieldOrder.splice(dependentIndex, 1);
       }
     }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;

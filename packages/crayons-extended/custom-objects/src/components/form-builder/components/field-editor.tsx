@@ -23,6 +23,7 @@ import {
   deriveInternalNameFromLabel,
   hasPermission,
   checkIfCustomToggleField,
+  updateNameLabelDependentField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -44,6 +45,7 @@ export class FieldEditor {
   private isNewField = false;
   private oldFormValues;
   private errorType;
+  private isDependentField = false;
 
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -201,6 +203,12 @@ export class FieldEditor {
       const objDP = this.dataProvider;
       this.isNewField =
         hasCustomProperty(objDP, 'isNew') && objDP['isNew'] === true
+          ? true
+          : false;
+
+      this.isDependentField =
+        hasCustomProperty(objDP.field_options, 'dependent') &&
+        objDP?.field_options?.dependent === true
           ? true
           : false;
 
@@ -737,7 +745,7 @@ export class FieldEditor {
     }
   };
 
-  private performLabelChange = (event: CustomEvent, isBlur = false) => {
+  private performLabelChange = (event: CustomEvent, isBlur = false, level) => {
     if (event) {
       event.stopImmediatePropagation();
       event.stopPropagation();
@@ -793,17 +801,36 @@ export class FieldEditor {
           }
         );
       }
-
-      this.fieldBuilderOptions = {
-        ...this.fieldBuilderOptions,
-        label: strInputValue,
-        name: strInternalName,
-      };
+      if (this.isDependentField) {
+        this.fieldBuilderOptions = updateNameLabelDependentField(
+          this.fieldBuilderOptions,
+          level,
+          boolInternalNameUpdated,
+          strInputValue,
+          strInternalName
+        );
+      } else {
+        this.fieldBuilderOptions = {
+          ...this.fieldBuilderOptions,
+          label: strInputValue,
+          name: strInternalName,
+        };
+      }
     } else {
-      this.fieldBuilderOptions = {
-        ...this.fieldBuilderOptions,
-        label: strInputValue,
-      };
+      if (this.isDependentField) {
+        this.fieldBuilderOptions = updateNameLabelDependentField(
+          this.fieldBuilderOptions,
+          level,
+          boolInternalNameUpdated,
+          strInputValue,
+          strInternalName
+        );
+      } else {
+        this.fieldBuilderOptions = {
+          ...this.fieldBuilderOptions,
+          label: strInputValue,
+        };
+      }
     }
 
     if (this.showErrors) {
@@ -811,12 +838,12 @@ export class FieldEditor {
     }
   };
 
-  private labelInputHandler = (event: CustomEvent) => {
-    this.performLabelChange(event);
+  private labelInputHandler = (event: CustomEvent, level) => {
+    this.performLabelChange(event, false, level);
   };
 
-  private labelBlurHandler = (event: CustomEvent) => {
-    this.performLabelChange(event, true);
+  private labelBlurHandler = (event: CustomEvent, level) => {
+    this.performLabelChange(event, true, level);
   };
 
   private performInternalNameChange = (event: CustomEvent, isBlur = false) => {
@@ -950,8 +977,8 @@ export class FieldEditor {
     );
   }
 
-  private renderDropdown(boolDisableDropdowns) {
-    const objFormValue = this.fieldBuilderOptions;
+  private renderDropdown(boolDisableDropdowns, fieldBuilderOptions) {
+    const objFormValue = fieldBuilderOptions;
 
     return (
       <fw-fb-field-dropdown
@@ -1031,14 +1058,15 @@ export class FieldEditor {
     objProductConfig,
     objMaxLimits,
     isDefaultNonCustomField,
-    boolEditAllowed
+    boolEditAllowed,
+    fieldBuilderOptions
   ) {
     const boolSupportInternalName = objProductConfig.editInternalName;
     if (!boolSupportInternalName || !this.expanded) {
       return null;
     }
     const strBaseClassName = 'fw-field-editor';
-    const objFieldBuilder = this.fieldBuilderOptions;
+    const objFieldBuilder = fieldBuilderOptions;
     const strInputInternalName = hasCustomProperty(objFieldBuilder, 'name')
       ? objFieldBuilder.name
       : '';
@@ -1063,6 +1091,10 @@ export class FieldEditor {
       ? this.internalNameWarningMessage
       : '';
     const numNameMaxChars = objMaxLimits?.['maxInternalNameChars']?.count || 50;
+    const level = fieldBuilderOptions?.field_options?.level;
+    const dictElName = this.isDependentField
+      ? `${this.KEY_INTERNAL_NAME}_${level}`
+      : this.KEY_INTERNAL_NAME;
 
     return (
       <div class={`${strBaseClassName}-internal-name-base`}>
@@ -1078,9 +1110,7 @@ export class FieldEditor {
             </label>
           )}
           <fw-input
-            ref={(el) =>
-              (this.dictInteractiveElements[this.KEY_INTERNAL_NAME] = el)
-            }
+            ref={(el) => (this.dictInteractiveElements[dictElName] = el)}
             class={`${strBaseClassName}-content-required-internal-name-input`}
             placeholder={i18nText('fieldNamePlaceholder')}
             required={true}
@@ -1104,10 +1134,52 @@ export class FieldEditor {
     );
   }
 
-  private renderContent(
+  private renderFieldContent(
     objProductConfig,
     isDefaultNonCustomField,
     boolEditAllowed
+  ) {
+    const renderFields = [];
+    renderFields.push(
+      this.renderContent(
+        objProductConfig,
+        isDefaultNonCustomField,
+        boolEditAllowed,
+        this.fieldBuilderOptions
+      )
+    );
+
+    if (
+      this.isDependentField &&
+      this.fieldBuilderOptions.fields &&
+      this.fieldBuilderOptions.fields.length > 0
+    ) {
+      const recurseFieldContent = (builderOption) => {
+        renderFields.push(
+          this.renderContent(
+            objProductConfig,
+            isDefaultNonCustomField,
+            boolEditAllowed,
+            builderOption
+          )
+        );
+
+        if (builderOption?.fields?.length > 0) {
+          recurseFieldContent(builderOption.fields[0]);
+        }
+      };
+
+      recurseFieldContent(this.fieldBuilderOptions.fields[0]);
+    }
+
+    return renderFields.map((field) => field);
+  }
+
+  private renderContent(
+    objProductConfig,
+    isDefaultNonCustomField,
+    boolEditAllowed,
+    fieldBuilderOptions
   ) {
     if (!this.expanded) {
       return null;
@@ -1116,7 +1188,7 @@ export class FieldEditor {
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
     const boolSupportInternalName = objProductConfig.editInternalName;
     const strBaseClassName = 'fw-field-editor';
-    const objFieldBuilder = this.fieldBuilderOptions;
+    const objFieldBuilder = fieldBuilderOptions;
 
     /** Adding extra check for status type */
     const isStatusType = checkIfCustomToggleField(
@@ -1128,14 +1200,6 @@ export class FieldEditor {
       : '';
     const boolDIsableInputLabel = isDefaultNonCustomField || !boolEditAllowed;
     const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
-
-    const arrCheckboxes = hasCustomProperty(objFieldBuilder, 'checkboxes')
-      ? objFieldBuilder.checkboxes
-      : null;
-    const checkboxItems =
-      arrCheckboxes && arrCheckboxes.length > 0
-        ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
-        : null;
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
@@ -1160,19 +1224,18 @@ export class FieldEditor {
       }
     }
 
+    // Dependent Level checks
+    const level = fieldBuilderOptions?.field_options?.level;
+    const dictElName = this.isDependentField ? `name_level_${level}` : 'name';
+
     const elementStatusToggle = isStatusType
       ? this.renderStatusToggle(objFormValue)
       : null;
 
     const elementDropdown =
       isDropdownType && !boolIgnoreDropdownChoices
-        ? this.renderDropdown(boolDisableDropdowns)
+        ? this.renderDropdown(boolDisableDropdowns, fieldBuilderOptions)
         : null;
-
-    const isLookupType = strFieldType === 'RELATIONSHIP';
-    const elementRelationship = isLookupType
-      ? this.renderLookup(boolDisableDropdowns)
-      : null;
 
     const boolShowLabelError =
       this.showErrors && this.labelErrorMessage && this.labelErrorMessage !== ''
@@ -1194,20 +1257,9 @@ export class FieldEditor {
     const numLabelMaxChars = objMaxLimits?.['maxLabelChars']?.count || 255;
 
     return (
-      <div class={`${strBaseClassName}-content-required`}>
-        <div class={`${strBaseClassName}-content-checkboxes`}>
-          <label class={`${strBaseClassName}-content-checkboxes-header-label`}>
-            {i18nText('behaviour')}
-          </label>
-          {checkboxItems}
-        </div>
-        {isLookupType && (
-          <div class={`${strBaseClassName}-content-lookup`}>
-            {elementRelationship}
-          </div>
-        )}
+      <div>
         <fw-input
-          ref={(el) => (this.dictInteractiveElements['name'] = el)}
+          ref={(el) => (this.dictInteractiveElements[dictElName] = el)}
           class={`${strBaseClassName}-content-required-input`}
           placeholder={i18nText('fieldLabelPlaceholder')}
           label={i18nText('fieldLabel')}
@@ -1225,16 +1277,18 @@ export class FieldEditor {
               : 'normal'
           }
           disabled={boolDIsableInputLabel}
-          onFwBlur={this.labelBlurHandler}
-          onFwInput={this.labelInputHandler}
+          onFwBlur={(el) => this.labelBlurHandler(el, level)}
+          onFwInput={(el) => this.labelInputHandler(el, level)}
         ></fw-input>
         {boolSupportInternalName &&
           this.renderInternalName(
             objProductConfig,
             objMaxLimits,
             isDefaultNonCustomField,
-            boolEditAllowed
+            boolEditAllowed,
+            fieldBuilderOptions
           )}
+        {/* NEED TO CLEAN THIS UP ASAP */}
         {elementStatusToggle}
         {isDropdownType && (
           <div class={`${strBaseClassName}-content-dropdown`}>
@@ -1257,9 +1311,11 @@ export class FieldEditor {
     const objFieldBuilder = this.fieldBuilderOptions;
     const objFormValue = this.dataProvider;
     const boolNewField = this.isNewField;
-    const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
-      ? objFieldBuilder.type
-      : '';
+    const strFieldType =
+      objFieldBuilder?.field_options?.dependent &&
+      hasCustomProperty(objFieldBuilder, 'type')
+        ? 'DEPENDENT_FIELD'
+        : objFieldBuilder.type;
     const boolEnableSaveBtn =
       boolNewField || this.isValuesChanged ? true : false;
     const boolShowFieldValidationError =
@@ -1398,6 +1454,25 @@ export class FieldEditor {
       strFooterClassName += ` ${strBaseClassName}-footer-with-error`;
     }
 
+    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
+    const checkboxItems =
+      arrCheckboxes && arrCheckboxes.length > 0
+        ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
+        : null;
+
+    const isLookupType = strFieldType === 'RELATIONSHIP';
+    const elementRelationship = isLookupType
+      ? this.renderLookup(boolDisableDropdowns)
+      : null;
+
+    const fieldIcon = this.isDependentField
+      ? presetSchema.fieldTypes.DEPENDENT_FIELD.icon
+      : objFieldBuilder.icon;
+
+    const dependentFieldClass = this.isDependentField
+      ? 'flex flex-space-between'
+      : '';
+
     return (
       <Host tabIndex='-1'>
         <div
@@ -1420,15 +1495,9 @@ export class FieldEditor {
             >
               <span
                 class={`${strBaseClassName}-icon-container`}
-                style={{
-                  backgroundColor: objFieldBuilder.icon.bg_color,
-                }}
+                style={{ backgroundColor: fieldIcon.bg_color }}
               >
-                <fw-icon
-                  size={14}
-                  name={objFieldBuilder.icon.name}
-                  color='#475867'
-                />
+                <fw-icon size={14} name={fieldIcon.name} color='#475867' />
               </span>
               <label class={`${strBaseClassName}-label`}>
                 {strHeaderLabel}
@@ -1470,11 +1539,28 @@ export class FieldEditor {
           {this.expanded && (
             <div class={`${strBaseClassName}-body`}>
               <div class={`${strBaseClassName}-content`}>
-                {this.renderContent(
-                  objProductConfig,
-                  isDefaultNonCustomField,
-                  boolEditAllowed
-                )}
+                <div class={`${strBaseClassName}-content-required`}>
+                  <div class={`${strBaseClassName}-content-checkboxes`}>
+                    <label
+                      class={`${strBaseClassName}-content-checkboxes-header-label`}
+                    >
+                      {i18nText('behaviour')}
+                    </label>
+                    {checkboxItems}
+                  </div>
+                  {isLookupType && (
+                    <div class={`${strBaseClassName}-content-lookup`}>
+                      {elementRelationship}
+                    </div>
+                  )}
+                  <div class={dependentFieldClass}>
+                    {this.renderFieldContent(
+                      objProductConfig,
+                      isDefaultNonCustomField,
+                      boolEditAllowed
+                    )}
+                  </div>
+                </div>
               </div>
               <div class={strFooterClassName}>
                 {boolShowFieldValidationError && (

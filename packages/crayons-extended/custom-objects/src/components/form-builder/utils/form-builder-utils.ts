@@ -275,3 +275,32 @@ export function checkIfCustomToggleField(
     fieldName === dbConfig?.config?.showCustomToggleField
   );
 }
+
+export function updateNameLabelDependentField(
+  fieldBuilderOption,
+  level,
+  boolInternalNameUpdated,
+  strInputValue,
+  strInternalName
+) {
+  const objFieldData = deepCloneObject(fieldBuilderOption);
+
+  const onUpdateNameLabel = (json, level) => {
+    if (json?.field_options?.level === level) {
+      if (boolInternalNameUpdated) {
+        json.label = strInputValue;
+        json.name = strInternalName;
+      } else {
+        json.label = strInputValue;
+      }
+    }
+
+    if (json.fields && json.fields.length > 0) {
+      onUpdateNameLabel(json.fields[0], level);
+    }
+  };
+
+  onUpdateNameLabel(objFieldData, level);
+
+  return objFieldData;
+}

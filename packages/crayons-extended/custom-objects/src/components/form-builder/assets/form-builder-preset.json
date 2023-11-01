@@ -41,6 +41,65 @@
       "type": "MULTI_SELECT",
       "icon": { "name": "multiselect", "bg_color": "#E5F2FE" },
       "choices": [{ "value": "" }, { "value": "" }]
+    },
+    "DEPENDENT_FIELD": {
+      "type": "DROPDOWN",
+      "icon": { "name": "dependent-field", "bg_color": "#FEF1E0" },
+      "field_options": { "dependent": true, "level": "1" },
+      "choices": [
+        {
+          "id": "l1_1",
+          "value": "category 1",
+          "dependent_ids": {
+            "choice": [ "l2_1" ]
+          }
+        },
+        {
+          "id": "l1_2",
+          "value": "category 2",
+          "dependent_ids": {
+            "choice": [ "l2_2" ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "type": "DROPDOWN",
+          "field_options": { "dependent": true, "level": "2" },
+          "choices": [
+            {
+              "id": "l2_1",
+              "value": "subcategory 1",
+              "dependent_ids": {
+                "choice": [ "l3_1" ]
+              }
+            },
+            {
+              "id": "l2_2",
+              "value": "subcategory 2",
+              "dependent_ids": {
+                "choice": [ "l3_2" ]
+              }
+            }
+          ],
+          "fields": [
+            {
+              "type": "DROPDOWN",
+              "field_options": { "dependent": true, "level": "3" },
+              "choices": [
+                {
+                  "id": "l3_1",
+                  "value": "Item 1"
+                },
+                {
+                  "id": "l3_2",
+                  "value": "item 2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "relationshipTypes": [
