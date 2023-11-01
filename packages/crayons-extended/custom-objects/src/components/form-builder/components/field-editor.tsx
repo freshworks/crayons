@@ -222,6 +222,8 @@ export class FieldEditor {
           ? true
           : false;
 
+      this.dataProviderClone = deepCloneObject(this.dataProvider);
+
       if (this.isNewField) {
         this.isInternalNameEdited = false;
         const fieldTypeSchemaDataProvider =
@@ -229,7 +231,6 @@ export class FieldEditor {
             this.defaultFieldTypeSchema,
             this.dataProvider
           );
-        this.dataProviderClone = deepCloneObject(fieldTypeSchemaDataProvider);
         this.setCheckboxesAvailability(fieldTypeSchemaDataProvider);
       } else {
         this.isInternalNameEdited = true;
@@ -241,7 +242,6 @@ export class FieldEditor {
         );
 
         objDefaultFieldTypeSchema.label = this.dataProvider.label || '';
-        this.dataProviderClone = deepCloneObject(objDefaultFieldTypeSchema);
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
     } else {
@@ -691,6 +691,21 @@ export class FieldEditor {
     this.modalConfirmDelete?.close();
   };
 
+  private dependentFieldChangeHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.isValuesChanged = true;
+
+    const strType = event.detail.type;
+    switch (strType) {
+      case 'ADD':
+        this.assignValueToParent(event);
+        break;
+      default:
+        break;
+    }
+  };
+
   private dropdownChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
@@ -706,12 +721,6 @@ export class FieldEditor {
       case 'ADD':
       case 'REPOSITION':
         this.errorType = event.detail.errorType;
-        this.assignValueToParent(event);
-        break;
-      case 'SELECT':
-        this.dependentFieldLevels[`level${event.detail.level}`] =
-          event.detail.index;
-        this.watchDataproviderChangeHandler();
         break;
       default:
         break;
@@ -727,10 +736,6 @@ export class FieldEditor {
   }
 
   private assignValueToParent(event: CustomEvent) {
-    if (event.detail.level === 0) {
-      return;
-    }
-
     const parentLevel = event.detail.level - 1;
     const parentChoiceIndex = this.dependentFieldLevels[parentLevel];
     const newField = event.detail.value.filter((id) => event.detail.id === id);
@@ -1066,7 +1071,11 @@ export class FieldEditor {
         disabled={boolDisableDropdowns}
         isDependentField={isDependentField || false}
         level={objFormValue.field_options.level}
-        onFwChange={this.dropdownChangeHandler}
+        onFwChange={
+          this.isDependentField
+            ? this.dropdownChangeHandler
+            : this.dependentFieldChangeHandler
+        }
       ></fw-fb-field-dropdown>
     );
   }
