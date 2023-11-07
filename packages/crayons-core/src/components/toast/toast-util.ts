@@ -62,7 +62,7 @@ export function createToastStack(config: ToastOptions): HTMLElement {
     toastContainer = document.createElement('div');
     toastContainer.className = `fw-toast-stack ${config.position}`;
     toastContainer.style.cssText = `position: fixed;
-      z-index: 950;
+      z-index: var(--fw-toast-zindex,950);
       top: 10px;
       ${getStylePosition(config.position)}
       background-color: $color-milk;
