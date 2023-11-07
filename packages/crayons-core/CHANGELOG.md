@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.7...@freshworks/crayons@4.3.0-beta.8) (2023-11-07)
+
+
+### Features
+
+* **toast:** added css variable to set custom z-index for toast stack ([#900](https://github.com/freshworks/crayons/issues/900)) ([d211ee4](https://github.com/freshworks/crayons/commit/d211ee4de29b2f6ac47997125514146efd645d91))
+
+
+
+
+
 ## [4.3.0-beta.7](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.6...@freshworks/crayons@4.3.0-beta.7) (2023-10-16)
 
 ### Features
