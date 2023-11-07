@@ -198,6 +198,10 @@ function App() {
 </code-block>
 </code-group>
 
+## Custom Z-index
+
+You can use `--fw-toast-zindex` css variable to set custom z-index for the toast stack.
+
 ## ToastController
 
 You can also use `ToastController` to create Toast like below:
@@ -277,7 +281,6 @@ Refer [usage](#usage)
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property                  | Attribute                   | Description                                               | Type                                                | Default        |
@@ -291,19 +294,13 @@ Refer [usage](#usage)
 | `timeout`                 | `timeout`                   | Time duration of the toast visibility                     | `number`                                            | `4000`         |
 | `type`                    | `type`                      | Type of the toast - success,failure, warning, inprogress  | `"error" \| "inprogress" \| "success" \| "warning"` | `'warning'`    |
 
-
 ## Methods
 
 ### `trigger(opts: ToastOptions) => Promise<void>`
 
-
-
 #### Returns
 
 Type: `Promise<void>`
-
-
-
 
 ## Dependencies
 
@@ -312,6 +309,7 @@ Type: `Promise<void>`
 - [fw-toast-message](../toast-message)
 
 ### Graph
+
 ```mermaid
 graph TD;
   fw-toast --> fw-toast-message
@@ -320,6 +318,6 @@ graph TD;
   style fw-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
 Built with ❤ at Freshworks
