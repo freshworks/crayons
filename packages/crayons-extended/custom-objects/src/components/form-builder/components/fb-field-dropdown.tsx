@@ -49,6 +49,8 @@ export class FbFieldDropdown {
    * Disables all the options which can't be edited, reordered or deleted if set to true.
    */
   @Prop() disabled = false;
+
+  @Prop() level = null;
   /**
    * Triggered on data change for error handling on parent
    */
@@ -128,6 +130,12 @@ export class FbFieldDropdown {
     event.stopPropagation();
 
     const objNewChoice = { value: '' };
+    if (this.level) {
+      objNewChoice['id'] = createUUID();
+      objNewChoice['dependent_ids'] = {
+        choice: [],
+      };
+    }
     this.dataProvider = [...this.dataProvider, objNewChoice];
     this.errorType = i18nText('errors.emptyChoice');
     this.validateMaximumChoiceLimits();
@@ -136,6 +144,8 @@ export class FbFieldDropdown {
       type: 'ADD',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      level: this.level,
+      choice: objNewChoice,
     });
   };
 
@@ -193,6 +203,8 @@ export class FbFieldDropdown {
       type: 'VALUE_CHANGE',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      level: this.level,
+      choice: this.dataProvider[intIndex],
     });
   };
 
@@ -231,6 +243,18 @@ export class FbFieldDropdown {
     }
   };
 
+  private selectItemChoice = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
+    this.fwChange.emit({
+      type: 'SELECT',
+      level: this.level,
+      index: event.detail.index,
+      id: event.detail.id,
+    });
+  };
+
   private renderNameEditorElement(dataItem, intIndex) {
     const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
     const boolNewChoice = !hasCustomProperty(dataItem, 'id');
@@ -249,6 +273,7 @@ export class FbFieldDropdown {
         showErrors={this.showErrors}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
+        onFwSelect={this.selectItemChoice}
       ></fw-fb-field-dropdown-item>
     );
   }

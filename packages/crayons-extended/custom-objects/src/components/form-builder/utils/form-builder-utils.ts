@@ -276,6 +276,61 @@ export function checkIfCustomToggleField(
   );
 }
 
+/**
+ *
+ * DEPENDENT FIELD UTILS
+ * */
+
+/** Returns filtered choices by ids */
+const getChoicesById = (choices, ids) => {
+  return choices.filter((choice) => ids.includes(choice.id));
+};
+
+/** Returns choice by id */
+const findChoice = (choices, id) => {
+  return choices.find((choice) => choice.id === id);
+};
+
+/** Mapping id to parent on creating new child dropdown field */
+const mapchildChoiceToParent = (
+  level,
+  idToMap,
+  parentChoices,
+  dependentLevels
+) => {
+  const parentLevel = `${Number(level) - 1}`;
+  const parentId = dependentLevels[`level${parentLevel}`];
+  const choice = findChoice(parentChoices, parentId);
+
+  if (choice && choice.id) {
+    choice.dependent_ids.choice.push(idToMap);
+  }
+};
+
+/** Updates field value by choice */
+const updateChoiceByValue = (choices, { id, value }) => {
+  const choice = findChoice(choices, id);
+
+  if (choice) {
+    choice.value = value;
+  }
+};
+
+/** Handles and updates dependent level upon selection */
+export function updateDependentLevelSelection(dependentLevels, detail) {
+  if (detail?.level === '1') {
+    return {
+      [`level${detail.level}`]: detail.id,
+    };
+  }
+
+  return {
+    ...dependentLevels,
+    [`level${detail.level}`]: detail.id,
+  };
+}
+
+/** Recurse and updates the fields [Name, Label] */
 export function updateNameLabelDependentField(
   fieldBuilderOption,
   level,
@@ -311,4 +366,71 @@ export function updateNameLabelDependentField(
   onUpdateNameLabel(objFieldData, level);
 
   return objFieldData;
+}
+
+/** Selecting parent updates child choices */
+export function getChildChoices(
+  parentChoices,
+  currentField,
+  parentLevel,
+  dependentLevels
+) {
+  const parentChoiceId = dependentLevels[`level${parentLevel}`];
+  if (parentChoiceId) {
+    const choice = findChoice(parentChoices, parentChoiceId);
+    if (!choice.dependent_ids.choice.length) {
+      const id = createUUID();
+      choice.dependent_ids.choice.push(id);
+      currentField.choices.push({
+        id: id,
+        value: '',
+        dependent_ids: { choice: [] },
+      });
+    }
+    return getChoicesById(currentField.choices, choice.dependent_ids.choice);
+  }
+
+  return getChoicesById(
+    currentField.choices,
+    parentChoices[0].dependent_ids.choice
+  );
+}
+
+/** Add choices in level - Dependent field */
+export function addChoiceInLevel(
+  dataProvider,
+  { choice, level },
+  type,
+  dependentLevels
+) {
+  const updateChoice = (json, choice, parentChoices) => {
+    if (json.field_options.level === level) {
+      switch (type) {
+        case 'ADD':
+          json.choices.push({ ...choice, dependent_ids: { choice: [] } });
+          if (level !== '1') {
+            mapchildChoiceToParent(
+              level,
+              choice.id,
+              parentChoices,
+              dependentLevels
+            );
+          }
+          break;
+        case 'VALUE_CHANGE':
+          updateChoiceByValue(json.choices, choice);
+          break;
+        default:
+          break;
+      }
+
+      return dataProvider;
+    }
+
+    if (json.fields.length) {
+      return updateChoice(json.fields[0], choice, json.choices);
+    }
+  };
+
+  return updateChoice(dataProvider, choice, dataProvider.choices);
 }

@@ -57,6 +57,10 @@ export class FbFieldDropdownItem {
    * Triggered on choice input blur
    */
   @Event() fwChange!: EventEmitter;
+  /**
+   * Triggered on choice selection
+   */
+  @Event() fwSelect!: EventEmitter;
 
   /**
    * function called on reorder button mousedown to enable the parent as draggable
@@ -144,6 +148,16 @@ export class FbFieldDropdownItem {
       : int + ordinals[3];
   };
 
+  private nameFocusHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
+    this.fwSelect.emit({
+      index: this.index,
+      id: this.dataProvider.id,
+    });
+  };
+
   render() {
     const dpSource = this.dataProvider;
     if (!dpSource) {
@@ -201,6 +215,7 @@ export class FbFieldDropdownItem {
               disabled={this.disabled}
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
+              onFwFocus={this.nameFocusHandler}
             ></fw-input>
           </div>
           <span

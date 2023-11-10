@@ -24,6 +24,9 @@ import {
   hasPermission,
   checkIfCustomToggleField,
   updateNameLabelDependentField,
+  getChildChoices,
+  addChoiceInLevel,
+  updateDependentLevelSelection,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -163,6 +166,8 @@ export class FieldEditor {
    * flag to show spinner on delete button
    */
   @State() isDeleting = false;
+
+  @State() dependentLevels = {};
   /**
    * Triggered when the field is expanded or collapsed
    */
@@ -729,10 +734,32 @@ export class FieldEditor {
       case 'VALUE_CHANGE':
         this.errorType = event.detail.errorType;
         this.validateDropdownErrors(event.detail.value);
+        if (this.isDependentField) {
+          this.fieldBuilderOptions = addChoiceInLevel(
+            this.fieldBuilderOptions,
+            event.detail,
+            strType,
+            this.dependentLevels
+          );
+        }
         break;
       case 'ADD':
       case 'REPOSITION':
         this.errorType = event.detail.errorType;
+        if (this.isDependentField) {
+          this.fieldBuilderOptions = addChoiceInLevel(
+            this.fieldBuilderOptions,
+            event.detail,
+            strType,
+            this.dependentLevels
+          );
+        }
+        break;
+      case 'SELECT':
+        this.dependentLevels = updateDependentLevelSelection(
+          this.dependentLevels,
+          event.detail
+        );
         break;
       default:
         break;
@@ -1040,16 +1067,20 @@ export class FieldEditor {
     );
   }
 
-  private renderDropdown(boolDisableDropdowns, fieldBuilderOptions) {
-    const objFormValue = fieldBuilderOptions;
+  private renderDropdown(boolDisableDropdowns, fieldBuilderOptions, choices) {
+    const level = fieldBuilderOptions?.field_options?.level;
+    const dictElName = this.isDependentField
+      ? `choices_level_${level}`
+      : 'choices';
 
     return (
       <fw-fb-field-dropdown
-        ref={(el) => (this.dictInteractiveElements['choices'] = el)}
-        dataProvider={objFormValue.choices}
+        ref={(el) => (this.dictInteractiveElements[dictElName] = el)}
+        dataProvider={choices}
         productName={this.productName}
-        showErrors={this.showErrors['choices']}
+        showErrors={this.showErrors[dictElName]}
         disabled={boolDisableDropdowns}
+        level={level}
         onFwChange={this.dropdownChangeHandler}
       ></fw-fb-field-dropdown>
     );
@@ -1209,7 +1240,8 @@ export class FieldEditor {
         objProductConfig,
         isDefaultNonCustomField,
         boolEditAllowed,
-        this.fieldBuilderOptions
+        this.fieldBuilderOptions,
+        this.fieldBuilderOptions.choices
       )
     );
 
@@ -1218,22 +1250,42 @@ export class FieldEditor {
       this.fieldBuilderOptions.fields &&
       this.fieldBuilderOptions.fields.length > 0
     ) {
-      const recurseFieldContent = (builderOption) => {
+      const recurseFieldContent = (
+        builderOption,
+        parentChoices,
+        parentLevel
+      ) => {
+        const choices = getChildChoices(
+          parentChoices,
+          builderOption,
+          parentLevel,
+          this.dependentLevels
+        );
+
         renderFields.push(
           this.renderContent(
             objProductConfig,
             isDefaultNonCustomField,
             boolEditAllowed,
-            builderOption
+            builderOption,
+            choices
           )
         );
 
         if (builderOption?.fields?.length > 0) {
-          recurseFieldContent(builderOption.fields[0]);
+          recurseFieldContent(
+            builderOption.fields[0],
+            choices,
+            builderOption.field_options.level
+          );
         }
       };
 
-      recurseFieldContent(this.fieldBuilderOptions.fields[0]);
+      recurseFieldContent(
+        this.fieldBuilderOptions.fields[0],
+        this.fieldBuilderOptions.choices,
+        this.fieldBuilderOptions.field_options.level
+      );
     }
 
     return renderFields.map((field) => field);
@@ -1243,7 +1295,8 @@ export class FieldEditor {
     objProductConfig,
     isDefaultNonCustomField,
     boolEditAllowed,
-    fieldBuilderOptions
+    fieldBuilderOptions,
+    choices
   ) {
     if (!this.expanded) {
       return null;
@@ -1298,7 +1351,11 @@ export class FieldEditor {
 
     const elementDropdown =
       isDropdownType && !boolIgnoreDropdownChoices
-        ? this.renderDropdown(boolDisableDropdowns, fieldBuilderOptions)
+        ? this.renderDropdown(
+            boolDisableDropdowns,
+            fieldBuilderOptions,
+            choices
+          )
         : null;
 
     const boolShowLabelError =

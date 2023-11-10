@@ -81,6 +81,7 @@ export namespace Components {
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
+        "level": any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
@@ -854,6 +855,7 @@ declare namespace LocalJSX {
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
+        "level"?: any;
         /**
           * Triggered on data change for error handling on parent
          */
@@ -896,6 +898,10 @@ declare namespace LocalJSX {
           * Triggered on delete button click
          */
         "onFwDelete"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
+        /**
+          * Triggered on choice selection
+         */
+        "onFwSelect"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */

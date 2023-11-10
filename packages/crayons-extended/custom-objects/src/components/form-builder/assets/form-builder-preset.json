@@ -68,17 +68,17 @@
           "field_options": { "dependent": true, "level": "2" },
           "choices": [
             {
-              "id": "l2_1",
-              "value": "subcategory 1",
-              "dependent_ids": {
-                "choice": [ "l3_1" ]
-              }
-            },
-            {
               "id": "l2_2",
               "value": "subcategory 2",
               "dependent_ids": {
                 "choice": [ "l3_2" ]
+              }
+            },
+            {
+              "id": "l2_1",
+              "value": "subcategory 1",
+              "dependent_ids": {
+                "choice": [ "l3_1" ]
               }
             }
           ],
