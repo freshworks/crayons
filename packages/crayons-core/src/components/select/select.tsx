@@ -279,6 +279,11 @@ export class Select {
    */
   @Prop() tagProps = {};
 
+  /**
+   *  Virtualize long list of elements in list options *Experimental*
+   */
+  @Prop() enableVirtualScroll = false;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -1120,6 +1125,8 @@ export class Select {
                 slot='popover-content'
                 optionLabelPath={this.optionLabelPath}
                 optionValuePath={this.optionValuePath}
+                isPopoverOpen={this.isExpanded}
+                enableVirtualScroll={this.enableVirtualScroll}
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>

@@ -1231,6 +1231,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll": boolean;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -1247,6 +1251,10 @@ export namespace Components {
           * Allows user to create the option if the provided input doesn't match with any of the options.
          */
         "isCreatable": boolean;
+        /**
+          * Is the popover in open state
+         */
+        "isPopoverOpen": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1310,6 +1318,10 @@ export namespace Components {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
+        /**
+          * WorkAround for wait until next render in stenciljs https://github.com/ionic-team/stencil/issues/2744
+         */
+        "waitForNextRender": () => Promise<unknown>;
     }
     interface FwMenu {
     }
@@ -1692,6 +1704,10 @@ export namespace Components {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
+        /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll": boolean;
         /**
           * Error text displayed below the text box.
          */
@@ -4179,6 +4195,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll"?: boolean;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -4194,6 +4214,10 @@ declare namespace LocalJSX {
           * Allows user to create the option if the provided input doesn't match with any of the options.
          */
         "isCreatable"?: boolean;
+        /**
+          * Is the popover in open state
+         */
+        "isPopoverOpen"?: boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -4644,6 +4668,10 @@ declare namespace LocalJSX {
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
+        /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll"?: boolean;
         /**
           * Error text displayed below the text box.
          */

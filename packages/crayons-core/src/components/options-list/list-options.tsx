@@ -48,11 +48,24 @@ export class ListOptions {
       resolve(filteredValue);
     });
   };
+  // private filteredFilesRef = null;
+  private scrollVirtualizer = null;
+  private scrollVirtualizerCleanup = null;
+  private renderPromiseResolve = null;
 
   @State() filteredOptions = [];
   @State() selectOptions = [];
   @State() selectedOptionsState = [];
   @State() isLoading = false;
+  /**
+   * State to trigger rerender.
+   *
+   * Necessary for virtual-scroll to initiate
+   * As virtual scroll is created from inside the lifecycle event (we need reference container)
+   * but stencil expects store to be imported before render, thus necessary to trigger rerender
+   * to subscribe to changes in scroller
+   */
+  @State() tick = {};
 
   /**
    * Value corresponding to the option, that is saved  when the form data is saved.
@@ -158,6 +171,17 @@ export class ListOptions {
    *  Key for determining the value for a given option
    */
   @Prop() optionValuePath = 'value';
+
+  /**
+   *  Is the popover in open state
+   */
+  @Prop() isPopoverOpen = false;
+
+  /**
+   *  Virtualize long list of elements in list options *Experimental*
+   */
+  @Prop() enableVirtualScroll = false;
+
   /**
    * Triggered when a value is selected or deselected from the list box options.
    */
@@ -166,6 +190,32 @@ export class ListOptions {
    * Triggered when the options list is in loading state processing the search function.
    */
   @Event({ cancelable: true }) fwLoading: EventEmitter;
+
+  /**
+   * componentDidRender lifecycle event
+   */
+  componentDidRender() {
+    if (this.renderPromiseResolve) {
+      this.renderPromiseResolve();
+      this.renderPromiseResolve = null;
+    }
+  }
+
+  /**
+   * WorkAround for wait until next render in stenciljs
+   * https://github.com/ionic-team/stencil/issues/2744
+   */
+  waitForNextRender() {
+    return new Promise((resolve) => (this.renderPromiseResolve = resolve));
+  }
+
+  connectedCallback() {
+    this.waitForNextRender().then(() => this.initScroller());
+  }
+
+  disconnectedCallback() {
+    this.scrollVirtualizerCleanup?.();
+  }
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
@@ -338,6 +388,49 @@ export class ListOptions {
     this.setSelectedOptions(newValue);
   }
 
+  @Watch('isPopoverOpen')
+  isPopoverOpenWatcher(): void {
+    if (this.isPopoverOpen) {
+      this.initScroller();
+    } else {
+      this.scrollVirtualizerCleanup();
+    }
+  }
+
+  async initScroller() {
+    const scrollElement = this.getScrollElement();
+    if (this.filteredOptions?.length && scrollElement) {
+      const rect = scrollElement.getBoundingClientRect();
+      if (rect.height) {
+        const options: any = {
+          count: this.filteredOptions.length,
+          getScrollElement: () => {
+            return scrollElement;
+          },
+          estimateSize: () => 35,
+        };
+        if (this.scrollVirtualizer) {
+          this.scrollVirtualizerCleanup();
+        }
+        const createVirtualizer = await (
+          await import('../../utils/stencil-virtual-scroll')
+        ).createVirtualizer;
+        const virtualScroll = createVirtualizer(options);
+        this.scrollVirtualizer = virtualScroll.virtualizer;
+        this.scrollVirtualizerCleanup = () => {
+          virtualScroll.cleanup();
+          this.scrollVirtualizer = null;
+          this.scrollVirtualizerCleanup = null;
+        };
+        this.tick = {};
+      } else {
+        this.scrollVirtualizer = null;
+      }
+    } else {
+      this.scrollVirtualizer = null;
+    }
+  }
+
   valueExists() {
     return this.multiple ? this.value.length > 0 : !!this.value;
   }
@@ -505,36 +598,78 @@ export class ListOptions {
     this.filteredOptions = this.selectOptions;
   }
 
+  renderVirtualList(options: Array<any>): JSX.Element {
+    const scrollElement = this.getScrollElement();
+    const virtualItems = this.scrollVirtualizer?.getVirtualItems();
+    return (
+      scrollElement &&
+      this.scrollVirtualizer && (
+        <div
+          style={{
+            height: `${this.scrollVirtualizer.getTotalSize()}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: '0px',
+              left: '0px',
+              width: '100%',
+              transform: `translateY(${virtualItems?.[0]?.start ?? 0}px)`,
+            }}
+          >
+            {virtualItems.map((virtualItem) => {
+              const option = options[virtualItem.index];
+              return (
+                <div
+                  key={virtualItem.key}
+                  ref={this.scrollVirtualizer.measureElement}
+                  data-index={virtualItem.index}
+                >
+                  {this.renderSelectOption(option)}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )
+    );
+  }
+
+  renderSelectOption(option) {
+    const isDisabled =
+      this.selectedOptionsState?.find(
+        (selected) =>
+          selected[this.optionValuePath] === option[this.optionValuePath]
+      )?.disabled ||
+      option.disabled ||
+      (!this.allowDeselect && option.selected) ||
+      (this.multiple && !option.selected && this.value?.length >= this.max);
+    const isDefaultOption = [
+      this.noDataText,
+      TranslationController.t('search.noDataAvailable'),
+      this.notFoundText,
+      TranslationController.t('search.noItemsFound'),
+    ].includes(option[this.optionLabelPath]);
+    const checkbox = !isDefaultOption && (this.checkbox || option.checkbox);
+    return (
+      <fw-select-option
+        id={`${this.host.id}-option-${option[this.optionValuePath]}`}
+        key={option[this.optionValuePath]}
+        allowSelect={this.allowSelect}
+        {...option}
+        text={option[this.optionLabelPath]}
+        value={option[this.optionValuePath]}
+        disabled={isDisabled}
+        checkbox={checkbox}
+      ></fw-select-option>
+    );
+  }
+
   renderSelectOptions(options: Array<any>) {
-    return options.map((option) => {
-      const isDisabled =
-        this.selectedOptionsState?.find(
-          (selected) =>
-            selected[this.optionValuePath] === option[this.optionValuePath]
-        )?.disabled ||
-        option.disabled ||
-        (!this.allowDeselect && option.selected) ||
-        (this.multiple && !option.selected && this.value?.length >= this.max);
-      const isDefaultOption = [
-        this.noDataText,
-        TranslationController.t('search.noDataAvailable'),
-        this.notFoundText,
-        TranslationController.t('search.noItemsFound'),
-      ].includes(option[this.optionLabelPath]);
-      const checkbox = !isDefaultOption && (this.checkbox || option.checkbox);
-      return (
-        <fw-select-option
-          id={`${this.host.id}-option-${option[this.optionValuePath]}`}
-          key={option[this.optionValuePath]}
-          allowSelect={this.allowSelect}
-          {...option}
-          text={option[this.optionLabelPath]}
-          value={option[this.optionValuePath]}
-          disabled={isDisabled}
-          checkbox={checkbox}
-        ></fw-select-option>
-      );
-    });
+    return options.map((option) => this.renderSelectOption(option));
   }
 
   renderSearchInput() {
@@ -570,6 +705,16 @@ export class ListOptions {
     this.setDataSource(this.options);
   }
 
+  getScrollElement() {
+    const parent = this.host?.parentElement;
+    if (parent && parent.tagName === 'FW-POPOVER') {
+      const content = parent.shadowRoot?.querySelector('.popper-content');
+      return content;
+    } else {
+      return parent;
+    }
+  }
+
   render() {
     return (
       <div
@@ -579,7 +724,9 @@ export class ListOptions {
         }}
       >
         {this.searchable && this.renderSearchInput()}
-        {this.renderSelectOptions(this.filteredOptions)}
+        {this.enableVirtualScroll
+          ? this.renderVirtualList(this.filteredOptions)
+          : this.renderSelectOptions(this.filteredOptions)}
       </div>
     );
   }
