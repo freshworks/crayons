@@ -333,7 +333,7 @@ The data-source and the visual variant for the list options can be altered via t
 | `checkbox`            | `checkbox`              | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
 | `debounceTimer`       | `debounce-timer`        | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
 | `disabled`            | `disabled`              | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                             | `false`                      |
-| `enableVirtualScroll` | `enable-virtual-scroll` | Virtualize long list of elements in list options *Experimental*                                                                                                                                                                           | `boolean`                                             | `true`                       |
+| `enableVirtualScroll` | `enable-virtual-scroll` | Virtualize long list of elements in list options *Experimental*                                                                                                                                                                           | `boolean`                                             | `false`                      |
 | `filterText`          | `filter-text`           | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
 | `formatCreateLabel`   | --                      | Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.                                                                                                                                    | `(value: string) => string`                           | `undefined`                  |
 | `hideTick`            | `hide-tick`             | hide tick mark icon on select option                                                                                                                                                                                                      | `boolean`                                             | `false`                      |
@@ -422,17 +422,6 @@ Pass an array of string in case of multi-select or string for single-select.
 #### Returns
 
 Type: `Promise<any>`
-
-
-
-### `waitForNextRender() => Promise<unknown>`
-
-WorkAround for wait until next render in stenciljs
-https://github.com/ionic-team/stencil/issues/2744
-
-#### Returns
-
-Type: `Promise<unknown>`
 
 
 

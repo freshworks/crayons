@@ -1318,10 +1318,6 @@ export namespace Components {
           * Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.
          */
         "variant": DropdownVariant;
-        /**
-          * WorkAround for wait until next render in stenciljs https://github.com/ionic-team/stencil/issues/2744
-         */
-        "waitForNextRender": () => Promise<unknown>;
     }
     interface FwMenu {
     }
