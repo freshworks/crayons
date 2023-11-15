@@ -235,7 +235,6 @@ export class ListOptions {
 
   debouncedFwShowHandler = debounce(
     () => {
-      console.log('this is fw show event');
       this.initScroller();
     },
     this,
@@ -244,7 +243,6 @@ export class ListOptions {
 
   debouncedFwHideHandler = debounce(
     () => {
-      console.log('this is fw hide event');
       this.scrollVirtualizer?.scrollToOffset(0);
       this.scrollVirtualizer?.measure();
     },
@@ -320,7 +318,11 @@ export class ListOptions {
 
   @Method()
   async scrollToLastSelected() {
-    if (this.filteredOptions.length > 0 && this.valueExists()) {
+    if (
+      !this.enableVirtualScroll &&
+      this.filteredOptions.length > 0 &&
+      this.valueExists()
+    ) {
       this.container
         .querySelector(
           `fw-select-option[id='${
@@ -460,7 +462,6 @@ export class ListOptions {
       ).createVirtualizer;
       const virtualScroll = createVirtualizer(options);
       this.scrollVirtualizer = virtualScroll.virtualizer;
-      this.scrollVirtualizer?.scrollToOffset(0);
       this.scrollVirtualizerCleanup = () => {
         virtualScroll.cleanup();
         this.scrollVirtualizer = null;

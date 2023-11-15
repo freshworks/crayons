@@ -1857,6 +1857,84 @@ export default Select;
 </code-block>
 </code-group>
 
+### Demo with virtual scroll
+
+**This feature is experimental, it needs to be explicitly activated using the `enableVirtualScroll` feature flag.**
+
+`enableVirtualScroll` property can be used to enable virtualisation of long list of options.
+`estimatedSize` property can be used to set estimated size of items in the list box to ensure smooth-scrolling.
+
+```html live
+<fw-label value="With Virtual Scroll" color="blue"></fw-label><br /><br />
+  <fw-select
+    id="longList"
+    estimated-size="40"
+    enable-virtual-scroll="true"
+  ></fw-select>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage of Virtual scroll
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With Virtual Scroll" color="blue"></fw-label><br /><br />
+  <fw-select
+    id="longList"
+    estimated-size="40"
+    enable-virtual-scroll="true"
+  ></fw-select>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+function Select() {
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  return (
+    <FwSelect
+      id='longList'
+      options={longListOptions}
+      enableVirtualScroll
+      estimatedSize={90}
+    ></FwSelect>
+  );
+}
+export default Select;
+```
+
+</code-block>
+</code-group>
+
 ## Styling
 
 Refer the css variables in fw-popover to control the height and width of the select popup.
@@ -1878,6 +1956,7 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `disabled`            | `disabled`              | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
 | `enableVirtualScroll` | `enable-virtual-scroll` | Virtualize long list of elements in list options *Experimental*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
 | `errorText`           | `error-text`            | Error text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `string`                                                                                                                                                             | `''`                                                                                                                               |
+| `estimatedSize`       | `estimated-size`        | Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | `number`                                                                                                                                                             | `35`                                                                                                                               |
 | `fallbackPlacements`  | --                      | Alternative placement for popover if the default placement is not possible.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | `[PopoverPlacementType]`                                                                                                                                             | `['top']`                                                                                                                          |
 | `forceSelect`         | `force-select`          | If true, the user must select a value. The default value is not displayed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                                                                                                            | `true`                                                                                                                             |
 | `hintText`            | `hint-text`             | Hint text displayed below the text box.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | `string`                                                                                                                                                             | `''`                                                                                                                               |
