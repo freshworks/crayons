@@ -57,3 +57,28 @@ $warning-color: $color-casablanca-300;
     }
   }
 }
+
+.fb-field-dependent {
+  .fb-field-dropdown-label-dependent-field {
+    font-size: 14px;
+    line-height: 21px;
+    background: $color-smoke-100;
+    padding-inline-start: 10px;
+    border-radius: 4px;
+    margin-block-end: 4px;
+    color: $color-elephant-900;
+    width: calc(100% + 24px);
+  }
+
+  .spacing-bottom-1 {
+    margin-block-start: 20px;
+  }
+
+  .spacing-bottom-2 {
+    margin-block-start: 40px;
+  }
+
+  .spacing-bottom-3 {
+    margin-block-start: 60px;
+  }
+}

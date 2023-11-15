@@ -118,6 +118,7 @@
     "customizeWidget": "Customize widget",
     "addChoices": "Add choices",
     "addChoice": "Add choice",
+    "level": "Level",
     "choicePlaceholderSuffix": "Choice",
     "headerFieldTypes": "Field types",
     "headerFields": "Fields",
@@ -160,6 +161,7 @@
     "noCreatePermissionFieldAddDisabledHeader": "You do not have permission to create new properties",
     "noCreatePermissionFieldAddDisabledMessage": "Please reach out to your admin for more details.",
     "ertText": "Effective resolution timer",
+    "dropdownChoices": "Dropdown choices",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",

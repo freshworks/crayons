@@ -8,6 +8,17 @@
   box-sizing: border-box;
 }
 
+.fb-field-dependent-dropdown-item {
+  border: thin solid $color-smoke-100;
+  margin-block-end: unset !important;
+  padding-block: 8px 4px;
+  background-color: $color-milk;
+}
+
+.dropdown-item-selected {
+  background-color: $color-azure-50;
+}
+
 .fb-field-dropdown-item {
   width: calc(100% + 24px + 8px);
   height: auto;

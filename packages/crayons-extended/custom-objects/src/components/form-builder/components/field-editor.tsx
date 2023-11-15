@@ -26,7 +26,9 @@ import {
   updateNameLabelDependentField,
   getChildChoices,
   addChoiceInLevel,
-  updateDependentLevelSelection,
+  updateLevelSelection,
+  updateFieldAttributes,
+  getParentId,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -222,9 +224,10 @@ export class FieldEditor {
         this.setCheckboxesAvailability(deepCloneObject(this.dataProvider));
       } else {
         this.isInternalNameEdited = true;
-        const objDefaultFieldTypeSchema = deepCloneObject(
+        let objDefaultFieldTypeSchema = deepCloneObject(
           this.defaultFieldTypeSchema
         );
+
         objDefaultFieldTypeSchema.choices =
           hasCustomProperty(this.dataProvider, 'choices') &&
           this.dataProvider.choices.length > 0
@@ -237,6 +240,16 @@ export class FieldEditor {
             this.dataProvider.name,
             this.internalNamePrefix
           ) || '';
+
+        if (this.isDependentField) {
+          objDefaultFieldTypeSchema = updateFieldAttributes(
+            this.dataProvider,
+            objDefaultFieldTypeSchema,
+            ['label', 'name'],
+            this.internalNamePrefix
+          );
+        }
+
         this.setCheckboxesAvailability(objDefaultFieldTypeSchema);
       }
     } else {
@@ -527,13 +540,11 @@ export class FieldEditor {
       objValues['fields'] = [
         {
           field_options: { level: '2', dependent: true },
+          type: '2',
           fields: [
             {
-              fields: [
-                {
-                  field_options: { level: '3', dependent: true },
-                },
-              ],
+              field_options: { level: '3', dependent: true },
+              type: '2',
             },
           ],
         },
@@ -600,16 +611,18 @@ export class FieldEditor {
           objValues[key] = elInteractive.checked || false;
           break;
         case 'fw-fb-field-dropdown': {
-          const arrDropdownValues =
-            deepCloneObject(elInteractive.dataProvider) || [];
-          boolValidForm = this.validateDropdownErrors(arrDropdownValues);
-          if (boolValidForm) {
-            delete this.showErrors[key];
-            objValues[key] = arrDropdownValues || [];
-          } else {
-            elInteractive.validateErrors();
-            this.showErrors[key] = true;
-            return;
+          if (!this.isDependentField) {
+            const arrDropdownValues =
+              deepCloneObject(elInteractive.dataProvider) || [];
+            boolValidForm = this.validateDropdownErrors(arrDropdownValues);
+            if (boolValidForm) {
+              delete this.showErrors[key];
+              objValues[key] = arrDropdownValues || [];
+            } else {
+              elInteractive.validateErrors();
+              this.showErrors[key] = true;
+              return;
+            }
           }
           break;
         }
@@ -639,6 +652,14 @@ export class FieldEditor {
       if (!this.isNewField) {
         objValues[this.KEY_INTERNAL_NAME] = this.dataProvider.name;
       }
+
+      if (this.isDependentField) {
+        // Add validation
+        objValues = updateFieldAttributes(this.fieldBuilderOptions, objValues, [
+          'name',
+        ]);
+      }
+
       this.internalNameWarningMessage = '';
       this.internalNameErrorMessage = '';
       this.labelWarningMessage = '';
@@ -734,36 +755,32 @@ export class FieldEditor {
       case 'VALUE_CHANGE':
         this.errorType = event.detail.errorType;
         this.validateDropdownErrors(event.detail.value);
-        if (this.isDependentField) {
-          this.fieldBuilderOptions = addChoiceInLevel(
-            this.fieldBuilderOptions,
-            event.detail,
-            strType,
-            this.dependentLevels
-          );
-        }
+        this.updateFieldBuilderOptions(event, strType);
         break;
       case 'ADD':
       case 'REPOSITION':
         this.errorType = event.detail.errorType;
-        if (this.isDependentField) {
-          this.fieldBuilderOptions = addChoiceInLevel(
-            this.fieldBuilderOptions,
-            event.detail,
-            strType,
-            this.dependentLevels
-          );
-        }
+        this.updateFieldBuilderOptions(event, strType);
         break;
       case 'SELECT':
-        this.dependentLevels = updateDependentLevelSelection(
-          this.dependentLevels,
-          event.detail
-        );
+        this.dependentLevels = updateLevelSelection(this, event);
         break;
       default:
         break;
     }
+
+    // Reset dependentLevels
+    if (strType === 'DELETE' && this.isDependentField) {
+      this.dependentLevels = {};
+    }
+  };
+
+  private updateFieldBuilderOptions = (event, strType) => {
+    if (!this.isDependentField) {
+      return;
+    }
+
+    this.fieldBuilderOptions = addChoiceInLevel(this, event, strType);
   };
 
   private statusToggleHandler = (event: CustomEvent) => {
@@ -1067,7 +1084,12 @@ export class FieldEditor {
     );
   }
 
-  private renderDropdown(boolDisableDropdowns, fieldBuilderOptions, choices) {
+  private renderDropdown(
+    boolDisableDropdowns,
+    fieldBuilderOptions,
+    choices,
+    parentId
+  ) {
     const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField
       ? `choices_level_${level}`
@@ -1081,7 +1103,10 @@ export class FieldEditor {
         showErrors={this.showErrors[dictElName]}
         disabled={boolDisableDropdowns}
         level={level}
+        isDependentField={this.isDependentField}
+        dependentLevels={this.dependentLevels}
         onFwChange={this.dropdownChangeHandler}
+        parentId={parentId}
       ></fw-fb-field-dropdown>
     );
   }
@@ -1241,7 +1266,8 @@ export class FieldEditor {
         isDefaultNonCustomField,
         boolEditAllowed,
         this.fieldBuilderOptions,
-        this.fieldBuilderOptions.choices
+        this.fieldBuilderOptions.choices,
+        null
       )
     );
 
@@ -1262,13 +1288,20 @@ export class FieldEditor {
           this.dependentLevels
         );
 
+        const parentId = getParentId(
+          parentChoices,
+          parentLevel,
+          this.dependentLevels
+        );
+
         renderFields.push(
           this.renderContent(
             objProductConfig,
             isDefaultNonCustomField,
             boolEditAllowed,
             builderOption,
-            choices
+            choices,
+            parentId
           )
         );
 
@@ -1296,7 +1329,8 @@ export class FieldEditor {
     isDefaultNonCustomField,
     boolEditAllowed,
     fieldBuilderOptions,
-    choices
+    choices,
+    parentId
   ) {
     if (!this.expanded) {
       return null;
@@ -1354,7 +1388,8 @@ export class FieldEditor {
         ? this.renderDropdown(
             boolDisableDropdowns,
             fieldBuilderOptions,
-            choices
+            choices,
+            parentId
           )
         : null;
 

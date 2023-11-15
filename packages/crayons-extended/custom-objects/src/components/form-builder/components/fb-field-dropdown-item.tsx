@@ -49,6 +49,10 @@ export class FbFieldDropdownItem {
    * index attached inside the parent group component
    */
   @Prop() index = -1;
+
+  @Prop() isDependentField = false;
+
+  @Prop() itemSelected = false;
   /**
    * Triggered on delete button click
    */
@@ -190,10 +194,19 @@ export class FbFieldDropdownItem {
       strDragClassName += ` ${strBaseDragClassName}--unsortable`;
     }
 
+    const itemSelectedClass =
+      this.isDependentField && this.itemSelected
+        ? 'dropdown-item-selected'
+        : '';
+
+    const dropdownItemClass = this.isDependentField
+      ? `${strBaseClassName} fb-field-dependent-dropdown-item ${itemSelectedClass}`
+      : strBaseClassName;
+
     return (
       <Host tabIndex='-1'>
         <div
-          class={strBaseClassName}
+          class={dropdownItemClass}
           ref={(el) => (this.divBaseElement = el)}
           onDragEnd={this.stopParentDragging}
           onDrop={this.stopParentDragging}

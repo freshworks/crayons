@@ -986,6 +986,8 @@ export class FormBuilder {
       this.expandedFieldIndex === intIndex ? true : false;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
+    console.log('===============', dataItem);
+
     return (
       <fw-field-editor
         index={intIndex}

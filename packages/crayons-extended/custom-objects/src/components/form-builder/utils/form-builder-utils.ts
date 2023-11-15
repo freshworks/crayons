@@ -286,24 +286,21 @@ const getChoicesById = (choices, ids) => {
   return choices.filter((choice) => ids.includes(choice.id));
 };
 
+const getChoicesWithoutId = (choices, id) => {
+  return choices.filter((choice) => id !== choice.id);
+};
+
 /** Returns choice by id */
 const findChoice = (choices, id) => {
   return choices.find((choice) => choice.id === id);
 };
 
 /** Mapping id to parent on creating new child dropdown field */
-const mapchildChoiceToParent = (
-  level,
-  idToMap,
-  parentChoices,
-  dependentLevels
-) => {
-  const parentLevel = `${Number(level) - 1}`;
-  const parentId = dependentLevels[`level${parentLevel}`];
+const mapchildChoiceToParent = (id, parentChoices, parentId) => {
   const choice = findChoice(parentChoices, parentId);
 
   if (choice && choice.id) {
-    choice.dependent_ids.choice.push(idToMap);
+    choice.dependent_ids.choice.push(id);
   }
 };
 
@@ -316,17 +313,35 @@ const updateChoiceByValue = (choices, { id, value }) => {
   }
 };
 
-/** Handles and updates dependent level upon selection */
-export function updateDependentLevelSelection(dependentLevels, detail) {
-  if (detail?.level === '1') {
-    return {
-      [`level${detail.level}`]: detail.id,
-    };
+/** deleteChildChoices */
+const deleteChildChoices = (json, { id }) => {
+  const choice = findChoice(json.choices, id);
+
+  if (choice) {
+    json.choices = getChoicesWithoutId(json.choices, id);
   }
 
+  return json;
+};
+
+/** Handles and updates dependent level upon selection */
+export function updateLevelSelection(instance, event) {
+  if (!instance.isDependentField) {
+    return;
+  }
+
+  const dependentLevels = instance.dependentLevels;
+  const clonedDependentLevels = deepCloneObject(dependentLevels);
+
+  Object.keys(dependentLevels).forEach((key) => {
+    if (Number(removeFirstOccurrence(key, 'level_')) > event.detail.level) {
+      delete clonedDependentLevels[key];
+    }
+  });
+
   return {
-    ...dependentLevels,
-    [`level${detail.level}`]: detail.id,
+    ...clonedDependentLevels,
+    [`level_${event.detail.level}`]: event.detail.id,
   };
 }
 
@@ -355,6 +370,7 @@ export function updateNameLabelDependentField(
       }
       if (types.includes('name')) {
         json.name = strInternalName;
+        json.internalName = `cf_${strInternalName}`;
       }
     }
 
@@ -368,6 +384,15 @@ export function updateNameLabelDependentField(
   return objFieldData;
 }
 
+export function getParentId(parentChoices, parentLevel, dependentLevels) {
+  const parentChoiceId = dependentLevels[`level_${parentLevel}`];
+  if (parentChoiceId) {
+    return parentChoiceId;
+  }
+
+  return parentChoices[0].id;
+}
+
 /** Selecting parent updates child choices */
 export function getChildChoices(
   parentChoices,
@@ -375,47 +400,48 @@ export function getChildChoices(
   parentLevel,
   dependentLevels
 ) {
-  const parentChoiceId = dependentLevels[`level${parentLevel}`];
-  if (parentChoiceId) {
-    const choice = findChoice(parentChoices, parentChoiceId);
-    if (!choice.dependent_ids.choice.length) {
-      const id = createUUID();
-      choice.dependent_ids.choice.push(id);
-      currentField.choices.push({
-        id: id,
-        value: '',
-        dependent_ids: { choice: [] },
-      });
-    }
-    return getChoicesById(currentField.choices, choice.dependent_ids.choice);
+  const parentChoiceId = getParentId(
+    parentChoices,
+    parentLevel,
+    dependentLevels
+  );
+  const parentChoice = findChoice(parentChoices, parentChoiceId);
+
+  if (!parentChoice.dependent_ids.choice.length) {
+    const id = createUUID();
+    parentChoice.dependent_ids.choice.push(id);
+    currentField.choices.push({
+      id: id,
+      value: '',
+      dependent_ids: { choice: [] },
+    });
   }
 
   return getChoicesById(
     currentField.choices,
-    parentChoices[0].dependent_ids.choice
+    parentChoice.dependent_ids.choice
   );
 }
 
 /** Add choices in level - Dependent field */
-export function addChoiceInLevel(
-  dataProvider,
-  { choice, level },
-  type,
-  dependentLevels
-) {
+export function addChoiceInLevel(instance, event, type) {
+  if (!instance.isDependentField) {
+    return;
+  }
+
+  const dataProvider = instance.fieldBuilderOptions;
+  const { level, choice, parentId } = event.detail;
   const updateChoice = (json, choice, parentChoices) => {
     if (json.field_options.level === level) {
       switch (type) {
         case 'ADD':
           json.choices.push({ ...choice, dependent_ids: { choice: [] } });
           if (level !== '1') {
-            mapchildChoiceToParent(
-              level,
-              choice.id,
-              parentChoices,
-              dependentLevels
-            );
+            mapchildChoiceToParent(choice.id, parentChoices, parentId);
           }
+          break;
+        case 'DELETE':
+          deleteChildChoices(json, choice);
           break;
         case 'VALUE_CHANGE':
           updateChoiceByValue(json.choices, choice);
@@ -433,4 +459,34 @@ export function addChoiceInLevel(
   };
 
   return updateChoice(dataProvider, choice, dataProvider.choices);
+}
+
+export function updateFieldAttributes(
+  dataProvider,
+  objValues,
+  types = [],
+  prefix = ''
+) {
+  const objJsonClone = deepCloneObject(objValues);
+
+  const updateChoices = (source, target) => {
+    if (source?.field_options?.level === target?.field_options?.level) {
+      target.choices = source.choices;
+      if (types.includes('label')) {
+        target.label = source.label;
+      }
+      if (types.includes('name')) {
+        target.name = removeFirstOccurrence(source.name, prefix) || '';
+        target.internalName = removeFirstOccurrence(source.name, prefix) || '';
+      }
+    }
+
+    if (source?.fields?.length && target?.fields?.length) {
+      updateChoices(source.fields[0], target.fields[0]);
+    }
+  };
+
+  updateChoices(dataProvider, objJsonClone);
+
+  return objJsonClone;
 }

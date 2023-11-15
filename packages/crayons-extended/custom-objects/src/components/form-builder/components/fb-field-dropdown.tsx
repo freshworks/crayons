@@ -51,6 +51,12 @@ export class FbFieldDropdown {
   @Prop() disabled = false;
 
   @Prop() level = null;
+
+  @Prop() isDependentField = false;
+
+  @Prop() parentId = null;
+
+  @Prop() dependentLevels = {};
   /**
    * Triggered on data change for error handling on parent
    */
@@ -146,6 +152,7 @@ export class FbFieldDropdown {
       value: [...this.dataProvider],
       level: this.level,
       choice: objNewChoice,
+      parentId: this.parentId,
     });
   };
 
@@ -163,6 +170,7 @@ export class FbFieldDropdown {
       this.dataProvider &&
       intDeleteIndex < this.dataProvider.length
     ) {
+      const choiceToBeDeleted = this.dataProvider[intDeleteIndex];
       this.dataProvider = [
         ...this.dataProvider.slice(0, intDeleteIndex),
         ...this.dataProvider.slice(intDeleteIndex + 1),
@@ -176,6 +184,8 @@ export class FbFieldDropdown {
         type: 'DELETE',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
+        choice: choiceToBeDeleted,
       });
     }
   };
@@ -262,6 +272,10 @@ export class FbFieldDropdown {
       ? dataItem.repositionKey
       : `new_choice_${intIndex + 1}`;
 
+    const levelId = this.dependentLevels[`level_${this.level}`];
+    const itemSelected =
+      dataItem.id === levelId || (!levelId && intIndex === 0);
+
     return (
       <fw-fb-field-dropdown-item
         key={itemKey}
@@ -271,6 +285,8 @@ export class FbFieldDropdown {
         disabled={this.disabled}
         isLoading={this.isLoading}
         showErrors={this.showErrors}
+        isDependentField={this.isDependentField}
+        itemSelected={itemSelected}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
         onFwSelect={this.selectItemChoice}
@@ -299,12 +315,20 @@ export class FbFieldDropdown {
         })
       : '';
 
+    const labelText = this.isDependentField
+      ? `${i18nText('level')} ${this.level}`
+      : i18nText('addChoices');
+    const labelClass = this.isDependentField
+      ? `${strBaseClassName}-label-dependent-field spacing-bottom-${this.level}`
+      : `${strBaseClassName}-label`;
+    const dropdownClass = this.isDependentField
+      ? `${strBaseClassName} fb-field-dependent`
+      : strBaseClassName;
+
     return (
       <Host tabIndex='-1'>
-        <div class={strBaseClassName}>
-          <label class={`${strBaseClassName}-label`}>
-            {i18nText('addChoices')}
-          </label>
+        <div class={dropdownClass}>
+          <label class={labelClass}>{labelText}</label>
           <fw-drag-container
             id='dropdownElementsList'
             class={`${strBaseClassName}-list-container`}
