@@ -321,6 +321,96 @@ The data-source and the visual variant for the list options can be altered via t
 </code-block>
 </code-group>
 
+### Demo with virtual scroll
+
+**This feature is experimental, it needs to be explicitly activated using the `enableVirtualScroll` feature flag.**
+
+`enableVirtualScroll` property can be used to enable virtualisation of long list of options.
+`isPopoverOpen` property is used to determine if the popover displaying the list options is in open state to initialise virtualisation.
+
+```html live
+<fw-label value="With Virtual Scroll" color="blue"></fw-label>
+<fw-popover>
+  <fw-button slot="popover-trigger">Open Long List</fw-button>
+  <fw-list-options
+    id="longList"
+    enable-virtual-scroll="true"
+    estimated-size="75"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage of Virtual scroll
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With Virtual Scroll" color="blue"></fw-label>
+<fw-popover>
+  <fw-button slot="popover-trigger">Open Long List</fw-button>
+  <fw-list-options
+    id="longList"
+    enable-virtual-scroll="true"
+    estimated-size="75"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+function ListOptions() {
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  return (
+    <FwPopover>
+      <FwButton slot="popover-trigger">Open Long List</FwButton>
+      <FwListOptions
+        id='longList'
+        slot='popover-content'
+        options={longListOptions}
+        enableVirtualScroll
+        estimatedSize={75}
+      ></FwListOptions>
+    </FwPopover>
+  );
+}
+export default ListOptions;
+```
+
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 
@@ -334,11 +424,12 @@ The data-source and the visual variant for the list options can be altered via t
 | `debounceTimer`       | `debounce-timer`        | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
 | `disabled`            | `disabled`              | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                             | `false`                      |
 | `enableVirtualScroll` | `enable-virtual-scroll` | Virtualize long list of elements in list options *Experimental*                                                                                                                                                                           | `boolean`                                             | `false`                      |
+| `estimatedSize`       | `estimated-size`        | Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.                                                                                                                    | `number`                                              | `35`                         |
 | `filterText`          | `filter-text`           | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
 | `formatCreateLabel`   | --                      | Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.                                                                                                                                    | `(value: string) => string`                           | `undefined`                  |
 | `hideTick`            | `hide-tick`             | hide tick mark icon on select option                                                                                                                                                                                                      | `boolean`                                             | `false`                      |
 | `isCreatable`         | `is-creatable`          | Allows user to create the option if the provided input doesn't match with any of the options.                                                                                                                                             | `boolean`                                             | `false`                      |
-| `isPopoverOpen`       | `is-popover-open`       | Is the popover in open state                                                                                                                                                                                                              | `boolean`                                             | `false`                      |
+| `isPopoverOpen`       | `is-popover-open`       | Is the popover in open state. Used when 'enableVirtualScroll' is true                                                                                                                                                                     | `boolean`                                             | `false`                      |
 | `max`                 | `max`                   | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
 | `multiple`            | `multiple`              | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
 | `noDataText`          | `no-data-text`          | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                              | `''`                         |

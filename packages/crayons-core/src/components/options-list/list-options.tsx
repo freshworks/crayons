@@ -173,7 +173,7 @@ export class ListOptions {
   @Prop() optionValuePath = 'value';
 
   /**
-   *  Is the popover in open state
+   *  Is the popover in open state. Used when 'enableVirtualScroll' is true
    */
   @Prop() isPopoverOpen = false;
 
@@ -181,6 +181,11 @@ export class ListOptions {
    *  Virtualize long list of elements in list options *Experimental*
    */
   @Prop() enableVirtualScroll = false;
+
+  /**
+   *  Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+   */
+  @Prop() estimatedSize = 35;
 
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -199,6 +204,13 @@ export class ListOptions {
       this.renderPromiseResolve();
       this.renderPromiseResolve = null;
     }
+    if (this.enableVirtualScroll) {
+      const parent = this.host?.parentElement;
+      if (parent && parent.tagName === 'FW-POPOVER') {
+        parent.addEventListener('fwShow', this.debouncedFwShowHandler);
+        parent.addEventListener('fwHide', this.debouncedFwHideHandler);
+      }
+    }
   }
 
   /**
@@ -210,12 +222,35 @@ export class ListOptions {
   }
 
   connectedCallback() {
-    this.waitForNextRender().then(() => this.initScroller());
+    if (this.enableVirtualScroll) {
+      this.waitForNextRender().then(() => this.initScroller());
+    }
   }
 
   disconnectedCallback() {
+    parent.removeEventListener('fwShow', this.debouncedFwShowHandler);
+    parent.removeEventListener('fwHide', this.debouncedFwHideHandler);
     this.scrollVirtualizerCleanup?.();
   }
+
+  debouncedFwShowHandler = debounce(
+    () => {
+      console.log('this is fw show event');
+      this.initScroller();
+    },
+    this,
+    100
+  );
+
+  debouncedFwHideHandler = debounce(
+    () => {
+      console.log('this is fw hide event');
+      this.scrollVirtualizer?.scrollToOffset(0);
+      this.scrollVirtualizer?.measure();
+    },
+    this,
+    100
+  );
 
   @Listen('fwSelected')
   fwSelectedHandler(selectedItem) {
@@ -388,44 +423,50 @@ export class ListOptions {
     this.setSelectedOptions(newValue);
   }
 
-  @Watch('isPopoverOpen')
-  isPopoverOpenWatcher(): void {
-    if (this.isPopoverOpen) {
+  // @Watch('isPopoverOpen')
+  // isPopoverOpenWatcher(): void {
+  //   if (this.enableVirtualScroll) {
+  //     if (this.isPopoverOpen) {
+  //       console.log('this is initializer popover', this.scrollVirtualizer);
+  //       this.initScroller();
+  //     } else {
+  //       this.scrollVirtualizerCleanup?.();
+  //     }
+  //   }
+  // }
+
+  @Watch('filteredOptions')
+  onFilteredOptionsChange(): void {
+    if (this.enableVirtualScroll) {
       this.initScroller();
-    } else {
-      this.scrollVirtualizerCleanup();
     }
   }
 
   async initScroller() {
     const scrollElement = this.getScrollElement();
     if (this.filteredOptions?.length && scrollElement) {
-      const rect = scrollElement.getBoundingClientRect();
-      if (rect.height) {
-        const options: any = {
-          count: this.filteredOptions.length,
-          getScrollElement: () => {
-            return scrollElement;
-          },
-          estimateSize: () => 35,
-        };
-        if (this.scrollVirtualizer) {
-          this.scrollVirtualizerCleanup();
-        }
-        const createVirtualizer = await (
-          await import('../../utils/stencil-virtual-scroll')
-        ).createVirtualizer;
-        const virtualScroll = createVirtualizer(options);
-        this.scrollVirtualizer = virtualScroll.virtualizer;
-        this.scrollVirtualizerCleanup = () => {
-          virtualScroll.cleanup();
-          this.scrollVirtualizer = null;
-          this.scrollVirtualizerCleanup = null;
-        };
-        this.tick = {};
-      } else {
-        this.scrollVirtualizer = null;
+      const options: any = {
+        count: this.filteredOptions.length,
+        getScrollElement: () => {
+          return scrollElement;
+        },
+        estimateSize: () => this.estimatedSize,
+      };
+      if (this.scrollVirtualizer) {
+        this.scrollVirtualizerCleanup?.();
       }
+      const createVirtualizer = await (
+        await import('../../utils/stencil-virtual-scroll')
+      ).createVirtualizer;
+      const virtualScroll = createVirtualizer(options);
+      this.scrollVirtualizer = virtualScroll.virtualizer;
+      this.scrollVirtualizer?.scrollToOffset(0);
+      this.scrollVirtualizerCleanup = () => {
+        virtualScroll.cleanup();
+        this.scrollVirtualizer = null;
+        this.scrollVirtualizerCleanup = null;
+      };
+      this.tick = {};
     } else {
       this.scrollVirtualizer = null;
     }
@@ -611,7 +652,7 @@ export class ListOptions {
             position: 'relative',
           }}
         >
-          <div
+          {/* <div
             style={{
               position: 'absolute',
               top: '0px',
@@ -619,20 +660,27 @@ export class ListOptions {
               width: '100%',
               transform: `translateY(${virtualItems?.[0]?.start ?? 0}px)`,
             }}
-          >
-            {virtualItems.map((virtualItem) => {
-              const option = options[virtualItem.index];
-              return (
-                <div
-                  key={virtualItem.key}
-                  ref={this.scrollVirtualizer.measureElement}
-                  data-index={virtualItem.index}
-                >
-                  {this.renderSelectOption(option)}
-                </div>
-              );
-            })}
-          </div>
+          > */}
+          {virtualItems.map((virtualItem) => {
+            const option = options[virtualItem.index];
+            return (
+              <div
+                key={virtualItem.key}
+                data-index={virtualItem.index}
+                ref={(item) => this.scrollVirtualizer?.measureElement(item)}
+                style={{
+                  position: 'absolute',
+                  top: '0px',
+                  left: '0px',
+                  width: '100%',
+                  transform: `translateY(${virtualItem.start ?? 0}px)`,
+                }}
+              >
+                {this.renderSelectOption(option)}
+              </div>
+            );
+          })}
+          {/* </div> */}
         </div>
       )
     );

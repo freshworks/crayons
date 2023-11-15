@@ -284,6 +284,11 @@ export class Select {
    */
   @Prop() enableVirtualScroll = false;
 
+  /**
+   *  Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+   */
+  @Prop() estimatedSize = 35;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -310,6 +315,7 @@ export class Select {
   @Listen('fwShow')
   onDropdownOpen(e) {
     if (e.composedPath()[0].id === 'select-popover') {
+      console.log('number of logs fwshow');
       this.isExpanded = true;
     }
   }
@@ -1127,6 +1133,7 @@ export class Select {
                 optionValuePath={this.optionValuePath}
                 isPopoverOpen={this.isExpanded}
                 enableVirtualScroll={this.enableVirtualScroll}
+                estimatedSize={this.estimatedSize}
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>

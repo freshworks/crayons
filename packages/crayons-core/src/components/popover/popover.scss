@@ -29,6 +29,7 @@
   transform: scale(0.01);
   transition: 150ms color, 150ms border, 150ms box-shadow;
   will-change: auto;
+  overflow-anchor: none;
 }
 
 .popper-content.no-border {

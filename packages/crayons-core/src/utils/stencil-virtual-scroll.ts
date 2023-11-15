@@ -82,6 +82,11 @@ function createVirtualizerBase<
     },
   };
 
+  const storeCleanup = () => {
+    cleanup();
+    virtualizerStore.dispose();
+  };
+
   const scrollVirtualizerProxy = new Proxy(scrollVirtualizer, handler);
 
   scrollVirtualizerProxy.setOptions({
@@ -90,16 +95,44 @@ function createVirtualizerBase<
       newVirtualizer: Virtualizer<TScrollElement, TItemElement>,
       sync: boolean
     ) {
-      virtualizerStore.set('virtualItems', scrollVirtualizer.getVirtualItems());
-      virtualizerStore.set('totalSize', scrollVirtualizer.getTotalSize());
-      options.onChange?.(newVirtualizer, sync);
+      const virtualItems = newVirtualizer.getVirtualItems();
+      console.log(
+        'virtualizer',
+        newVirtualizer,
+        newVirtualizer.scrollRect?.height,
+        virtualItems.length,
+        virtualizerStore.state.virtualItems.length
+      );
+      virtualizerStore.set('virtualItems', virtualItems);
+      virtualizerStore.set('totalSize', newVirtualizer.getTotalSize());
+      if (newVirtualizer.scrollRect?.height) {
+        // console.log(
+        //   'this is on change',
+        //   newVirtualizer.getVirtualItems(),
+        //   newVirtualizer.getTotalSize()
+        // );
+        scrollVirtualizerProxy._willUpdate();
+
+        // console.log(
+        //   'measure',
+        //   virtualItems.length,
+        //   virtualizerStore.state.virtualItems.length
+        // );
+        // if (
+        //   !newVirtualizer.scrollRect?.height &&
+        //   virtualItems.length === 0 &&
+        //   virtualizerStore.state.virtualItems.length !== 0
+        // ) {
+        //   console.log('this is next change');
+        //   newVirtualizer.scrollToIndex(0);
+        //   scrollVirtualizerProxy._didMount();
+        //   storeCleanup();
+        //   scrollVirtualizerProxy.measure();
+        // }
+        options.onChange?.(newVirtualizer, sync);
+      }
     },
   });
-
-  const storeCleanup = () => {
-    cleanup();
-    virtualizerStore.dispose();
-  };
   scrollVirtualizerProxy.measure();
 
   return {
