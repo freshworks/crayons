@@ -1381,39 +1381,14 @@ export class FieldEditor {
         ? arrCheckboxes.map((dataItem) => this.renderCheckboxField(dataItem))
         : null;
 
-    // Initial Render of Name and Label
-    renderLabelAndName.push(
-      this.renderLabelAndInternalName(
-        objProductConfig,
-        isDefaultNonCustomField,
-        boolEditAllowed,
-        this.fieldBuilderOptions
-      )
-    );
+    const levels = this.dependentLevels;
 
-    // Initial Level Render of Dropdown
-    renderFields.push(
-      this.renderDropdown(
-        boolDisableDropdowns,
-        this.fieldBuilderOptions,
-        this.fieldBuilderOptions.choices,
-        null
-      )
-    );
-
-    const recurseFieldContent = (builderOption, parentChoices, parentLevel) => {
-      const choices = getChildChoices(
-        parentChoices,
-        builderOption,
-        parentLevel,
-        this.dependentLevels
-      );
-
-      const parentId = getParentId(
-        parentChoices,
-        parentLevel,
-        this.dependentLevels
-      );
+    /** Recursive content */
+    const recurseFieldContent = (builderOption, pChoices, pLevel) => {
+      const parentId = getParentId(pChoices, pLevel, levels);
+      const choices = pLevel
+        ? getChildChoices(pChoices, builderOption, pLevel, levels)
+        : builderOption.choices;
 
       renderLabelAndName.push(
         this.renderLabelAndInternalName(
@@ -1424,14 +1399,16 @@ export class FieldEditor {
         )
       );
 
-      renderFields.push(
-        this.renderDropdown(
-          boolDisableDropdowns,
-          builderOption,
-          choices,
-          parentId
-        )
-      );
+      if (!this.showDependentFieldTextbox) {
+        renderFields.push(
+          this.renderDropdown(
+            boolDisableDropdowns,
+            builderOption,
+            choices,
+            parentId
+          )
+        );
+      }
 
       if (builderOption?.fields?.length > 0) {
         recurseFieldContent(
@@ -1442,11 +1419,7 @@ export class FieldEditor {
       }
     };
 
-    recurseFieldContent(
-      this.fieldBuilderOptions.fields[0],
-      this.fieldBuilderOptions.choices,
-      this.fieldBuilderOptions.field_options.level
-    );
+    recurseFieldContent(this.fieldBuilderOptions, [], null);
 
     return (
       <div class={`${strBaseClassName}-content`}>

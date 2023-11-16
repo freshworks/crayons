@@ -385,6 +385,10 @@ export function updateNameLabelDependentField(
 }
 
 export function getParentId(parentChoices, parentLevel, dependentLevels) {
+  if (!parentChoices.length) {
+    return;
+  }
+
   const parentChoiceId = dependentLevels[`level_${parentLevel}`];
   if (parentChoiceId) {
     return parentChoiceId;
@@ -400,6 +404,10 @@ export function getChildChoices(
   parentLevel,
   dependentLevels
 ) {
+  if (!parentChoices.length) {
+    return [];
+  }
+
   const parentChoiceId = getParentId(
     parentChoices,
     parentLevel,
