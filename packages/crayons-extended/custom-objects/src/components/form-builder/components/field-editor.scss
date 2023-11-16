@@ -446,6 +446,38 @@
     margin-block-end: 8px;
     display: block;
   }
+
+  &-content-dependent-label {
+    color: $color-elephant-900;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-block-end: 8px;
+    display: block;
+  }
+
+  &-textbox {
+    margin-block-start: 12px;
+    margin-block-end: 12px;
+    display: block;
+
+    textarea {
+      color: $color-elephant-900;
+      resize: none;
+      width: 100%;
+      border-radius: 4px;
+      font-family: inherit;
+      padding-block: 8px;
+      padding-inline: 8px;
+      line-height: 20px;
+
+      &:focus {
+        outline: none;
+        background-color: $color-milk;
+        box-shadow: 0 0 0 2px $color-azure-800;
+      }
+    }
+  }
 }
 
 .fw-field-editor-delete-modal-content {

@@ -29,6 +29,7 @@ import {
   updateLevelSelection,
   updateFieldAttributes,
   getParentId,
+  buildChoicesFromText,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -51,6 +52,7 @@ export class FieldEditor {
   private oldFormValues;
   private errorType;
   private isDependentField = false;
+  private textboxDependentValue = presetSchema.textboxDependentValue;
 
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -168,8 +170,14 @@ export class FieldEditor {
    * flag to show spinner on delete button
    */
   @State() isDeleting = false;
-
+  /**
+   * To store dependentLevels selected state on click
+   */
   @State() dependentLevels = {};
+  /**
+   * Flag to toggle dependent field initial textbox
+   */
+  @State() showDependentFieldTextbox = true;
   /**
    * Triggered when the field is expanded or collapsed
    */
@@ -227,6 +235,8 @@ export class FieldEditor {
         let objDefaultFieldTypeSchema = deepCloneObject(
           this.defaultFieldTypeSchema
         );
+
+        this.showDependentFieldTextbox = false;
 
         objDefaultFieldTypeSchema.choices =
           hasCustomProperty(this.dataProvider, 'choices') &&
@@ -835,6 +845,34 @@ export class FieldEditor {
     }
   };
 
+  private handleDependentField = (event: KeyboardEvent) => {
+    const value = event.target['value'];
+
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      const start = event.target['selectionStart'];
+      const end = event.target['selectionEnd'];
+
+      // Set textarea value to: text before caret + tab + text after caret
+      event.target['value'] =
+        value.substring(0, start) + '\t' + value.substring(end);
+
+      // Put caret at right position again
+      event.target['selectionStart'] = start + 1;
+      event.target['selectionEnd'] = start + 1;
+    } else {
+      this.textboxDependentValue = value;
+    }
+  };
+
+  private switchToDropdownView = () => {
+    this.fieldBuilderOptions = buildChoicesFromText(
+      this.textboxDependentValue,
+      this.fieldBuilderOptions
+    );
+    this.showDependentFieldTextbox = false;
+  };
+
   private performLabelChange = (event: CustomEvent, isBlur = false, level) => {
     if (event) {
       event.stopImmediatePropagation();
@@ -1293,13 +1331,16 @@ export class FieldEditor {
       : '';
     const strInputError = boolShowLabelError ? this.labelErrorMessage : '';
     const numLabelMaxChars = objMaxLimits?.['maxLabelChars']?.count || 255;
+    const fieldLabel = this.isDependentField
+      ? i18nText('labelForLevel', { level })
+      : i18nText('fieldLabel');
 
     return (
       <fw-input
         ref={(el) => (this.dictInteractiveElements[dictElName] = el)}
         class={`${strBaseClassName}-content-required-input`}
         placeholder={i18nText('fieldLabelPlaceholder')}
-        label={i18nText('fieldLabel')}
+        label={fieldLabel}
         required={true}
         maxlength={numLabelMaxChars}
         value={strInputLabel}
@@ -1430,9 +1471,31 @@ export class FieldEditor {
             <label class={`${strBaseClassName}-content-label`}>
               {i18nText('dropdownChoices')}
             </label>
-            <div class='flex flex-space-between'>
-              {renderFields.map((field) => field)}
-            </div>
+            {this.showDependentFieldTextbox ? (
+              <div>
+                <label class={`${strBaseClassName}-content-dependent-label`}>
+                  {i18nText('dependentDropdownMessage')}
+                </label>
+                <span class={`${strBaseClassName}-textbox`}>
+                  <textarea
+                    rows={8}
+                    value={this.textboxDependentValue}
+                    onKeyDown={this.handleDependentField}
+                  ></textarea>
+                </span>
+                <fw-button
+                  size='small'
+                  color='secondary'
+                  onFwClick={this.switchToDropdownView}
+                >
+                  {i18nText('addChoices')}
+                </fw-button>
+              </div>
+            ) : (
+              <div class='flex flex-space-between'>
+                {renderFields.map((field) => field)}
+              </div>
+            )}
           </div>
         </div>
       </div>

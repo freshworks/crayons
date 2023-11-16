@@ -11,8 +11,12 @@
 .fb-field-dependent-dropdown-item {
   border: thin solid $color-smoke-100;
   margin-block-end: unset !important;
-  padding-block: 8px 4px;
+  padding-block: 8px;
   background-color: $color-milk;
+
+  .fb-field-dropdown-item-delete-container {
+    width: unset !important;
+  }
 }
 
 .dropdown-item-selected {

@@ -490,3 +490,68 @@ export function updateFieldAttributes(
 
   return objJsonClone;
 }
+
+function validateChoices(choices, value) {
+  return choices.find((choice) => choice.value === value);
+}
+
+export function buildChoicesFromText(text, dataProvider) {
+  const lines = text.split('\n');
+  const hierarchyChoices = {
+    choices: [],
+    field_options: { level: '1' },
+    fields: [
+      {
+        choices: [],
+        field_options: { level: '2' },
+        fields: [
+          {
+            choices: [],
+            field_options: { level: '3' },
+          },
+        ],
+      },
+    ],
+  };
+  let currentCategory = null;
+  let currentSubcategory = null;
+
+  lines.forEach((line) => {
+    const value = line.trim().replace(/\t/g, '');
+
+    if (!line.startsWith('\t')) {
+      if (!validateChoices(hierarchyChoices.choices, value)) {
+        currentCategory = {
+          id: createUUID(),
+          value: value,
+          dependent_ids: { choice: [] },
+        };
+        hierarchyChoices.choices.push(currentCategory);
+      }
+    } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
+      if (
+        currentCategory &&
+        !validateChoices(hierarchyChoices.fields[0].choices, value)
+      ) {
+        currentSubcategory = {
+          id: createUUID(),
+          value: value,
+          dependent_ids: { choice: [] },
+        };
+        currentCategory.dependent_ids.choice.push(currentSubcategory.id);
+        hierarchyChoices.fields[0].choices.push(currentSubcategory);
+      }
+    } else {
+      if (
+        currentSubcategory &&
+        !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
+      ) {
+        const item = { id: createUUID(), value: value };
+        currentSubcategory.dependent_ids.choice.push(item.id);
+        hierarchyChoices.fields[0].fields[0].choices.push(item);
+      }
+    }
+  });
+
+  return updateFieldAttributes(hierarchyChoices, dataProvider);
+}

@@ -142,5 +142,6 @@
         "unique": "field_options.unique"
       }
     }
-  }
+  },
+  "textboxDependentValue": "category 1\n\tsubcategory 1\n\t\titem 1\n\t\titem 2\n\t\titem 3\n\tsubcategory 2\n\t\titem 4\n\t\titem 5\n\tsubcategory 3\ncategory 2\n\tsubcategory 4\n\t\titem 6\n\t\titem 7"
 }
