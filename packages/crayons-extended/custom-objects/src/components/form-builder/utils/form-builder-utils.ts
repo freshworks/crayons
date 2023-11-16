@@ -523,16 +523,19 @@ export function buildChoicesFromText(text, dataProvider) {
   };
   let currentCategory = null;
   let currentSubcategory = null;
+  let position;
 
   lines.forEach((line) => {
     const value = line.trim().replace(/\t/g, '');
 
     if (!line.startsWith('\t')) {
       if (!validateChoices(hierarchyChoices.choices, value)) {
+        position = hierarchyChoices.choices.length + 1;
         currentCategory = {
           id: createUUID(),
           value: value,
           dependent_ids: { choice: [] },
+          position,
         };
         hierarchyChoices.choices.push(currentCategory);
       }
@@ -541,10 +544,12 @@ export function buildChoicesFromText(text, dataProvider) {
         currentCategory &&
         !validateChoices(hierarchyChoices.fields[0].choices, value)
       ) {
+        position = currentCategory.dependent_ids.choice.length + 1;
         currentSubcategory = {
           id: createUUID(),
           value: value,
           dependent_ids: { choice: [] },
+          position,
         };
         currentCategory.dependent_ids.choice.push(currentSubcategory.id);
         hierarchyChoices.fields[0].choices.push(currentSubcategory);
@@ -554,7 +559,8 @@ export function buildChoicesFromText(text, dataProvider) {
         currentSubcategory &&
         !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
       ) {
-        const item = { id: createUUID(), value: value };
+        position = currentSubcategory.dependent_ids.choice.length + 1;
+        const item = { id: createUUID(), value: value, position };
         currentSubcategory.dependent_ids.choice.push(item.id);
         hierarchyChoices.fields[0].fields[0].choices.push(item);
       }
