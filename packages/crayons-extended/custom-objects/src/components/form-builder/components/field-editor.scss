@@ -26,10 +26,6 @@
     div {
       width: 100%;
     }
-
-    fw-fb-field-dropdown {
-      width: 270px;
-    }
   }
 }
 
@@ -433,6 +429,22 @@
       display: flex;
       flex-direction: column;
     }
+  }
+
+  &-content-label-interalName {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &-content-label {
+    text-transform: uppercase;
+    color: $color-elephant-900;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-block-end: 8px;
+    display: block;
   }
 }
 

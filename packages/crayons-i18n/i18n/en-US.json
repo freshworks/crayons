@@ -119,6 +119,8 @@
     "addChoices": "Add choices",
     "addChoice": "Add choice",
     "level": "Level",
+    "labels": "LABELS",
+    "labelForLevel": "Label for level {{level}}",
     "choicePlaceholderSuffix": "Choice",
     "headerFieldTypes": "Field types",
     "headerFields": "Fields",
