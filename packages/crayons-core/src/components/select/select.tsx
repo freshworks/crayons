@@ -1131,7 +1131,6 @@ export class Select {
                 slot='popover-content'
                 optionLabelPath={this.optionLabelPath}
                 optionValuePath={this.optionValuePath}
-                isPopoverOpen={this.isExpanded}
                 enableVirtualScroll={this.enableVirtualScroll}
                 estimatedSize={this.estimatedSize}
                 {...listAttributes}

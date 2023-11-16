@@ -173,11 +173,6 @@ export class ListOptions {
   @Prop() optionValuePath = 'value';
 
   /**
-   *  Is the popover in open state. Used when 'enableVirtualScroll' is true
-   */
-  @Prop() isPopoverOpen = false;
-
-  /**
    *  Virtualize long list of elements in list options *Experimental*
    */
   @Prop() enableVirtualScroll = false;
@@ -424,18 +419,6 @@ export class ListOptions {
   onSelectedOptionsChange(newValue) {
     this.setSelectedOptions(newValue);
   }
-
-  // @Watch('isPopoverOpen')
-  // isPopoverOpenWatcher(): void {
-  //   if (this.enableVirtualScroll) {
-  //     if (this.isPopoverOpen) {
-  //       console.log('this is initializer popover', this.scrollVirtualizer);
-  //       this.initScroller();
-  //     } else {
-  //       this.scrollVirtualizerCleanup?.();
-  //     }
-  //   }
-  // }
 
   @Watch('filteredOptions')
   onFilteredOptionsChange(): void {

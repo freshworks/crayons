@@ -1235,6 +1235,10 @@ export namespace Components {
          */
         "enableVirtualScroll": boolean;
         /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize": number;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -1251,10 +1255,6 @@ export namespace Components {
           * Allows user to create the option if the provided input doesn't match with any of the options.
          */
         "isCreatable": boolean;
-        /**
-          * Is the popover in open state
-         */
-        "isPopoverOpen": boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -1708,6 +1708,10 @@ export namespace Components {
           * Error text displayed below the text box.
          */
         "errorText": string;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize": number;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
@@ -4195,6 +4199,10 @@ declare namespace LocalJSX {
          */
         "enableVirtualScroll"?: boolean;
         /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize"?: number;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -4210,10 +4218,6 @@ declare namespace LocalJSX {
           * Allows user to create the option if the provided input doesn't match with any of the options.
          */
         "isCreatable"?: boolean;
-        /**
-          * Is the popover in open state
-         */
-        "isPopoverOpen"?: boolean;
         /**
           * Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.
          */
@@ -4672,6 +4676,10 @@ declare namespace LocalJSX {
           * Error text displayed below the text box.
          */
         "errorText"?: string;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize"?: number;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
