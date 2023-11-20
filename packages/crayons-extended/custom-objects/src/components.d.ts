@@ -46,6 +46,7 @@ export namespace Components {
         "value": any;
     }
     interface FwFbFieldDropdown {
+        "choiceIds": any[];
         /**
           * variable to store the data source for all the choices
          */
@@ -55,6 +56,7 @@ export namespace Components {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled": boolean;
+        "enableKeyPress": boolean;
         "isDependentField": boolean;
         /**
           * flag to notify if an api call is in progress
@@ -81,6 +83,7 @@ export namespace Components {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled": boolean;
+        "enableKeyPress": boolean;
         /**
           * index attached inside the parent group component
          */
@@ -788,6 +791,7 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwFbFieldDropdown {
+        "choiceIds"?: any[];
         /**
           * variable to store the data source for all the choices
          */
@@ -797,6 +801,7 @@ declare namespace LocalJSX {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled"?: boolean;
+        "enableKeyPress"?: boolean;
         "isDependentField"?: boolean;
         /**
           * flag to notify if an api call is in progress
@@ -826,6 +831,7 @@ declare namespace LocalJSX {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled"?: boolean;
+        "enableKeyPress"?: boolean;
         /**
           * index attached inside the parent group component
          */
@@ -840,6 +846,7 @@ declare namespace LocalJSX {
          */
         "isNewChoice"?: boolean;
         "itemSelected"?: boolean;
+        "onFwAdd"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * Triggered on choice input blur
          */

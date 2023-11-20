@@ -405,7 +405,7 @@ export function getChildChoices(
   dependentLevels
 ) {
   if (!parentChoices.length) {
-    return [];
+    return { choices: currentField.choices, choiceIds: [] };
   }
 
   const parentChoiceId = getParentId(
@@ -425,10 +425,29 @@ export function getChildChoices(
     });
   }
 
-  return getChoicesById(
+  const choices = getChoicesById(
     currentField.choices,
     parentChoice.dependent_ids.choice
   );
+
+  return {
+    choices: choices,
+    choiceIds: parentChoice.dependent_ids.choice,
+  };
+}
+
+function updateChoicesOnReposition(data, level, choices) {
+  if (data.field_options && data.field_options.level === level) {
+    data.choices = choices;
+  }
+
+  if (data.fields) {
+    for (const field of data.fields) {
+      return updateChoicesOnReposition(field, level, choices);
+    }
+  }
+
+  return data;
 }
 
 /** Add choices in level - Dependent field */
@@ -438,7 +457,7 @@ export function addChoiceInLevel(instance, event, type) {
   }
 
   const dataProvider = instance.fieldBuilderOptions;
-  const { level, choice, parentId } = event.detail;
+  const { level, choice, parentId, value } = event.detail;
   const updateChoice = (json, choice, parentChoices) => {
     if (json.field_options.level === level) {
       switch (type) {
@@ -447,6 +466,9 @@ export function addChoiceInLevel(instance, event, type) {
           if (level !== '1') {
             mapchildChoiceToParent(choice.id, parentChoices, parentId);
           }
+          break;
+        case 'REPOSITION':
+          updateChoicesOnReposition(dataProvider, level, value);
           break;
         case 'DELETE':
           deleteChildChoices(json, choice);
@@ -461,7 +483,7 @@ export function addChoiceInLevel(instance, event, type) {
       return dataProvider;
     }
 
-    if (json.fields.length) {
+    if (json?.fields?.length) {
       return updateChoice(json.fields[0], choice, json.choices);
     }
   };
@@ -568,4 +590,18 @@ export function buildChoicesFromText(text, dataProvider) {
   });
 
   return updateFieldAttributes(hierarchyChoices, dataProvider);
+}
+
+export function getDependentLevels(levels, choices, ids, level) {
+  const selectedId = levels[`level_${level}`];
+  const choiceIds = ids.length ? ids : choices.map((choice) => choice.id);
+
+  if (selectedId && choiceIds.includes(selectedId)) {
+    return levels;
+  }
+
+  return {
+    [`level_${level}`]: choiceIds[0],
+    ...levels,
+  };
 }

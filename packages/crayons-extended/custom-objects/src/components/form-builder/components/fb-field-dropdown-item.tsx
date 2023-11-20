@@ -53,6 +53,10 @@ export class FbFieldDropdownItem {
   @Prop() isDependentField = false;
 
   @Prop() itemSelected = false;
+
+  @Prop() enableKeyPress = false;
+
+  @Event() fwAdd!: EventEmitter;
   /**
    * Triggered on delete button click
    */
@@ -128,6 +132,14 @@ export class FbFieldDropdownItem {
     this.performLabelChange(event, false);
   };
 
+  private nameKeydownHandler = (event: KeyboardEvent) => {
+    const value = event?.target?.['value']?.trim() || '';
+    const keyEvent = event.detail?.['event'];
+    if (keyEvent?.key === 'Tab' && value.length) {
+      this.fwAdd.emit();
+    }
+  };
+
   private deleteButtonClickHandler = (event: MouseEvent) => {
     if (this.disabled) {
       return;
@@ -179,9 +191,12 @@ export class FbFieldDropdownItem {
     }
 
     const strBaseClassName = 'fb-field-dropdown-item';
-    const strInputPrompt = `${this.toOrdinalSuffix(
+    const formattedInputPrompt = `${this.toOrdinalSuffix(
       this.index + 1
     ).toString()} ${i18nText('choicePlaceholderSuffix')}`;
+    const strInputPrompt = this.isDependentField
+      ? i18nText('addChoice')
+      : formattedInputPrompt;
 
     const strBaseDeleteClassName = `${strBaseClassName}-delete-container`;
     const strBaseDragClassName = `${strBaseClassName}-drag-container`;
@@ -229,6 +244,7 @@ export class FbFieldDropdownItem {
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
               onFwFocus={this.nameFocusHandler}
+              onFwInputKeyDown={this.nameKeydownHandler}
             ></fw-input>
           </div>
           <span

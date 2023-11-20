@@ -57,6 +57,10 @@ export class FbFieldDropdown {
   @Prop() parentId = null;
 
   @Prop() dependentLevels = {};
+
+  @Prop() enableKeyPress = false;
+
+  @Prop() choiceIds = [];
   /**
    * Triggered on data change for error handling on parent
    */
@@ -249,6 +253,7 @@ export class FbFieldDropdown {
         type: 'REPOSITION',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
       });
     }
   };
@@ -273,8 +278,11 @@ export class FbFieldDropdown {
       : `new_choice_${intIndex + 1}`;
 
     const levelId = this.dependentLevels[`level_${this.level}`];
-    const itemSelected =
-      dataItem.id === levelId || (!levelId && intIndex === 0);
+    const itemSelected = dataItem.id === levelId;
+
+    if (this.choiceIds.length && !this.choiceIds.includes(dataItem.id)) {
+      return null;
+    }
 
     return (
       <fw-fb-field-dropdown-item
@@ -287,9 +295,11 @@ export class FbFieldDropdown {
         showErrors={this.showErrors}
         isDependentField={this.isDependentField}
         itemSelected={itemSelected}
+        enableKeyPress={this.enableKeyPress}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
         onFwSelect={this.selectItemChoice}
+        onFwAdd={this.addNewChoiceHandler}
       ></fw-fb-field-dropdown-item>
     );
   }
@@ -300,9 +310,11 @@ export class FbFieldDropdown {
 
     const dropdownElements =
       dpSource.length > 0
-        ? dpSource.map((dataItem, index) =>
-            this.renderNameEditorElement(dataItem, index)
-          )
+        ? dpSource
+            .map((dataItem, index) =>
+              this.renderNameEditorElement(dataItem, index)
+            )
+            .filter((item) => item)
         : null;
 
     const objMaxLimitChoices = getMaxLimitProperty(
@@ -338,7 +350,7 @@ export class FbFieldDropdown {
             {dropdownElements}
           </fw-drag-container>
           <div class={`${strBaseClassName}-footer`}>
-            {!this.disabled && (
+            {!this.disabled && !this.enableKeyPress && (
               <fw-button
                 id='addNewChoiceBtn'
                 color='link'
