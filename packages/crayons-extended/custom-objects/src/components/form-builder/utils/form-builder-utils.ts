@@ -550,41 +550,43 @@ export function buildChoicesFromText(text, dataProvider) {
   lines.forEach((line) => {
     const value = line.trim().replace(/\t/g, '');
 
-    if (!line.startsWith('\t')) {
-      if (!validateChoices(hierarchyChoices.choices, value)) {
-        position = hierarchyChoices.choices.length + 1;
-        currentCategory = {
-          id: createUUID(),
-          value: value,
-          dependent_ids: { choice: [] },
-          position,
-        };
-        hierarchyChoices.choices.push(currentCategory);
-      }
-    } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
-      if (
-        currentCategory &&
-        !validateChoices(hierarchyChoices.fields[0].choices, value)
-      ) {
-        position = currentCategory.dependent_ids.choice.length + 1;
-        currentSubcategory = {
-          id: createUUID(),
-          value: value,
-          dependent_ids: { choice: [] },
-          position,
-        };
-        currentCategory.dependent_ids.choice.push(currentSubcategory.id);
-        hierarchyChoices.fields[0].choices.push(currentSubcategory);
-      }
-    } else {
-      if (
-        currentSubcategory &&
-        !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
-      ) {
-        position = currentSubcategory.dependent_ids.choice.length + 1;
-        const item = { id: createUUID(), value: value, position };
-        currentSubcategory.dependent_ids.choice.push(item.id);
-        hierarchyChoices.fields[0].fields[0].choices.push(item);
+    if (value && length) {
+      if (!line.startsWith('\t')) {
+        if (!validateChoices(hierarchyChoices.choices, value)) {
+          position = hierarchyChoices.choices.length + 1;
+          currentCategory = {
+            id: createUUID(),
+            value: value,
+            dependent_ids: { choice: [] },
+            position,
+          };
+          hierarchyChoices.choices.push(currentCategory);
+        }
+      } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
+        if (
+          currentCategory &&
+          !validateChoices(hierarchyChoices.fields[0].choices, value)
+        ) {
+          position = currentCategory.dependent_ids.choice.length + 1;
+          currentSubcategory = {
+            id: createUUID(),
+            value: value,
+            dependent_ids: { choice: [] },
+            position,
+          };
+          currentCategory.dependent_ids.choice.push(currentSubcategory.id);
+          hierarchyChoices.fields[0].choices.push(currentSubcategory);
+        }
+      } else {
+        if (
+          currentSubcategory &&
+          !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
+        ) {
+          position = currentSubcategory.dependent_ids.choice.length + 1;
+          const item = { id: createUUID(), value: value, position };
+          currentSubcategory.dependent_ids.choice.push(item.id);
+          hierarchyChoices.fields[0].fields[0].choices.push(item);
+        }
       }
     }
   });
