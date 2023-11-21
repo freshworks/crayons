@@ -2,19 +2,47 @@ import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
 
 @Component({
   tag: 'fw-nested-node',
-  // styleUrl: 'nested-select.scss',
+  styleUrl: 'nested-select.scss',
   shadow: true,
 })
 export class NestedNode {
   private selectRef: HTMLFwSelectElement;
+  /**
+   * State to maintain selectedOption
+   */
   @State() selectedOption = null;
+  /**
+   * Options to pass through and loop
+   */
   @Prop() options = [];
+  /**
+   * level to keep track of selected options and
+   * reset on parent option changes
+   */
   @Prop() level = 0;
+  /**
+   * Name of the field value gets updated to
+   */
+  @Prop() name = '';
+  /**
+   * Current selected value if passed from initialvalues
+   */
+  @Prop() value = '';
+  /**
+   * OptionValue path
+   */
+  @Prop() optionValuePath = 'id';
+  /**
+   * Fn to return initialValues from properties
+   */
+  @Prop() selectProps?: any;
+
   @Watch('options')
   optionsChanged() {
     this.selectedOption = null;
     this.selectRef.setSelectedValues('');
   }
+
   @Listen('fwChange')
   changed(event) {
     console.log('IN CHANGE in Level' + this.level, event.target.level);
@@ -24,34 +52,62 @@ export class NestedNode {
         this.selectedOption = event.detail.meta.selectedOptions[0];
       }
     }
-
-    //event.stopPropagation();
   }
+
+  componentWillLoad(): void {
+    if (this.value) {
+      this.selectedOption = this.options.find(
+        (item) => item[this.optionValuePath] === this.value
+      );
+    }
+  }
+
   private getFirstlevelNestedSelect() {
-    return this.selectedOption ? (
+    if (!this.selectedOption) {
+      return null;
+    }
+
+    const { value } = this.selectProps(this.selectedOption.name);
+    return (
       <div class='nest_indent'>
         <fw-nested-node
           options={this.selectedOption.choices}
+          name={this.selectedOption.name}
+          value={value}
           level={this.level + 1}
+          optionValuePath={this.optionValuePath}
+          selectProps={this.selectProps}
         ></fw-nested-node>
       </div>
-    ) : null;
+    );
   }
+
   private getNestedSelect() {
-    return this.selectedOption ? (
+    if (!this.selectedOption || !this.selectedOption.choices) {
+      return null;
+    }
+
+    const { value } = this.selectProps(this.selectedOption.name);
+    return (
       <fw-nested-node
         options={this.selectedOption.choices}
+        name={this.selectedOption.name}
+        value={value}
         level={this.level + 1}
+        optionValuePath={this.optionValuePath}
+        selectProps={this.selectProps}
       ></fw-nested-node>
-    ) : null;
+    );
   }
-  private getLabel = () => 'Level ' + this.level;
+
   render() {
     return (
       <div class='nest'>
         <fw-select
-          label={this.getLabel()}
+          label={this.name}
           options={this.options}
+          name={this.name}
+          value={this.value}
           ref={(select) => (this.selectRef = select)}
         ></fw-select>
         {this.level === 0

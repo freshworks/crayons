@@ -419,6 +419,7 @@ const formServFieldTypes = {
   '17': { type: 'DATE' },
   '18': { type: 'MULTI_SELECT' },
   '20': { type: 'BIG_NUMBER' },
+  '22': { type: 'DEPENDENT_FIELD' },
 };
 
 export const LEGO = 'LEGO';

@@ -922,6 +922,7 @@ export namespace Components {
     | 'DATE_TIME'
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
+    | 'DEPENDENT_FIELD'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -1426,11 +1427,56 @@ export namespace Components {
         "titleText": string;
     }
     interface FwNestedNode {
+        /**
+          * level to keep track of selected options and reset on parent option changes
+         */
         "level": number;
+        /**
+          * Name of the field value gets updated to
+         */
+        "name": string;
+        /**
+          * OptionValue path
+         */
+        "optionValuePath": string;
+        /**
+          * Options to pass through and loop
+         */
         "options": any[];
+        /**
+          * Fn to return initialValues from properties
+         */
+        "selectProps"?: any;
+        /**
+          * Current selected value if passed from initialvalues
+         */
+        "value": string;
     }
     interface FwNestedSelect {
+        /**
+          * Name of first level field
+         */
+        "name": string;
+        /**
+          * OptionLabelPath referred from field
+         */
+        "optionLabelPath": string;
+        /**
+          * OptionValuePath referred from field
+         */
+        "optionValuePath": string;
+        /**
+          * Options to display
+         */
         "options": any[];
+        /**
+          * Function to return initialValues
+         */
+        "selectProps"?: any;
+        /**
+          * Initial value from first level choices
+         */
+        "value": string;
     }
     interface FwPagination {
         /**
@@ -2485,6 +2531,10 @@ export interface FwListOptionsCustomEvent<T> extends CustomEvent<T> {
 export interface FwModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwModalElement;
+}
+export interface FwNestedSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwNestedSelectElement;
 }
 export interface FwPaginationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -3866,6 +3916,7 @@ declare namespace LocalJSX {
     | 'DATE_TIME'
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
+    | 'DEPENDENT_FIELD'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -4397,11 +4448,60 @@ declare namespace LocalJSX {
         "titleText"?: string;
     }
     interface FwNestedNode {
+        /**
+          * level to keep track of selected options and reset on parent option changes
+         */
         "level"?: number;
+        /**
+          * Name of the field value gets updated to
+         */
+        "name"?: string;
+        /**
+          * OptionValue path
+         */
+        "optionValuePath"?: string;
+        /**
+          * Options to pass through and loop
+         */
         "options"?: any[];
+        /**
+          * Fn to return initialValues from properties
+         */
+        "selectProps"?: any;
+        /**
+          * Current selected value if passed from initialvalues
+         */
+        "value"?: string;
     }
     interface FwNestedSelect {
+        /**
+          * Name of first level field
+         */
+        "name"?: string;
+        /**
+          * Triggered when nested selection doesn't have choices
+         */
+        "onFwChange"?: (event: FwNestedSelectCustomEvent<any>) => void;
+        /**
+          * OptionLabelPath referred from field
+         */
+        "optionLabelPath"?: string;
+        /**
+          * OptionValuePath referred from field
+         */
+        "optionValuePath"?: string;
+        /**
+          * Options to display
+         */
         "options"?: any[];
+        /**
+          * Function to return initialValues
+         */
+        "selectProps"?: any;
+        /**
+          * Initial value from first level choices
+         */
+        "value"?: string;
     }
     interface FwPagination {
         /**
