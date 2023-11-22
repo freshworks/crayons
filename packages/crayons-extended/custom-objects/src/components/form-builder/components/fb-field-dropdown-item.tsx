@@ -9,6 +9,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
+
 import { hasCustomProperty, i18nText } from '../utils/form-builder-utils';
 
 @Component({
@@ -135,7 +136,7 @@ export class FbFieldDropdownItem {
   private nameKeydownHandler = (event: KeyboardEvent) => {
     const value = event?.target?.['value']?.trim() || '';
     const keyEvent = event.detail?.['event'];
-    if (keyEvent?.key === 'Tab' && value.length) {
+    if (keyEvent?.key === 'Tab' && value) {
       this.fwAdd.emit();
     }
   };

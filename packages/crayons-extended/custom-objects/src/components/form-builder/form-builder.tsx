@@ -22,6 +22,7 @@ import {
   i18nText,
   isPrimaryFieldType,
   isUniqueField,
+  getDefaultDependentLevels,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -228,7 +229,7 @@ export class FormBuilder {
       'DECIMAL',
       'DATE',
       'DROPDOWN',
-      'DEPENDENT_DROPDOWN',
+      'DEPENDENT_FIELD',
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];
@@ -269,6 +270,15 @@ export class FormBuilder {
         const intFieldCount = arrFields.length;
 
         for (let i1 = 0; i1 < intFieldCount; i1++) {
+          // check for dependent field and change fields format
+          if (arrFields[i1]?.field_options?.dependent === 'true') {
+            arrFields[i1] = getDefaultDependentLevels({
+              type: '22',
+              label: arrFields[i1].label,
+              fields: [arrFields[i1]],
+            });
+          }
+
           const objField = arrFields[i1];
           if (!objField) {
             continue;
@@ -423,9 +433,7 @@ export class FormBuilder {
   };
 
   private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
-    const fieldType = objFieldData?.field_options?.dependent
-      ? 'DEPENDENT_FIELD'
-      : strNewFieldType;
+    const fieldType = strNewFieldType;
     const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
@@ -968,9 +976,7 @@ export class FormBuilder {
     if (!dataItem) {
       return null;
     }
-    const strFieldType = dataItem?.field_options?.dependent
-      ? 'DEPENDENT_FIELD'
-      : dataItem.type;
+    const strFieldType = dataItem.type;
     const objDefaultFieldTypeSchema =
       this.getDefaultFieldTypeSchema(strFieldType);
     if (!objDefaultFieldTypeSchema) {
@@ -985,8 +991,6 @@ export class FormBuilder {
     const boolItemExpanded =
       this.expandedFieldIndex === intIndex ? true : false;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
-
-    console.log('===============', dataItem);
 
     return (
       <fw-field-editor

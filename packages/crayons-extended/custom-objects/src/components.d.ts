@@ -46,23 +46,42 @@ export namespace Components {
         "value": any;
     }
     interface FwFbFieldDropdown {
+        /**
+          * Series of Ids to render options
+         */
         "choiceIds": any[];
         /**
           * variable to store the data source for all the choices
          */
         "dataProvider": any;
+        /**
+          * Property indicates the level selected
+         */
         "dependentLevels": {};
         /**
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled": boolean;
+        /**
+          * Key press to allow user to use tab
+         */
         "enableKeyPress": boolean;
+        /**
+          * Flag indicates this field is dependent field
+         */
         "isDependentField": boolean;
         /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
+        /**
+          * Level Indicates the depth of current field Starts from 1
+         */
         "level": any;
+        "optional": boolean;
+        /**
+          * Property parentId indicates the parent of current child dropdown
+         */
         "parentId": any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -791,27 +810,46 @@ declare namespace LocalJSX {
         "value"?: any;
     }
     interface FwFbFieldDropdown {
+        /**
+          * Series of Ids to render options
+         */
         "choiceIds"?: any[];
         /**
           * variable to store the data source for all the choices
          */
         "dataProvider"?: any;
+        /**
+          * Property indicates the level selected
+         */
         "dependentLevels"?: {};
         /**
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled"?: boolean;
+        /**
+          * Key press to allow user to use tab
+         */
         "enableKeyPress"?: boolean;
+        /**
+          * Flag indicates this field is dependent field
+         */
         "isDependentField"?: boolean;
         /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
+        /**
+          * Level Indicates the depth of current field Starts from 1
+         */
         "level"?: any;
         /**
           * Triggered on data change for error handling on parent
          */
         "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
+        "optional"?: boolean;
+        /**
+          * Property parentId indicates the parent of current child dropdown
+         */
         "parentId"?: any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES

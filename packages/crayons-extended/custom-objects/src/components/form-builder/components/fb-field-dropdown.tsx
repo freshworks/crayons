@@ -49,18 +49,33 @@ export class FbFieldDropdown {
    * Disables all the options which can't be edited, reordered or deleted if set to true.
    */
   @Prop() disabled = false;
-
+  /**
+   * Level Indicates the depth of current field
+   * Starts from 1
+   */
   @Prop() level = null;
-
+  /**
+   * Flag indicates this field is dependent field
+   */
   @Prop() isDependentField = false;
-
+  /**
+   * Property parentId indicates the parent of current child dropdown
+   */
   @Prop() parentId = null;
-
+  /**
+   * Property indicates the level selected
+   */
   @Prop() dependentLevels = {};
-
+  /**
+   * Key press to allow user to use tab
+   */
   @Prop() enableKeyPress = false;
-
+  /**
+   * Series of Ids to render options
+   */
   @Prop() choiceIds = [];
+
+  @Prop() optional = false;
   /**
    * Triggered on data change for error handling on parent
    */
@@ -83,6 +98,7 @@ export class FbFieldDropdown {
         type: 'VALUE_CHANGE',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
       });
     }
   }
@@ -120,7 +136,7 @@ export class FbFieldDropdown {
       }
       this.validateMaximumChoiceLimits();
     } else {
-      this.errorType = i18nText('errors.minimum');
+      this.errorType = this.optional ? '' : i18nText('errors.minimum');
     }
   };
 
@@ -142,9 +158,7 @@ export class FbFieldDropdown {
     const objNewChoice = { value: '' };
     if (this.level) {
       objNewChoice['id'] = createUUID();
-      objNewChoice['dependent_ids'] = {
-        choice: [],
-      };
+      objNewChoice['dependent_ids'] = { choice: [], field: [] };
     }
     this.dataProvider = [...this.dataProvider, objNewChoice];
     this.errorType = i18nText('errors.emptyChoice');
@@ -154,9 +168,9 @@ export class FbFieldDropdown {
       type: 'ADD',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      parentId: this.parentId,
       level: this.level,
       choice: objNewChoice,
-      parentId: this.parentId,
     });
   };
 
@@ -169,12 +183,13 @@ export class FbFieldDropdown {
 
     const intDeleteIndex = event.detail.index;
     const isNewChoice = event.detail.isNewChoice;
+
     if (
       intDeleteIndex > -1 &&
       this.dataProvider &&
       intDeleteIndex < this.dataProvider.length
     ) {
-      const choiceToBeDeleted = this.dataProvider[intDeleteIndex];
+      const choice = this.dataProvider[intDeleteIndex];
       this.dataProvider = [
         ...this.dataProvider.slice(0, intDeleteIndex),
         ...this.dataProvider.slice(intDeleteIndex + 1),
@@ -189,7 +204,8 @@ export class FbFieldDropdown {
         errorType: this.errorType,
         value: [...this.dataProvider],
         level: this.level,
-        choice: choiceToBeDeleted,
+        parentId: this.parentId,
+        choice: choice,
       });
     }
   };
@@ -218,7 +234,6 @@ export class FbFieldDropdown {
       errorType: this.errorType,
       value: [...this.dataProvider],
       level: this.level,
-      choice: this.dataProvider[intIndex],
     });
   };
 
@@ -262,12 +277,14 @@ export class FbFieldDropdown {
     event.stopImmediatePropagation();
     event.stopPropagation();
 
-    this.fwChange.emit({
-      type: 'SELECT',
-      level: this.level,
-      index: event.detail.index,
-      id: event.detail.id,
-    });
+    if (event.detail.id) {
+      this.fwChange.emit({
+        type: 'SELECT',
+        level: this.level,
+        index: event.detail.index,
+        id: event.detail.id,
+      });
+    }
   };
 
   private renderNameEditorElement(dataItem, intIndex) {
@@ -280,7 +297,7 @@ export class FbFieldDropdown {
     const levelId = this.dependentLevels[`level_${this.level}`];
     const itemSelected = dataItem.id === levelId;
 
-    if (this.choiceIds.length && !this.choiceIds.includes(dataItem.id)) {
+    if (this.parentId && !this.choiceIds.includes(dataItem.id)) {
       return null;
     }
 

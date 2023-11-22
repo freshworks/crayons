@@ -16,6 +16,12 @@
 
   .fb-field-dropdown-item-delete-container {
     width: unset !important;
+
+    &--not-deleteable {
+      opacity: 0 !important;
+      pointer-events: none;
+      user-select: none;
+    }
   }
 }
 

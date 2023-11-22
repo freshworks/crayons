@@ -292,7 +292,8 @@
       "DROPDOWN": 2,
       "CHECKBOX": 5,
       "MULTI_SELECT": 18,
-      "RELATIONSHIP": 16
+      "RELATIONSHIP": 16,
+      "DEPENDENT_FIELD": 22
     },
     "reverseMappedFieldTypes": {
       "1": "TEXT",
@@ -303,7 +304,8 @@
       "2": "DROPDOWN",
       "5": "CHECKBOX",
       "18": "MULTI_SELECT",
-      "16": "RELATIONSHIP"
+      "16": "RELATIONSHIP",
+      "22": "DEPENDENT_FIELD"
     },
     "fieldOrder": [
       "TEXT",
