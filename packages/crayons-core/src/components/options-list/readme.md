@@ -326,6 +326,7 @@ The data-source and the visual variant for the list options can be altered via t
 **This feature is experimental, it needs to be explicitly activated using the `enableVirtualScroll` feature flag.**
 
 `enableVirtualScroll` property can be used to enable virtualisation of long list of options.
+`estimatedSize` property is used to set estimated size of items in the list box to ensure smooth-scrolling.
 
 ```html live
 <fw-label value="With Virtual Scroll" color="blue"></fw-label>
@@ -334,7 +335,7 @@ The data-source and the visual variant for the list options can be altered via t
   <fw-list-options
     id="longList"
     enable-virtual-scroll="true"
-    estimated-size="75"
+    estimated-size="52"
     slot="popover-content"
   ></fw-list-options>
 </fw-popover>
@@ -364,7 +365,7 @@ The data-source and the visual variant for the list options can be altered via t
   <fw-list-options
     id="longList"
     enable-virtual-scroll="true"
-    estimated-size="75"
+    estimated-size="52"
     slot="popover-content"
   ></fw-list-options>
 </fw-popover>
@@ -399,7 +400,7 @@ function ListOptions() {
         slot='popover-content'
         options={longListOptions}
         enableVirtualScroll
-        estimatedSize={75}
+        estimatedSize={52}
       ></FwListOptions>
     </FwPopover>
   );

@@ -48,7 +48,6 @@ export class ListOptions {
       resolve(filteredValue);
     });
   };
-  // private filteredFilesRef = null;
   private scrollVirtualizer = null;
   private scrollVirtualizerCleanup = null;
   private renderPromiseResolve = null;
@@ -199,13 +198,6 @@ export class ListOptions {
       this.renderPromiseResolve();
       this.renderPromiseResolve = null;
     }
-    if (this.enableVirtualScroll) {
-      const parent = this.host?.parentElement;
-      if (parent && parent.tagName === 'FW-POPOVER') {
-        parent.addEventListener('fwShow', this.debouncedFwShowHandler);
-        parent.addEventListener('fwHide', this.debouncedFwHideHandler);
-      }
-    }
   }
 
   /**
@@ -218,7 +210,13 @@ export class ListOptions {
 
   connectedCallback() {
     if (this.enableVirtualScroll) {
-      this.waitForNextRender().then(() => this.initScroller());
+      const parent = this.host?.parentElement;
+      if (parent && parent.tagName === 'FW-POPOVER') {
+        parent.addEventListener('fwShow', this.debouncedFwShowHandler);
+        parent.addEventListener('fwHide', this.debouncedFwHideHandler);
+      } else {
+        this.waitForNextRender().then(() => this.initScroller());
+      }
     }
   }
 
@@ -238,8 +236,9 @@ export class ListOptions {
 
   debouncedFwHideHandler = debounce(
     () => {
+      this.scrollVirtualizerCleanup?.();
       this.scrollVirtualizer?.scrollToOffset(0);
-      this.scrollVirtualizer?.measure();
+      this.scrollVirtualizer = null;
     },
     this,
     100
@@ -423,6 +422,7 @@ export class ListOptions {
   @Watch('filteredOptions')
   onFilteredOptionsChange(): void {
     if (this.enableVirtualScroll) {
+      this.scrollVirtualizerCleanup?.();
       this.initScroller();
     }
   }
@@ -436,6 +436,7 @@ export class ListOptions {
           return scrollElement;
         },
         estimateSize: () => this.estimatedSize,
+        paddingEnd: 10,
       };
       if (this.scrollVirtualizer) {
         this.scrollVirtualizerCleanup?.();
@@ -636,7 +637,7 @@ export class ListOptions {
             position: 'relative',
           }}
         >
-          {/* <div
+          <div
             style={{
               position: 'absolute',
               top: '0px',
@@ -644,27 +645,22 @@ export class ListOptions {
               width: '100%',
               transform: `translateY(${virtualItems?.[0]?.start ?? 0}px)`,
             }}
-          > */}
-          {virtualItems.map((virtualItem) => {
-            const option = options[virtualItem.index];
-            return (
-              <div
-                key={virtualItem.key}
-                data-index={virtualItem.index}
-                ref={(item) => this.scrollVirtualizer?.measureElement(item)}
-                style={{
-                  position: 'absolute',
-                  top: '0px',
-                  left: '0px',
-                  width: '100%',
-                  transform: `translateY(${virtualItem.start ?? 0}px)`,
-                }}
-              >
-                {this.renderSelectOption(option)}
-              </div>
-            );
-          })}
-          {/* </div> */}
+          >
+            {virtualItems
+              .filter((virtualItem) => !!options[virtualItem.index])
+              .map((virtualItem) => {
+                const option = options[virtualItem.index];
+                return (
+                  <div
+                    key={virtualItem.key}
+                    data-index={virtualItem.index}
+                    ref={(item) => this.scrollVirtualizer?.measureElement(item)}
+                  >
+                    {this.renderSelectOption(option)}
+                  </div>
+                );
+              })}
+          </div>
         </div>
       )
     );

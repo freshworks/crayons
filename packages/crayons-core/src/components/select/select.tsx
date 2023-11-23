@@ -315,7 +315,6 @@ export class Select {
   @Listen('fwShow')
   onDropdownOpen(e) {
     if (e.composedPath()[0].id === 'select-popover') {
-      console.log('number of logs fwshow');
       this.isExpanded = true;
     }
   }

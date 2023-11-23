@@ -864,4 +864,28 @@ describe('fw-select', () => {
     );
     expect(popoverContent).not.toHaveAttribute('data-show');
   });
+
+  it('should have virtual scroll (display only limited nodes based on space available in parent) when popup opens up', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-select enable-virtual-scroll="true" estimated-size="30">
+    </fw-select>`);
+    await page.$eval('fw-select', (elm: any) => {
+      elm.options = Array.from(Array(7000), (_, i) => ({
+        text: `Item No: ${i + 1}`,
+        value: i,
+      }));
+    });
+    await page.waitForChanges();
+    const element = await page.find('fw-select');
+    await element.click();
+    await page.waitForChanges();
+    await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
+    const popover = await page.find('fw-select >>> fw-popover');
+    const options = await popover.findAll(
+      'fw-list-options >>> fw-select-option'
+    );
+    expect(options.length).toBeGreaterThan(5);
+    expect(options.length).toBeLessThan(20);
+  });
 });

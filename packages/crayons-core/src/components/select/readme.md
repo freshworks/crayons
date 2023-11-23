@@ -1862,7 +1862,7 @@ export default Select;
 **This feature is experimental, it needs to be explicitly activated using the `enableVirtualScroll` feature flag.**
 
 `enableVirtualScroll` property can be used to enable virtualisation of long list of options.
-`estimatedSize` property can be used to set estimated size of items in the list box to ensure smooth-scrolling.
+`estimatedSize` property is used to set estimated size of items in the list box to ensure smooth-scrolling.
 
 ```html live
 <fw-label value="With Virtual Scroll" color="blue"></fw-label><br /><br />

@@ -46,6 +46,7 @@ import {
 export * from '@tanstack/virtual-core';
 
 import { createStore } from '@stencil/store';
+import { debounce } from '.';
 
 function createVirtualizerBase<
   TScrollElement extends Element | Window,
@@ -89,18 +90,28 @@ function createVirtualizerBase<
 
   const scrollVirtualizerProxy = new Proxy(scrollVirtualizer, handler);
 
-  scrollVirtualizerProxy.setOptions({
-    ...options,
-    onChange(
+  const debouncedOnChange = debounce(
+    (
       newVirtualizer: Virtualizer<TScrollElement, TItemElement>,
-      sync: boolean
-    ) {
+      sync: boolean,
+      options: any
+    ) => {
       const virtualItems = newVirtualizer.getVirtualItems();
       virtualizerStore.set('virtualItems', virtualItems);
       virtualizerStore.set('totalSize', newVirtualizer.getTotalSize());
       scrollVirtualizerProxy._willUpdate();
       options.onChange?.(newVirtualizer, sync);
     },
+    this,
+    50
+  );
+
+  scrollVirtualizerProxy.setOptions({
+    ...options,
+    onChange: (
+      newVirtualizer: Virtualizer<TScrollElement, TItemElement>,
+      sync: boolean
+    ) => debouncedOnChange(newVirtualizer, sync, options),
   });
   scrollVirtualizerProxy.measure();
 
