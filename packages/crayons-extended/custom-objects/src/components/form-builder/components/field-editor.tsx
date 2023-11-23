@@ -1341,9 +1341,7 @@ export class FieldEditor {
             value={strInputInternalName}
             errorText={strInputError}
             warningText={strInputWarning}
-            disabled={
-              (!this.isNewField || !boolEditAllowed) && optional !== 'true'
-            }
+            disabled={(!this.isNewField || !boolEditAllowed) && !optional}
             state={
               boolShowNameError
                 ? 'error'
