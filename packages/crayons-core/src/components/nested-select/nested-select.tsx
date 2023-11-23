@@ -17,6 +17,10 @@ export class NestedSelect {
    */
   @Prop() name = '';
   /**
+   * label
+   */
+  @Prop() label = '';
+  /**
    * Initial value from first level choices
    */
   @Prop() value = '';
@@ -27,7 +31,7 @@ export class NestedSelect {
   /**
    * OptionLabelPath referred from field
    */
-  @Prop() optionLabelPath = 'label';
+  @Prop() optionLabelPath = 'value';
   /**
    * Function to return initialValues
    */
@@ -72,7 +76,9 @@ export class NestedSelect {
         options={this.options}
         name={this.name}
         value={this.value}
+        label={this.label}
         optionValuePath={this.optionValuePath}
+        optionLabelPath={this.optionLabelPath}
         selectProps={this.selectProps}
       ></fw-nested-node>
     );

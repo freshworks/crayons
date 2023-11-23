@@ -29,9 +29,17 @@ export class NestedNode {
    */
   @Prop() value = '';
   /**
+   * label
+   */
+  @Prop() label = '';
+  /**
    * OptionValue path
    */
   @Prop() optionValuePath = 'id';
+  /**
+   * optionLabelPath
+   */
+  @Prop() optionLabelPath = 'value';
   /**
    * Fn to return initialValues from properties
    */
@@ -73,9 +81,11 @@ export class NestedNode {
         <fw-nested-node
           options={this.selectedOption.choices}
           name={this.selectedOption.name}
+          label={this.selectedOption.label}
           value={value}
           level={this.level + 1}
           optionValuePath={this.optionValuePath}
+          optionLabelPath={this.optionLabelPath}
           selectProps={this.selectProps}
         ></fw-nested-node>
       </div>
@@ -92,9 +102,11 @@ export class NestedNode {
       <fw-nested-node
         options={this.selectedOption.choices}
         name={this.selectedOption.name}
+        label={this.selectedOption.label}
         value={value}
         level={this.level + 1}
         optionValuePath={this.optionValuePath}
+        optionLabelPath={this.optionLabelPath}
         selectProps={this.selectProps}
       ></fw-nested-node>
     );
@@ -104,10 +116,12 @@ export class NestedNode {
     return (
       <div class='nest'>
         <fw-select
-          label={this.name}
+          label={this.label}
           options={this.options}
           name={this.name}
           value={this.value}
+          optionValuePath={this.optionValuePath}
+          optionLabelPath={this.optionLabelPath}
           ref={(select) => (this.selectRef = select)}
         ></fw-select>
         {this.level === 0

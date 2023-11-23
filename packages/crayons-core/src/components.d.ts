@@ -1428,6 +1428,10 @@ export namespace Components {
     }
     interface FwNestedNode {
         /**
+          * label
+         */
+        "label": string;
+        /**
           * level to keep track of selected options and reset on parent option changes
          */
         "level": number;
@@ -1435,6 +1439,10 @@ export namespace Components {
           * Name of the field value gets updated to
          */
         "name": string;
+        /**
+          * optionLabelPath
+         */
+        "optionLabelPath": string;
         /**
           * OptionValue path
          */
@@ -1453,6 +1461,10 @@ export namespace Components {
         "value": string;
     }
     interface FwNestedSelect {
+        /**
+          * label
+         */
+        "label": string;
         /**
           * Name of first level field
          */
@@ -4449,6 +4461,10 @@ declare namespace LocalJSX {
     }
     interface FwNestedNode {
         /**
+          * label
+         */
+        "label"?: string;
+        /**
           * level to keep track of selected options and reset on parent option changes
          */
         "level"?: number;
@@ -4456,6 +4472,10 @@ declare namespace LocalJSX {
           * Name of the field value gets updated to
          */
         "name"?: string;
+        /**
+          * optionLabelPath
+         */
+        "optionLabelPath"?: string;
         /**
           * OptionValue path
          */
@@ -4474,6 +4494,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface FwNestedSelect {
+        /**
+          * label
+         */
+        "label"?: string;
         /**
           * Name of first level field
          */

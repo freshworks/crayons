@@ -3259,6 +3259,7 @@ graph TD;
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
   fw-form-control --> fw-file-uploader-2
+  fw-form-control --> fw-nested-select
   fw-input --> fw-icon
   fw-datepicker --> fw-tooltip
   fw-datepicker --> fw-icon
@@ -3293,6 +3294,9 @@ graph TD;
   fw-file-2 --> fw-tooltip
   fw-file-2 --> fw-spinner
   fw-inline-message --> fw-icon
+  fw-nested-select --> fw-nested-node
+  fw-nested-node --> fw-nested-node
+  fw-nested-node --> fw-select
   style fw-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
