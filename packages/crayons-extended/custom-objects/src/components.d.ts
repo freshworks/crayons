@@ -78,7 +78,6 @@ export namespace Components {
           * Level Indicates the depth of current field Starts from 1
          */
         "level": any;
-        "optional": boolean;
         /**
           * Property parentId indicates the parent of current child dropdown
          */
@@ -846,7 +845,6 @@ declare namespace LocalJSX {
           * Triggered on data change for error handling on parent
          */
         "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
-        "optional"?: boolean;
         /**
           * Property parentId indicates the parent of current child dropdown
          */

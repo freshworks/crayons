@@ -55,7 +55,7 @@
           "choices": [],
           "fields": [{
             "type": "DROPDOWN",
-            "field_options": { "level": "3", "optional": "true", "dependent": "true" },
+            "field_options": { "level": "3", "dependent": "true" },
             "choices": []
           }]
         }]
@@ -103,5 +103,5 @@
       }
     }
   },
-  "textboxDependentValue": "category 1\n\tsubcategory 1\n\tsubcategory 2\n\tsubcategory 3\ncategory 2\n\tsubcategory 4"
+  "textboxDependentValue": "category 1\n\tsubcategory 1\n\t\titem 1\n\t\titem2\n\tsubcategory 2\n\t\titem 3\n\tsubcategory 3\n\t\titem 4\ncategory 2\n\tsubcategory 4\n\t\titem 5\n"
 }

@@ -272,11 +272,16 @@ export class FormBuilder {
         for (let i1 = 0; i1 < intFieldCount; i1++) {
           // check for dependent field and change fields format
           if (arrFields[i1]?.field_options?.dependent === 'true') {
-            arrFields[i1] = getDefaultDependentLevels({
-              type: '22',
-              label: arrFields[i1].label,
-              fields: [arrFields[i1]],
-            });
+            const internalNamePrefix = objProductConfig.internalNamePrefix;
+            arrFields[i1] = getDefaultDependentLevels(
+              {
+                type: '22',
+                label: arrFields[i1].label,
+                name: arrFields[i1].name,
+                fields: [arrFields[i1]],
+              },
+              internalNamePrefix
+            );
           }
 
           const objField = arrFields[i1];

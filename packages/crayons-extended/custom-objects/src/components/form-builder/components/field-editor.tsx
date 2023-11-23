@@ -31,8 +31,6 @@ import {
   updateFieldAttributes,
   updateChoicesInFields,
   deleteChoicesInFields,
-  getFieldBasedOnLevel,
-  updateFieldEmpty,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -428,8 +426,8 @@ export class FieldEditor {
   /**
    * function to validate the label input error values
    */
-  private validateLabelErrors = (strInputValue, optional = false) => {
-    if (!strInputValue && !optional) {
+  private validateLabelErrors = (strInputValue) => {
+    if (!strInputValue) {
       this.labelErrorMessage = i18nText('errors.emptyFieldName');
       return false;
     } else {
@@ -475,8 +473,8 @@ export class FieldEditor {
   /**
    * function to validate the internal name input error values
    */
-  private validateInternalNameErrors = (strInputValue, optional = false) => {
-    if (!strInputValue && !optional) {
+  private validateInternalNameErrors = (strInputValue) => {
+    if (!strInputValue) {
       this.internalNameErrorMessage = i18nText('errors.emptyFieldName');
       return false;
     } else {
@@ -517,14 +515,8 @@ export class FieldEditor {
   /**
    * function to check the dropdown error values
    */
-  private validateDropdownErrors = (
-    arrDropdownValues,
-    optional = undefined
-  ) => {
-    if (
-      (!arrDropdownValues || arrDropdownValues.length < 1) &&
-      optional === 'true'
-    ) {
+  private validateDropdownErrors = (arrDropdownValues) => {
+    if (!arrDropdownValues || arrDropdownValues.length < 1) {
       this.formErrorMessage = i18nText('errors.minimum');
       return false;
     }
@@ -632,9 +624,7 @@ export class FieldEditor {
             }
           } else if (key.includes('name_level_')) {
             level = removeFirstOccurrence(key, 'name_level_');
-            const field = getFieldBasedOnLevel(this.fieldBuilderOptions, level);
-            const optional = field?.field_options?.optional === 'true';
-            boolValidForm = this.validateLabelErrors(strInputValue, optional);
+            boolValidForm = this.validateLabelErrors(strInputValue);
             if (boolValidForm) {
               this.showErrors = false;
               this.labelErrorMessage = '';
@@ -650,17 +640,13 @@ export class FieldEditor {
               key,
               `${this.KEY_INTERNAL_NAME}_level_`
             );
-            const field = getFieldBasedOnLevel(this.fieldBuilderOptions, level);
-            const optional = field?.field_options?.optional === 'true';
-            boolValidForm = this.validateInternalNameErrors(
-              strInputValue,
-              optional
-            );
+            boolValidForm = this.validateInternalNameErrors(strInputValue);
             if (boolValidForm) {
               this.showErrors = false;
               this.internalNameErrorMessage = '';
               objValues = updateFieldAttributes(objValues, level, {
-                internalName: strInputValue,
+                internalName:
+                  `${this.internalNamePrefix}${strInputValue}` || '',
               });
             } else {
               this.showErrors = true;
@@ -674,24 +660,15 @@ export class FieldEditor {
         case 'fw-fb-field-dropdown': {
           if (this.isDependentField) {
             level = removeFirstOccurrence(key, 'choices_level_');
-            const field = getFieldBasedOnLevel(this.fieldBuilderOptions, level);
-            const optional = field?.field_options?.optional === 'true';
             const arrDropdownValues =
               deepCloneObject(elInteractive.dataProvider) || [];
-            boolValidForm = this.validateDropdownErrors(
-              arrDropdownValues,
-              optional
-            );
+            boolValidForm = this.validateDropdownErrors(arrDropdownValues);
 
             if (boolValidForm) {
               this.showErrors = false;
-              if (!arrDropdownValues.length) {
-                objValues = updateFieldEmpty(objValues, level);
-              } else {
-                objValues = updateFieldAttributes(objValues, level, {
-                  choices: arrDropdownValues,
-                });
-              }
+              objValues = updateFieldAttributes(objValues, level, {
+                choices: arrDropdownValues,
+              });
             } else {
               elInteractive.validateErrors();
               this.showErrors = true;
@@ -960,15 +937,9 @@ export class FieldEditor {
       : event?.target?.['value']?.trim() || '';
     const isValidValue = strInputValue && strInputValue !== '';
 
-    const field = level
-      ? getFieldBasedOnLevel(this.fieldBuilderOptions, level)
-      : this.fieldBuilderOptions;
     let strInternalName = '';
     let boolInternalNameUpdated = false;
-    if (
-      (!this.isInternalNameEdited && this.isNewField) ||
-      field?.field_options?.optional === 'true'
-    ) {
+    if (!this.isInternalNameEdited && this.isNewField) {
       strInternalName = deriveInternalNameFromLabel(strInputValue);
       boolInternalNameUpdated = true;
     }
@@ -1176,7 +1147,8 @@ export class FieldEditor {
     choiceIds = [],
     parentId = null
   ) {
-    const { level, optional } = fieldBuilderOptions?.field_options;
+    // Dependent Level checks
+    const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField
       ? `choices_level_${level}`
       : 'choices';
@@ -1203,7 +1175,6 @@ export class FieldEditor {
         isDependentField={this.isDependentField}
         dependentLevels={selectedLevels}
         level={level}
-        optional={optional === 'true'}
         parentId={parentId}
         choiceIds={choiceIds}
         enableKeyPress={showAddChoice}
@@ -1291,8 +1262,9 @@ export class FieldEditor {
       ? objFieldBuilder.name
       : '';
 
-    const { level, optional } = fieldBuilderOptions?.field_options;
-    const fieldError = !strInputInternalName && optional !== 'true';
+    // Dependent Level checks
+    const level = fieldBuilderOptions?.field_options?.level;
+    const fieldError = !strInputInternalName;
     const dictElName = this.isDependentField
       ? `${this.KEY_INTERNAL_NAME}_level_${level}`
       : this.KEY_INTERNAL_NAME;
@@ -1341,7 +1313,7 @@ export class FieldEditor {
             value={strInputInternalName}
             errorText={strInputError}
             warningText={strInputWarning}
-            disabled={(!this.isNewField || !boolEditAllowed) && !optional}
+            disabled={!this.isNewField || !boolEditAllowed}
             state={
               boolShowNameError
                 ? 'error'
@@ -1374,10 +1346,9 @@ export class FieldEditor {
       ? i18nText('primaryFieldNameHint')
       : '';
     // Dependent Level checks
-    const { level, optional } = fieldBuilderOptions?.field_options;
+    const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField ? `name_level_${level}` : 'name';
-    const fieldError =
-      (!strInputLabel && optional !== 'true') || this.duplicateErrors;
+    const fieldError = !strInputLabel || this.duplicateErrors;
 
     const boolShowLabelError =
       this.showErrors &&

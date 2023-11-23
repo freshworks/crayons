@@ -74,8 +74,6 @@ export class FbFieldDropdown {
    * Series of Ids to render options
    */
   @Prop() choiceIds = [];
-
-  @Prop() optional = false;
   /**
    * Triggered on data change for error handling on parent
    */
@@ -136,7 +134,7 @@ export class FbFieldDropdown {
       }
       this.validateMaximumChoiceLimits();
     } else {
-      this.errorType = this.optional ? '' : i18nText('errors.minimum');
+      this.errorType = i18nText('errors.minimum');
     }
   };
 

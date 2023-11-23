@@ -306,7 +306,7 @@ const validateChoices = (choices, value) => {
 };
 
 /** Returns filtered choices by ids */
-const getChoicesById = (choices, ids) => {
+const getChoicesById = (choices = [], ids = []) => {
   return choices.filter((choice) => ids.includes(choice.id));
 };
 
@@ -353,10 +353,10 @@ export function updateFieldAttributes(
   const getField = getFieldBasedOnLevel(data, level);
 
   if (getField) {
-    label && (getField.label = label);
-    name && (getField.name = name);
-    internalName && (getField.internalName = internalName);
-    choices && choices.length && (getField.choices = choices);
+    label && (getField['label'] = label);
+    name && (getField['name'] = name);
+    internalName && (getField['internalName'] = internalName);
+    choices && choices.length && (getField['choices'] = choices);
   }
 
   return { ...data, fields: data.fields };
@@ -498,11 +498,6 @@ export function updateChoicesInFields(instance, event) {
   const currentField = getFieldBasedOnLevel(field, level);
   currentField.choices = value;
 
-  const fieldOptions = currentField.field_options;
-  if (hasCustomProperty(fieldOptions, 'optional') && value.length) {
-    currentField.field_options.optional = 'false';
-  }
-
   if (parentId) {
     const parentLevel = parseInt(level, 10) - 1;
     const parentField = getFieldBasedOnLevel(field, parentLevel);
@@ -542,14 +537,6 @@ export function deleteChoicesInFields(instance, event) {
     currentField.choices.filter((item) => item.id !== choice.id)
   );
 
-  const fieldOptions = currentField.field_options;
-  if (
-    hasCustomProperty(fieldOptions, 'optional') &&
-    !currentField.choices.length
-  ) {
-    currentField.field_options.optional = 'true';
-  }
-
   const deleteChildNodes = (depIds, currentLevel) => {
     const childLevel = parseInt(currentLevel, 10) + 1;
     const childField = getFieldBasedOnLevel(field, childLevel);
@@ -575,30 +562,22 @@ export function deleteChoicesInFields(instance, event) {
   return { ...field, fields: field.fields };
 }
 
-export function updateFieldEmpty(data, level) {
-  // Dependent Field
-  const dataCloned = deepCloneObject(data);
-  const getField = getFieldBasedOnLevel(dataCloned, parseInt(level, 10) - 1);
-  getField.fields = [];
-
-  return { ...dataCloned, fields: dataCloned.fields };
-}
-
-export function getDefaultDependentLevels(data) {
+export function getDefaultDependentLevels(data, internalNamePrefix) {
   const dataCloned = deepCloneObject(data);
 
-  // Need to figure out and loop and add the field
-  const getField = getFieldBasedOnLevel(dataCloned, 2);
+  function updateFieldAttribute(fProperties) {
+    fProperties.name = removeFirstOccurrence(
+      fProperties.name,
+      internalNamePrefix
+    );
+    fProperties.label = fProperties.label || '';
 
-  if (!getField.fields.length) {
-    getField['fields'] = [
-      {
-        choices: [],
-        type: '2',
-        field_options: { level: '3', dependent: 'true', optional: 'true' },
-      },
-    ];
+    if (hasCustomProperty(fProperties, 'fields') && fProperties.fields.length) {
+      updateFieldAttribute(fProperties.fields[0]);
+    }
   }
+
+  updateFieldAttribute(dataCloned.fields[0]);
 
   return { ...dataCloned, fields: dataCloned.fields };
 }

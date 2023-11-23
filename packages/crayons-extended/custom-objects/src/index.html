@@ -1558,6 +1558,7 @@
 
       function setFormValues(value) {
         if (productName === 'CONVERSATION_PROPERTIES') {
+          // for Dependent fields
           formValuesConvProps = value;
           return;
         }
@@ -1658,7 +1659,7 @@
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
         var objDetail = event.detail;
-        var objSubmitFormValues = objDetail.value;
+        var objSubmitFormValues = objDetail.value.type === 22 ? objDetail.value.fields[0] : objDetail.value;
         var boolNewField = objDetail.isNew;
         var intIndex = Object.prototype.hasOwnProperty.call(objDetail, 'index')
           ? objDetail.index
@@ -1700,10 +1701,15 @@
           /[^a-zA-Z0-9 ]/g,
           ''
         );
+
         var strGeneratedFieldName = strRemovedSpecialChars
           .split(' ')
           .join('_')
           .toLowerCase();
+
+        var fields = objSubmitFormValues?.fields?.length
+          ? objSubmitFormValues.fields
+          : [];
 
         // make the api call to save the new/edited field data in the DB
         // Temp - updating local field
@@ -1773,8 +1779,24 @@
           boolUpdateUniqueValue = false;
         }
 
+        if (fields.length) {
+          objUpdatedField.fields = fields;
+          objUpdatedField.field_options = { ...objUpdatedField.field_options, ...objSubmitFormValues.field_options };
+        }
+
+        function addLabel(data, label) {
+          if (!data.label) {
+            data.label = label;
+          }
+
+          if (data.fields && data.fields.length) {
+            addLabel(data.fields[0], data.fields[0].name);
+          }
+        }
+
+        addLabel(objUpdatedField, strFieldLabel);
+
         objUpdatedField.type = strFieldType;
-        objUpdatedField.label = strFieldLabel;
         objUpdatedField.required = objSubmitFormValues.required;
         objUpdatedField.filterable = boolFilterable;
         objUpdatedField.choices = arrChoices;
