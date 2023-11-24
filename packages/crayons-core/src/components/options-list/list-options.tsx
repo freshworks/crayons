@@ -194,7 +194,7 @@ export class ListOptions {
    * componentDidRender lifecycle event
    */
   componentDidRender() {
-    if (this.renderPromiseResolve) {
+    if (this.enableVirtualScroll && this.renderPromiseResolve) {
       this.renderPromiseResolve();
       this.renderPromiseResolve = null;
     }
@@ -221,9 +221,14 @@ export class ListOptions {
   }
 
   disconnectedCallback() {
-    parent.removeEventListener('fwShow', this.debouncedFwShowHandler);
-    parent.removeEventListener('fwHide', this.debouncedFwHideHandler);
-    this.scrollVirtualizerCleanup?.();
+    if (this.enableVirtualScroll) {
+      const parent = this.host?.parentElement;
+      if (parent && parent.tagName === 'FW-POPOVER') {
+        parent.removeEventListener('fwShow', this.debouncedFwShowHandler);
+        parent.removeEventListener('fwHide', this.debouncedFwHideHandler);
+      }
+      this.scrollVirtualizerCleanup?.();
+    }
   }
 
   debouncedFwShowHandler = debounce(
@@ -629,7 +634,8 @@ export class ListOptions {
     const virtualItems = this.scrollVirtualizer?.getVirtualItems();
     return (
       scrollElement &&
-      this.scrollVirtualizer && (
+      this.scrollVirtualizer &&
+      virtualItems && (
         <div
           style={{
             height: `${this.scrollVirtualizer.getTotalSize()}px`,
