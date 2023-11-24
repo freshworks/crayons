@@ -813,12 +813,7 @@ export class FieldEditor {
     // let choices = null;
     switch (strType) {
       case 'DELETE':
-        this.errorType =
-          !this.isDependentField &&
-          !this.isNewField &&
-          event.detail.errorType !== i18nText('errors.deleteDropDownChoice')
-            ? event.detail.errorType
-            : '';
+        this.errorType = event.detail.errorType;
         this.validateDropdownErrors(event.detail.value);
         if (this.isDependentField) {
           this.fieldBuilderOptions = deleteChoicesInFields(this, event);
