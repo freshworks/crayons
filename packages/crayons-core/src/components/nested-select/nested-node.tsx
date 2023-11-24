@@ -53,11 +53,12 @@ export class NestedNode {
 
   @Listen('fwChange')
   changed(event) {
-    console.log('IN CHANGE in Level' + this.level, event.target.level);
     if (!event.detail.level) {
       event.detail.level = this.level;
       if (event.detail.meta.selectedOptions[0]?.choices) {
         this.selectedOption = event.detail.meta.selectedOptions[0];
+      } else {
+        this.selectedOption = null;
       }
     }
   }
