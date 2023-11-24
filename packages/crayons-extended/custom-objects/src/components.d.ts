@@ -193,6 +193,10 @@ export namespace Components {
          */
         "formValues": any;
         /**
+          * flag to hide dependentField resolve checkbox
+         */
+        "hideDependentCheckbox": boolean;
+        /**
           * index attached inside the parent group component
          */
         "index": number;
@@ -359,6 +363,10 @@ export namespace Components {
           * variable to store form values
          */
         "formValues": any;
+        /**
+          * flag to hide dependentField resolve checkbox
+         */
+        "hideDependentCheckbox": boolean;
         /**
           * flag to notify if an api call is in progress
          */
@@ -976,6 +984,10 @@ declare namespace LocalJSX {
          */
         "formValues"?: any;
         /**
+          * flag to hide dependentField resolve checkbox
+         */
+        "hideDependentCheckbox"?: boolean;
+        /**
           * index attached inside the parent group component
          */
         "index"?: number;
@@ -1162,6 +1174,10 @@ declare namespace LocalJSX {
           * variable to store form values
          */
         "formValues"?: any;
+        /**
+          * flag to hide dependentField resolve checkbox
+         */
+        "hideDependentCheckbox"?: boolean;
         /**
           * flag to notify if an api call is in progress
          */

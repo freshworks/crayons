@@ -88,6 +88,10 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
   /**
+   * flag to hide dependentField resolve checkbox
+   */
+  @Prop({ mutable: true }) hideDependentCheckbox = false;
+  /**
    * Disable the repositioning option
    */
   @Prop() disabledSort = false;
@@ -1464,14 +1468,16 @@ export class FieldEditor {
     return (
       <div class={`${strBaseClassName}-content`}>
         <div class={`${strBaseClassName}-content-required`}>
-          <div class={`${strBaseClassName}-content-checkboxes`}>
-            <label
-              class={`${strBaseClassName}-content-checkboxes-header-label`}
-            >
-              {i18nText('behaviour')}
-            </label>
-            {checkboxItems}
-          </div>
+          {!this.hideDependentCheckbox && (
+            <div class={`${strBaseClassName}-content-checkboxes`}>
+              <label
+                class={`${strBaseClassName}-content-checkboxes-header-label`}
+              >
+                {i18nText('behaviour')}
+              </label>
+              {checkboxItems}
+            </div>
+          )}
           <div>
             <label class={`${strBaseClassName}-content-label`}>
               {i18nText('labels')}
