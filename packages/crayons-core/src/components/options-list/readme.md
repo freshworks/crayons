@@ -321,36 +321,128 @@ The data-source and the visual variant for the list options can be altered via t
 </code-block>
 </code-group>
 
+### Demo with virtual scroll
+
+**This feature is experimental, it needs to be explicitly activated using the `enableVirtualScroll` feature flag.**
+
+`enableVirtualScroll` property can be used to enable virtualisation of long list of options.
+`estimatedSize` property is used to set estimated size of items in the list box to ensure smooth-scrolling.
+
+```html live
+<fw-label value="With Virtual Scroll" color="blue"></fw-label>
+<fw-popover>
+  <fw-button slot="popover-trigger">Open Long List</fw-button>
+  <fw-list-options
+    id="longList"
+    enable-virtual-scroll="true"
+    estimated-size="52"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+
+### Usage of Virtual scroll
+
+<code-group>
+<code-block title="HTML">
+
+```html
+<fw-label value="With Virtual Scroll" color="blue"></fw-label>
+<fw-popover>
+  <fw-button slot="popover-trigger">Open Long List</fw-button>
+  <fw-list-options
+    id="longList"
+    enable-virtual-scroll="true"
+    estimated-size="52"
+    slot="popover-content"
+  ></fw-list-options>
+</fw-popover>
+
+<script type="application/javascript">
+  var longList = document.getElementById('longList');
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  longList.options = longListOptions;
+  longList.addEventListener('fwChange', (e) => {
+    console.log(e.detail);
+  });
+</script>
+```
+</code-block>
+
+<code-block title="React">
+
+```jsx
+function ListOptions() {
+  const longListOptions = Array.from(Array(50000), (_,i) => ({
+    text: `Item No: ${i + 1}`,
+    value: i
+  }));
+  return (
+    <FwPopover>
+      <FwButton slot="popover-trigger">Open Long List</FwButton>
+      <FwListOptions
+        id='longList'
+        slot='popover-content'
+        options={longListOptions}
+        enableVirtualScroll
+        estimatedSize={52}
+      ></FwListOptions>
+    </FwPopover>
+  );
+}
+export default ListOptions;
+```
+
+</code-block>
+</code-group>
+
 <!-- Auto Generated Below -->
 
 
 ## Properties
 
-| Property            | Attribute           | Description                                                                                                                                                                                                                               | Type                                                  | Default                      |
-| ------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
-| `allowDeselect`     | `allow-deselect`    | Whether clicking on the already selected option disables it.                                                                                                                                                                              | `boolean`                                             | `true`                       |
-| `allowSelect`       | `allow-select`      | Whether clicking on option selects it.                                                                                                                                                                                                    | `boolean`                                             | `true`                       |
-| `checkbox`          | `checkbox`          | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
-| `debounceTimer`     | `debounce-timer`    | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
-| `disabled`          | `disabled`          | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                             | `false`                      |
-| `filterText`        | `filter-text`       | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
-| `formatCreateLabel` | --                  | Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.                                                                                                                                    | `(value: string) => string`                           | `undefined`                  |
-| `hideTick`          | `hide-tick`         | hide tick mark icon on select option                                                                                                                                                                                                      | `boolean`                                             | `false`                      |
-| `isCreatable`       | `is-creatable`      | Allows user to create the option if the provided input doesn't match with any of the options.                                                                                                                                             | `boolean`                                             | `false`                      |
-| `max`               | `max`               | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
-| `multiple`          | `multiple`          | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
-| `noDataText`        | `no-data-text`      | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                              | `''`                         |
-| `notFoundText`      | `not-found-text`    | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                              | `''`                         |
-| `optionLabelPath`   | `option-label-path` | Key for determining the label for a given option                                                                                                                                                                                          | `string`                                              | `'text'`                     |
-| `optionValuePath`   | `option-value-path` | Key for determining the value for a given option                                                                                                                                                                                          | `string`                                              | `'value'`                    |
-| `options`           | --                  | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `any[]`                                               | `[]`                         |
-| `search`            | --                  | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `(text: string, dataSource: any[]) => Promise<any[]>` | `this.defaultSearchFunction` |
-| `searchText`        | `search-text`       | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `''`                         |
-| `searchable`        | `searchable`        | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
-| `selectedOptions`   | --                  | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
-| `validateNewOption` | --                  | Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.                                                                                   | `(value: string) => boolean`                          | `undefined`                  |
-| `value`             | `value`             | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                 | `''`                         |
-| `variant`           | `variant`           | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
+| Property              | Attribute               | Description                                                                                                                                                                                                                               | Type                                                  | Default                      |
+| --------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------- |
+| `allowDeselect`       | `allow-deselect`        | Whether clicking on the already selected option disables it.                                                                                                                                                                              | `boolean`                                             | `true`                       |
+| `allowSelect`         | `allow-select`          | Whether clicking on option selects it.                                                                                                                                                                                                    | `boolean`                                             | `true`                       |
+| `checkbox`            | `checkbox`              | Place a checkbox.                                                                                                                                                                                                                         | `boolean`                                             | `false`                      |
+| `debounceTimer`       | `debounce-timer`        | Debounce timer for the search promise function.                                                                                                                                                                                           | `number`                                              | `300`                        |
+| `disabled`            | `disabled`              | Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.                                                                                                                                | `boolean`                                             | `false`                      |
+| `enableVirtualScroll` | `enable-virtual-scroll` | Virtualize long list of elements in list options *Experimental*                                                                                                                                                                           | `boolean`                                             | `false`                      |
+| `estimatedSize`       | `estimated-size`        | Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.                                                                                                                    | `number`                                              | `35`                         |
+| `filterText`          | `filter-text`           | The text to filter the options.                                                                                                                                                                                                           | `any`                                                 | `undefined`                  |
+| `formatCreateLabel`   | --                      | Works only when 'isCreatable' is selected. Function to format the create label displayed as an option.                                                                                                                                    | `(value: string) => string`                           | `undefined`                  |
+| `hideTick`            | `hide-tick`             | hide tick mark icon on select option                                                                                                                                                                                                      | `boolean`                                             | `false`                      |
+| `isCreatable`         | `is-creatable`          | Allows user to create the option if the provided input doesn't match with any of the options.                                                                                                                                             | `boolean`                                             | `false`                      |
+| `max`                 | `max`                   | Works with `multiple` enabled. Configures the maximum number of options that can be selected with a multi-select component.                                                                                                               | `number`                                              | `Number.MAX_VALUE`           |
+| `multiple`            | `multiple`              | Enables selection of multiple options. If the attribute’s value is undefined, the value is set to false.                                                                                                                                  | `boolean`                                             | `false`                      |
+| `noDataText`          | `no-data-text`          | Text to be displayed when there is no data available in the select.                                                                                                                                                                       | `string`                                              | `''`                         |
+| `notFoundText`        | `not-found-text`        | Default option to be shown if the option doesn't match the filterText.                                                                                                                                                                    | `string`                                              | `''`                         |
+| `optionLabelPath`     | `option-label-path`     | Key for determining the label for a given option                                                                                                                                                                                          | `string`                                              | `'text'`                     |
+| `optionValuePath`     | `option-value-path`     | Key for determining the value for a given option                                                                                                                                                                                          | `string`                                              | `'value'`                    |
+| `options`             | --                      | Value corresponding to the option, that is saved  when the form data is saved.                                                                                                                                                            | `any[]`                                               | `[]`                         |
+| `search`              | --                      | Filter function which takes in filterText and dataSource and return a Promise. Where filter text is the text to filter the value in dataSource array. The returned promise should contain the array of options to be displayed.           | `(text: string, dataSource: any[]) => Promise<any[]>` | `this.defaultSearchFunction` |
+| `searchText`          | `search-text`           | Placeholder to placed on the search text box.                                                                                                                                                                                             | `string`                                              | `''`                         |
+| `searchable`          | `searchable`            | Enables the input with in the popup for filtering the options.                                                                                                                                                                            | `boolean`                                             | `false`                      |
+| `selectedOptions`     | --                      | The option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                            | `any[]`                                               | `[]`                         |
+| `validateNewOption`   | --                      | Works only when 'isCreatable' is selected. Function to validate the newly created value. Should return true if new option is valid or false if invalid.                                                                                   | `(value: string) => boolean`                          | `undefined`                  |
+| `value`               | `value`                 | Value of the option that is displayed as the default selection, in the list box. Must be a valid value corresponding to the fw-select-option components used in Select.                                                                   | `any`                                                 | `''`                         |
+| `variant`             | `variant`               | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps. | `"avatar" \| "icon" \| "standard"`                    | `'standard'`                 |
 
 
 ## Events

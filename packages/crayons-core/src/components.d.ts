@@ -1231,6 +1231,14 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll": boolean;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize": number;
+        /**
           * The text to filter the options.
          */
         "filterText": any;
@@ -1693,9 +1701,17 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll": boolean;
+        /**
           * Error text displayed below the text box.
          */
         "errorText": string;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize": number;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
@@ -4179,6 +4195,14 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll"?: boolean;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize"?: number;
+        /**
           * The text to filter the options.
          */
         "filterText"?: any;
@@ -4645,9 +4669,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Virtualize long list of elements in list options *Experimental*
+         */
+        "enableVirtualScroll"?: boolean;
+        /**
           * Error text displayed below the text box.
          */
         "errorText"?: string;
+        /**
+          * Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+         */
+        "estimatedSize"?: number;
         /**
           * Alternative placement for popover if the default placement is not possible.
          */
