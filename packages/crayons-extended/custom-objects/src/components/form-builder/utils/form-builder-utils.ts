@@ -375,6 +375,10 @@ export function buildChoicesFromText(text, dataProvider) {
     if (value && length) {
       if (!line.startsWith('\t')) {
         if (!validateChoices(hierarchyChoices.choices, value)) {
+          const field = hierarchyChoices;
+          if (!field.id) {
+            field.id = createUUID();
+          }
           currentCategory = {
             id: createUUID(),
             value: value,
@@ -387,15 +391,15 @@ export function buildChoicesFromText(text, dataProvider) {
           currentCategory &&
           !validateChoices(hierarchyChoices.fields[0].choices, value)
         ) {
+          const field = hierarchyChoices.fields[0];
+          if (!field.id) {
+            field.id = createUUID();
+          }
           currentSubcategory = {
             id: createUUID(),
             value: value,
             dependent_ids: { field: [], choice: [] },
           };
-          const field = hierarchyChoices.fields[0];
-          if (!field.id) {
-            field.id = createUUID();
-          }
           currentCategory.dependent_ids.choice.push(currentSubcategory.id);
           if (!currentCategory.dependent_ids.field.length) {
             currentCategory.dependent_ids.field.push(field.id);
@@ -503,6 +507,7 @@ export function updateChoicesInFields(instance, event) {
     const parentField = getFieldBasedOnLevel(field, parentLevel);
     const parentChoice = findChoice(parentField.choices, parentId);
     parentChoice.dependent_ids.choice.push(choice.id);
+    parentChoice.dependent_ids.field.push(currentField.id);
   }
 
   return { ...field, fields: field.fields };
@@ -571,6 +576,7 @@ export function getDefaultDependentLevels(data, internalNamePrefix) {
       internalNamePrefix
     );
     fProperties.label = fProperties.label || '';
+    fProperties.id = fProperties.id || '';
 
     if (hasCustomProperty(fProperties, 'fields') && fProperties.fields.length) {
       updateFieldAttribute(fProperties.fields[0]);

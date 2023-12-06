@@ -564,27 +564,8 @@ export class FieldEditor {
       isPrimaryField: this.isPrimaryField,
     };
 
-    // Need to figure out how to expand this automatically
     if (this.isDependentField) {
-      // objValues['field_options'] = { level: '1', dependent: 'true' };
-      objValues['fields'] = [
-        {
-          field_options: { level: '1', dependent: 'true' },
-          type: '2',
-          fields: [
-            {
-              field_options: { level: '2', dependent: 'true' },
-              type: '2',
-              fields: [
-                {
-                  field_options: { level: '3', dependent: 'true' },
-                  type: '2',
-                },
-              ],
-            },
-          ],
-        },
-      ];
+      objValues['fields'] = deepCloneObject(this.fieldBuilderOptions.fields);
     }
 
     // Validate name
