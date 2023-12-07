@@ -53,7 +53,7 @@ export class FbFieldDropdown {
    * Level Indicates the depth of current field
    * Starts from 1
    */
-  @Prop() level = null;
+  @Prop() level = 0;
   /**
    * Flag indicates this field is dependent field
    */

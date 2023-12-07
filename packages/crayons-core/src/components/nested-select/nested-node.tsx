@@ -64,7 +64,7 @@ export class NestedNode {
   }
 
   componentWillLoad(): void {
-    if (this.value) {
+    if (this.value && Array.isArray(this.options)) {
       this.selectedOption = this.options.find(
         (item) => item[this.optionValuePath] === this.value
       );
@@ -94,7 +94,7 @@ export class NestedNode {
   }
 
   private getNestedSelect() {
-    if (!this.selectedOption || !this.selectedOption.choices) {
+    if (!this.selectedOption?.choices) {
       return null;
     }
 

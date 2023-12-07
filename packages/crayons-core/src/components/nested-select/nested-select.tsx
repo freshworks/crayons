@@ -43,19 +43,24 @@ export class NestedSelect {
 
   @Listen('fwChange')
   changed(event) {
-    if (!event.detail.meta) {
+    const { meta, level, name } = event.detail;
+
+    if (!meta) {
       return;
     }
 
-    this.selections[event.detail.level] = event.detail.meta.selectedOptions[0];
-    const itemsToRemove = this.selections.length - (event.detail.level + 1);
+    this.selections[level] = meta.selectedOptions[0];
+    const itemsToRemove = this.selections.length - (level + 1);
     if (itemsToRemove > 0) {
-      this.selections = this.selections.slice(0, event.detail.level + 1);
+      this.selections = this.selections.slice(0, level + 1);
     }
-    this.getSelectedId(this.selections[event.detail.level], event.detail.name);
 
-    if (!this.selections[event.detail.level].choices) {
-      this.fwChange.emit({ ...this.selectedItems });
+    if (Array.isArray(this.selections) && this.selections[level]) {
+      this.getSelectedId(this.selections[level], name);
+
+      if (!this.selections[level]?.choices) {
+        this.fwChange.emit({ ...this.selectedItems });
+      }
     }
   }
 
@@ -70,6 +75,7 @@ export class NestedSelect {
       delete this.selectedItems[name];
     }
   }
+
   render() {
     return (
       <fw-nested-node
