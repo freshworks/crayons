@@ -307,7 +307,9 @@ export class FieldEditor {
   private setCheckboxesAvailability = (objFieldData) => {
     if (presetSchema && objFieldData && this.defaultFieldTypeSchema) {
       const boolNewField = this.isNewField;
-      const objPayload = this.dataProvider;
+      const objPayload = this.isDependentField
+        ? this.dataProvider.fields[0]
+        : this.dataProvider;
       const objCheckboxValidation =
         presetSchema.fieldEditorValidations.checkboxDetails;
 
@@ -640,7 +642,11 @@ export class FieldEditor {
           }
           break;
         case 'fw-checkbox':
-          objValues[key] = elInteractive.checked || false;
+          if (this.isDependentField) {
+            objValues['fields'][0][key] = elInteractive.checked || false;
+          } else {
+            objValues[key] = elInteractive.checked || false;
+          }
           break;
         case 'fw-fb-field-dropdown': {
           if (this.isDependentField) {
