@@ -77,7 +77,7 @@ export namespace Components {
         /**
           * Level Indicates the depth of current field Starts from 1
          */
-        "level": any;
+        "level": number;
         /**
           * Property parentId indicates the parent of current child dropdown
          */
@@ -848,7 +848,7 @@ declare namespace LocalJSX {
         /**
           * Level Indicates the depth of current field Starts from 1
          */
-        "level"?: any;
+        "level"?: number;
         /**
           * Triggered on data change for error handling on parent
          */

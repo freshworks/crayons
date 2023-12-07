@@ -50,30 +50,31 @@ export class NestedSelect {
     }
 
     this.selections[level] = meta.selectedOptions[0];
+    this.selectedItems[name] = level;
+
     const itemsToRemove = this.selections.length - (level + 1);
     if (itemsToRemove > 0) {
       this.selections = this.selections.slice(0, level + 1);
     }
 
-    if (Array.isArray(this.selections) && this.selections[level]) {
-      this.getSelectedId(this.selections[level], name);
-
-      if (!this.selections[level]?.choices) {
-        this.fwChange.emit({ ...this.selectedItems });
-      }
-    }
+    this.triggerValueChange(name);
   }
 
-  private getSelectedId(selectedValues, name) {
-    const id = selectedValues[this.optionValuePath];
-    if (id) {
-      this.selectedItems = {
-        ...this.selectedItems,
-        [name]: selectedValues[this.optionValuePath],
-      };
-    } else {
-      delete this.selectedItems[name];
-    }
+  // Adding nameToExclude to avoid multiple emit from select and nested select
+  private triggerValueChange(nameToExclude) {
+    const keys = Object.keys(this.selectedItems);
+
+    keys.forEach((key) => {
+      if (nameToExclude !== key) {
+        const level = this.selectedItems[key];
+        const value = this?.selections[level]?.[this.optionValuePath] || '';
+
+        this.fwChange.emit({
+          name: key,
+          value,
+        });
+      }
+    });
   }
 
   render() {
