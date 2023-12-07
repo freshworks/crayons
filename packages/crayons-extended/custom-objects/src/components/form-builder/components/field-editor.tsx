@@ -653,6 +653,7 @@ export class FieldEditor {
               this.showErrors = false;
               objValues = updateFieldAttributes(objValues, level, {
                 choices: arrDropdownValues,
+                type: 2,
               });
             } else {
               elInteractive.validateErrors();

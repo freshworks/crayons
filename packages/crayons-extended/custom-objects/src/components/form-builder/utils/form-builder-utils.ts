@@ -338,7 +338,13 @@ export function getDependentLevels(levels, choices, ids, level) {
 export function updateFieldAttributes(
   data,
   level,
-  { label = null, internalName = null, name = null, choices = null }
+  {
+    label = null,
+    internalName = null,
+    name = null,
+    choices = null,
+    type = null,
+  }
 ) {
   // For other fields
   if (!level) {
@@ -357,6 +363,7 @@ export function updateFieldAttributes(
     name && (getField['name'] = name);
     internalName && (getField['internalName'] = internalName);
     choices && choices.length && (getField['choices'] = choices);
+    type && (getField['type'] = type);
   }
 
   return { ...data, fields: data.fields };
