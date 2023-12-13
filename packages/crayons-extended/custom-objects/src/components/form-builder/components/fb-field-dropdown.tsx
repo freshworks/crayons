@@ -75,6 +75,10 @@ export class FbFieldDropdown {
    */
   @Prop() choiceIds = [];
   /**
+   * Flag to enable Bulk choice addition for dependent dropdown
+   */
+  @Prop() enableBulkChoices = false;
+  /**
    * Triggered on data change for error handling on parent
    */
   @Event() fwChange!: EventEmitter;
@@ -288,6 +292,15 @@ export class FbFieldDropdown {
     }
   };
 
+  private openBulkModal = () => {
+    this.fwChange.emit({
+      level: this.level,
+      parentId: this.parentId,
+      choiceIds: this.choiceIds,
+      type: 'OPEN_BULK_CHOICE_MODAL',
+    });
+  };
+
   private renderNameEditorElement(dataItem, intIndex) {
     const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
     const boolNewChoice = !hasCustomProperty(dataItem, 'id');
@@ -351,16 +364,20 @@ export class FbFieldDropdown {
     const labelText = this.isDependentField
       ? `${i18nText('level')} ${this.level}`
       : i18nText('addChoices');
+
     const labelClass = this.isDependentField
       ? `${strBaseClassName}-label-dependent-field spacing-bottom-${this.level}`
       : `${strBaseClassName}-label`;
+
     const dropdownClass = this.isDependentField
       ? `${strBaseClassName} fb-field-dependent`
       : strBaseClassName;
 
-    const showAddChoice = this.isDependentField
-      ? !this.enableKeyPress
-      : !this.disabled;
+    const showAddChoice = this.isDependentField ? false : !this.disabled;
+
+    const footerClass = this.isDependentField
+      ? `${strBaseClassName}-footer ${strBaseClassName}-no-padding`
+      : `${strBaseClassName}-footer`;
 
     return (
       <Host tabIndex='-1'>
@@ -374,7 +391,7 @@ export class FbFieldDropdown {
           >
             {dropdownElements}
           </fw-drag-container>
-          <div class={`${strBaseClassName}-footer`}>
+          <div class={footerClass}>
             {showAddChoice && (
               <fw-button
                 id='addNewChoiceBtn'
@@ -383,6 +400,21 @@ export class FbFieldDropdown {
                 onFwClick={this.addNewChoiceHandler}
               >
                 {i18nText('addChoice')}
+              </fw-button>
+            )}
+            {this.enableBulkChoices && (this.parentId || this.level === 1) && (
+              <fw-button
+                id='addNewChoiceBtn'
+                color='link'
+                disabled={this.boolExceededChoiceLimit}
+                onFwClick={this.openBulkModal}
+              >
+                <fw-icon
+                  name='circle-plus'
+                  size='16'
+                  slot='before-label'
+                ></fw-icon>
+                {i18nText('addBulkChoice')}
               </fw-button>
             )}
             {this.boolExceededChoiceLimit && (

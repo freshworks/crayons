@@ -32,6 +32,7 @@ import {
   updateFieldAttributes,
   updateChoicesInFields,
   deleteChoicesInFields,
+  addBulkChoices,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -46,6 +47,7 @@ export class FieldEditor {
 
   private KEY_INTERNAL_NAME = 'internalName';
   private modalConfirmDelete!: any;
+  private modalBulkChoices!: any;
   private divFieldBase: HTMLElement;
   private dictInteractiveElements;
   private isInternalNameEdited = false;
@@ -55,7 +57,11 @@ export class FieldEditor {
   private errorType;
   private isDependentField = false;
   private regexAlphaNumChars = /^[A-Z0-9_]*$/i;
+  private textboxBulkChoiceProps!: any;
+  private textboxChoices = '';
   private textboxDependentValue = presetSchema.textboxDependentValue;
+  private DEP_LABEL_KEY = 'name_level_';
+  private DEP_NAME_KEY = `${this.KEY_INTERNAL_NAME}_level_`;
 
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -153,11 +159,17 @@ export class FieldEditor {
    * State to show the error messages
    */
   @State() showErrors = false;
-
+  /**
+   * State to show duplicate error for dependent labels
+   */
   @State() duplicateError = false;
-
+  /**
+   * State to show the errors for dependent levels
+   */
   @State() dependentErrors = {};
-
+  /**
+   * State to show the warning for dependent levels
+   */
   @State() dependentWarning = {};
   /**
    * State to show form error text for the field validations
@@ -587,7 +599,7 @@ export class FieldEditor {
     }
 
     // Validate name
-    if (this.validateDuplicateErrors('name_level_')) {
+    if (this.validateDuplicateErrors(this.DEP_LABEL_KEY)) {
       this.duplicateError = true;
       this.showErrors = true;
       return;
@@ -625,8 +637,8 @@ export class FieldEditor {
                 return;
               }
             }
-          } else if (key.includes('name_level_')) {
-            level = removeFirstOccurrence(key, 'name_level_');
+          } else if (key.includes(this.DEP_LABEL_KEY)) {
+            level = removeFirstOccurrence(key, this.DEP_LABEL_KEY);
             boolValidForm = this.validateString(strInputValue);
             if (!boolValidForm) {
               this.showErrors = false;
@@ -639,11 +651,8 @@ export class FieldEditor {
               this.showErrors = true;
               return;
             }
-          } else if (key.includes(`${this.KEY_INTERNAL_NAME}_level_`)) {
-            level = removeFirstOccurrence(
-              key,
-              `${this.KEY_INTERNAL_NAME}_level_`
-            );
+          } else if (key.includes(this.DEP_NAME_KEY)) {
+            level = removeFirstOccurrence(key, this.DEP_NAME_KEY);
             boolValidForm = this.validateString(strInputValue, true);
             if (!boolValidForm) {
               this.showErrors = false;
@@ -815,6 +824,30 @@ export class FieldEditor {
     this.modalConfirmDelete?.close();
   };
 
+  private openBulkChoiceHandler = (detail) => {
+    this.textboxBulkChoiceProps = detail;
+    this.modalBulkChoices?.open();
+  };
+
+  private handleBulkChoicesValue = (event: KeyboardEvent) => {
+    this.textboxChoices = event.target['value'];
+  };
+
+  private addBulkChoicesHandler = () => {
+    const textareaEl = this.modalBulkChoices?.querySelector('textarea');
+    this.fieldBuilderOptions = addBulkChoices(
+      this.fieldBuilderOptions,
+      this.textboxChoices,
+      this.textboxBulkChoiceProps
+    );
+    if (textareaEl) {
+      textareaEl.value = '';
+    }
+    this.textboxChoices = '';
+    this.textboxBulkChoiceProps = {};
+    this.modalBulkChoices?.close();
+  };
+
   private dropdownChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
@@ -847,6 +880,9 @@ export class FieldEditor {
         break;
       case 'SELECT':
         this.dependentLevels = updateLevelSelection(this, event);
+        break;
+      case 'OPEN_BULK_CHOICE_MODAL':
+        this.openBulkChoiceHandler(event.detail);
         break;
       default:
         break;
@@ -943,7 +979,7 @@ export class FieldEditor {
       this.isValuesChanged = true;
     }
 
-    const dictElName = `name_level_${level}`;
+    const dictElName = `${this.DEP_LABEL_KEY}${level}`;
     const strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -958,7 +994,7 @@ export class FieldEditor {
 
     if (isValidValue) {
       if (this.duplicateError) {
-        this.validateDuplicateErrors('name_level_');
+        this.validateDuplicateErrors(this.DEP_LABEL_KEY);
       } else {
         delete this.dependentErrors[dictElName];
       }
@@ -1006,6 +1042,8 @@ export class FieldEditor {
 
     if (this.isDependentField) {
       this.dependentWarning[dictElName] = this.labelWarningMessage;
+      this.dependentWarning[`${this.DEP_NAME_KEY}${level}`] =
+        this.internalNameWarningMessage;
     }
 
     this.fieldBuilderOptions = updateFieldAttributes(
@@ -1039,7 +1077,7 @@ export class FieldEditor {
       event.stopPropagation();
     }
 
-    const dictElName = `${this.KEY_INTERNAL_NAME}_level_${level}`;
+    const dictElName = `${this.DEP_NAME_KEY}${level}`;
     let strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -1205,6 +1243,7 @@ export class FieldEditor {
         showErrors={this.showErrors}
         disabled={boolDisableDropdowns}
         isDependentField={this.isDependentField}
+        enableBulkChoices={this.isDependentField}
         dependentLevels={selectedLevels}
         level={level}
         parentId={parentId}
@@ -1297,7 +1336,7 @@ export class FieldEditor {
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField
-      ? `${this.KEY_INTERNAL_NAME}_level_${level}`
+      ? `${this.DEP_NAME_KEY}${level}`
       : this.KEY_INTERNAL_NAME;
     const internalNameErrorMessage = this.isDependentField
       ? this.dependentErrors[dictElName]
@@ -1382,7 +1421,9 @@ export class FieldEditor {
       : '';
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
-    const dictElName = this.isDependentField ? `name_level_${level}` : 'name';
+    const dictElName = this.isDependentField
+      ? `${this.DEP_LABEL_KEY}${level}`
+      : 'name';
     const labelErrorMessage = this.isDependentField
       ? this.dependentErrors[dictElName]
       : this.labelErrorMessage;
@@ -1530,7 +1571,7 @@ export class FieldEditor {
                   <textarea
                     rows={8}
                     value={this.textboxDependentValue}
-                    onKeyDown={this.handleDependentField}
+                    onChange={this.handleDependentField}
                   ></textarea>
                 </span>
                 <fw-button
@@ -1977,6 +2018,22 @@ export class FieldEditor {
               </fw-inline-message>
             )}
             {strDeleteModalMessage}
+          </span>
+        </fw-modal>
+        <fw-modal
+          ref={(el) => (this.modalBulkChoices = el)}
+          hasCloseIconButton={false}
+          titleText={i18nText('addBulkChoice')}
+          submitText={i18nText('addChoices')}
+          onFwSubmit={this.addBulkChoicesHandler}
+        >
+          <span class={'fw-field-editor-bulk-modal-content'}>
+            {i18nText('bulkChoiceTag')}
+            <textarea
+              value={this.textboxChoices}
+              onChange={this.handleBulkChoicesValue}
+              placeholder={i18nText('bulkChoiceFieldPlaceholder')}
+            ></textarea>
           </span>
         </fw-modal>
       </Host>

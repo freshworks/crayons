@@ -56,6 +56,14 @@ $warning-color: $color-casablanca-300;
       -moz-osx-font-smoothing: grayscale;
     }
   }
+
+  .fb-field-dropdown-no-padding {
+    padding-inline-start: 0px;
+
+    fw-button {
+      margin-block-start: 8px;
+    }
+  }
 }
 
 .fb-field-dependent {

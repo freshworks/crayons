@@ -50,11 +50,17 @@ export class FbFieldDropdownItem {
    * index attached inside the parent group component
    */
   @Prop() index = -1;
-
+  /**
+   * Flag to check if the field is dependent field
+   */
   @Prop() isDependentField = false;
-
+  /**
+   * Item selected based on id
+   */
   @Prop() itemSelected = false;
-
+  /**
+   * Trigger on pressing tab from last element
+   */
   @Event() fwAdd!: EventEmitter;
   /**
    * Triggered on delete button click

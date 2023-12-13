@@ -598,3 +598,36 @@ export function getDefaultDependentLevels(data, internalNamePrefix) {
 
   return { ...dataCloned, fields: dataCloned.fields };
 }
+
+export function addBulkChoices(data, text, { level, parentId, choiceIds }) {
+  const dataCloned = deepCloneObject(data);
+  const getField = getFieldBasedOnLevel(dataCloned, level);
+  const arrChoices = text.split('\n');
+  let filteredChoices = getField.choices;
+  let parentField, parentChoice;
+
+  if (parentId) {
+    parentField = getFieldBasedOnLevel(dataCloned, parseInt(level, 10) - 1);
+    parentChoice = findChoice(parentField.choices, parentId);
+    filteredChoices = getField.choices.filter((item) =>
+      choiceIds.includes(item.id)
+    );
+  }
+
+  arrChoices.forEach((value) => {
+    if (value && value !== '' && !validateChoices(filteredChoices, value)) {
+      const id = createUUID();
+      getField.choices.push({
+        id,
+        value: value,
+        dependent_ids: { field: [], choice: [] },
+      });
+
+      if (parentChoice?.id) {
+        parentChoice.dependent_ids.choice.push(id);
+      }
+    }
+  });
+
+  return dataCloned;
+}

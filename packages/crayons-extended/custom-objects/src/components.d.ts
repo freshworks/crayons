@@ -63,6 +63,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Flag to enable Bulk choice addition for dependent dropdown
+         */
+        "enableBulkChoices": boolean;
+        /**
           * Key press to allow user to use tab
          */
         "enableKeyPress": boolean;
@@ -105,6 +109,9 @@ export namespace Components {
           * index attached inside the parent group component
          */
         "index": number;
+        /**
+          * Flag to check if the field is dependent field
+         */
         "isDependentField": boolean;
         /**
           * flag to notify if an api call is in progress
@@ -114,6 +121,9 @@ export namespace Components {
           * property to determine if this is a new choice or an existing choice
          */
         "isNewChoice": boolean;
+        /**
+          * Item selected based on id
+         */
         "itemSelected": boolean;
         /**
           * property to show the errors on click of the save/add button from the parent
@@ -833,6 +843,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Flag to enable Bulk choice addition for dependent dropdown
+         */
+        "enableBulkChoices"?: boolean;
+        /**
           * Key press to allow user to use tab
          */
         "enableKeyPress"?: boolean;
@@ -878,6 +892,9 @@ declare namespace LocalJSX {
           * index attached inside the parent group component
          */
         "index"?: number;
+        /**
+          * Flag to check if the field is dependent field
+         */
         "isDependentField"?: boolean;
         /**
           * flag to notify if an api call is in progress
@@ -887,7 +904,13 @@ declare namespace LocalJSX {
           * property to determine if this is a new choice or an existing choice
          */
         "isNewChoice"?: boolean;
+        /**
+          * Item selected based on id
+         */
         "itemSelected"?: boolean;
+        /**
+          * Trigger on pressing tab from last element
+         */
         "onFwAdd"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * Triggered on choice input blur
