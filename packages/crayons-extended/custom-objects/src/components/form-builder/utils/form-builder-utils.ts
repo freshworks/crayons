@@ -349,8 +349,8 @@ export function updateFieldAttributes(
   // For other fields
   if (!level) {
     const field = { ...data };
-    label && (field.label = label);
-    name && (field.name = name);
+    label !== null && (field.label = label);
+    name !== null && (field.name = name);
 
     return field;
   }
@@ -359,9 +359,9 @@ export function updateFieldAttributes(
   const getField = getFieldBasedOnLevel(data, level);
 
   if (getField) {
-    label && (getField['label'] = label);
-    name && (getField['name'] = name);
-    internalName && (getField['internalName'] = internalName);
+    label !== null && (getField['label'] = label);
+    name !== null && (getField['name'] = name);
+    internalName !== null && (getField['internalName'] = internalName);
     choices && choices.length && (getField['choices'] = choices);
     type && (getField['type'] = type);
   }
@@ -440,17 +440,21 @@ export function buildChoicesFromText(text, dataProvider) {
   return { ...dataProvider, fields: [hierarchyChoices] };
 }
 
-export function hasDuplicates(arr) {
-  const seen = new Set();
+export function hasStringDuplicates(stringObj, i18nText) {
+  const values = Object.values(stringObj);
+  const result = {};
 
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] && seen.has(arr[i])) {
-      return true; // Duplicate found
+  for (const key in stringObj) {
+    const isDuplicateFound =
+      values.filter((value) => value !== '' && value === stringObj[key])
+        .length > 1;
+
+    if (isDuplicateFound) {
+      result[key] = i18nText('errors.fieldNameExists');
     }
-    seen.add(arr[i]);
   }
 
-  return false; // No duplicates
+  return result;
 }
 
 /** Handles and updates dependent level upon selection */

@@ -101,7 +101,6 @@ export namespace Components {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled": boolean;
-        "enableKeyPress": boolean;
         /**
           * index attached inside the parent group component
          */
@@ -193,10 +192,6 @@ export namespace Components {
          */
         "formValues": any;
         /**
-          * flag to hide dependentField resolve checkbox
-         */
-        "hideDependentCheckbox": boolean;
-        /**
           * index attached inside the parent group component
          */
         "index": number;
@@ -237,6 +232,10 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -364,10 +363,6 @@ export namespace Components {
          */
         "formValues": any;
         /**
-          * flag to hide dependentField resolve checkbox
-         */
-        "hideDependentCheckbox": boolean;
-        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -400,6 +395,10 @@ export namespace Components {
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField": boolean;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
         /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
@@ -875,7 +874,6 @@ declare namespace LocalJSX {
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled"?: boolean;
-        "enableKeyPress"?: boolean;
         /**
           * index attached inside the parent group component
          */
@@ -984,10 +982,6 @@ declare namespace LocalJSX {
          */
         "formValues"?: any;
         /**
-          * flag to hide dependentField resolve checkbox
-         */
-        "hideDependentCheckbox"?: boolean;
-        /**
           * index attached inside the parent group component
          */
         "index"?: number;
@@ -1044,6 +1038,10 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1175,10 +1173,6 @@ declare namespace LocalJSX {
          */
         "formValues"?: any;
         /**
-          * flag to hide dependentField resolve checkbox
-         */
-        "hideDependentCheckbox"?: boolean;
-        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
@@ -1243,6 +1237,10 @@ declare namespace LocalJSX {
           * flag to show dependentField for CONVERSATION_PROPERTIES or not
          */
         "showDependentField"?: boolean;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
         /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */

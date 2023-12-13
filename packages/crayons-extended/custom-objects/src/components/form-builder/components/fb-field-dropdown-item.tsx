@@ -55,8 +55,6 @@ export class FbFieldDropdownItem {
 
   @Prop() itemSelected = false;
 
-  @Prop() enableKeyPress = false;
-
   @Event() fwAdd!: EventEmitter;
   /**
    * Triggered on delete button click
@@ -136,7 +134,11 @@ export class FbFieldDropdownItem {
   private nameKeydownHandler = (event: KeyboardEvent) => {
     const value = event?.target?.['value']?.trim() || '';
     const keyEvent = event.detail?.['event'];
-    if (keyEvent?.key === 'Tab' && value) {
+    const isNextElement =
+      event?.target?.['parentNode']?.['parentNode']?.['parentNode']?.['host']?.[
+        'nextElementSibling'
+      ];
+    if (isNextElement === null && keyEvent?.key === 'Tab' && value) {
       this.fwAdd.emit();
     }
   };
@@ -168,7 +170,6 @@ export class FbFieldDropdownItem {
   private nameFocusHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-
     this.fwSelect.emit({
       index: this.index,
       id: this.dataProvider.id,

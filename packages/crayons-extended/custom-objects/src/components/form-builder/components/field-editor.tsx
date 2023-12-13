@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-extra-boolean-cast*/
 import {
   Component,
   Element,
@@ -23,7 +24,7 @@ import {
   deriveInternalNameFromLabel,
   hasPermission,
   checkIfCustomToggleField,
-  hasDuplicates,
+  hasStringDuplicates,
   getChildChoices,
   updateLevelSelection,
   buildChoicesFromText,
@@ -53,6 +54,7 @@ export class FieldEditor {
   private oldFormValues;
   private errorType;
   private isDependentField = false;
+  private regexAlphaNumChars = /^[A-Z0-9_]*$/i;
   private textboxDependentValue = presetSchema.textboxDependentValue;
 
   /**
@@ -88,9 +90,9 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
   /**
-   * flag to hide dependentField resolve checkbox
+   * flag to show dependentField resolve checkbox
    */
-  @Prop({ mutable: true }) hideDependentCheckbox = false;
+  @Prop({ mutable: true }) showDependentFieldResolveProp = false;
   /**
    * Disable the repositioning option
    */
@@ -151,10 +153,12 @@ export class FieldEditor {
    * State to show the error messages
    */
   @State() showErrors = false;
-  /**
-   * State to show duplicate error message
-   */
-  @State() duplicateErrors = false;
+
+  @State() duplicateError = false;
+
+  @State() dependentErrors = {};
+
+  @State() dependentWarning = {};
   /**
    * State to show form error text for the field validations
    */
@@ -464,16 +468,17 @@ export class FieldEditor {
 
   /** validate same label or internal name error */
   private validateDuplicateErrors = (prefix) => {
-    const attributesToValidate = Object.keys(this.dictInteractiveElements)
+    const attributesToValidate = {};
+
+    Object.keys(this.dictInteractiveElements)
       .filter((ele) => ele.includes(prefix))
-      .map((ele) => this.dictInteractiveElements[ele].value);
+      .forEach((ele) => {
+        attributesToValidate[ele] = this.dictInteractiveElements[ele].value;
+      });
 
-    const isNameDuplicate = hasDuplicates(attributesToValidate);
-    if (isNameDuplicate) {
-      this.labelErrorMessage = i18nText('errors.fieldNameExists');
-    }
+    this.dependentErrors = hasStringDuplicates(attributesToValidate, i18nText);
 
-    return isNameDuplicate;
+    return !!Object.keys(this.dependentErrors).length;
   };
 
   /**
@@ -502,8 +507,7 @@ export class FieldEditor {
           this.internalNameErrorMessage = i18nText('errors.fieldNameExists');
           return false;
         } else {
-          const regexAlphaNumChars = /^[A-Z0-9_]*$/i;
-          if (!regexAlphaNumChars.test(strInputValue)) {
+          if (!this.regexAlphaNumChars.test(strInputValue)) {
             this.internalNameErrorMessage = i18nText(
               'errors.useOnlyEnglishChars'
             );
@@ -517,6 +521,18 @@ export class FieldEditor {
     this.internalNameErrorMessage = '';
     return true;
   };
+
+  private validateString(strInput, isInternalName = false) {
+    if (!strInput) {
+      return i18nText('errors.emptyFieldName');
+    }
+
+    if (isInternalName && !this.regexAlphaNumChars.test(strInput)) {
+      return i18nText('errors.useOnlyEnglishChars');
+    }
+
+    return '';
+  }
 
   /**
    * function to check the dropdown error values
@@ -572,12 +588,12 @@ export class FieldEditor {
 
     // Validate name
     if (this.validateDuplicateErrors('name_level_')) {
-      this.duplicateErrors = true;
+      this.duplicateError = true;
       this.showErrors = true;
       return;
     }
-    this.duplicateErrors = false;
 
+    // this.showErrors = false;
     for (const key in this.dictInteractiveElements) {
       const elInteractive = this.dictInteractiveElements[key];
       const strTagName = elInteractive.tagName.toLowerCase();
@@ -611,14 +627,15 @@ export class FieldEditor {
             }
           } else if (key.includes('name_level_')) {
             level = removeFirstOccurrence(key, 'name_level_');
-            boolValidForm = this.validateLabelErrors(strInputValue);
-            if (boolValidForm) {
+            boolValidForm = this.validateString(strInputValue);
+            if (!boolValidForm) {
               this.showErrors = false;
-              this.labelErrorMessage = '';
+              delete this.dependentErrors[key];
               objValues = updateFieldAttributes(objValues, level, {
                 name: strInputValue,
               });
             } else {
+              this.dependentErrors[key] = boolValidForm;
               this.showErrors = true;
               return;
             }
@@ -627,15 +644,16 @@ export class FieldEditor {
               key,
               `${this.KEY_INTERNAL_NAME}_level_`
             );
-            boolValidForm = this.validateInternalNameErrors(strInputValue);
-            if (boolValidForm) {
+            boolValidForm = this.validateString(strInputValue, true);
+            if (!boolValidForm) {
               this.showErrors = false;
-              this.internalNameErrorMessage = '';
+              delete this.dependentErrors[key];
               objValues = updateFieldAttributes(objValues, level, {
                 internalName:
                   `${this.internalNamePrefix}${strInputValue}` || '',
               });
             } else {
+              this.dependentErrors[key] = boolValidForm;
               this.showErrors = true;
               return;
             }
@@ -697,6 +715,11 @@ export class FieldEditor {
         default:
           break;
       }
+    }
+
+    // Used to track multiple labels and names
+    if (Object.keys(this.dependentErrors).length !== 0) {
+      return;
     }
 
     if (checkIfCustomToggleField(this.productName, this.dataProvider.name)) {
@@ -805,6 +828,7 @@ export class FieldEditor {
         this.validateDropdownErrors(event.detail.value);
         if (this.isDependentField) {
           this.fieldBuilderOptions = deleteChoicesInFields(this, event);
+          delete this.dependentLevels[`level_${event.detail.level}`];
         }
         break;
       case 'VALUE_CHANGE':
@@ -919,6 +943,7 @@ export class FieldEditor {
       this.isValuesChanged = true;
     }
 
+    const dictElName = `name_level_${level}`;
     const strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -932,6 +957,12 @@ export class FieldEditor {
     }
 
     if (isValidValue) {
+      if (this.duplicateError) {
+        this.validateDuplicateErrors('name_level_');
+      } else {
+        delete this.dependentErrors[dictElName];
+      }
+
       const objMaxLimitField = getMaxLimitProperty(
         this.productName,
         'maxLabelChars'
@@ -946,6 +977,8 @@ export class FieldEditor {
     } else {
       this.labelWarningMessage = '';
     }
+
+    const attr = { label: strInputValue };
 
     if (boolInternalNameUpdated) {
       const objMaxLimitFieldName = getMaxLimitProperty(
@@ -966,20 +999,24 @@ export class FieldEditor {
         );
       }
 
-      this.fieldBuilderOptions = updateFieldAttributes(
-        this.fieldBuilderOptions,
-        level,
-        { label: strInputValue, name: strInternalName }
-      );
-    } else {
-      this.fieldBuilderOptions = updateFieldAttributes(
-        this.fieldBuilderOptions,
-        level,
-        { label: strInputValue }
-      );
+      if (!this.isInternalNameEdited) {
+        attr['name'] = strInternalName;
+      }
     }
 
-    if (this.showErrors) {
+    if (this.isDependentField) {
+      this.dependentWarning[dictElName] = this.labelWarningMessage;
+    }
+
+    this.fieldBuilderOptions = updateFieldAttributes(
+      this.fieldBuilderOptions,
+      level,
+      attr
+    );
+
+    if (this.showErrors && this.isDependentField) {
+      this.validateString(strInputValue);
+    } else {
       this.validateLabelErrors(strInputValue);
     }
   };
@@ -1002,6 +1039,7 @@ export class FieldEditor {
       event.stopPropagation();
     }
 
+    const dictElName = `${this.KEY_INTERNAL_NAME}_level_${level}`;
     let strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -1018,6 +1056,7 @@ export class FieldEditor {
     }
 
     if (isValidValue) {
+      delete this.dependentErrors[dictElName];
       const objMaxLimitField = getMaxLimitProperty(
         this.productName,
         'maxInternalNameChars'
@@ -1029,17 +1068,23 @@ export class FieldEditor {
       } else {
         this.internalNameWarningMessage = '';
       }
-
-      this.fieldBuilderOptions = updateFieldAttributes(
-        this.fieldBuilderOptions,
-        level,
-        { name: strInputValue }
-      );
     } else {
       this.internalNameWarningMessage = '';
     }
 
-    if (this.showErrors) {
+    if (this.isDependentField) {
+      this.dependentWarning[dictElName] = this.internalNameWarningMessage;
+    }
+
+    this.fieldBuilderOptions = updateFieldAttributes(
+      this.fieldBuilderOptions,
+      level,
+      { name: strInputValue }
+    );
+
+    if (this.showErrors && this.isDependentField) {
+      this.validateString(strInputValue, true);
+    } else {
       this.validateInternalNameErrors(strInputValue);
     }
   };
@@ -1251,30 +1296,33 @@ export class FieldEditor {
 
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
-    const fieldError = !strInputInternalName;
     const dictElName = this.isDependentField
       ? `${this.KEY_INTERNAL_NAME}_level_${level}`
       : this.KEY_INTERNAL_NAME;
+    const internalNameErrorMessage = this.isDependentField
+      ? this.dependentErrors[dictElName]
+      : this.internalNameErrorMessage;
+
+    const internalNameWarningMessage = this.isDependentField
+      ? this.dependentWarning[dictElName]
+      : this.labelWarningMessage;
 
     const boolShowNameError =
       this.showErrors &&
-      fieldError &&
-      this.internalNameErrorMessage &&
-      this.internalNameErrorMessage !== ''
+      internalNameErrorMessage &&
+      internalNameErrorMessage !== ''
         ? true
         : false;
-    const strInputError = boolShowNameError
-      ? this.internalNameErrorMessage
-      : '';
+    const strInputError = boolShowNameError ? internalNameErrorMessage : '';
 
     const boolShowNameWarning =
       !boolShowNameError &&
-      this.internalNameWarningMessage &&
-      this.internalNameWarningMessage !== ''
+      internalNameWarningMessage &&
+      internalNameWarningMessage !== ''
         ? true
         : false;
     const strInputWarning = boolShowNameWarning
-      ? this.internalNameWarningMessage
+      ? internalNameWarningMessage
       : '';
     const numNameMaxChars = objMaxLimits?.['maxInternalNameChars']?.count || 50;
 
@@ -1335,26 +1383,26 @@ export class FieldEditor {
     // Dependent Level checks
     const level = fieldBuilderOptions?.field_options?.level;
     const dictElName = this.isDependentField ? `name_level_${level}` : 'name';
-    const fieldError = !strInputLabel || this.duplicateErrors;
+    const labelErrorMessage = this.isDependentField
+      ? this.dependentErrors[dictElName]
+      : this.labelErrorMessage;
+
+    const labelWarningMessage = this.isDependentField
+      ? this.dependentWarning[dictElName]
+      : this.labelWarningMessage;
 
     const boolShowLabelError =
-      this.showErrors &&
-      fieldError &&
-      this.labelErrorMessage &&
-      this.labelErrorMessage !== ''
+      this.showErrors && labelErrorMessage && labelErrorMessage !== ''
         ? true
         : false;
 
     const boolShowLabelWarning =
-      !boolShowLabelError &&
-      this.labelWarningMessage &&
-      this.labelWarningMessage !== ''
+      !boolShowLabelError && labelWarningMessage && labelWarningMessage !== ''
         ? true
         : false;
-    const strInputWarning = boolShowLabelWarning
-      ? this.labelWarningMessage
-      : '';
-    const strInputError = boolShowLabelError ? this.labelErrorMessage : '';
+
+    const strInputWarning = boolShowLabelWarning ? labelWarningMessage : '';
+    const strInputError = boolShowLabelError ? labelErrorMessage : '';
     const numLabelMaxChars = objMaxLimits?.['maxLabelChars']?.count || 255;
     const fieldLabel = this.isDependentField
       ? i18nText('labelForLevel', { level })
@@ -1451,7 +1499,7 @@ export class FieldEditor {
     return (
       <div class={`${strBaseClassName}-content`}>
         <div class={`${strBaseClassName}-content-required`}>
-          {!this.hideDependentCheckbox && (
+          {this.showDependentFieldResolveProp && (
             <div class={`${strBaseClassName}-content-checkboxes`}>
               <label
                 class={`${strBaseClassName}-content-checkboxes-header-label`}

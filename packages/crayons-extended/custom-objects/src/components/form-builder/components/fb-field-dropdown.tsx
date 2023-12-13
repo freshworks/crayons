@@ -105,7 +105,10 @@ export class FbFieldDropdown {
     if (this.dataProvider && this.dataProvider.length > 0) {
       this.errorType = '';
       const strDuplicateErrorKey = i18nText('errors.duplicate');
-      const arrChoices = deepCloneObject(this.dataProvider);
+      const clonedChoices = deepCloneObject(this.dataProvider);
+      const arrChoices = this.level
+        ? clonedChoices.filter((item) => this.choiceIds.includes(item.id))
+        : clonedChoices;
       let boolElementUpdated = false;
       const arrLookup = [];
 
@@ -130,7 +133,7 @@ export class FbFieldDropdown {
       });
 
       if (boolElementUpdated) {
-        this.dataProvider = [...arrChoices];
+        this.dataProvider = this.level ? [...clonedChoices] : [...arrChoices];
       }
       this.validateMaximumChoiceLimits();
     } else {
@@ -295,7 +298,11 @@ export class FbFieldDropdown {
     const levelId = this.dependentLevels[`level_${this.level}`];
     const itemSelected = dataItem.id === levelId;
 
-    if (this.parentId && !this.choiceIds.includes(dataItem.id)) {
+    if (
+      this.isDependentField &&
+      this.level !== 1 &&
+      !this.choiceIds.includes(dataItem.id)
+    ) {
       return null;
     }
 
@@ -310,7 +317,6 @@ export class FbFieldDropdown {
         showErrors={this.showErrors}
         isDependentField={this.isDependentField}
         itemSelected={itemSelected}
-        enableKeyPress={this.enableKeyPress}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
         onFwSelect={this.selectItemChoice}
@@ -352,6 +358,10 @@ export class FbFieldDropdown {
       ? `${strBaseClassName} fb-field-dependent`
       : strBaseClassName;
 
+    const showAddChoice = this.isDependentField
+      ? !this.enableKeyPress
+      : !this.disabled;
+
     return (
       <Host tabIndex='-1'>
         <div class={dropdownClass}>
@@ -365,7 +375,7 @@ export class FbFieldDropdown {
             {dropdownElements}
           </fw-drag-container>
           <div class={`${strBaseClassName}-footer`}>
-            {!this.disabled && !this.enableKeyPress && (
+            {showAddChoice && (
               <fw-button
                 id='addNewChoiceBtn'
                 color='link'

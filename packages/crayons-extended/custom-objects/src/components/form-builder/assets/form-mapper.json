@@ -502,7 +502,7 @@
         "message": "maximumLimits.maxChoiceOptionsWarning"
       },
       "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },
-      "DEPENDENT_FIELD": { "count": 5000, "message": "maximumLimits.fields" }
+      "DEPENDENT_FIELD": { "count": 50, "message": "maximumLimits.fields" }
     }
   }
 }

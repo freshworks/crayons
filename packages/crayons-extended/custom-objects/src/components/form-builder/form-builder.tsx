@@ -87,9 +87,9 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentField = true;
   /**
-   * flag to hide dependentField resolve checkbox
+   * flag to show dependentField resolve checkbox
    */
-  @Prop({ mutable: true }) hideDependentCheckbox = false;
+  @Prop({ mutable: true }) showDependentFieldResolveProp = false;
   /**
    * variable to store customize widget fields
    */
@@ -1021,7 +1021,7 @@ export class FormBuilder {
         lookupTargetObjects={this.lookupTargetObjects}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
-        hideDependentCheckbox={this.hideDependentCheckbox}
+        showDependentFieldResolveProp={this.showDependentFieldResolveProp}
         onFwUpdate={this.saveFieldHandler}
         onFwDelete={this.deleteFieldHandler}
         onFwExpand={this.expandFieldHandler}
