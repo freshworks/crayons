@@ -603,6 +603,7 @@ export function addBulkChoices(data, text, { level, parentId, choiceIds }) {
   const dataCloned = deepCloneObject(data);
   const getField = getFieldBasedOnLevel(dataCloned, level);
   const arrChoices = text.split('\n');
+  const seen = new Set();
   let filteredChoices = getField.choices;
   let parentField, parentChoice;
 
@@ -615,17 +616,26 @@ export function addBulkChoices(data, text, { level, parentId, choiceIds }) {
   }
 
   arrChoices.forEach((value) => {
-    if (value && value !== '' && !validateChoices(filteredChoices, value)) {
+    value = value?.trim();
+    if (
+      value &&
+      value !== '' &&
+      !validateChoices(filteredChoices, value) &&
+      !seen.has(value)
+    ) {
       const id = createUUID();
-      getField.choices.push({
+      const choice = {
         id,
-        value: value,
+        value,
         dependent_ids: { field: [], choice: [] },
-      });
-
+      };
+      getField.choices.push(choice);
       if (parentChoice?.id) {
         parentChoice.dependent_ids.choice.push(id);
       }
+
+      // Adding temp to check the duplication and remove
+      seen.add(value);
     }
   });
 
