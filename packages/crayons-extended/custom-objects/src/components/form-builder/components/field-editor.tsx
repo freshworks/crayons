@@ -1344,7 +1344,7 @@ export class FieldEditor {
 
     const internalNameWarningMessage = this.isDependentField
       ? this.dependentWarning[dictElName]
-      : this.labelWarningMessage;
+      : this.internalNameWarningMessage;
 
     const boolShowNameError =
       this.showErrors &&
