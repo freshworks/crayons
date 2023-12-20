@@ -93,6 +93,18 @@ export class FbFieldDropdown {
     this.validate();
   }
 
+  @Watch('dataProvider')
+  watchDataProvidersEmptyHandler(): void {
+    if (this.isDependentField) {
+      this.validate();
+      this.fwChange.emit({
+        type: 'DROPDOWN_VALIDATE',
+        level: this.level,
+        errorType: this.errorType,
+      });
+    }
+  }
+
   componentWillLoad(): void {
     this.validate();
     if (this.errorType && this.errorType !== '') {

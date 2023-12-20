@@ -854,7 +854,7 @@ export class FieldEditor {
     this.isValuesChanged = true;
 
     const strType = event.detail.type;
-    // let choices = null;
+    let elInteractive;
     switch (strType) {
       case 'DELETE':
         this.errorType = event.detail.errorType;
@@ -883,6 +883,14 @@ export class FieldEditor {
         break;
       case 'OPEN_BULK_CHOICE_MODAL':
         this.openBulkChoiceHandler(event.detail);
+        break;
+      case 'DROPDOWN_VALIDATE':
+        this.errorType = event.detail.errorType;
+        elInteractive =
+          this.dictInteractiveElements[`choices_level_${event.detail.level}`];
+        this.showErrors = this.validateDropdownErrors(
+          elInteractive.dataProvider
+        );
         break;
       default:
         break;
@@ -1571,6 +1579,7 @@ export class FieldEditor {
                   <textarea
                     rows={8}
                     value={this.textboxDependentValue}
+                    onKeyDown={this.handleDependentField}
                     onChange={this.handleDependentField}
                   ></textarea>
                 </span>
