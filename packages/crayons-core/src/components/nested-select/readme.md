@@ -1,6 +1,84 @@
 # fw-nested-select
 
+fw-nested-select allows to display nested dropdown choices
 
+## Demo
+
+```html live
+<fw-nested-select
+  id="nestedSelect"
+  name='Country'
+  label='Dependent field'
+  placeholder='select Country'
+  
+></fw-nested-select>
+
+<script type="application/javascript">
+  var nestedChoicesSource = [{
+    id: 'india',
+    value: 'India',
+    name: 'State',
+    choices: [
+      {
+        id: 'tamil_nadu',
+        value: 'Tamil Nadu',
+        name: 'City',
+        choices: [
+          {
+            id: 'chennai',
+            value: 'Chennai',
+          },
+          {
+            id: 'coimbatore',
+            value: 'Coimbatore',
+          },
+        ],
+      },
+      {
+        id: 'kerala',
+        value: 'Kerala',
+        name: 'City',
+        choices: [
+          {
+            id: 'cochin',
+            value: 'Cochin',
+          },
+          {
+            id: 'wayanad',
+            value: 'Wayanad',
+          },
+        ],
+      },
+    ],
+    },
+    {
+      id: 'europe',
+      value: 'Europe',
+      name: 'State',
+      choices: [
+        {
+          id: 'germany',
+          value: 'Germany',
+          name: 'City',
+          choices: [
+            {
+              id: 'berlin',
+              value: 'berlin'
+            },
+            {
+              id: 'hamburg',
+              value: 'Hamburg',
+            },
+          ],
+        },
+      ],
+    }
+  ];
+  
+  var nestedSelectEl = document.getElementById('nestedSelect');
+  nestedSelectEl.options = nestedChoicesSource;
+</script>
+```
 
 <!-- Auto Generated Below -->
 

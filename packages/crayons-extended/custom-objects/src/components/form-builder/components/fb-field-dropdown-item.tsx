@@ -138,6 +138,10 @@ export class FbFieldDropdownItem {
   };
 
   private nameKeydownHandler = (event: KeyboardEvent) => {
+    if (!this.isDependentField) {
+      return;
+    }
+
     const value = event?.target?.['value']?.trim() || '';
     const keyEvent = event.detail?.['event'];
     const isNextElement =
@@ -174,6 +178,10 @@ export class FbFieldDropdownItem {
   };
 
   private nameFocusHandler = (event: CustomEvent) => {
+    if (!this.isDependentField) {
+      return;
+    }
+
     event.stopImmediatePropagation();
     event.stopPropagation();
     this.fwSelect.emit({

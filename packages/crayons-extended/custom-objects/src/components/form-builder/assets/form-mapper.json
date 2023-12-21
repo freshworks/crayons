@@ -499,6 +499,7 @@
       },
       "maxDropdownChoices": {
         "count": 2000,
+        "maxCount": 5000,
         "message": "maximumLimits.maxChoiceOptionsWarning"
       },
       "RELATIONSHIP": { "count": 5, "message": "maximumLimits.lookups" },

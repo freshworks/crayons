@@ -122,9 +122,10 @@ export class FbFieldDropdown {
       this.errorType = '';
       const strDuplicateErrorKey = i18nText('errors.duplicate');
       const clonedChoices = deepCloneObject(this.dataProvider);
-      const arrChoices = this.level
-        ? clonedChoices.filter((item) => this.choiceIds.includes(item.id))
-        : clonedChoices;
+      const arrChoices =
+        this.level && this.isDependentField
+          ? clonedChoices.filter((item) => this.choiceIds.includes(item.id))
+          : clonedChoices;
       let boolElementUpdated = false;
       const arrLookup = [];
 
@@ -149,7 +150,10 @@ export class FbFieldDropdown {
       });
 
       if (boolElementUpdated) {
-        this.dataProvider = this.level ? [...clonedChoices] : [...arrChoices];
+        this.dataProvider =
+          this.level && this.isDependentField
+            ? [...clonedChoices]
+            : [...arrChoices];
       }
       this.validateMaximumChoiceLimits();
     } else {
@@ -162,8 +166,12 @@ export class FbFieldDropdown {
       this.productName,
       'maxDropdownChoices'
     );
+    const choicesLimit = this.isDependentField
+      ? objMaxLimitChoices.maxCount
+      : objMaxLimitChoices.count;
+
     this.boolExceededChoiceLimit =
-      this.dataProvider && this.dataProvider.length >= objMaxLimitChoices.count
+      this.dataProvider && this.dataProvider.length >= choicesLimit
         ? true
         : false;
   };
@@ -173,7 +181,7 @@ export class FbFieldDropdown {
     event.stopPropagation();
 
     const objNewChoice = { value: '' };
-    if (this.level) {
+    if (this.level && this.isDependentField) {
       objNewChoice['id'] = createUUID();
       objNewChoice['dependent_ids'] = { choice: [], field: [] };
     }
