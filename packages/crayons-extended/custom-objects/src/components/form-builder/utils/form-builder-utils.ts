@@ -632,6 +632,7 @@ export function addBulkChoices(data, text, { level, parentId, choiceIds }) {
       getField.choices.push(choice);
       if (parentChoice?.id) {
         parentChoice.dependent_ids.choice.push(id);
+        parentChoice.dependent_ids.field = [getField.id];
       }
 
       // Adding temp to check the duplication and remove
