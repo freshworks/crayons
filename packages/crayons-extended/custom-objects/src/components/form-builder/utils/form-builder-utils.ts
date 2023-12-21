@@ -607,6 +607,10 @@ export function addBulkChoices(data, text, { level, parentId, choiceIds }) {
   let filteredChoices = getField.choices;
   let parentField, parentChoice;
 
+  if (!getField.id) {
+    getField.id = createUUID();
+  }
+
   if (parentId) {
     parentField = getFieldBasedOnLevel(dataCloned, parseInt(level, 10) - 1);
     parentChoice = findChoice(parentField.choices, parentId);
