@@ -7,8 +7,8 @@ fw-nested-select allows to display nested dropdown choices
 ```html live
 <fw-nested-select
   id="nestedSelect"
-  name='Country'
-  label='Dependent field'
+  name='country'
+  label='Country'
   placeholder='select Country'
   
 ></fw-nested-select>
@@ -17,12 +17,14 @@ fw-nested-select allows to display nested dropdown choices
   var nestedChoicesSource = [{
     id: 'india',
     value: 'India',
-    name: 'State',
+    label: 'State',
+    name: 'state',
     choices: [
       {
         id: 'tamil_nadu',
         value: 'Tamil Nadu',
-        name: 'City',
+        name: 'city',
+        label: 'City',
         choices: [
           {
             id: 'chennai',
@@ -37,7 +39,8 @@ fw-nested-select allows to display nested dropdown choices
       {
         id: 'kerala',
         value: 'Kerala',
-        name: 'City',
+        name: 'city',
+        label: 'City',
         choices: [
           {
             id: 'cochin',
@@ -50,35 +53,220 @@ fw-nested-select allows to display nested dropdown choices
         ],
       },
     ],
-    },
-    {
-      id: 'europe',
-      value: 'Europe',
-      name: 'State',
-      choices: [
-        {
-          id: 'germany',
-          value: 'Germany',
-          name: 'City',
-          choices: [
-            {
-              id: 'berlin',
-              value: 'berlin'
-            },
-            {
-              id: 'hamburg',
-              value: 'Hamburg',
-            },
-          ],
-        },
-      ],
-    }
-  ];
+  },
+  {
+    id: 'europe',
+    value: 'Europe',
+    label: 'State',
+    name: 'state',
+    choices: [
+      {
+        id: 'germany',
+        value: 'Germany',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'berlin',
+            value: 'berlin'
+          },
+          {
+            id: 'hamburg',
+            value: 'Hamburg',
+          },
+        ],
+      },
+    ],
+  }];
   
+  // Initialize default values
+  var selectProps = (name) => ({ value: initialValues[name] || '' });
   var nestedSelectEl = document.getElementById('nestedSelect');
   nestedSelectEl.options = nestedChoicesSource;
+  nestedSelectEl.selectProps = selectProps;
 </script>
 ```
+
+## Usage
+
+<code-group>
+<code-block title="HTML">
+```html
+<fw-nested-select
+  id="nestedSelect"
+  name='Country'
+  label='Dependent field'
+  placeholder='select Country'
+></fw-nested-select>
+
+<script type="application/javascript">
+  var nestedChoicesSource = [{
+    id: 'india',
+    value: 'India',
+    label: 'State',
+    name: 'state',
+    choices: [
+      {
+        id: 'tamil_nadu',
+        value: 'Tamil Nadu',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'chennai',
+            value: 'Chennai',
+          },
+          {
+            id: 'coimbatore',
+            value: 'Coimbatore',
+          },
+        ],
+      },
+      {
+        id: 'kerala',
+        value: 'Kerala',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'cochin',
+            value: 'Cochin',
+          },
+          {
+            id: 'wayanad',
+            value: 'Wayanad',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'europe',
+    value: 'Europe',
+    label: 'State',
+    name: 'state',
+    choices: [
+      {
+        id: 'germany',
+        value: 'Germany',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'berlin',
+            value: 'berlin'
+          },
+          {
+            id: 'hamburg',
+            value: 'Hamburg',
+          },
+        ],
+      },
+    ],
+  }];
+  
+  // Initialize default values
+  var selectProps = (name) => ({ value: initialValues[name] || '' });
+  var nestedSelectEl = document.getElementById('nestedSelect');
+  nestedSelectEl.options = nestedChoicesSource;
+  nestedSelectEl.selectProps = selectProps;
+</script>
+
+```
+</code-block>
+
+<code-block title="React">
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import { FwNestedSelect } from "@freshworks/crayons/react";
+function App() {
+  const initialValues = {};
+  
+  const selectProps = (name) => (
+    { value: initialValues[name] || '' }
+  );
+  
+  const options = [{
+    id: 'india',
+    value: 'India',
+    label: 'State',
+    name: 'state',
+    choices: [
+      {
+        id: 'tamil_nadu',
+        value: 'Tamil Nadu',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'chennai',
+            value: 'Chennai',
+          },
+          {
+            id: 'coimbatore',
+            value: 'Coimbatore',
+          },
+        ],
+      },
+      {
+        id: 'kerala',
+        value: 'Kerala',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'cochin',
+            value: 'Cochin',
+          },
+          {
+            id: 'wayanad',
+            value: 'Wayanad',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'europe',
+    value: 'Europe',
+    label: 'State',
+    name: 'state',
+    choices: [
+      {
+        id: 'germany',
+        value: 'Germany',
+        name: 'city',
+        label: 'City',
+        choices: [
+          {
+            id: 'berlin',
+            value: 'berlin'
+          },
+          {
+            id: 'hamburg',
+            value: 'Hamburg',
+          },
+        ],
+      },
+    ],
+  },
+];
+  
+  return (<div>
+    <FwNestedSelect
+      options={options}
+      name="country"
+      label="Country"
+      selectProps=selectProps
+    >
+    </FwNestedSelect>
+  </div>)
+}
+```
+</code-block>
+</code-group>
+
 
 <!-- Auto Generated Below -->
 

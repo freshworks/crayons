@@ -246,9 +246,9 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
       },
       {
         id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
-        name: 'Country',
-        label: 'Dependent field',
-        type: 22,
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
         position: 12,
         required: false,
         placeholder: 'select Country',
@@ -256,12 +256,14 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
           {
             id: 'india',
             value: 'India',
-            name: 'State',
+            label: 'State',
+            name: 'state',
             choices: [
               {
                 id: 'tamil_nadu',
                 value: 'Tamil Nadu',
-                name: 'City',
+                name: 'city',
+                label: 'City',
                 choices: [
                   {
                     id: 'chennai',
@@ -276,7 +278,8 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
               {
                 id: 'kerala',
                 value: 'Kerala',
-                name: 'City',
+                name: 'city',
+                label: 'City',
                 choices: [
                   {
                     id: 'cochin',
@@ -293,12 +296,14 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
           {
             id: 'europe',
             value: 'Europe',
-            name: 'State',
+            label: 'State',
+            name: 'state',
             choices: [
               {
                 id: 'germany',
                 value: 'Germany',
-                name: 'City',
+                name: 'city',
+                label: 'City',
                 choices: [
                   {
                     id: 'berlin',
@@ -679,6 +684,85 @@ In a `Static form` set `disabled` attribute on the `fw-form-control` to disable 
         placeholder: '',
         multiple: true
       },
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
+        position: 12,
+        required: false,
+        placeholder: 'select Country',
+        choices: [
+          {
+            id: 'india',
+            value: 'India',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'tamil_nadu',
+                value: 'Tamil Nadu',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'chennai',
+                    value: 'Chennai',
+                  },
+                  {
+                    id: 'coimbatore',
+                    value: 'Coimbatore',
+                  },
+                ],
+              },
+              {
+                id: 'kerala',
+                value: 'Kerala',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'cochin',
+                    value: 'Cochin',
+                  },
+                  {
+                    id: 'wayanad',
+                    value: 'Wayanad',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'europe',
+            value: 'Europe',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'germany',
+                value: 'Germany',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'berlin',
+                    value: 'berlin'
+                  },
+                  {
+                    id: 'hamburg',
+                    value: 'Hamburg',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+      }
     ],
 
 };
@@ -930,6 +1014,85 @@ function App() {
         placeholder: '',
         multiple: true
       },
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
+        position: 12,
+        required: false,
+        placeholder: 'select Country',
+        choices: [
+          {
+            id: 'india',
+            value: 'India',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'tamil_nadu',
+                value: 'Tamil Nadu',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'chennai',
+                    value: 'Chennai',
+                  },
+                  {
+                    id: 'coimbatore',
+                    value: 'Coimbatore',
+                  },
+                ],
+              },
+              {
+                id: 'kerala',
+                value: 'Kerala',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'cochin',
+                    value: 'Cochin',
+                  },
+                  {
+                    id: 'wayanad',
+                    value: 'Wayanad',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'europe',
+            value: 'Europe',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'germany',
+                value: 'Germany',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'berlin',
+                    value: 'berlin'
+                  },
+                  {
+                    id: 'hamburg',
+                    value: 'Hamburg',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+      }
     ],
 
 };
