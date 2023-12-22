@@ -54,10 +54,10 @@ Type: `Promise<void>`
 - [fw-checkbox](../checkbox)
 - [fw-radio-group](../radio-group)
 - [fw-radio](../radio)
+- [fw-nested-select](../nested-select)
 - [fw-select](../select)
 - [fw-timepicker](../timepicker)
 - [fw-file-uploader-2](../file-uploader-2)
-- [fw-nested-select](../nested-select)
 
 ### Graph
 ```mermaid
@@ -68,10 +68,10 @@ graph TD;
   fw-form-control --> fw-checkbox
   fw-form-control --> fw-radio-group
   fw-form-control --> fw-radio
+  fw-form-control --> fw-nested-select
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
   fw-form-control --> fw-file-uploader-2
-  fw-form-control --> fw-nested-select
   fw-input --> fw-icon
   fw-datepicker --> fw-tooltip
   fw-datepicker --> fw-icon
@@ -100,15 +100,15 @@ graph TD;
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
+  fw-nested-select --> fw-nested-node
+  fw-nested-node --> fw-nested-node
+  fw-nested-node --> fw-select
   fw-file-uploader-2 --> fw-file-2
   fw-file-uploader-2 --> fw-inline-message
   fw-file-2 --> fw-icon
   fw-file-2 --> fw-tooltip
   fw-file-2 --> fw-spinner
   fw-inline-message --> fw-icon
-  fw-nested-select --> fw-nested-node
-  fw-nested-node --> fw-nested-node
-  fw-nested-node --> fw-select
   fw-form --> fw-form-control
   style fw-form-control fill:#f9f,stroke:#333,stroke-width:4px
 ```
