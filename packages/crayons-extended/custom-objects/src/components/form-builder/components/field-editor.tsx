@@ -32,7 +32,6 @@ import {
   updateFieldAttributes,
   updateChoicesInFields,
   deleteChoicesInFields,
-  addBulkChoices,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -47,7 +46,6 @@ export class FieldEditor {
 
   private KEY_INTERNAL_NAME = 'internalName';
   private modalConfirmDelete!: any;
-  private modalBulkChoices!: any;
   private divFieldBase: HTMLElement;
   private dictInteractiveElements;
   private isInternalNameEdited = false;
@@ -57,8 +55,6 @@ export class FieldEditor {
   private errorType;
   private isDependentField = false;
   private regexAlphaNumChars = /^[A-Z0-9_]*$/i;
-  private textboxBulkChoiceProps!: any;
-  private textboxChoices = '';
   private textboxDependentValue = presetSchema.textboxDependentValue;
   private DEP_LABEL_KEY = 'name_level_';
   private DEP_NAME_KEY = `${this.KEY_INTERNAL_NAME}_level_`;
@@ -824,37 +820,12 @@ export class FieldEditor {
     this.modalConfirmDelete?.close();
   };
 
-  private openBulkChoiceHandler = (detail) => {
-    this.textboxBulkChoiceProps = detail;
-    this.modalBulkChoices?.open();
-  };
-
-  private handleBulkChoicesValue = (event: KeyboardEvent) => {
-    this.textboxChoices = event.target['value'];
-  };
-
-  private addBulkChoicesHandler = () => {
-    const textareaEl = this.modalBulkChoices?.querySelector('textarea');
-    this.fieldBuilderOptions = addBulkChoices(
-      this.fieldBuilderOptions,
-      this.textboxChoices,
-      this.textboxBulkChoiceProps
-    );
-    if (textareaEl) {
-      textareaEl.value = '';
-    }
-    this.textboxChoices = '';
-    this.textboxBulkChoiceProps = {};
-    this.modalBulkChoices?.close();
-  };
-
   private dropdownChangeHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
     this.isValuesChanged = true;
 
     const strType = event.detail.type;
-    let elInteractive;
     switch (strType) {
       case 'DELETE':
         this.errorType = event.detail.errorType;
@@ -880,17 +851,6 @@ export class FieldEditor {
         break;
       case 'SELECT':
         this.dependentLevels = updateLevelSelection(this, event);
-        break;
-      case 'OPEN_BULK_CHOICE_MODAL':
-        this.openBulkChoiceHandler(event.detail);
-        break;
-      case 'DROPDOWN_VALIDATE':
-        this.errorType = event.detail.errorType;
-        elInteractive =
-          this.dictInteractiveElements[`choices_level_${event.detail.level}`];
-        this.showErrors = this.validateDropdownErrors(
-          elInteractive.dataProvider
-        );
         break;
       default:
         break;
@@ -2027,22 +1987,6 @@ export class FieldEditor {
               </fw-inline-message>
             )}
             {strDeleteModalMessage}
-          </span>
-        </fw-modal>
-        <fw-modal
-          ref={(el) => (this.modalBulkChoices = el)}
-          hasCloseIconButton={false}
-          titleText={i18nText('addBulkChoice')}
-          submitText={i18nText('addChoices')}
-          onFwSubmit={this.addBulkChoicesHandler}
-        >
-          <span class={'fw-field-editor-bulk-modal-content'}>
-            {i18nText('bulkChoiceTag')}
-            <textarea
-              value={this.textboxChoices}
-              onChange={this.handleBulkChoicesValue}
-              placeholder={i18nText('bulkChoiceFieldPlaceholder')}
-            ></textarea>
           </span>
         </fw-modal>
       </Host>

@@ -89,7 +89,7 @@ export class FormBuilder {
   /**
    * flag to show dependentField resolve checkbox
    */
-  @Prop({ mutable: true }) showDependentFieldResolveProp = false;
+  @Prop({ mutable: true }) showDependentFieldResolveProp = true;
   /**
    * variable to store customize widget fields
    */

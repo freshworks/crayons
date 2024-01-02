@@ -25,6 +25,8 @@ import {
 })
 export class FbFieldDropdown {
   private errorType = '';
+  private modalBulkChoices!: any;
+  private textboxChoices = '';
 
   @Element() host!: HTMLElement;
   @State() boolExceededChoiceLimit = false;
@@ -93,18 +95,6 @@ export class FbFieldDropdown {
     this.validate();
   }
 
-  @Watch('dataProvider')
-  watchDataProvidersEmptyHandler(): void {
-    if (this.isDependentField) {
-      this.validate();
-      this.fwChange.emit({
-        type: 'DROPDOWN_VALIDATE',
-        level: this.level,
-        errorType: this.errorType,
-      });
-    }
-  }
-
   componentWillLoad(): void {
     this.validate();
     if (this.errorType && this.errorType !== '') {
@@ -123,7 +113,7 @@ export class FbFieldDropdown {
       const strDuplicateErrorKey = i18nText('errors.duplicate');
       const clonedChoices = deepCloneObject(this.dataProvider);
       const arrChoices =
-        this.level && this.isDependentField
+        this.level && this.isDependentField && this.parentId
           ? clonedChoices.filter((item) => this.choiceIds.includes(item.id))
           : clonedChoices;
       let boolElementUpdated = false;
@@ -179,8 +169,11 @@ export class FbFieldDropdown {
   private addNewChoiceHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    this.addChoiceWithValue();
+  };
 
-    const objNewChoice = { value: '' };
+  private addChoiceWithValue = (value = '') => {
+    const objNewChoice = { value };
     if (this.level && this.isDependentField) {
       objNewChoice['id'] = createUUID();
       objNewChoice['dependent_ids'] = { choice: [], field: [] };
@@ -251,6 +244,7 @@ export class FbFieldDropdown {
     if (strValue === '') {
       this.dataProvider[intIndex].error = i18nText('errors.emptyChoice');
     }
+
     this.dataProvider[intIndex].value = strValue;
     this.validate();
 
@@ -312,13 +306,38 @@ export class FbFieldDropdown {
     }
   };
 
-  private openBulkModal = () => {
-    this.fwChange.emit({
-      level: this.level,
-      parentId: this.parentId,
-      choiceIds: this.choiceIds,
-      type: 'OPEN_BULK_CHOICE_MODAL',
+  private openBulkChoiceModal = () => {
+    this.modalBulkChoices?.open();
+  };
+
+  private handleBulkChoicesValue = (event: KeyboardEvent) => {
+    this.textboxChoices = event.target['value'];
+  };
+
+  private addBulkChoicesHandler = () => {
+    const textareaEl = this.modalBulkChoices?.querySelector('textarea');
+    const arrChoices = this.textboxChoices.split('\n');
+    const seen = new Set();
+
+    // Adding seen with choices value available to avoid creating duplication
+    this.dataProvider.forEach((item) => {
+      if (this.choiceIds.includes(item.id) || this.level === 1) {
+        seen.add(item.value);
+      }
     });
+
+    arrChoices.forEach((value) => {
+      if (value && value !== '' && !seen.has(value)) {
+        this.addChoiceWithValue(value);
+        seen.add(value);
+      }
+    });
+
+    if (textareaEl) {
+      textareaEl.value = '';
+    }
+    this.textboxChoices = '';
+    this.modalBulkChoices?.close();
   };
 
   private renderNameEditorElement(dataItem, intIndex) {
@@ -427,7 +446,7 @@ export class FbFieldDropdown {
                 id='addNewChoiceBtn'
                 color='link'
                 disabled={this.boolExceededChoiceLimit}
-                onFwClick={this.openBulkModal}
+                onFwClick={this.openBulkChoiceModal}
               >
                 <fw-icon
                   name='circle-plus'
@@ -444,6 +463,22 @@ export class FbFieldDropdown {
             )}
           </div>
         </div>
+        <fw-modal
+          ref={(el) => (this.modalBulkChoices = el)}
+          hasCloseIconButton={false}
+          titleText={i18nText('addBulkChoice')}
+          submitText={i18nText('addChoices')}
+          onFwSubmit={this.addBulkChoicesHandler}
+        >
+          <span class={'fw-field-editor-bulk-modal-content'}>
+            {i18nText('bulkChoiceTag')}
+            <textarea
+              value={this.textboxChoices}
+              onChange={this.handleBulkChoicesValue}
+              placeholder={i18nText('bulkChoiceFieldPlaceholder')}
+            ></textarea>
+          </span>
+        </fw-modal>
       </Host>
     );
   }
