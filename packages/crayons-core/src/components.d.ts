@@ -1428,6 +1428,14 @@ export namespace Components {
     }
     interface FwNestedNode {
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
           * label
          */
         "label": string;
@@ -1452,15 +1460,35 @@ export namespace Components {
          */
         "options": any[];
         /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
           * Fn to return initialValues from properties
          */
         "selectProps"?: any;
         /**
+          * Theme based on which the list box is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Current selected value if passed from initialvalues
          */
         "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwNestedSelect {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
         /**
           * label
          */
@@ -1482,13 +1510,25 @@ export namespace Components {
          */
         "options": any[];
         /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
           * Function to return initialValues
          */
         "selectProps"?: any;
         /**
+          * Theme based on which the list box is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
           * Initial value from first level choices
          */
         "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwPagination {
         /**
@@ -4461,6 +4501,14 @@ declare namespace LocalJSX {
     }
     interface FwNestedNode {
         /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
           * label
          */
         "label"?: string;
@@ -4485,15 +4533,35 @@ declare namespace LocalJSX {
          */
         "options"?: any[];
         /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
           * Fn to return initialValues from properties
          */
         "selectProps"?: any;
         /**
+          * Theme based on which the list box is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
           * Current selected value if passed from initialvalues
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwNestedSelect {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
         /**
           * label
          */
@@ -4519,13 +4587,25 @@ declare namespace LocalJSX {
          */
         "options"?: any[];
         /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
           * Function to return initialValues
          */
         "selectProps"?: any;
         /**
+          * Theme based on which the list box is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
           * Initial value from first level choices
          */
         "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwPagination {
         /**

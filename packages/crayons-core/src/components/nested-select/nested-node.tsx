@@ -41,6 +41,26 @@ export class NestedNode {
    */
   @Prop() optionLabelPath = 'value';
   /**
+   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+  /**
+   * Theme based on which the list box is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
+  /**
    * Fn to return initialValues from properties
    */
   @Prop() selectProps?: any;
@@ -88,6 +108,11 @@ export class NestedNode {
           optionValuePath={this.optionValuePath}
           optionLabelPath={this.optionLabelPath}
           selectProps={this.selectProps}
+          state={this.state}
+          hintText={this.hintText}
+          warningText={this.warningText}
+          errorText={this.errorText}
+          required={this.required}
         ></fw-nested-node>
       </div>
     );
@@ -109,6 +134,11 @@ export class NestedNode {
         optionValuePath={this.optionValuePath}
         optionLabelPath={this.optionLabelPath}
         selectProps={this.selectProps}
+        state={this.state}
+        hintText={this.hintText}
+        warningText={this.warningText}
+        errorText={this.errorText}
+        required={this.required}
       ></fw-nested-node>
     );
   }
@@ -117,13 +147,18 @@ export class NestedNode {
     return (
       <div class='nest'>
         <fw-select
+          ref={(select) => (this.selectRef = select)}
           label={this.label}
           options={this.options}
           name={this.name}
           value={this.value}
           optionValuePath={this.optionValuePath}
           optionLabelPath={this.optionLabelPath}
-          ref={(select) => (this.selectRef = select)}
+          state={this.state}
+          hintText={this.hintText}
+          warningText={this.warningText}
+          errorText={this.errorText}
+          required={this.required}
         ></fw-select>
         {this.level === 0
           ? this.getFirstlevelNestedSelect()

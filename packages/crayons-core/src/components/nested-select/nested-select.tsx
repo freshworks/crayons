@@ -33,6 +33,26 @@ export class NestedSelect {
    */
   @Prop() optionLabelPath = 'value';
   /**
+   * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+   */
+  @Prop() required = false;
+  /**
+   * Theme based on which the list box is styled.
+   */
+  @Prop() state: 'normal' | 'warning' | 'error' = 'normal';
+  /**
+   * Hint text displayed below the text box.
+   */
+  @Prop() hintText = '';
+  /**
+   * Warning text displayed below the text box.
+   */
+  @Prop() warningText = '';
+  /**
+   * Error text displayed below the text box.
+   */
+  @Prop() errorText = '';
+  /**
    * Function to return initialValues
    */
   @Prop() selectProps?: any;
@@ -87,6 +107,11 @@ export class NestedSelect {
         optionValuePath={this.optionValuePath}
         optionLabelPath={this.optionLabelPath}
         selectProps={this.selectProps}
+        state={this.state}
+        hintText={this.hintText}
+        warningText={this.warningText}
+        errorText={this.errorText}
+        required={this.required}
       ></fw-nested-node>
     );
   }
