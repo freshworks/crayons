@@ -32,6 +32,7 @@ import {
   updateFieldAttributes,
   updateChoicesInFields,
   deleteChoicesInFields,
+  updateRequiredOnAllFields,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -666,7 +667,10 @@ export class FieldEditor {
           break;
         case 'fw-checkbox':
           if (this.isDependentField) {
-            objValues['fields'][0][key] = elInteractive.checked || false;
+            objValues = updateRequiredOnAllFields(
+              objValues,
+              elInteractive?.checked || false
+            );
           } else {
             objValues[key] = elInteractive.checked || false;
           }

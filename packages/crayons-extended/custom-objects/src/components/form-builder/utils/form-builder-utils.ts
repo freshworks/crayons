@@ -518,7 +518,7 @@ export function updateChoicesInFields(instance, event) {
     const parentField = getFieldBasedOnLevel(field, parentLevel);
     const parentChoice = findChoice(parentField.choices, parentId);
     parentChoice.dependent_ids.choice.push(choice.id);
-    parentChoice.dependent_ids.field.push(currentField.id);
+    parentChoice.dependent_ids.field = [currentField.id];
   }
 
   return { ...field, fields: field.fields };
@@ -597,4 +597,18 @@ export function getDefaultDependentLevels(data, internalNamePrefix) {
   updateFieldAttribute(dataCloned.fields[0]);
 
   return { ...dataCloned, fields: dataCloned.fields };
+}
+
+export function updateRequiredOnAllFields(data, isRequired) {
+  function updateRequiredAttribute(field) {
+    field.required = isRequired;
+
+    if (hasCustomProperty(field, 'fields') && field.fields.length) {
+      updateRequiredAttribute(field.fields[0]);
+    }
+  }
+
+  updateRequiredAttribute(data.fields[0]);
+
+  return data;
 }

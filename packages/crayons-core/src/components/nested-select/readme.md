@@ -273,18 +273,20 @@ function App() {
 
 ## Properties
 
-| Property          | Attribute           | Description                                | Type     | Default     |
-| ----------------- | ------------------- | ------------------------------------------ | -------- | ----------- |
-| `errorText`       | `error-text`        | Error text displayed below the text box.   | `string` | `''`        |
-| `hintText`        | `hint-text`         | Hint text displayed below the text box.    | `string` | `''`        |
-| `label`           | `label`             | label                                      | `string` | `''`        |
-| `name`            | `name`              | Name of first level field                  | `string` | `''`        |
-| `optionLabelPath` | `option-label-path` | OptionLabelPath referred from field        | `string` | `'value'`   |
-| `optionValuePath` | `option-value-path` | OptionValuePath referred from field        | `string` | `'id'`      |
-| `options`         | --                  | Options to display                         | `any[]`  | `[]`        |
-| `selectProps`     | `select-props`      | Function to return initialValues           | `any`    | `undefined` |
-| `value`           | `value`             | Initial value from first level choices     | `string` | `''`        |
-| `warningText`     | `warning-text`      | Warning text displayed below the text box. | `string` | `''`        |
+| Property          | Attribute           | Description                                                                                                                                                   | Type                               | Default     |
+| ----------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ----------- |
+| `errorText`       | `error-text`        | Error text displayed below the text box.                                                                                                                      | `string`                           | `''`        |
+| `hintText`        | `hint-text`         | Hint text displayed below the text box.                                                                                                                       | `string`                           | `''`        |
+| `label`           | `label`             | label                                                                                                                                                         | `string`                           | `''`        |
+| `name`            | `name`              | Name of first level field                                                                                                                                     | `string`                           | `''`        |
+| `optionLabelPath` | `option-label-path` | OptionLabelPath referred from field                                                                                                                           | `string`                           | `'value'`   |
+| `optionValuePath` | `option-value-path` | OptionValuePath referred from field                                                                                                                           | `string`                           | `'id'`      |
+| `options`         | --                  | Options to display                                                                                                                                            | `any[]`                            | `[]`        |
+| `required`        | `required`          | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false. | `boolean`                          | `false`     |
+| `selectProps`     | `select-props`      | Function to return initialValues                                                                                                                              | `any`                              | `undefined` |
+| `state`           | `state`             | Theme based on which the list box is styled.                                                                                                                  | `"error" \| "normal" \| "warning"` | `'normal'`  |
+| `value`           | `value`             | Initial value from first level choices                                                                                                                        | `string`                           | `''`        |
+| `warningText`     | `warning-text`      | Warning text displayed below the text box.                                                                                                                    | `string`                           | `''`        |
 
 
 ## Events

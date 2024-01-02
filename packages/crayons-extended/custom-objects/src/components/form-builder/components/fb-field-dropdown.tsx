@@ -179,7 +179,7 @@ export class FbFieldDropdown {
       objNewChoice['dependent_ids'] = { choice: [], field: [] };
     }
     this.dataProvider = [...this.dataProvider, objNewChoice];
-    this.errorType = i18nText('errors.emptyChoice');
+    this.errorType = value ? '' : i18nText('errors.emptyChoice');
     this.validateMaximumChoiceLimits();
 
     this.fwChange.emit({
