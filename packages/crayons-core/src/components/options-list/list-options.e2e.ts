@@ -406,4 +406,27 @@ describe('fw-list-options', () => {
     expect(await options[0].getProperty('checkbox')).toBeFalsy();
     expect(await options[0].getProperty('text')).toBe('Cannot find item');
   });
+
+  it('should have virtual scroll (display only limited nodes based on space available in parent) when popup opens up', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(`<fw-popover>
+    <fw-button slot="popover-trigger">Click Me!</fw-button>
+      <fw-list-options slot="popover-content" enable-virtual-scroll="true" estimated-size="35"></fw-list-options>
+    </fw-popover`);
+    await page.$eval('fw-list-options', (elm: any) => {
+      elm.options = Array.from(Array(7000), (_, i) => ({
+        text: `Item No: ${i + 1}`,
+        value: i,
+      }));
+    });
+    await page.waitForChanges();
+    const trigger = await page.find('fw-button');
+    await trigger.click();
+    await page.waitForChanges();
+    await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
+    const options = await page.findAll('fw-list-options >>> fw-select-option');
+    expect(options.length).toBeGreaterThan(5);
+    expect(options.length).toBeLessThan(20);
+  });
 });

@@ -198,6 +198,10 @@ function App() {
 </code-block>
 </code-group>
 
+## Custom Z-index
+
+You can use `--fw-toast-zindex` css variable to set custom z-index for the toast stack.
+
 ## ToastController
 
 You can also use `ToastController` to create Toast like below:

@@ -279,6 +279,16 @@ export class Select {
    */
   @Prop() tagProps = {};
 
+  /**
+   *  Virtualize long list of elements in list options *Experimental*
+   */
+  @Prop() enableVirtualScroll = false;
+
+  /**
+   *  Works only when 'enableVirtualScroll' is true. Estimated size of each item in the list box to ensure smooth-scrolling.
+   */
+  @Prop() estimatedSize = 35;
+
   // Events
   /**
    * Triggered when a value is selected or deselected from the list box options.
@@ -1120,6 +1130,8 @@ export class Select {
                 slot='popover-content'
                 optionLabelPath={this.optionLabelPath}
                 optionValuePath={this.optionValuePath}
+                enableVirtualScroll={this.enableVirtualScroll}
+                estimatedSize={this.estimatedSize}
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>
