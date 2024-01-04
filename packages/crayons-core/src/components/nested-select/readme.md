@@ -258,7 +258,7 @@ function App() {
       options={options}
       name="country"
       label="Country"
-      selectProps=selectProps
+      selectProps={selectProps}
     >
     </FwNestedSelect>
   </div>)
