@@ -97,6 +97,10 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = false;
   /**
+   * link to show dependent field document
+   */
+  @Prop() dependentFieldLink = '';
+  /**
    * Disable the repositioning option
    */
   @Prop() disabledSort = false;
@@ -1537,7 +1541,16 @@ export class FieldEditor {
             {this.showDependentFieldTextbox ? (
               <div>
                 <label class={`${strBaseClassName}-content-dependent-label`}>
-                  {i18nText('dependentDropdownMessage')}
+                  {i18nText('dependentDropdownMessage')}&nbsp;
+                  {this.dependentFieldLink && (
+                    <a
+                      href={this.dependentFieldLink}
+                      target='_blank'
+                      class={`${strBaseClassName}-link`}
+                    >
+                      {i18nText('moreOnDependentFields')}
+                    </a>
+                  )}
                 </label>
                 <span class={`${strBaseClassName}-textbox`}>
                   <textarea

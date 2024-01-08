@@ -168,6 +168,7 @@
     "ertText": "Effective resolution timer",
     "dropdownChoices": "Dropdown choices",
     "dependentDropdownMessage": "Dropdown choices will be categorized based on the indentation (use the ‘tab’ key to indent choices).If a choice is repeated in the same category, it will be skipped.",
+    "moreOnDependentFields": "More on Dependent fields",
     "errors": {
       "emptyFieldName": "Field label is required.",
       "emptyRelationshipType": "Relationship type is required.",
