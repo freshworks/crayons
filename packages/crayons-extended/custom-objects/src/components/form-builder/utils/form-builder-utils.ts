@@ -379,7 +379,7 @@ export function buildChoicesFromText(text, dataProvider) {
   lines.forEach((line) => {
     const value = line.trim().replace(/\t/g, '');
 
-    if (value && length) {
+    if (value && value.length) {
       if (!line.startsWith('\t')) {
         if (!validateChoices(hierarchyChoices.choices, value)) {
           const field = hierarchyChoices;
