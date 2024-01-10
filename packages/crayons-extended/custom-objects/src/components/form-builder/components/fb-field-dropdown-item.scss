@@ -8,6 +8,27 @@
   box-sizing: border-box;
 }
 
+.fb-field-dependent-dropdown-item {
+  border: thin solid $color-smoke-100;
+  margin-block-end: unset !important;
+  padding-block: 8px;
+  background-color: $color-milk;
+
+  .fb-field-dropdown-item-delete-container {
+    width: unset !important;
+
+    &--not-deleteable {
+      opacity: 0 !important;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+}
+
+.dropdown-item-selected {
+  background-color: $color-azure-50;
+}
+
 .fb-field-dropdown-item {
   width: calc(100% + 24px + 8px);
   height: auto;

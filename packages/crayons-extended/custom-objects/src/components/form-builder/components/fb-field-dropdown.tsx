@@ -25,6 +25,8 @@ import {
 })
 export class FbFieldDropdown {
   private errorType = '';
+  private modalBulkChoices!: any;
+  private textboxChoices = '';
 
   @Element() host!: HTMLElement;
   @State() boolExceededChoiceLimit = false;
@@ -50,6 +52,35 @@ export class FbFieldDropdown {
    */
   @Prop() disabled = false;
   /**
+   * Level Indicates the depth of current field
+   * Starts from 1
+   */
+  @Prop() level = 0;
+  /**
+   * Flag indicates this field is dependent field
+   */
+  @Prop() isDependentField = false;
+  /**
+   * Property parentId indicates the parent of current child dropdown
+   */
+  @Prop() parentId = null;
+  /**
+   * Property indicates the level selected
+   */
+  @Prop() dependentLevels = {};
+  /**
+   * Key press to allow user to use tab
+   */
+  @Prop() enableKeyPress = false;
+  /**
+   * Series of Ids to render options
+   */
+  @Prop() choiceIds = [];
+  /**
+   * Flag to enable Bulk choice addition for dependent dropdown
+   */
+  @Prop() enableBulkChoices = false;
+  /**
    * Triggered on data change for error handling on parent
    */
   @Event() fwChange!: EventEmitter;
@@ -71,6 +102,7 @@ export class FbFieldDropdown {
         type: 'VALUE_CHANGE',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
       });
     }
   }
@@ -79,7 +111,11 @@ export class FbFieldDropdown {
     if (this.dataProvider && this.dataProvider.length > 0) {
       this.errorType = '';
       const strDuplicateErrorKey = i18nText('errors.duplicate');
-      const arrChoices = deepCloneObject(this.dataProvider);
+      const clonedChoices = deepCloneObject(this.dataProvider);
+      const arrChoices =
+        this.level && this.isDependentField && this.parentId
+          ? clonedChoices.filter((item) => this.choiceIds.includes(item.id))
+          : clonedChoices;
       let boolElementUpdated = false;
       const arrLookup = [];
 
@@ -104,7 +140,10 @@ export class FbFieldDropdown {
       });
 
       if (boolElementUpdated) {
-        this.dataProvider = [...arrChoices];
+        this.dataProvider =
+          this.level && this.isDependentField
+            ? [...clonedChoices]
+            : [...arrChoices];
       }
       this.validateMaximumChoiceLimits();
     } else {
@@ -117,8 +156,12 @@ export class FbFieldDropdown {
       this.productName,
       'maxDropdownChoices'
     );
+    const choicesLimit = this.isDependentField
+      ? objMaxLimitChoices.maxCount
+      : objMaxLimitChoices.count;
+
     this.boolExceededChoiceLimit =
-      this.dataProvider && this.dataProvider.length >= objMaxLimitChoices.count
+      this.dataProvider && this.dataProvider.length >= choicesLimit
         ? true
         : false;
   };
@@ -126,16 +169,26 @@ export class FbFieldDropdown {
   private addNewChoiceHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    this.addChoiceWithValue();
+  };
 
-    const objNewChoice = { value: '' };
+  private addChoiceWithValue = (value = '') => {
+    const objNewChoice = { value };
+    if (this.level && this.isDependentField) {
+      objNewChoice['id'] = createUUID();
+      objNewChoice['dependent_ids'] = { choice: [], field: [] };
+    }
     this.dataProvider = [...this.dataProvider, objNewChoice];
-    this.errorType = i18nText('errors.emptyChoice');
+    this.errorType = value ? '' : i18nText('errors.emptyChoice');
     this.validateMaximumChoiceLimits();
 
     this.fwChange.emit({
       type: 'ADD',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      parentId: this.parentId,
+      level: this.level,
+      choice: objNewChoice,
     });
   };
 
@@ -148,11 +201,13 @@ export class FbFieldDropdown {
 
     const intDeleteIndex = event.detail.index;
     const isNewChoice = event.detail.isNewChoice;
+
     if (
       intDeleteIndex > -1 &&
       this.dataProvider &&
       intDeleteIndex < this.dataProvider.length
     ) {
+      const choice = this.dataProvider[intDeleteIndex];
       this.dataProvider = [
         ...this.dataProvider.slice(0, intDeleteIndex),
         ...this.dataProvider.slice(intDeleteIndex + 1),
@@ -166,6 +221,9 @@ export class FbFieldDropdown {
         type: 'DELETE',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
+        parentId: this.parentId,
+        choice: choice,
       });
     }
   };
@@ -186,6 +244,7 @@ export class FbFieldDropdown {
     if (strValue === '') {
       this.dataProvider[intIndex].error = i18nText('errors.emptyChoice');
     }
+
     this.dataProvider[intIndex].value = strValue;
     this.validate();
 
@@ -193,6 +252,7 @@ export class FbFieldDropdown {
       type: 'VALUE_CHANGE',
       errorType: this.errorType,
       value: [...this.dataProvider],
+      level: this.level,
     });
   };
 
@@ -227,8 +287,57 @@ export class FbFieldDropdown {
         type: 'REPOSITION',
         errorType: this.errorType,
         value: [...this.dataProvider],
+        level: this.level,
       });
     }
+  };
+
+  private selectItemChoice = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+
+    if (event.detail.id) {
+      this.fwChange.emit({
+        type: 'SELECT',
+        level: this.level,
+        index: event.detail.index,
+        id: event.detail.id,
+      });
+    }
+  };
+
+  private openBulkChoiceModal = () => {
+    this.modalBulkChoices?.open();
+  };
+
+  private handleBulkChoicesValue = (event: KeyboardEvent) => {
+    this.textboxChoices = event.target['value'];
+  };
+
+  private addBulkChoicesHandler = () => {
+    const textareaEl = this.modalBulkChoices?.querySelector('textarea');
+    const arrChoices = this.textboxChoices.split('\n');
+    const seen = new Set();
+
+    // Adding seen with choices value available to avoid creating duplication
+    this.dataProvider.forEach((item) => {
+      if (this.choiceIds.includes(item.id) || this.level === 1) {
+        seen.add(item.value);
+      }
+    });
+
+    arrChoices.forEach((value) => {
+      if (value && value !== '' && !seen.has(value)) {
+        this.addChoiceWithValue(value);
+        seen.add(value);
+      }
+    });
+
+    if (textareaEl) {
+      textareaEl.value = '';
+    }
+    this.textboxChoices = '';
+    this.modalBulkChoices?.close();
   };
 
   private renderNameEditorElement(dataItem, intIndex) {
@@ -237,6 +346,17 @@ export class FbFieldDropdown {
     const itemKey = hasRepositionIndex
       ? dataItem.repositionKey
       : `new_choice_${intIndex + 1}`;
+
+    const levelId = this.dependentLevels[`level_${this.level}`];
+    const itemSelected = dataItem.id === levelId;
+
+    if (
+      this.isDependentField &&
+      this.level !== 1 &&
+      !this.choiceIds.includes(dataItem.id)
+    ) {
+      return null;
+    }
 
     return (
       <fw-fb-field-dropdown-item
@@ -247,8 +367,12 @@ export class FbFieldDropdown {
         disabled={this.disabled}
         isLoading={this.isLoading}
         showErrors={this.showErrors}
+        isDependentField={this.isDependentField}
+        itemSelected={itemSelected}
         onFwChange={this.choiceValueChangeHandler}
         onFwDelete={this.deleteItemHandler}
+        onFwSelect={this.selectItemChoice}
+        onFwAdd={this.addNewChoiceHandler}
       ></fw-fb-field-dropdown-item>
     );
   }
@@ -259,9 +383,11 @@ export class FbFieldDropdown {
 
     const dropdownElements =
       dpSource.length > 0
-        ? dpSource.map((dataItem, index) =>
-            this.renderNameEditorElement(dataItem, index)
-          )
+        ? dpSource
+            .map((dataItem, index) =>
+              this.renderNameEditorElement(dataItem, index)
+            )
+            .filter((item) => item)
         : null;
 
     const objMaxLimitChoices = getMaxLimitProperty(
@@ -274,12 +400,28 @@ export class FbFieldDropdown {
         })
       : '';
 
+    const labelText = this.isDependentField
+      ? `${i18nText('level')} ${this.level}`
+      : i18nText('addChoices');
+
+    const labelClass = this.isDependentField
+      ? `${strBaseClassName}-label-dependent-field spacing-bottom-${this.level}`
+      : `${strBaseClassName}-label`;
+
+    const dropdownClass = this.isDependentField
+      ? `${strBaseClassName} fb-field-dependent`
+      : strBaseClassName;
+
+    const showAddChoice = this.isDependentField ? false : !this.disabled;
+
+    const footerClass = this.isDependentField
+      ? `${strBaseClassName}-footer ${strBaseClassName}-no-padding`
+      : `${strBaseClassName}-footer`;
+
     return (
       <Host tabIndex='-1'>
-        <div class={strBaseClassName}>
-          <label class={`${strBaseClassName}-label`}>
-            {i18nText('addChoices')}
-          </label>
+        <div class={dropdownClass}>
+          <label class={labelClass}>{labelText}</label>
           <fw-drag-container
             id='dropdownElementsList'
             class={`${strBaseClassName}-list-container`}
@@ -288,8 +430,8 @@ export class FbFieldDropdown {
           >
             {dropdownElements}
           </fw-drag-container>
-          <div class={`${strBaseClassName}-footer`}>
-            {!this.disabled && (
+          <div class={footerClass}>
+            {showAddChoice && (
               <fw-button
                 id='addNewChoiceBtn'
                 color='link'
@@ -299,6 +441,21 @@ export class FbFieldDropdown {
                 {i18nText('addChoice')}
               </fw-button>
             )}
+            {this.enableBulkChoices && (this.parentId || this.level === 1) && (
+              <fw-button
+                id='addNewChoiceBtn'
+                color='link'
+                disabled={this.boolExceededChoiceLimit}
+                onFwClick={this.openBulkChoiceModal}
+              >
+                <fw-icon
+                  name='circle-plus'
+                  size='16'
+                  slot='before-label'
+                ></fw-icon>
+                {i18nText('addBulkChoice')}
+              </fw-button>
+            )}
             {this.boolExceededChoiceLimit && (
               <label class={`${strBaseClassName}-warning-text`}>
                 {strExceedLimitChoicesWarning}
@@ -306,6 +463,22 @@ export class FbFieldDropdown {
             )}
           </div>
         </div>
+        <fw-modal
+          ref={(el) => (this.modalBulkChoices = el)}
+          hasCloseIconButton={false}
+          titleText={i18nText('addBulkChoice')}
+          submitText={i18nText('addChoices')}
+          onFwSubmit={this.addBulkChoicesHandler}
+        >
+          <span class={'fw-field-editor-bulk-modal-content'}>
+            {i18nText('bulkChoiceTag')}
+            <textarea
+              value={this.textboxChoices}
+              onChange={this.handleBulkChoicesValue}
+              placeholder={i18nText('bulkChoiceFieldPlaceholder')}
+            ></textarea>
+          </span>
+        </fw-modal>
       </Host>
     );
   }

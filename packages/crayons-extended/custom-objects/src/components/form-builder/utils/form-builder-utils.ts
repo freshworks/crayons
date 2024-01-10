@@ -275,3 +275,340 @@ export function checkIfCustomToggleField(
     fieldName === dbConfig?.config?.showCustomToggleField
   );
 }
+
+/**
+ *
+ * DEPENDENT FIELD UTILS
+ *
+ */
+export function getFieldBasedOnLevel(data, level) {
+  // Convert the level to an integer for easier comparison
+  const numericLevel = parseInt(level, 10);
+
+  // Function to recursively traverse the data structure
+  function traverseFields(fields, currentLevel) {
+    if (currentLevel === numericLevel) {
+      return fields[0];
+    }
+
+    if (fields && fields[0] && fields[0].fields) {
+      return traverseFields(fields[0].fields, currentLevel + 1);
+    }
+
+    return null;
+  }
+
+  return traverseFields(data.fields, 1);
+}
+
+const validateChoices = (choices, value) => {
+  return choices.find((choice) => choice.value === value);
+};
+
+/** Returns filtered choices by ids */
+const getChoicesById = (choices = [], ids = []) => {
+  return choices.filter((choice) => ids.includes(choice.id));
+};
+
+/** Returns choice by id */
+const findChoice = (choices, id) => {
+  return choices.find((choice) => choice.id === id);
+};
+
+const arrFindIndex = (arr, value) => arr.findIndex((item) => item === value);
+
+export function getDependentLevels(levels, choices, ids, level) {
+  if (!level) {
+    return {};
+  }
+
+  const selectedId = levels[`level_${level}`];
+  const choiceIds = ids.length ? ids : choices.map((choice) => choice.id);
+
+  if (selectedId && choiceIds.includes(selectedId)) {
+    return levels;
+  }
+
+  return {
+    [`level_${level}`]: choiceIds[0],
+    ...levels,
+  };
+}
+
+export function updateFieldAttributes(
+  data,
+  level,
+  {
+    label = null,
+    internalName = null,
+    name = null,
+    choices = null,
+    type = null,
+  }
+) {
+  // For other fields
+  if (!level) {
+    const field = { ...data };
+    label !== null && (field.label = label);
+    name !== null && (field.name = name);
+
+    return field;
+  }
+
+  // Dependent Field
+  const getField = getFieldBasedOnLevel(data, level);
+
+  if (getField) {
+    label !== null && (getField['label'] = label);
+    name !== null && (getField['name'] = name);
+    internalName !== null && (getField['internalName'] = internalName);
+    choices && choices.length && (getField['choices'] = choices);
+    type && (getField['type'] = type);
+  }
+
+  return { ...data, fields: data.fields };
+}
+
+// NOTE: Need to optimize this better
+export function buildChoicesFromText(text, dataProvider) {
+  const lines = text.split('\n');
+  const hierarchyChoices = dataProvider.fields[0];
+  let currentCategory = null;
+  let currentSubcategory = null;
+
+  lines.forEach((line) => {
+    const value = line.trim().replace(/\t/g, '');
+
+    if (value && value.length) {
+      if (!line.startsWith('\t')) {
+        if (!validateChoices(hierarchyChoices.choices, value)) {
+          const field = hierarchyChoices;
+          if (!field.id) {
+            field.id = createUUID();
+          }
+          currentCategory = {
+            id: createUUID(),
+            value: value,
+            dependent_ids: { field: [], choice: [] },
+          };
+          hierarchyChoices.choices.push(currentCategory);
+        }
+      } else if (line.startsWith('\t') && !line.startsWith('\t\t')) {
+        if (
+          currentCategory &&
+          !validateChoices(hierarchyChoices.fields[0].choices, value)
+        ) {
+          const field = hierarchyChoices.fields[0];
+          if (!field.id) {
+            field.id = createUUID();
+          }
+          currentSubcategory = {
+            id: createUUID(),
+            value: value,
+            dependent_ids: { field: [], choice: [] },
+          };
+          currentCategory.dependent_ids.choice.push(currentSubcategory.id);
+          if (!currentCategory.dependent_ids.field.length) {
+            currentCategory.dependent_ids.field.push(field.id);
+          }
+          field.choices.push(currentSubcategory);
+        }
+      } else {
+        if (
+          currentSubcategory &&
+          !validateChoices(hierarchyChoices.fields[0].fields[0].choices, value)
+        ) {
+          const field = hierarchyChoices.fields[0].fields[0];
+          if (!field.id) {
+            field.id = createUUID();
+          }
+          const item = {
+            id: createUUID(),
+            value: value,
+            dependent_ids: { choice: [], field: [] },
+          };
+          currentSubcategory.dependent_ids.choice.push(item.id);
+          if (!currentSubcategory.dependent_ids.field.length) {
+            currentSubcategory.dependent_ids.field.push(field.id);
+          }
+          hierarchyChoices.fields[0].fields[0].choices.push(item);
+        }
+      }
+    }
+  });
+
+  return { ...dataProvider, fields: [hierarchyChoices] };
+}
+
+export function hasStringDuplicates(stringObj, i18nText) {
+  const values = Object.values(stringObj);
+  const result = {};
+
+  for (const key in stringObj) {
+    const isDuplicateFound =
+      values.filter((value) => value !== '' && value === stringObj[key])
+        .length > 1;
+
+    if (isDuplicateFound) {
+      result[key] = i18nText('errors.fieldNameExists');
+    }
+  }
+
+  return result;
+}
+
+/** Handles and updates dependent level upon selection */
+export function updateLevelSelection(instance, event) {
+  if (!instance.isDependentField) {
+    return;
+  }
+
+  const dependentLevels = instance.dependentLevels;
+  const clonedDependentLevels = deepCloneObject(dependentLevels);
+
+  Object.keys(dependentLevels).forEach((key) => {
+    if (Number(removeFirstOccurrence(key, 'level_')) > event.detail.level) {
+      delete clonedDependentLevels[key];
+    }
+  });
+
+  return {
+    ...clonedDependentLevels,
+    [`level_${event.detail.level}`]: event.detail.id,
+  };
+}
+
+export function getParentId(pChoices, pLevel, dependentLevels) {
+  if (!pLevel || !pChoices || !pChoices.length) {
+    return null;
+  }
+
+  const parentChoice = findChoice(pChoices, dependentLevels[`level_${pLevel}`]);
+
+  if (parentChoice) {
+    return parentChoice.id;
+  }
+
+  return pChoices[0].id;
+}
+
+/** Selecting parent updates child choices */
+export function getChildChoices(field, pChoices, pLevel, depLevels) {
+  if (!pLevel || !pChoices || !pChoices.length) {
+    return { choices: field.choices, ids: [], pid: null };
+  }
+
+  const pId = getParentId(pChoices, pLevel, depLevels);
+  const pChoice = findChoice(pChoices, pId);
+  const choices = getChoicesById(field.choices, pChoice.dependent_ids.choice);
+
+  return { ids: pChoice.dependent_ids.choice, choices, pId };
+}
+
+export function updateChoicesInFields(instance, event) {
+  const field = instance.fieldBuilderOptions;
+  const { level, parentId, value, choice } = event.detail;
+
+  // Adding Choices to current level
+  const currentField = getFieldBasedOnLevel(field, level);
+  currentField.choices = value;
+
+  if (parentId) {
+    const parentLevel = parseInt(level, 10) - 1;
+    const parentField = getFieldBasedOnLevel(field, parentLevel);
+    const parentChoice = findChoice(parentField.choices, parentId);
+    parentChoice.dependent_ids.choice.push(choice.id);
+    parentChoice.dependent_ids.field = [currentField.id];
+  }
+
+  return { ...field, fields: field.fields };
+}
+
+export function deleteChoicesInFields(instance, event) {
+  const field = instance.fieldBuilderOptions;
+  const { level, parentId, choice } = event.detail;
+
+  // Level Above if exists
+  if (parentId) {
+    const parentLevel = parseInt(level, 10) - 1;
+    const parentField = getFieldBasedOnLevel(field, parentLevel);
+    const parentChoice = findChoice(parentField.choices, parentId);
+    const delIndex = arrFindIndex(parentChoice.dependent_ids.choice, choice.id);
+
+    if (delIndex > -1) {
+      parentChoice.dependent_ids.choice = [
+        ...parentChoice.dependent_ids.choice.slice(0, delIndex),
+        ...parentChoice.dependent_ids.choice.slice(delIndex + 1),
+      ];
+    }
+  }
+
+  const depIds = choice.dependent_ids?.choice?.length
+    ? choice.dependent_ids.choice
+    : [];
+
+  // Delete current fields choices
+  const currentField = getFieldBasedOnLevel(field, level);
+  currentField.choices = deepCloneObject(
+    currentField.choices.filter((item) => item.id !== choice.id)
+  );
+
+  const deleteChildNodes = (depIds, currentLevel) => {
+    const childLevel = parseInt(currentLevel, 10) + 1;
+    const childField = getFieldBasedOnLevel(field, childLevel);
+    const childDepIds = [];
+    if (childField) {
+      childField.choices = deepCloneObject(
+        childField.choices.filter((item) => {
+          if (depIds.includes(item.id)) {
+            childDepIds.push(...item.dependent_ids.choice);
+            return false;
+          }
+
+          return true;
+        })
+      );
+    }
+
+    childDepIds.length && deleteChildNodes(childDepIds, childLevel);
+  };
+
+  depIds.length && deleteChildNodes(depIds, level);
+
+  return { ...field, fields: field.fields };
+}
+
+export function getDefaultDependentLevels(data, internalNamePrefix) {
+  const dataCloned = deepCloneObject(data);
+
+  function updateFieldAttribute(fProperties) {
+    fProperties.name = removeFirstOccurrence(
+      fProperties.name,
+      internalNamePrefix
+    );
+    fProperties.label = fProperties.label || '';
+    fProperties.id = fProperties.id || '';
+
+    if (hasCustomProperty(fProperties, 'fields') && fProperties.fields.length) {
+      updateFieldAttribute(fProperties.fields[0]);
+    }
+  }
+
+  updateFieldAttribute(dataCloned.fields[0]);
+
+  return { ...dataCloned, fields: dataCloned.fields };
+}
+
+export function updateRequiredOnAllFields(data, isRequired) {
+  function updateRequiredAttribute(field) {
+    field.required = isRequired;
+
+    if (hasCustomProperty(field, 'fields') && field.fields.length) {
+      updateRequiredAttribute(field.fields[0]);
+    }
+  }
+
+  updateRequiredAttribute(data.fields[0]);
+
+  return data;
+}

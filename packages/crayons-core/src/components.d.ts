@@ -922,6 +922,7 @@ export namespace Components {
     | 'DATE_TIME'
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
+    | 'DEPENDENT_FIELD'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -1432,6 +1433,110 @@ export namespace Components {
           * The title text to be displayed on the modal
          */
         "titleText": string;
+    }
+    interface FwNestedNode {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
+          * label
+         */
+        "label": string;
+        /**
+          * level to keep track of selected options and reset on parent option changes
+         */
+        "level": number;
+        /**
+          * Name of the field value gets updated to
+         */
+        "name": string;
+        /**
+          * optionLabelPath
+         */
+        "optionLabelPath": string;
+        /**
+          * OptionValue path
+         */
+        "optionValuePath": string;
+        /**
+          * Options to pass through and loop
+         */
+        "options": any[];
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Fn to return initialValues from properties
+         */
+        "selectProps"?: any;
+        /**
+          * Theme based on which the list box is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
+          * Current selected value if passed from initialvalues
+         */
+        "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
+    }
+    interface FwNestedSelect {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText": string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText": string;
+        /**
+          * label
+         */
+        "label": string;
+        /**
+          * Name of first level field
+         */
+        "name": string;
+        /**
+          * OptionLabelPath referred from field
+         */
+        "optionLabelPath": string;
+        /**
+          * OptionValuePath referred from field
+         */
+        "optionValuePath": string;
+        /**
+          * Options to display
+         */
+        "options": any[];
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required": boolean;
+        /**
+          * Function to return initialValues
+         */
+        "selectProps"?: any;
+        /**
+          * Theme based on which the list box is styled.
+         */
+        "state": 'normal' | 'warning' | 'error';
+        /**
+          * Initial value from first level choices
+         */
+        "value": string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText": string;
     }
     interface FwPagination {
         /**
@@ -2495,6 +2600,10 @@ export interface FwModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwModalElement;
 }
+export interface FwNestedSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwNestedSelectElement;
+}
 export interface FwPaginationCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwPaginationElement;
@@ -2774,6 +2883,18 @@ declare global {
         prototype: HTMLFwModalTitleElement;
         new (): HTMLFwModalTitleElement;
     };
+    interface HTMLFwNestedNodeElement extends Components.FwNestedNode, HTMLStencilElement {
+    }
+    var HTMLFwNestedNodeElement: {
+        prototype: HTMLFwNestedNodeElement;
+        new (): HTMLFwNestedNodeElement;
+    };
+    interface HTMLFwNestedSelectElement extends Components.FwNestedSelect, HTMLStencilElement {
+    }
+    var HTMLFwNestedSelectElement: {
+        prototype: HTMLFwNestedSelectElement;
+        new (): HTMLFwNestedSelectElement;
+    };
     interface HTMLFwPaginationElement extends Components.FwPagination, HTMLStencilElement {
     }
     var HTMLFwPaginationElement: {
@@ -2944,6 +3065,8 @@ declare global {
         "fw-modal-content": HTMLFwModalContentElement;
         "fw-modal-footer": HTMLFwModalFooterElement;
         "fw-modal-title": HTMLFwModalTitleElement;
+        "fw-nested-node": HTMLFwNestedNodeElement;
+        "fw-nested-select": HTMLFwNestedSelectElement;
         "fw-pagination": HTMLFwPaginationElement;
         "fw-pill": HTMLFwPillElement;
         "fw-popover": HTMLFwPopoverElement;
@@ -3861,6 +3984,7 @@ declare namespace LocalJSX {
     | 'DATE_TIME'
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
+    | 'DEPENDENT_FIELD'
     | 'FILES';
         /**
           * Value of the slotted custom field on fw-form-control
@@ -4398,6 +4522,114 @@ declare namespace LocalJSX {
           * The title text to be displayed on the modal
          */
         "titleText"?: string;
+    }
+    interface FwNestedNode {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
+          * label
+         */
+        "label"?: string;
+        /**
+          * level to keep track of selected options and reset on parent option changes
+         */
+        "level"?: number;
+        /**
+          * Name of the field value gets updated to
+         */
+        "name"?: string;
+        /**
+          * optionLabelPath
+         */
+        "optionLabelPath"?: string;
+        /**
+          * OptionValue path
+         */
+        "optionValuePath"?: string;
+        /**
+          * Options to pass through and loop
+         */
+        "options"?: any[];
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Fn to return initialValues from properties
+         */
+        "selectProps"?: any;
+        /**
+          * Theme based on which the list box is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Current selected value if passed from initialvalues
+         */
+        "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
+    }
+    interface FwNestedSelect {
+        /**
+          * Error text displayed below the text box.
+         */
+        "errorText"?: string;
+        /**
+          * Hint text displayed below the text box.
+         */
+        "hintText"?: string;
+        /**
+          * label
+         */
+        "label"?: string;
+        /**
+          * Name of first level field
+         */
+        "name"?: string;
+        /**
+          * Triggered when nested selection doesn't have choices
+         */
+        "onFwChange"?: (event: FwNestedSelectCustomEvent<any>) => void;
+        /**
+          * OptionLabelPath referred from field
+         */
+        "optionLabelPath"?: string;
+        /**
+          * OptionValuePath referred from field
+         */
+        "optionValuePath"?: string;
+        /**
+          * Options to display
+         */
+        "options"?: any[];
+        /**
+          * Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.
+         */
+        "required"?: boolean;
+        /**
+          * Function to return initialValues
+         */
+        "selectProps"?: any;
+        /**
+          * Theme based on which the list box is styled.
+         */
+        "state"?: 'normal' | 'warning' | 'error';
+        /**
+          * Initial value from first level choices
+         */
+        "value"?: string;
+        /**
+          * Warning text displayed below the text box.
+         */
+        "warningText"?: string;
     }
     interface FwPagination {
         /**
@@ -5466,6 +5698,8 @@ declare namespace LocalJSX {
         "fw-modal-content": FwModalContent;
         "fw-modal-footer": FwModalFooter;
         "fw-modal-title": FwModalTitle;
+        "fw-nested-node": FwNestedNode;
+        "fw-nested-select": FwNestedSelect;
         "fw-pagination": FwPagination;
         "fw-pill": FwPill;
         "fw-popover": FwPopover;
@@ -5531,6 +5765,8 @@ declare module "@stencil/core" {
             "fw-modal-content": LocalJSX.FwModalContent & JSXBase.HTMLAttributes<HTMLFwModalContentElement>;
             "fw-modal-footer": LocalJSX.FwModalFooter & JSXBase.HTMLAttributes<HTMLFwModalFooterElement>;
             "fw-modal-title": LocalJSX.FwModalTitle & JSXBase.HTMLAttributes<HTMLFwModalTitleElement>;
+            "fw-nested-node": LocalJSX.FwNestedNode & JSXBase.HTMLAttributes<HTMLFwNestedNodeElement>;
+            "fw-nested-select": LocalJSX.FwNestedSelect & JSXBase.HTMLAttributes<HTMLFwNestedSelectElement>;
             "fw-pagination": LocalJSX.FwPagination & JSXBase.HTMLAttributes<HTMLFwPaginationElement>;
             "fw-pill": LocalJSX.FwPill & JSXBase.HTMLAttributes<HTMLFwPillElement>;
             "fw-popover": LocalJSX.FwPopover & JSXBase.HTMLAttributes<HTMLFwPopoverElement>;

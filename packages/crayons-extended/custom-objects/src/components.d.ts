@@ -47,17 +47,45 @@ export namespace Components {
     }
     interface FwFbFieldDropdown {
         /**
+          * Series of Ids to render options
+         */
+        "choiceIds": any[];
+        /**
           * variable to store the data source for all the choices
          */
         "dataProvider": any;
+        /**
+          * Property indicates the level selected
+         */
+        "dependentLevels": {};
         /**
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled": boolean;
         /**
+          * Flag to enable Bulk choice addition for dependent dropdown
+         */
+        "enableBulkChoices": boolean;
+        /**
+          * Key press to allow user to use tab
+         */
+        "enableKeyPress": boolean;
+        /**
+          * Flag indicates this field is dependent field
+         */
+        "isDependentField": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
+        /**
+          * Level Indicates the depth of current field Starts from 1
+         */
+        "level": number;
+        /**
+          * Property parentId indicates the parent of current child dropdown
+         */
+        "parentId": any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
@@ -82,6 +110,10 @@ export namespace Components {
          */
         "index": number;
         /**
+          * Flag to check if the field is dependent field
+         */
+        "isDependentField": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -89,6 +121,10 @@ export namespace Components {
           * property to determine if this is a new choice or an existing choice
          */
         "isNewChoice": boolean;
+        /**
+          * Item selected based on id
+         */
+        "itemSelected": boolean;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -137,6 +173,10 @@ export namespace Components {
           * stores the default field type schema for this editor type
          */
         "defaultFieldTypeSchema": any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
         /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -206,6 +246,10 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -317,6 +361,10 @@ export namespace Components {
          */
         "customizeWidgetFields": any;
         /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
+        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage": any;
@@ -361,6 +409,14 @@ export namespace Components {
           * Show explore plans button and disable features for free-plan users
          */
         "role": 'trial' | 'admin';
+        /**
+          * flag to show dependentField for CONVERSATION_PROPERTIES or not
+         */
+        "showDependentField": boolean;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
         /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
@@ -779,21 +835,49 @@ declare namespace LocalJSX {
     }
     interface FwFbFieldDropdown {
         /**
+          * Series of Ids to render options
+         */
+        "choiceIds"?: any[];
+        /**
           * variable to store the data source for all the choices
          */
         "dataProvider"?: any;
+        /**
+          * Property indicates the level selected
+         */
+        "dependentLevels"?: {};
         /**
           * Disables all the options which can't be edited, reordered or deleted if set to true.
          */
         "disabled"?: boolean;
         /**
+          * Flag to enable Bulk choice addition for dependent dropdown
+         */
+        "enableBulkChoices"?: boolean;
+        /**
+          * Key press to allow user to use tab
+         */
+        "enableKeyPress"?: boolean;
+        /**
+          * Flag indicates this field is dependent field
+         */
+        "isDependentField"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
         /**
+          * Level Indicates the depth of current field Starts from 1
+         */
+        "level"?: number;
+        /**
           * Triggered on data change for error handling on parent
          */
         "onFwChange"?: (event: FwFbFieldDropdownCustomEvent<any>) => void;
+        /**
+          * Property parentId indicates the parent of current child dropdown
+         */
+        "parentId"?: any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
@@ -817,6 +901,10 @@ declare namespace LocalJSX {
          */
         "index"?: number;
         /**
+          * Flag to check if the field is dependent field
+         */
+        "isDependentField"?: boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading"?: boolean;
@@ -825,6 +913,14 @@ declare namespace LocalJSX {
          */
         "isNewChoice"?: boolean;
         /**
+          * Item selected based on id
+         */
+        "itemSelected"?: boolean;
+        /**
+          * Trigger on pressing tab from last element
+         */
+        "onFwAdd"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
+        /**
           * Triggered on choice input blur
          */
         "onFwChange"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
@@ -832,6 +928,10 @@ declare namespace LocalJSX {
           * Triggered on delete button click
          */
         "onFwDelete"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
+        /**
+          * Triggered on choice selection
+         */
+        "onFwSelect"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
@@ -884,6 +984,10 @@ declare namespace LocalJSX {
           * stores the default field type schema for this editor type
          */
         "defaultFieldTypeSchema"?: any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
         /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
@@ -969,6 +1073,10 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1088,6 +1196,10 @@ declare namespace LocalJSX {
          */
         "customizeWidgetFields"?: any;
         /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
+        /**
           * svg image to be shown for empty record
          */
         "emptySearchImage"?: any;
@@ -1160,6 +1272,14 @@ declare namespace LocalJSX {
           * Show explore plans button and disable features for free-plan users
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * flag to show dependentField for CONVERSATION_PROPERTIES or not
+         */
+        "showDependentField"?: boolean;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
         /**
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */

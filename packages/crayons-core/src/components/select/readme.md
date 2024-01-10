@@ -2081,6 +2081,7 @@ Type: `Promise<any>`
  - [fw-country-phone](../country-phone)
  - [fw-datepicker](../datepicker)
  - [fw-form-control](../form-control)
+ - [fw-nested-node](../nested-select)
  - [fw-timepicker](../timepicker)
 
 ### Depends on
@@ -2117,6 +2118,7 @@ graph TD;
   fw-country-phone --> fw-select
   fw-datepicker --> fw-select
   fw-form-control --> fw-select
+  fw-nested-node --> fw-select
   fw-timepicker --> fw-select
   style fw-select fill:#f9f,stroke:#333,stroke-width:4px
 ```

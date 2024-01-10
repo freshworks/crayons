@@ -244,6 +244,85 @@ Pass [formSchema](#form-schema) to render Dynamic Form. You can also pass `initi
         placeholder: '',
         multiple: true,
       },
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
+        position: 12,
+        required: false,
+        placeholder: 'select Country',
+        choices: [
+          {
+            id: 'india',
+            value: 'India',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'tamil_nadu',
+                value: 'Tamil Nadu',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'chennai',
+                    value: 'Chennai',
+                  },
+                  {
+                    id: 'coimbatore',
+                    value: 'Coimbatore',
+                  },
+                ],
+              },
+              {
+                id: 'kerala',
+                value: 'Kerala',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'cochin',
+                    value: 'Cochin',
+                  },
+                  {
+                    id: 'wayanad',
+                    value: 'Wayanad',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'europe',
+            value: 'Europe',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'germany',
+                value: 'Germany',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'berlin',
+                    value: 'berlin'
+                  },
+                  {
+                    id: 'hamburg',
+                    value: 'Hamburg',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+      }
     ],
   };
   var initialValues = {
@@ -605,6 +684,85 @@ In a `Static form` set `disabled` attribute on the `fw-form-control` to disable 
         placeholder: '',
         multiple: true
       },
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
+        position: 12,
+        required: false,
+        placeholder: 'select Country',
+        choices: [
+          {
+            id: 'india',
+            value: 'India',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'tamil_nadu',
+                value: 'Tamil Nadu',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'chennai',
+                    value: 'Chennai',
+                  },
+                  {
+                    id: 'coimbatore',
+                    value: 'Coimbatore',
+                  },
+                ],
+              },
+              {
+                id: 'kerala',
+                value: 'Kerala',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'cochin',
+                    value: 'Cochin',
+                  },
+                  {
+                    id: 'wayanad',
+                    value: 'Wayanad',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'europe',
+            value: 'Europe',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'germany',
+                value: 'Germany',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'berlin',
+                    value: 'berlin'
+                  },
+                  {
+                    id: 'hamburg',
+                    value: 'Hamburg',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+      }
     ],
 
 };
@@ -856,6 +1014,85 @@ function App() {
         placeholder: '',
         multiple: true
       },
+      {
+        id: 'f319f86f-1b6a-49cb-b4b6-cf4873674595',
+        name: 'country',
+        label: 'Country',
+        type: 'DEPENDENT_FIELD',
+        position: 12,
+        required: false,
+        placeholder: 'select Country',
+        choices: [
+          {
+            id: 'india',
+            value: 'India',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'tamil_nadu',
+                value: 'Tamil Nadu',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'chennai',
+                    value: 'Chennai',
+                  },
+                  {
+                    id: 'coimbatore',
+                    value: 'Coimbatore',
+                  },
+                ],
+              },
+              {
+                id: 'kerala',
+                value: 'Kerala',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'cochin',
+                    value: 'Cochin',
+                  },
+                  {
+                    id: 'wayanad',
+                    value: 'Wayanad',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'europe',
+            value: 'Europe',
+            label: 'State',
+            name: 'state',
+            choices: [
+              {
+                id: 'germany',
+                value: 'Germany',
+                name: 'city',
+                label: 'City',
+                choices: [
+                  {
+                    id: 'berlin',
+                    value: 'berlin'
+                  },
+                  {
+                    id: 'hamburg',
+                    value: 'Hamburg',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        field_options: {
+          option_label_path: 'value',
+          option_value_path: 'id',
+        },
+      }
     ],
 
 };
@@ -3256,6 +3493,7 @@ graph TD;
   fw-form-control --> fw-checkbox
   fw-form-control --> fw-radio-group
   fw-form-control --> fw-radio
+  fw-form-control --> fw-nested-select
   fw-form-control --> fw-select
   fw-form-control --> fw-timepicker
   fw-form-control --> fw-file-uploader-2
@@ -3287,6 +3525,9 @@ graph TD;
   fw-select-option --> fw-checkbox
   fw-select-option --> fw-avatar
   fw-checkbox --> fw-icon
+  fw-nested-select --> fw-nested-node
+  fw-nested-node --> fw-nested-node
+  fw-nested-node --> fw-select
   fw-file-uploader-2 --> fw-file-2
   fw-file-uploader-2 --> fw-inline-message
   fw-file-2 --> fw-icon

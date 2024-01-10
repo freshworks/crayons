@@ -199,7 +199,7 @@ describe('fw-datepicker', () => {
   it('should ignore maxYear value and set maxYear as per max-date when max-year and max-date contradict', async () => {
     const page = await newE2EPage();
     await page.setContent(
-      '<fw-datepicker max-year="2023" max-date="2022-07-31"></fw-datepicker>'
+      '<fw-datepicker max-year="2022" max-date="2022-07-31"></fw-datepicker>'
     );
     await page.waitForChanges();
     const dp = await page.find('fw-datepicker');
@@ -315,6 +315,7 @@ describe('fw-datepicker', () => {
 
   it('should set minYear as per minDate, maxYear as the current year and the months should be disabled beyond minDate', async () => {
     const page = await newE2EPage();
+    const fullYear = new Date().getFullYear();
     await page.setContent(
       '<fw-datepicker min-year="2020" min-date="2020-07-31"></fw-datepicker>'
     );
@@ -330,7 +331,7 @@ describe('fw-datepicker', () => {
     );
     const maxYear = await dp.getProperty('maxYear');
     const minYear = await dp.getProperty('minYear');
-    expect(maxYear).toBe(2023);
+    expect(maxYear).toBe(fullYear);
     expect(minYear).toBe(2020);
     yearDropdown.setAttribute('value', '2020');
     await page.waitForChanges();
@@ -620,6 +621,7 @@ describe('fw-datepicker', () => {
 
   it('should set minYear as per minDate, maxYear as the current year and the months should be disabled beyond minDate, when the mode is range', async () => {
     const page = await newE2EPage();
+    const fullyear = new Date().getFullYear();
     await page.setContent(
       '<fw-datepicker mode="range" min-year="2020" min-date="2020-07-31"></fw-datepicker>'
     );
@@ -635,7 +637,7 @@ describe('fw-datepicker', () => {
     );
     const maxYear = await dp.getProperty('maxYear');
     const minYear = await dp.getProperty('minYear');
-    expect(maxYear).toBe(2023);
+    expect(maxYear).toBe(fullyear);
     expect(minYear).toBe(2020);
     yearDropdown.setAttribute('value', '2020');
     await page.waitForChanges();

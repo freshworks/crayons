@@ -22,6 +22,7 @@ import {
   i18nText,
   isPrimaryFieldType,
   isUniqueField,
+  getDefaultDependentLevels,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -81,6 +82,18 @@ export class FormBuilder {
    * flag to show lookupField for CONVERSATION_PROPERTIES or not
    */
   @Prop({ mutable: true }) showLookupField = true;
+  /**
+   * flag to show dependentField for CONVERSATION_PROPERTIES or not
+   */
+  @Prop({ mutable: true }) showDependentField = true;
+  /**
+   * flag to show dependentField resolve checkbox
+   */
+  @Prop({ mutable: true }) showDependentFieldResolveProp = true;
+  /**
+   * link to show dependent field document
+   */
+  @Prop() dependentFieldLink = '';
   /**
    * variable to store customize widget fields
    */
@@ -224,6 +237,7 @@ export class FormBuilder {
       'DECIMAL',
       'DATE',
       'DROPDOWN',
+      'DEPENDENT_FIELD',
       'RELATIONSHIP',
       'MULTI_SELECT',
     ];
@@ -264,6 +278,20 @@ export class FormBuilder {
         const intFieldCount = arrFields.length;
 
         for (let i1 = 0; i1 < intFieldCount; i1++) {
+          // check for dependent field and change fields format
+          if (arrFields[i1]?.field_options?.dependent === 'true') {
+            const internalNamePrefix = objProductConfig.internalNamePrefix;
+            arrFields[i1] = getDefaultDependentLevels(
+              {
+                type: '22',
+                label: arrFields[i1].label,
+                name: arrFields[i1].name,
+                fields: [arrFields[i1]],
+              },
+              internalNamePrefix
+            );
+          }
+
           const objField = arrFields[i1];
           if (!objField) {
             continue;
@@ -418,9 +446,8 @@ export class FormBuilder {
   };
 
   private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
-    const objNewField = deepCloneObject(
-      presetSchema.fieldTypes[strNewFieldType]
-    );
+    const fieldType = strNewFieldType;
+    const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
 
     try {
@@ -998,6 +1025,8 @@ export class FormBuilder {
         lookupTargetObjects={this.lookupTargetObjects}
         formValues={this.localFormValues}
         isLoading={this.isLoading}
+        showDependentFieldResolveProp={this.showDependentFieldResolveProp}
+        dependentFieldLink={this.dependentFieldLink}
         onFwUpdate={this.saveFieldHandler}
         onFwDelete={this.deleteFieldHandler}
         onFwExpand={this.expandFieldHandler}
@@ -1053,6 +1082,12 @@ export class FormBuilder {
       const relationshipIndex = arrFieldOrder.indexOf('RELATIONSHIP');
       if (relationshipIndex > -1) {
         arrFieldOrder.splice(relationshipIndex, 1);
+      }
+    }
+    if (!this.showDependentField) {
+      const dependentIndex = arrFieldOrder.indexOf('DEPENDENT_FIELD');
+      if (dependentIndex > -1) {
+        arrFieldOrder.splice(dependentIndex, 1);
       }
     }
     const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;

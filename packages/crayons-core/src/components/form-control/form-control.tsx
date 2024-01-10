@@ -38,6 +38,7 @@ export class FormControl {
     | 'DATE_TIME'
     | 'RELATIONSHIP'
     | 'AUTO_COMPLETE'
+    | 'DEPENDENT_FIELD'
     | 'FILES' = 'TEXT';
   @Prop({ reflect: true })
   name: any;
@@ -293,6 +294,7 @@ export class FormControl {
 
       case 'DROPDOWN':
       case 'MULTI_SELECT':
+      case 'DEPENDENT_FIELD':
         {
           const controlProps = this.controlProps?.selectProps(
             this.name,
@@ -325,18 +327,30 @@ export class FormControl {
               return apos - bpos;
             }),
           };
+
           // This is to handle formserv payload which might contain a field_options object, which has parameters, option_value_path and option_label_path,
           // that denotes which property of choices object(form schema) needs to be displayed as label and which should be stored in the backend as value
           if (fieldOptions?.option_value_path)
             componentProps['optionValuePath'] = fieldOptions.option_value_path;
           if (fieldOptions?.option_label_path)
             componentProps['optionLabelPath'] = fieldOptions.option_label_path;
-          cmp = (
-            <fw-select
-              {...componentProps}
-              ref={(el) => (this.crayonsControlRef = el)}
-            ></fw-select>
-          );
+
+          if (this.type === 'DEPENDENT_FIELD') {
+            componentProps.selectProps = this.controlProps.selectProps;
+            cmp = (
+              <fw-nested-select
+                {...componentProps}
+                ref={(el) => (this.crayonsControlRef = el)}
+              ></fw-nested-select>
+            );
+          } else {
+            cmp = (
+              <fw-select
+                {...componentProps}
+                ref={(el) => (this.crayonsControlRef = el)}
+              ></fw-select>
+            );
+          }
         }
         break;
 

@@ -9,6 +9,7 @@ import {
   EventEmitter,
   Event,
 } from '@stencil/core';
+
 import { hasCustomProperty, i18nText } from '../utils/form-builder-utils';
 
 @Component({
@@ -50,6 +51,18 @@ export class FbFieldDropdownItem {
    */
   @Prop() index = -1;
   /**
+   * Flag to check if the field is dependent field
+   */
+  @Prop() isDependentField = false;
+  /**
+   * Item selected based on id
+   */
+  @Prop() itemSelected = false;
+  /**
+   * Trigger on pressing tab from last element
+   */
+  @Event() fwAdd!: EventEmitter;
+  /**
    * Triggered on delete button click
    */
   @Event() fwDelete!: EventEmitter;
@@ -57,6 +70,10 @@ export class FbFieldDropdownItem {
    * Triggered on choice input blur
    */
   @Event() fwChange!: EventEmitter;
+  /**
+   * Triggered on choice selection
+   */
+  @Event() fwSelect!: EventEmitter;
 
   /**
    * function called on reorder button mousedown to enable the parent as draggable
@@ -120,6 +137,22 @@ export class FbFieldDropdownItem {
     this.performLabelChange(event, false);
   };
 
+  private nameKeydownHandler = (event: KeyboardEvent) => {
+    if (!this.isDependentField) {
+      return;
+    }
+
+    const value = event?.target?.['value']?.trim() || '';
+    const keyEvent = event.detail?.['event'];
+    const isNextElement =
+      event?.target?.['parentNode']?.['parentNode']?.['parentNode']?.['host']?.[
+        'nextElementSibling'
+      ];
+    if (isNextElement === null && keyEvent?.key === 'Tab' && value) {
+      this.fwAdd.emit();
+    }
+  };
+
   private deleteButtonClickHandler = (event: MouseEvent) => {
     if (this.disabled) {
       return;
@@ -144,6 +177,19 @@ export class FbFieldDropdownItem {
       : int + ordinals[3];
   };
 
+  private nameFocusHandler = (event: CustomEvent) => {
+    if (!this.isDependentField) {
+      return;
+    }
+
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    this.fwSelect.emit({
+      index: this.index,
+      id: this.dataProvider.id,
+    });
+  };
+
   render() {
     const dpSource = this.dataProvider;
     if (!dpSource) {
@@ -161,9 +207,12 @@ export class FbFieldDropdownItem {
     }
 
     const strBaseClassName = 'fb-field-dropdown-item';
-    const strInputPrompt = `${this.toOrdinalSuffix(
+    const formattedInputPrompt = `${this.toOrdinalSuffix(
       this.index + 1
     ).toString()} ${i18nText('choicePlaceholderSuffix')}`;
+    const strInputPrompt = this.isDependentField
+      ? i18nText('addChoice')
+      : formattedInputPrompt;
 
     const strBaseDeleteClassName = `${strBaseClassName}-delete-container`;
     const strBaseDragClassName = `${strBaseClassName}-drag-container`;
@@ -176,10 +225,19 @@ export class FbFieldDropdownItem {
       strDragClassName += ` ${strBaseDragClassName}--unsortable`;
     }
 
+    const itemSelectedClass =
+      this.isDependentField && this.itemSelected
+        ? 'dropdown-item-selected'
+        : '';
+
+    const dropdownItemClass = this.isDependentField
+      ? `${strBaseClassName} fb-field-dependent-dropdown-item ${itemSelectedClass}`
+      : strBaseClassName;
+
     return (
       <Host tabIndex='-1'>
         <div
-          class={strBaseClassName}
+          class={dropdownItemClass}
           ref={(el) => (this.divBaseElement = el)}
           onDragEnd={this.stopParentDragging}
           onDrop={this.stopParentDragging}
@@ -201,6 +259,8 @@ export class FbFieldDropdownItem {
               disabled={this.disabled}
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
+              onFwFocus={this.nameFocusHandler}
+              onFwInputKeyDown={this.nameKeydownHandler}
             ></fw-input>
           </div>
           <span
