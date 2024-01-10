@@ -418,12 +418,16 @@ export class FbFieldDropdown {
       ? `${strBaseClassName}-footer ${strBaseClassName}-no-padding`
       : `${strBaseClassName}-footer`;
 
+    const dropdownElementName = this.isDependentField
+      ? `dropdownElementsList_${this.level}`
+      : 'dropdownElementsList';
+
     return (
       <Host tabIndex='-1'>
         <div class={dropdownClass}>
           <label class={labelClass}>{labelText}</label>
           <fw-drag-container
-            id='dropdownElementsList'
+            id={dropdownElementName}
             class={`${strBaseClassName}-list-container`}
             sortable={true}
             onFwDrop={this.elementDropHandler}
