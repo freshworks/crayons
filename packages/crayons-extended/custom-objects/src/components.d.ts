@@ -174,6 +174,10 @@ export namespace Components {
          */
         "defaultFieldTypeSchema": any;
         /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled": boolean;
@@ -356,6 +360,10 @@ export namespace Components {
           * variable to store customize widget fields
          */
         "customizeWidgetFields": any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
         /**
           * svg image to be shown for empty record
          */
@@ -977,6 +985,10 @@ declare namespace LocalJSX {
          */
         "defaultFieldTypeSchema"?: any;
         /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
+        /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
          */
         "disabled"?: boolean;
@@ -1183,6 +1195,10 @@ declare namespace LocalJSX {
           * variable to store customize widget fields
          */
         "customizeWidgetFields"?: any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
         /**
           * svg image to be shown for empty record
          */

@@ -91,6 +91,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = true;
   /**
+   * link to show dependent field document
+   */
+  @Prop() dependentFieldLink = '';
+  /**
    * variable to store customize widget fields
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
@@ -1022,6 +1026,7 @@ export class FormBuilder {
         formValues={this.localFormValues}
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
+        dependentFieldLink={this.dependentFieldLink}
         onFwUpdate={this.saveFieldHandler}
         onFwDelete={this.deleteFieldHandler}
         onFwExpand={this.expandFieldHandler}

@@ -447,6 +447,12 @@
     display: block;
   }
 
+  &-link {
+    color: $color-azure-800;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
   &-content-dependent-label {
     color: $color-elephant-900;
     font-size: 14px;

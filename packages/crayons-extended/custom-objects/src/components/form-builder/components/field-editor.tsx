@@ -97,6 +97,10 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = false;
   /**
+   * link to show dependent field document
+   */
+  @Prop() dependentFieldLink = '';
+  /**
    * Disable the repositioning option
    */
   @Prop() disabledSort = false;
@@ -546,10 +550,21 @@ export class FieldEditor {
   /**
    * function to check the dropdown error values
    */
-  private validateDropdownErrors = (arrDropdownValues) => {
+  private validateDropdownErrors = (arrDropdownValues, emptyCheck = false) => {
     if (!arrDropdownValues || arrDropdownValues.length < 1) {
       this.formErrorMessage = i18nText('errors.minimum');
       return false;
+    }
+    if (emptyCheck) {
+      // Find the indices of empty strings in the array
+      const hasEmptyValue =
+        arrDropdownValues
+          .map((item, index) => (item.value === '' ? index : null))
+          .filter((index) => index !== null).length > 0;
+
+      if (hasEmptyValue) {
+        return false;
+      }
     }
     if (this.errorType && this.errorType !== '') {
       if (this.errorType === i18nText('errors.deleteDropDownChoice')) {
@@ -680,7 +695,10 @@ export class FieldEditor {
             level = removeFirstOccurrence(key, 'choices_level_');
             const arrDropdownValues =
               deepCloneObject(elInteractive.dataProvider) || [];
-            boolValidForm = this.validateDropdownErrors(arrDropdownValues);
+            boolValidForm = this.validateDropdownErrors(
+              arrDropdownValues,
+              true
+            );
 
             if (boolValidForm) {
               this.showErrors = false;
@@ -1537,7 +1555,16 @@ export class FieldEditor {
             {this.showDependentFieldTextbox ? (
               <div>
                 <label class={`${strBaseClassName}-content-dependent-label`}>
-                  {i18nText('dependentDropdownMessage')}
+                  {i18nText('dependentDropdownMessage')}&nbsp;
+                  {this.dependentFieldLink && (
+                    <a
+                      href={this.dependentFieldLink}
+                      target='_blank'
+                      class={`${strBaseClassName}-link`}
+                    >
+                      {i18nText('moreOnDependentFields')}
+                    </a>
+                  )}
                 </label>
                 <span class={`${strBaseClassName}-textbox`}>
                   <textarea
