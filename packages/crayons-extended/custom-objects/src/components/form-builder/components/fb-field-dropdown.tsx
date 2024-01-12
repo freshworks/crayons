@@ -338,6 +338,10 @@ export class FbFieldDropdown {
     }
     this.textboxChoices = '';
     this.modalBulkChoices?.close();
+    this.fwChange.emit({
+      type: 'VALIDATE_DROPDOWN',
+      value: [...this.dataProvider],
+    });
   };
 
   private renderNameEditorElement(dataItem, intIndex) {

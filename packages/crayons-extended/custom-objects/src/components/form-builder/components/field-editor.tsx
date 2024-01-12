@@ -885,6 +885,9 @@ export class FieldEditor {
       case 'SELECT':
         this.dependentLevels = updateLevelSelection(this, event);
         break;
+      case 'VALIDATE_DROPDOWN':
+        this.validateDropdownErrors(event.detail.value);
+        break;
       default:
         break;
     }
