@@ -513,6 +513,10 @@ export function updateChoicesInFields(instance, event) {
   const currentField = getFieldBasedOnLevel(field, level);
   currentField.choices = value;
 
+  if (!currentField.id) {
+    currentField.id = createUUID();
+  }
+
   if (parentId) {
     const parentLevel = parseInt(level, 10) - 1;
     const parentField = getFieldBasedOnLevel(field, parentLevel);

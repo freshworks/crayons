@@ -575,6 +575,13 @@ export class FieldEditor {
         this.formErrorMessage = this.errorType;
         return true;
       }
+      if (
+        this.isDependentField &&
+        this.errorType === i18nText('errors.minimum')
+      ) {
+        this.formErrorMessage = this.errorType;
+        return false;
+      }
       this.formErrorMessage = '';
       return false;
     }
