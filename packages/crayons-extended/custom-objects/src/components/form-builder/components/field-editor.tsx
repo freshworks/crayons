@@ -559,7 +559,11 @@ export class FieldEditor {
       // Find the indices of empty strings in the array
       const hasEmptyValue =
         arrDropdownValues
-          .map((item, index) => (item.value === '' ? index : null))
+          .map((item, index) =>
+            item.value === '' || item.error === i18nText('errors.duplicate')
+              ? index
+              : null
+          )
           .filter((index) => index !== null).length > 0;
 
       if (hasEmptyValue) {
