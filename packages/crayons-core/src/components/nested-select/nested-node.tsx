@@ -1,4 +1,13 @@
-import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
+import {
+  Component,
+  h,
+  Listen,
+  Prop,
+  State,
+  Watch,
+  Event,
+  EventEmitter,
+} from '@stencil/core';
 
 @Component({
   tag: 'fw-nested-node',
@@ -64,6 +73,10 @@ export class NestedNode {
    * Fn to return initialValues from properties
    */
   @Prop() selectProps?: any;
+  /**
+   *
+   */
+  @Event() fwPropertyChange: EventEmitter;
 
   @Watch('options')
   optionsChanged() {
@@ -88,11 +101,20 @@ export class NestedNode {
       this.selectedOption = this.options.find(
         (item) => item[this.optionValuePath] === this.value
       );
+
+      if (this.selectedOption) {
+        this.fwPropertyChange.emit({
+          level: this.level,
+          selectedOption: this.selectedOption,
+          name: this.name,
+          value: this.selectProps(this.selectedOption?.name),
+        });
+      }
     }
   }
 
   private getFirstlevelNestedSelect() {
-    if (!this.selectedOption) {
+    if (!this.selectedOption?.choices?.length) {
       return null;
     }
 
@@ -119,7 +141,7 @@ export class NestedNode {
   }
 
   private getNestedSelect() {
-    if (!this.selectedOption?.choices) {
+    if (!this.selectedOption?.choices?.length) {
       return null;
     }
 

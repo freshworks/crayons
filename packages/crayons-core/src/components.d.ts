@@ -2600,6 +2600,10 @@ export interface FwModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwModalElement;
 }
+export interface FwNestedNodeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFwNestedNodeElement;
+}
 export interface FwNestedSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwNestedSelectElement;
@@ -4544,6 +4548,7 @@ declare namespace LocalJSX {
           * Name of the field value gets updated to
          */
         "name"?: string;
+        "onFwPropertyChange"?: (event: FwNestedNodeCustomEvent<any>) => void;
         /**
           * optionLabelPath
          */
