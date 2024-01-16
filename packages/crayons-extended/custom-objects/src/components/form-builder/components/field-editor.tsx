@@ -575,6 +575,13 @@ export class FieldEditor {
         this.formErrorMessage = this.errorType;
         return true;
       }
+      if (
+        this.isDependentField &&
+        this.errorType === i18nText('errors.minimum')
+      ) {
+        this.formErrorMessage = this.errorType;
+        return false;
+      }
       this.formErrorMessage = '';
       return false;
     }
@@ -877,6 +884,9 @@ export class FieldEditor {
         break;
       case 'SELECT':
         this.dependentLevels = updateLevelSelection(this, event);
+        break;
+      case 'VALIDATE_DROPDOWN':
+        this.validateDropdownErrors(event.detail.value);
         break;
       default:
         break;

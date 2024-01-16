@@ -97,6 +97,13 @@ export class NestedSelect {
     });
   }
 
+  @Listen('fwPropertyChange')
+  updateSelections(event) {
+    const { selectedOption, level, name } = event.detail;
+    this.selections[level] = selectedOption;
+    this.selectedItems[name] = level;
+  }
+
   render() {
     return (
       <fw-nested-node
