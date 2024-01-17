@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.8...@freshworks/crayons@4.3.0-beta.9) (2024-01-17)
+
+
+### Bug Fixes
+
+* [FC-118330]: Creates Id if the dropdown is created by textbox ([#907](https://github.com/freshworks/crayons/issues/907)) ([bbd072c](https://github.com/freshworks/crayons/commit/bbd072ce9a275095aa0382b4323e28bd6d34d0e8))
+
+
+### Features
+
+* **fw-list-options:** modify conditions to virtualise list options ([2de81fb](https://github.com/freshworks/crayons/commit/2de81fbb7456216e974d3f7d1f406dcfd0dd6155))
+* **fw-list-options:** modify virtual scroll adapter ([fa72cad](https://github.com/freshworks/crayons/commit/fa72cad6ce98b98a9ef28fbfd3ecd26a8bef77fc))
+* **fw-list-options:** modify virtual scroll properties ([65c48df](https://github.com/freshworks/crayons/commit/65c48df1d40cc4e5956aa022cc3d986eec45af57))
+* **fw-list-options:** virtualise list options ([677ceb2](https://github.com/freshworks/crayons/commit/677ceb261c00be787942bc0809f5b1bdb98791fa))
+* **fw-list-options:** virtualise list options ([7376c11](https://github.com/freshworks/crayons/commit/7376c115f441c290909b9151fba1561984166639))
+* **fw-list-options:** virtualize long list of options ([9de981a](https://github.com/freshworks/crayons/commit/9de981a0822da0739da19c28cb36f686aa7f2124))
+
+
+
+
+
 ## [4.3.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.7...@freshworks/crayons@4.3.0-beta.8) (2023-11-07)
 
 ### Features

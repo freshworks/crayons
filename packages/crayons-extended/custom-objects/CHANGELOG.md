@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.7...@freshworks/crayons-custom-objects@1.4.0-beta.8) (2024-01-17)
+
+
+### Bug Fixes
+
+* [FC-118243]: Adds dependent id with level to avoid cross drag and drop ([#906](https://github.com/freshworks/crayons/issues/906)) ([41a01c3](https://github.com/freshworks/crayons/commit/41a01c387e9752b28a417431e2e4894dcadb604b))
+* [FC-118330]: Creates Id if the dropdown is created by textbox ([#907](https://github.com/freshworks/crayons/issues/907)) ([bbd072c](https://github.com/freshworks/crayons/commit/bbd072ce9a275095aa0382b4323e28bd6d34d0e8))
+
+
+
+
+
 ## [1.4.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.3.1-beta.2...@freshworks/crayons-custom-objects@1.4.0-beta.0) (2023-08-14)
 
 ### Features
