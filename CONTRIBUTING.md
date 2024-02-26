@@ -30,9 +30,11 @@ Crayons uses `monorepo` setup. There are 3 packages under packages folder. Uses 
 
 `Note : Please use npm instead of yarn`
 
-#### Crayons installation on M1 chip Mac - Enable Rosetta in Mac Terminal app
+#### only for M* powered Mac
 1. Go to utilities -> Terminal -> Right click and click "get info" and enable "Open using rosetta" which uses x64 arch instead of native arm64 and Use Terminal Rosetta further
-2. Uninstall the version you want to use for crayons and do fresh install. For eg: 16.20.2 -> nvm install 16 and follow the commands below
+2. Do fresh install of node and NPM as mentioned below and follow other steps
+
+#### Steps to install
 
 1. Node Engine requirements
    1. **Node**: >=14.7.0
