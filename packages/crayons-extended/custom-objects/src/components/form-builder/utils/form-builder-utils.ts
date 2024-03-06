@@ -607,12 +607,78 @@ export function updateRequiredOnAllFields(data, isRequired) {
   function updateRequiredAttribute(field) {
     field.required = isRequired;
 
-    if (hasCustomProperty(field, 'fields') && field.fields.length) {
+    if (hasCustomProperty(field, 'fields') && field.fields.length > 0) {
       updateRequiredAttribute(field.fields[0]);
     }
   }
 
-  updateRequiredAttribute(data.fields[0]);
+  updateRequiredAttribute(data?.fields[0]);
 
   return data;
+}
+
+function removeFieldsWithEmptyChoices(data, deleteLevel) {
+  // Iterate over the structure recursively
+  function clean(data) {
+    // Check if current object has a 'fields' property that is an array
+    if (data.fields && data.fields.length > 0) {
+      // Filter out objects with an empty 'choices' array
+      if (deleteLevel === data.fields[0].field_options.level) {
+        data.fields = [];
+      }
+
+      // Recursively apply the cleaning process to the remaining fields
+      data.fields.forEach((field) => clean(field));
+    }
+  }
+
+  // Start the cleaning process with the provided data
+  clean(data);
+}
+
+export function validateLevels(dictEl, fieldEl, KEYS) {
+  let deleteLevel = 0;
+
+  function validateField(fields) {
+    const level = fields[0]?.field_options?.level;
+    if (
+      dictEl[`${KEYS.CHOICES}${level}`].dataProvider.length === 0 &&
+      !dictEl[`${KEYS.NAME}${level}`].value &&
+      !dictEl[`${KEYS.LABEL}${level}`].value &&
+      parseInt(level, 10) > 2
+    ) {
+      delete dictEl[`${KEYS.CHOICES}${level}`];
+      delete dictEl[`${KEYS.NAME}${level}`];
+      delete dictEl[`${KEYS.LABEL}${level}`];
+      deleteLevel = level;
+    }
+
+    if (fields && fields[0] && fields[0].fields) {
+      validateField(fields[0].fields);
+    }
+  }
+
+  validateField(fieldEl.fields);
+
+  if (deleteLevel > 0) {
+    removeFieldsWithEmptyChoices(fieldEl, deleteLevel);
+  }
+
+  return { dictEl, fieldEl: fieldEl.fields };
+}
+
+export function checkAndAppendLevel3(fields) {
+  const field = getFieldBasedOnLevel(fields, 2);
+
+  if (field.fields && field.fields.length === 0) {
+    field.fields = [
+      {
+        type: 'DROPDOWN',
+        field_options: { level: '3', dependent: 'true' },
+        choices: [],
+      },
+    ];
+  }
+
+  return fields;
 }
