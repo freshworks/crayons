@@ -34,6 +34,9 @@ import {
   deleteChoicesInFields,
   updateRequiredOnAllFields,
   validateLevels,
+  getFieldBasedOnLevel,
+  getModifiedEl,
+  addIdToNewField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -556,9 +559,22 @@ export class FieldEditor {
     emptyCheck = false,
     level = 0
   ) => {
-    if (level > 2 && arrDropdownValues.length === 0) {
-      return false;
+    if (level > 2 && this.isDependentField) {
+      const levelToDelete = validateLevels(
+        this.dictInteractiveElements,
+        this.fieldBuilderOptions,
+        {
+          CHOICES: 'choices_level_',
+          NAME: this.DEP_NAME_KEY,
+          LABEL: this.DEP_LABEL_KEY,
+        }
+      );
+
+      if (levelToDelete !== 0) {
+        return true;
+      }
     }
+
     if (!arrDropdownValues || arrDropdownValues.length < 1) {
       this.formErrorMessage = i18nText('errors.minimum');
       return false;
@@ -627,7 +643,7 @@ export class FieldEditor {
 
     if (this.isDependentField) {
       // Validate levels and update dictInteractive
-      const elements = validateLevels(
+      const elements = getModifiedEl(
         this.dictInteractiveElements,
         this.fieldBuilderOptions,
         {
@@ -774,6 +790,10 @@ export class FieldEditor {
         default:
           break;
       }
+    }
+
+    if (this.isDependentField) {
+      objValues = addIdToNewField(objValues);
     }
 
     // Used to track multiple labels and names
@@ -1016,7 +1036,11 @@ export class FieldEditor {
       this.isValuesChanged = true;
     }
 
+    const field = this.isDependentField
+      ? getFieldBasedOnLevel(this.fieldBuilderOptions, level)
+      : {};
     const dictElName = `${this.DEP_LABEL_KEY}${level}`;
+
     const strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -1024,10 +1048,7 @@ export class FieldEditor {
 
     let strInternalName = '';
     let boolInternalNameUpdated = false;
-    if (
-      (!this.isInternalNameEdited && this.isNewField) ||
-      (this.isDependentField && !strInputValue)
-    ) {
+    if ((!this.isInternalNameEdited && this.isNewField) || !field.id) {
       strInternalName = deriveInternalNameFromLabel(strInputValue);
       boolInternalNameUpdated = true;
     }
@@ -1075,7 +1096,7 @@ export class FieldEditor {
         );
       }
 
-      if (!this.isInternalNameEdited) {
+      if (!this.isInternalNameEdited || !field.id) {
         attr['name'] = strInternalName;
       }
     }

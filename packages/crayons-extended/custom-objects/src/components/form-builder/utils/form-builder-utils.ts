@@ -660,8 +660,13 @@ export function validateLevels(dictEl, fieldEl, KEYS) {
 
   validateField(fieldEl.fields);
 
-  if (deleteLevel > 0) {
-    removeFieldsWithEmptyChoices(fieldEl, deleteLevel);
+  return deleteLevel;
+}
+
+export function getModifiedEl(dictEl, fieldEl, KEYS) {
+  const level = validateLevels(dictEl, fieldEl, KEYS);
+  if (level > 0) {
+    removeFieldsWithEmptyChoices(fieldEl, level);
   }
 
   return { dictEl, fieldEl: fieldEl.fields };
@@ -681,4 +686,21 @@ export function checkAndAppendLevel3(fields) {
   }
 
   return fields;
+}
+
+export function addIdToNewField(fieldEl) {
+  function validateField(fields) {
+    const field = fields[0];
+    if (!field.id) {
+      field.id = createUUID();
+    }
+
+    if (field && field.length > 0) {
+      validateField(field.fields);
+    }
+  }
+
+  validateField(fieldEl.fields);
+
+  return fieldEl;
 }
