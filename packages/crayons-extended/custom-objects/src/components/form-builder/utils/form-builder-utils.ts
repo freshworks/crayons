@@ -653,7 +653,7 @@ export function validateLevels(dictEl, fieldEl, KEYS) {
       deleteLevel = level;
     }
 
-    if (fields && fields[0] && fields[0].fields) {
+    if (fields && fields[0] && fields[0].fields && fields[0].fields.length) {
       validateField(fields[0].fields);
     }
   }
