@@ -652,7 +652,7 @@ export class FieldEditor {
       // Validate levels and update dictInteractive
       const elements = getModifiedEl(
         this.dictInteractiveElements,
-        this.fieldBuilderOptions,
+        deepCloneObject(this.fieldBuilderOptions),
         {
           CHOICES: 'choices_level_',
           NAME: this.DEP_NAME_KEY,
@@ -660,7 +660,7 @@ export class FieldEditor {
         }
       );
 
-      objValues['fields'] = deepCloneObject(elements.fieldEl);
+      objValues['fields'] = elements.fieldEl;
       this.dictInteractiveElements = elements.dictEl;
     }
 
@@ -1633,6 +1633,7 @@ export class FieldEditor {
                     <a
                       href={this.dependentFieldLink}
                       target='_blank'
+                      rel='noopener noreferrer'
                       class={`${strBaseClassName}-link`}
                     >
                       {i18nText('moreOnDependentFields')}
