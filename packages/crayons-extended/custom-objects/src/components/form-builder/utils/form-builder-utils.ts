@@ -681,6 +681,8 @@ export function checkAndAppendLevel3(fields) {
         type: 'DROPDOWN',
         field_options: { level: '3', dependent: 'true' },
         choices: [],
+        id: createUUID(),
+        isNew: true,
       },
     ];
   }
@@ -688,14 +690,14 @@ export function checkAndAppendLevel3(fields) {
   return fields;
 }
 
-export function addIdToNewField(fieldEl) {
+export function removeIsNewFromField(fieldEl) {
   function validateField(fields) {
     const field = fields[0];
-    if (!field.id) {
-      field.id = createUUID();
+    if (field.isNew) {
+      delete field.isNew;
     }
 
-    if (field && field.length > 0) {
+    if (field.fields && field.fields.length > 0) {
       validateField(field.fields);
     }
   }

@@ -36,7 +36,7 @@ import {
   validateLevels,
   getFieldBasedOnLevel,
   getModifiedEl,
-  addIdToNewField,
+  removeIsNewFromField,
 } from '../utils/form-builder-utils';
 import formMapper from '../assets/form-mapper.json';
 import presetSchema from '../assets/form-builder-preset.json';
@@ -642,6 +642,13 @@ export class FieldEditor {
     };
 
     if (this.isDependentField) {
+      // Validate name
+      if (this.validateDuplicateErrors(this.DEP_LABEL_KEY)) {
+        this.duplicateError = true;
+        this.showErrors = true;
+        return;
+      }
+
       // Validate levels and update dictInteractive
       const elements = getModifiedEl(
         this.dictInteractiveElements,
@@ -655,13 +662,6 @@ export class FieldEditor {
 
       objValues['fields'] = deepCloneObject(elements.fieldEl);
       this.dictInteractiveElements = elements.dictEl;
-
-      // Validate name
-      if (this.validateDuplicateErrors(this.DEP_LABEL_KEY)) {
-        this.duplicateError = true;
-        this.showErrors = true;
-        return;
-      }
     }
 
     // this.showErrors = false;
@@ -792,13 +792,13 @@ export class FieldEditor {
       }
     }
 
-    if (this.isDependentField) {
-      objValues = addIdToNewField(objValues);
-    }
-
     // Used to track multiple labels and names
     if (Object.keys(this.dependentErrors).length !== 0) {
       return;
+    }
+
+    if (this.isDependentField) {
+      objValues = removeIsNewFromField(objValues);
     }
 
     if (checkIfCustomToggleField(this.productName, this.dataProvider.name)) {
@@ -1048,7 +1048,7 @@ export class FieldEditor {
 
     let strInternalName = '';
     let boolInternalNameUpdated = false;
-    if ((!this.isInternalNameEdited && this.isNewField) || !field.id) {
+    if ((!this.isInternalNameEdited && this.isNewField) || field.isNew) {
       strInternalName = deriveInternalNameFromLabel(strInputValue);
       boolInternalNameUpdated = true;
     }
@@ -1096,7 +1096,7 @@ export class FieldEditor {
         );
       }
 
-      if (!this.isInternalNameEdited || !field.id) {
+      if (!this.isInternalNameEdited || field.isNew) {
         attr['name'] = strInternalName;
       }
     }
