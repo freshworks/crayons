@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.8...@freshworks/crayons-custom-objects@1.4.0-beta.9) (2024-03-18)
+
+
+### Bug Fixes
+
+* adds cloned fieldBuilderOptions and rel for anchor ([9e64bda](https://github.com/freshworks/crayons/commit/9e64bdafd78d9721a5254e10c00b658996a30ad9))
+* adds two level dependency with validation on various steps ([de17335](https://github.com/freshworks/crayons/commit/de173358823e399f6fe6054cf615d7eb80bdf68a))
+* validating fields length ([10649c3](https://github.com/freshworks/crayons/commit/10649c3d2bd8eb494c032e0cf398e4ae742edb93))
+* validating the duplicate before removing the dictEl ([43a0e3d](https://github.com/freshworks/crayons/commit/43a0e3d2ae84d76173c5acad38634d70e013b8a0))
+
+
+### Features
+
+* [FC-120856]: Enables two level dependent field ([9280495](https://github.com/freshworks/crayons/commit/92804951336ae0a1005494623bea1a43ee4b8629))
+
+
+
+
+
 ## [1.4.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.7...@freshworks/crayons-custom-objects@1.4.0-beta.8) (2024-01-17)
 
 ### Bug Fixes
