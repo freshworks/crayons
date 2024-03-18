@@ -607,12 +607,102 @@ export function updateRequiredOnAllFields(data, isRequired) {
   function updateRequiredAttribute(field) {
     field.required = isRequired;
 
-    if (hasCustomProperty(field, 'fields') && field.fields.length) {
+    if (hasCustomProperty(field, 'fields') && field.fields.length > 0) {
       updateRequiredAttribute(field.fields[0]);
     }
   }
 
-  updateRequiredAttribute(data.fields[0]);
+  updateRequiredAttribute(data?.fields[0]);
 
   return data;
+}
+
+function removeFieldsWithEmptyChoices(data, deleteLevel) {
+  // Iterate over the structure recursively
+  function clean(data) {
+    // Check if current object has a 'fields' property that is an array
+    if (data.fields && data.fields.length > 0) {
+      // Filter out objects with an empty 'choices' array
+      if (deleteLevel === data.fields[0].field_options.level) {
+        data.fields = [];
+      }
+
+      // Recursively apply the cleaning process to the remaining fields
+      data.fields.forEach((field) => clean(field));
+    }
+  }
+
+  // Start the cleaning process with the provided data
+  clean(data);
+}
+
+export function validateLevels(dictEl, fieldEl, KEYS) {
+  let deleteLevel = 0;
+
+  function validateField(fields) {
+    const level = fields[0]?.field_options?.level;
+    if (
+      dictEl[`${KEYS.CHOICES}${level}`].dataProvider.length === 0 &&
+      !dictEl[`${KEYS.NAME}${level}`].value &&
+      !dictEl[`${KEYS.LABEL}${level}`].value &&
+      parseInt(level, 10) > 2
+    ) {
+      delete dictEl[`${KEYS.CHOICES}${level}`];
+      delete dictEl[`${KEYS.NAME}${level}`];
+      delete dictEl[`${KEYS.LABEL}${level}`];
+      deleteLevel = level;
+    }
+
+    if (fields && fields[0] && fields[0].fields && fields[0].fields.length) {
+      validateField(fields[0].fields);
+    }
+  }
+
+  validateField(fieldEl.fields);
+
+  return deleteLevel;
+}
+
+export function getModifiedEl(dictEl, fieldEl, KEYS) {
+  const level = validateLevels(dictEl, fieldEl, KEYS);
+  if (level > 0) {
+    removeFieldsWithEmptyChoices(fieldEl, level);
+  }
+
+  return { dictEl, fieldEl: fieldEl.fields };
+}
+
+export function checkAndAppendLevel3(fields) {
+  const field = getFieldBasedOnLevel(fields, 2);
+
+  if (field.fields && field.fields.length === 0) {
+    field.fields = [
+      {
+        type: 'DROPDOWN',
+        field_options: { level: '3', dependent: 'true' },
+        choices: [],
+        id: createUUID(),
+        isNew: true,
+      },
+    ];
+  }
+
+  return fields;
+}
+
+export function removeIsNewFromField(fieldEl) {
+  function validateField(fields) {
+    const field = fields[0];
+    if (field.isNew) {
+      delete field.isNew;
+    }
+
+    if (field.fields && field.fields.length > 0) {
+      validateField(field.fields);
+    }
+  }
+
+  validateField(fieldEl.fields);
+
+  return fieldEl;
 }

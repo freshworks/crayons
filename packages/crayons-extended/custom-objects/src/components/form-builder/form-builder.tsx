@@ -23,6 +23,7 @@ import {
   isPrimaryFieldType,
   isUniqueField,
   getDefaultDependentLevels,
+  checkAndAppendLevel3,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -290,6 +291,7 @@ export class FormBuilder {
               },
               internalNamePrefix
             );
+            arrFields[i1] = checkAndAppendLevel3(arrFields[i1]);
           }
 
           const objField = arrFields[i1];

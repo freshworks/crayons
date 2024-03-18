@@ -146,6 +146,13 @@ export class FbFieldDropdown {
             : [...arrChoices];
       }
       this.validateMaximumChoiceLimits();
+    } else if (
+      this.dataProvider &&
+      this.dataProvider.length === 0 &&
+      this.level > 2 &&
+      this.isDependentField
+    ) {
+      this.errorType = '';
     } else {
       this.errorType = i18nText('errors.minimum');
     }
