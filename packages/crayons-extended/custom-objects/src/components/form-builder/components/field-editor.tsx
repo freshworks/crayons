@@ -5,37 +5,37 @@
 import {
   Component,
   Element,
-  Prop,
-  h,
-  Host,
-  EventEmitter,
   Event,
+  EventEmitter,
+  Host,
+  Prop,
   State,
   Watch,
+  h,
 } from '@stencil/core';
+import presetSchema from '../assets/form-builder-preset.json';
+import formMapper from '../assets/form-mapper.json';
 import {
+  buildChoicesFromText,
+  checkIfCustomToggleField,
   deepCloneObject,
-  hasCustomProperty,
-  getNestedKeyValueFromObject,
-  i18nText,
-  removeFirstOccurrence,
+  deleteChoicesInFields,
+  deriveInternalNameFromLabel,
+  getChildChoices,
+  getDependentLevels,
   getMaxLimitProperty,
   getMaximumLimitsConfig,
-  deriveInternalNameFromLabel,
+  getNestedKeyValueFromObject,
+  hasCustomProperty,
   hasPermission,
-  checkIfCustomToggleField,
   hasStringDuplicates,
-  getChildChoices,
-  updateLevelSelection,
-  buildChoicesFromText,
-  getDependentLevels,
-  updateFieldAttributes,
+  i18nText,
+  removeFirstOccurrence,
   updateChoicesInFields,
-  deleteChoicesInFields,
+  updateFieldAttributes,
+  updateLevelSelection,
   updateRequiredOnAllFields,
 } from '../utils/form-builder-utils';
-import formMapper from '../assets/form-mapper.json';
-import presetSchema from '../assets/form-builder-preset.json';
 
 @Component({
   tag: 'fw-field-editor',
@@ -1261,31 +1261,30 @@ export class FieldEditor {
   private renderStatusToggle(objFormValue) {
     const strBaseClassName = 'fw-field-editor';
     const choices = objFormValue.choices;
+
+    const renderToggle = (id, checked) => (
+      <span>
+        <fw-toggle
+          id={id}
+          size='medium'
+          checked={checked}
+          onFwChange={this.statusToggleHandler}
+        ></fw-toggle>
+      </span>
+    );
     return (
       <div class={`${strBaseClassName}-status-toggle`}>
         <div class={`${strBaseClassName}-status-toggle-item header`}>
           <span>{i18nText('fieldLabel')}</span>
           <span>{i18nText('ertText')}</span>
+          <span>{i18nText('pstText')}</span>
         </div>
         {choices.map((dataItem) => {
-          let toggle = null;
-          if (
-            dataItem?.choice_options &&
-            Object.keys(dataItem?.choice_options).length
-          ) {
-            toggle = (
-              <span>
-                <fw-toggle
-                  id={dataItem.id}
-                  size='medium'
-                  checked={dataItem?.choice_options.resolution_timer}
-                  onFwChange={this.statusToggleHandler}
-                ></fw-toggle>
-              </span>
-            );
-          }
           return (
-            <div class={`${strBaseClassName}-status-toggle-item`}>
+            <div
+              class={`${strBaseClassName}-status-toggle-item`}
+              key={dataItem.id}
+            >
               <span>
                 <div class={`${strBaseClassName}-input-container`}>
                   <fw-input
@@ -1295,7 +1294,13 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {toggle}
+              {dataItem?.choice_options.resolution_timer &&
+                renderToggle(
+                  dataItem.id,
+                  dataItem?.choice_options.resolution_timer
+                )}
+              {dataItem?.choice_options.sla_timer &&
+                renderToggle(dataItem.id, dataItem?.choice_options.sla_timer)}
             </div>
           );
         })}
