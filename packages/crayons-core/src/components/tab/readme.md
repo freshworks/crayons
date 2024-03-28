@@ -53,6 +53,9 @@ function App() {
 | Name                        | Description                |
 | --------------------------- | -------------------------- |
 | `--fw-tab-border-block-end` | border bottom style of tab |
+| `--fw-tab-margin-inline`    | margin inline of the tab   |
+| `--fw-tab-padding-block`    | padding block of the tab   |
+| `--fw-tab-padding-inline`   | padding inline of the tab  |
 
 
 ----------------------------------------------

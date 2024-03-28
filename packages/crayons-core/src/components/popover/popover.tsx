@@ -97,6 +97,10 @@ export class Popover {
    */
   @Prop() hideAfter = 0;
   /**
+   * Indicates if popup must open on interacting.
+   */
+  @Prop() isActive = true;
+  /**
    * Triggered whenever the popover contents is open/displayed.
    */
   @Event() fwShow: EventEmitter;
@@ -119,7 +123,7 @@ export class Popover {
 
   @Method()
   async show() {
-    if (!this.isOpen) {
+    if (!this.isOpen && this.isActive) {
       clearTimeout(this.timerId);
       if (this.showAfter > 0) await this.delay(this.showAfter);
       this.sameWidth &&

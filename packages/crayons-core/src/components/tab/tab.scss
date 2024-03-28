@@ -1,5 +1,8 @@
 /**
   @prop --fw-tab-border-block-end: border bottom style of tab
+  @prop --fw-tab-margin-inline: margin inline of the tab
+  @prop --fw-tab-padding-block: padding block of the tab
+  @prop --fw-tab-padding-inline: padding inline of the tab
 */
 
 :host(:focus-visible) {
@@ -19,13 +22,13 @@
   white-space: nowrap;
   cursor: pointer;
   align-items: center;
-  padding-inline: 8px;
-  padding-block: 10px;
+  padding-inline: var(--fw-tab-padding-inline, 8px);
+  padding-block: var(--fw-tab-padding-block, 10px);
   line-height: 20px;
   color: $color-smoke-700;
   font-size: $font-size-14;
   font-weight: $font-weight-400;
-  margin-inline: 4px;
+  margin-inline: var(--fw-tab-margin-inline, 4px);
   margin-block: 0;
 
   /* stylelint-disable */
