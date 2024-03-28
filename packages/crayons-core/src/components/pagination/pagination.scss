@@ -1,6 +1,120 @@
-:host {
+.mini-pagination {
   display: flex;
   align-items: center;
+}
+
+.standard-pagination {
+  display: flex;
+  justify-content: space-between;
+
+  .per-page-verbiage {
+    color: $app-icon-color;
+    font-size: $font-size-12;
+    font-weight: $font-weight-400;
+
+    .per-page-text {
+      font-weight: $font-weight-600;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed !important;
+  }
+
+  .pagination-list {
+    display: flex;
+    overflow: hidden;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+
+    .nav-label {
+      color: $app-icon-color;
+      font-weight: $font-weight-600;
+      font-size: $font-size-14;
+    }
+
+    .ellipsis {
+      display: inline-flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      background-color: transparent;
+      user-select: none;
+      vertical-align: middle;
+      appearance: none;
+      text-decoration: none;
+      font-weight: $font-weight-400;
+      font-size: $font-size-14;
+      text-align: center;
+      box-sizing: border-box;
+      padding-block: 2px;
+      padding-inline: 7px;
+      margin-block: 0px;
+      margin-inline: 8px;
+      border-radius: 4px;
+      min-height: 24px;
+      min-width: 24px;
+    }
+
+    .page-pill {
+      display: inline-flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      background-color: transparent;
+      outline: 0px;
+      border: 0px;
+      cursor: pointer;
+      user-select: none;
+      vertical-align: middle;
+      appearance: none;
+      text-decoration: none;
+      font-weight: $font-weight-400;
+      font-size: $font-size-14;
+      text-align: center;
+      box-sizing: border-box;
+      padding-block: 2px;
+      padding-inline: 7px;
+      margin-block: 0px;
+      margin-inline: 8px;
+      border-radius: 4px;
+      min-height: 24px;
+      min-width: 24px;
+
+      &:hover:not([disabled], .active),
+      &:focus:not([disabled], .active) {
+        background-color: $color-smoke-50;
+      }
+
+      &.active {
+        background-color: $app-link;
+        color: $app-text-light;
+        font-weight: $font-weight-600;
+
+        &.disabled {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .divider {
+      border: 1px solid $color-smoke-100;
+      height: 24px;
+    }
+
+    .nav-btn {
+      margin-inline: 8px;
+    }
+  }
 }
 
 .current-record {
