@@ -62,7 +62,7 @@ function getBrowserLang(): string {
 
 function getVal(path: string, obj: any = {}) {
   if (!path) return '';
-  return path?.split('.').reduce((r, val) => {
+  return (obj[path] && typeof obj[path] === 'string') ? obj[path] : path.split('.').reduce((r, val) => {
     return r ? r[val] : undefined;
   }, obj);
 }
