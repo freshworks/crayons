@@ -3,6 +3,10 @@
   "version": "3.0.0",
   "description": "Crayons Packages comprising of Design system library using web components, icon library and i18n library",
   "main": "index.js",
+  "engines": {
+    "node": ">=12.16.3",
+    "npm": ">=6.14.4"
+  },
   "workspaces": [
     "./packages/*"
   ],
