@@ -1268,8 +1268,9 @@ export class FieldEditor {
     const choices = objFormValue.choices;
 
     const isSlaEnabled =
-      Object(choices[1].choice_options).keys.length > 1 ||
-      Object(choices[2].choice_options).keys.length > 1;
+      objFormValue.field_options.slaTimerEnabled &&
+      (Object(choices[1].choice_options).keys.length > 1 ||
+        Object(choices[2].choice_options).keys.length > 1);
 
     const renderToggle = (id, name, checked) => (
       <span>
@@ -1286,10 +1287,10 @@ export class FieldEditor {
       <div
         class={`${strBaseClassName}-status-toggle ${isSlaEnabled ? 'sla' : ''}`}
       >
-        <div class={`${strBaseClassName}-item header`}>
+        <div class={`${strBaseClassName}-status-toggle-item header`}>
           <span>{i18nText('fieldLabel')}</span>
           <span>{i18nText('ertText')}</span>
-          (isSlaEnabled && <span>{i18nText('pstText')}</span>)
+          {isSlaEnabled && <span>{i18nText('pstText')}</span>}
         </div>
         {choices.map((dataItem) => {
           return (
