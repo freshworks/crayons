@@ -368,7 +368,7 @@ describe('fw-form-builder', () => {
               value: 'Waiting on customer',
               choice_options: {
                 resolution_timer: true,
-                sla_timer: true,
+                pause_resolution_sla_timer: true,
               },
               field_id: 'e189019d-ac50-4852-a17f-97acf2b05582',
               position: 2,
@@ -380,7 +380,7 @@ describe('fw-form-builder', () => {
               value: 'Waiting on internal teams',
               choice_options: {
                 resolution_timer: true,
-                sla_timer: true,
+                pause_resolution_sla_timer: true,
               },
               field_id: 'e189019d-ac50-4852-a17f-97acf2b05582',
               position: 3,

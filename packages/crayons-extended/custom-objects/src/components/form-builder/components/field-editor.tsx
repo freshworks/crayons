@@ -898,7 +898,12 @@ export class FieldEditor {
     const objPayload = this.dataProvider;
     const id = (event.target as HTMLInputElement).id;
     const choice = objPayload.choices.find((item) => item.id === id);
-    choice.choice_options.resolution_timer = event.detail.checked;
+    const name = (event.target as HTMLInputElement).name;
+    if (name === 'resolution_timer') {
+      choice.choice_options.resolution_timer = event.detail.checked;
+    } else if (name === 'pause_resolution_sla_timer') {
+      choice.choice_options.pause_resolution_sla_timer = event.detail.checked;
+    }
   };
 
   private lookupChangeHandler = (event: CustomEvent) => {
@@ -1262,10 +1267,15 @@ export class FieldEditor {
     const strBaseClassName = 'fw-field-editor';
     const choices = objFormValue.choices;
 
-    const renderToggle = (id, checked) => (
+    const isSlaEnabled =
+      Object(choices[1].choice_options).keys.length > 1 ||
+      Object(choices[2].choice_options).keys.length > 1;
+
+    const renderToggle = (id, name, checked) => (
       <span>
         <fw-toggle
           id={id}
+          name={name}
           size='medium'
           checked={checked}
           onFwChange={this.statusToggleHandler}
@@ -1273,11 +1283,13 @@ export class FieldEditor {
       </span>
     );
     return (
-      <div class={`${strBaseClassName}-status-toggle`}>
-        <div class={`${strBaseClassName}-status-toggle-item header`}>
+      <div
+        class={`${strBaseClassName}-status-toggle ${isSlaEnabled ? 'sla' : ''}`}
+      >
+        <div class={`${strBaseClassName}-item header`}>
           <span>{i18nText('fieldLabel')}</span>
           <span>{i18nText('ertText')}</span>
-          <span>{i18nText('pstText')}</span>
+          (isSlaEnabled && <span>{i18nText('pstText')}</span>)
         </div>
         {choices.map((dataItem) => {
           return (
@@ -1294,13 +1306,19 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {dataItem?.choice_options.resolution_timer &&
+              {dataItem?.choice_options?.resolution_timer !== undefined &&
                 renderToggle(
                   dataItem.id,
-                  dataItem?.choice_options.resolution_timer
+                  'resolution_timer',
+                  dataItem.choice_options.resolution_timer
                 )}
-              {dataItem?.choice_options.sla_timer &&
-                renderToggle(dataItem.id, dataItem?.choice_options.sla_timer)}
+              {dataItem?.choice_options?.pause_resolution_sla_timer !==
+                undefined &&
+                renderToggle(
+                  dataItem.id,
+                  'pause_resolution_sla_timer',
+                  dataItem.choice_options.pause_resolution_sla_timer
+                )}
             </div>
           );
         })}
