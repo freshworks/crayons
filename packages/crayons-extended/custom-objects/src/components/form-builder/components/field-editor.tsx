@@ -35,6 +35,10 @@ import {
   updateFieldAttributes,
   updateLevelSelection,
   updateRequiredOnAllFields,
+  validateLevels,
+  getFieldBasedOnLevel,
+  getModifiedEl,
+  removeIsNewFromField,
 } from '../utils/form-builder-utils';
 
 @Component({
@@ -550,7 +554,27 @@ export class FieldEditor {
   /**
    * function to check the dropdown error values
    */
-  private validateDropdownErrors = (arrDropdownValues, emptyCheck = false) => {
+  private validateDropdownErrors = (
+    arrDropdownValues,
+    emptyCheck = false,
+    level = 0
+  ) => {
+    if (level > 2 && this.isDependentField) {
+      const levelToDelete = validateLevels(
+        this.dictInteractiveElements,
+        this.fieldBuilderOptions,
+        {
+          CHOICES: 'choices_level_',
+          NAME: this.DEP_NAME_KEY,
+          LABEL: this.DEP_LABEL_KEY,
+        }
+      );
+
+      if (levelToDelete !== 0) {
+        return true;
+      }
+    }
+
     if (!arrDropdownValues || arrDropdownValues.length < 1) {
       this.formErrorMessage = i18nText('errors.minimum');
       return false;
@@ -618,14 +642,26 @@ export class FieldEditor {
     };
 
     if (this.isDependentField) {
-      objValues['fields'] = deepCloneObject(this.fieldBuilderOptions.fields);
-    }
+      // Validate name
+      if (this.validateDuplicateErrors(this.DEP_LABEL_KEY)) {
+        this.duplicateError = true;
+        this.showErrors = true;
+        return;
+      }
 
-    // Validate name
-    if (this.validateDuplicateErrors(this.DEP_LABEL_KEY)) {
-      this.duplicateError = true;
-      this.showErrors = true;
-      return;
+      // Validate levels and update dictInteractive
+      const elements = getModifiedEl(
+        this.dictInteractiveElements,
+        deepCloneObject(this.fieldBuilderOptions),
+        {
+          CHOICES: 'choices_level_',
+          NAME: this.DEP_NAME_KEY,
+          LABEL: this.DEP_LABEL_KEY,
+        }
+      );
+
+      objValues['fields'] = elements.fieldEl;
+      this.dictInteractiveElements = elements.dictEl;
     }
 
     // this.showErrors = false;
@@ -708,7 +744,8 @@ export class FieldEditor {
               deepCloneObject(elInteractive.dataProvider) || [];
             boolValidForm = this.validateDropdownErrors(
               arrDropdownValues,
-              true
+              true,
+              level
             );
 
             if (boolValidForm) {
@@ -758,6 +795,10 @@ export class FieldEditor {
     // Used to track multiple labels and names
     if (Object.keys(this.dependentErrors).length !== 0) {
       return;
+    }
+
+    if (this.isDependentField) {
+      objValues = removeIsNewFromField(objValues);
     }
 
     if (checkIfCustomToggleField(this.productName, this.dataProvider.name)) {
@@ -862,7 +903,11 @@ export class FieldEditor {
     switch (strType) {
       case 'DELETE':
         this.errorType = event.detail.errorType;
-        this.validateDropdownErrors(event.detail.value);
+        this.validateDropdownErrors(
+          event.detail.value,
+          false,
+          event.detail.level
+        );
         if (this.isDependentField) {
           this.fieldBuilderOptions = deleteChoicesInFields(this, event);
           delete this.dependentLevels[`level_${event.detail.level}`];
@@ -870,7 +915,11 @@ export class FieldEditor {
         break;
       case 'VALUE_CHANGE':
         this.errorType = event.detail.errorType;
-        this.validateDropdownErrors(event.detail.value);
+        this.validateDropdownErrors(
+          event.detail.value,
+          false,
+          event.detail.level
+        );
         if (this.isDependentField) {
           this.fieldBuilderOptions = updateChoicesInFields(this, event);
         }
@@ -886,7 +935,11 @@ export class FieldEditor {
         this.dependentLevels = updateLevelSelection(this, event);
         break;
       case 'VALIDATE_DROPDOWN':
-        this.validateDropdownErrors(event.detail.value);
+        this.validateDropdownErrors(
+          event.detail.value,
+          false,
+          event.detail.level
+        );
         break;
       default:
         break;
@@ -988,7 +1041,11 @@ export class FieldEditor {
       this.isValuesChanged = true;
     }
 
+    const field = this.isDependentField
+      ? getFieldBasedOnLevel(this.fieldBuilderOptions, level)
+      : {};
     const dictElName = `${this.DEP_LABEL_KEY}${level}`;
+
     const strInputValue = !isBlur
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
@@ -996,7 +1053,7 @@ export class FieldEditor {
 
     let strInternalName = '';
     let boolInternalNameUpdated = false;
-    if (!this.isInternalNameEdited && this.isNewField) {
+    if ((!this.isInternalNameEdited && this.isNewField) || field.isNew) {
       strInternalName = deriveInternalNameFromLabel(strInputValue);
       boolInternalNameUpdated = true;
     }
@@ -1044,7 +1101,7 @@ export class FieldEditor {
         );
       }
 
-      if (!this.isInternalNameEdited) {
+      if (!this.isInternalNameEdited || field.isNew) {
         attr['name'] = strInternalName;
       }
     }
@@ -1415,7 +1472,9 @@ export class FieldEditor {
             value={strInputInternalName}
             errorText={strInputError}
             warningText={strInputWarning}
-            disabled={!this.isNewField || !boolEditAllowed}
+            disabled={
+              !this.isNewField || !boolEditAllowed || this.isDependentField
+            }
             state={
               boolShowNameError
                 ? 'error'
@@ -1598,6 +1657,7 @@ export class FieldEditor {
                     <a
                       href={this.dependentFieldLink}
                       target='_blank'
+                      rel='noopener noreferrer'
                       class={`${strBaseClassName}-link`}
                     >
                       {i18nText('moreOnDependentFields')}
