@@ -456,21 +456,23 @@ export class FbFieldDropdown {
                 {i18nText('addChoice')}
               </fw-button>
             )}
-            {this.enableBulkChoices && (this.parentId || this.level === 1) && (
-              <fw-button
-                id='addNewChoiceBtn'
-                color='link'
-                disabled={this.boolExceededChoiceLimit}
-                onFwClick={this.openBulkChoiceModal}
-              >
-                <fw-icon
-                  name='circle-plus'
-                  size='16'
-                  slot='before-label'
-                ></fw-icon>
-                {i18nText('addBulkChoice')}
-              </fw-button>
-            )}
+            {!this.disabled &&
+              this.enableBulkChoices &&
+              (this.parentId || this.level === 1) && (
+                <fw-button
+                  id='addNewChoiceBtn'
+                  color='link'
+                  disabled={this.boolExceededChoiceLimit}
+                  onFwClick={this.openBulkChoiceModal}
+                >
+                  <fw-icon
+                    name='circle-plus'
+                    size='16'
+                    slot='before-label'
+                  ></fw-icon>
+                  {i18nText('addBulkChoice')}
+                </fw-button>
+              )}
             {this.boolExceededChoiceLimit && (
               <label class={`${strBaseClassName}-warning-text`}>
                 {strExceedLimitChoicesWarning}
