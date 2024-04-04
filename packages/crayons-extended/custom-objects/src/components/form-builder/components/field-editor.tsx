@@ -1364,8 +1364,7 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {
-                dataItem?.choice_options?.resolution_timer !== undefined &&
+              {dataItem?.choice_options?.resolution_timer !== undefined &&
                 renderToggle(
                   dataItem.id,
                   'resolution_timer',
