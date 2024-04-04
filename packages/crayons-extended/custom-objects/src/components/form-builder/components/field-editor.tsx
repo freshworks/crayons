@@ -1364,7 +1364,7 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {isSlaEnabled &&
+              {
                 dataItem?.choice_options?.resolution_timer !== undefined &&
                 renderToggle(
                   dataItem.id,
