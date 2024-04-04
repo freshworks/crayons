@@ -23,22 +23,22 @@ import {
   deriveInternalNameFromLabel,
   getChildChoices,
   getDependentLevels,
+  getFieldBasedOnLevel,
   getMaxLimitProperty,
   getMaximumLimitsConfig,
+  getModifiedEl,
   getNestedKeyValueFromObject,
   hasCustomProperty,
   hasPermission,
   hasStringDuplicates,
   i18nText,
   removeFirstOccurrence,
+  removeIsNewFromField,
   updateChoicesInFields,
   updateFieldAttributes,
   updateLevelSelection,
   updateRequiredOnAllFields,
   validateLevels,
-  getFieldBasedOnLevel,
-  getModifiedEl,
-  removeIsNewFromField,
 } from '../utils/form-builder-utils';
 
 @Component({
@@ -1364,14 +1364,16 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {dataItem?.choice_options?.resolution_timer !== undefined &&
+              {isSlaEnabled &&
+                dataItem?.choice_options?.resolution_timer !== undefined &&
                 renderToggle(
                   dataItem.id,
                   'resolution_timer',
                   dataItem.choice_options.resolution_timer
                 )}
-              {dataItem?.choice_options?.pause_resolution_sla_timer !==
-                undefined &&
+              {isSlaEnabled &&
+                dataItem?.choice_options?.pause_resolution_sla_timer !==
+                  undefined &&
                 renderToggle(
                   dataItem.id,
                   'pause_resolution_sla_timer',
