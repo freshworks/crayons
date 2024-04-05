@@ -288,6 +288,10 @@
             padding-inline-end: 0;
             padding-block-start: 8px;
 
+            &.sla {
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+
             &.header {
               background: $color-smoke-50;
               border: 1px solid $color-smoke-100;

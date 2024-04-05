@@ -5,41 +5,41 @@
 import {
   Component,
   Element,
-  Prop,
-  h,
-  Host,
-  EventEmitter,
   Event,
+  EventEmitter,
+  Host,
+  Prop,
   State,
   Watch,
+  h,
 } from '@stencil/core';
+import presetSchema from '../assets/form-builder-preset.json';
+import formMapper from '../assets/form-mapper.json';
 import {
+  buildChoicesFromText,
+  checkIfCustomToggleField,
   deepCloneObject,
-  hasCustomProperty,
-  getNestedKeyValueFromObject,
-  i18nText,
-  removeFirstOccurrence,
+  deleteChoicesInFields,
+  deriveInternalNameFromLabel,
+  getChildChoices,
+  getDependentLevels,
+  getFieldBasedOnLevel,
   getMaxLimitProperty,
   getMaximumLimitsConfig,
-  deriveInternalNameFromLabel,
+  getModifiedEl,
+  getNestedKeyValueFromObject,
+  hasCustomProperty,
   hasPermission,
-  checkIfCustomToggleField,
   hasStringDuplicates,
-  getChildChoices,
-  updateLevelSelection,
-  buildChoicesFromText,
-  getDependentLevels,
-  updateFieldAttributes,
+  i18nText,
+  removeFirstOccurrence,
+  removeIsNewFromField,
   updateChoicesInFields,
-  deleteChoicesInFields,
+  updateFieldAttributes,
+  updateLevelSelection,
   updateRequiredOnAllFields,
   validateLevels,
-  getFieldBasedOnLevel,
-  getModifiedEl,
-  removeIsNewFromField,
 } from '../utils/form-builder-utils';
-import formMapper from '../assets/form-mapper.json';
-import presetSchema from '../assets/form-builder-preset.json';
 
 @Component({
   tag: 'fw-field-editor',
@@ -951,7 +951,12 @@ export class FieldEditor {
     const objPayload = this.dataProvider;
     const id = (event.target as HTMLInputElement).id;
     const choice = objPayload.choices.find((item) => item.id === id);
-    choice.choice_options.resolution_timer = event.detail.checked;
+    const name = (event.target as HTMLInputElement).name;
+    if (name === 'resolution_timer') {
+      choice.choice_options.resolution_timer = event.detail.checked;
+    } else if (name === 'pause_resolution_sla_timer') {
+      choice.choice_options.pause_resolution_sla_timer = event.detail.checked;
+    }
   };
 
   private lookupChangeHandler = (event: CustomEvent) => {
@@ -1317,32 +1322,39 @@ export class FieldEditor {
 
   private renderStatusToggle(objFormValue) {
     const strBaseClassName = 'fw-field-editor';
-    const choices = objFormValue.choices;
+    const choices = objFormValue?.choices;
+    const isSlaEnabled =
+      objFormValue?.field_options?.slaTimerEnabled &&
+      (choices[1]?.choice_options?.pause_resolution_sla_timer !== undefined ||
+        choices[2].choice_options?.pause_resolution_sla_timer !== undefined);
+    const slaClassName = `${isSlaEnabled ? 'sla' : ''}`;
+
+    const renderToggle = (id, name, checked) => (
+      <span>
+        <fw-toggle
+          id={id}
+          name={name}
+          size='medium'
+          checked={checked}
+          onFwChange={this.statusToggleHandler}
+        ></fw-toggle>
+      </span>
+    );
     return (
       <div class={`${strBaseClassName}-status-toggle`}>
-        <div class={`${strBaseClassName}-status-toggle-item header`}>
+        <div
+          class={`${strBaseClassName}-status-toggle-item header  ${slaClassName}`}
+        >
           <span>{i18nText('fieldLabel')}</span>
           <span>{i18nText('ertText')}</span>
+          {isSlaEnabled && <span>{i18nText('pstText')}</span>}
         </div>
         {choices.map((dataItem) => {
-          let toggle = null;
-          if (
-            dataItem?.choice_options &&
-            Object.keys(dataItem?.choice_options).length
-          ) {
-            toggle = (
-              <span>
-                <fw-toggle
-                  id={dataItem.id}
-                  size='medium'
-                  checked={dataItem?.choice_options.resolution_timer}
-                  onFwChange={this.statusToggleHandler}
-                ></fw-toggle>
-              </span>
-            );
-          }
           return (
-            <div class={`${strBaseClassName}-status-toggle-item`}>
+            <div
+              class={`${strBaseClassName}-status-toggle-item ${slaClassName}`}
+              key={dataItem.id}
+            >
               <span>
                 <div class={`${strBaseClassName}-input-container`}>
                   <fw-input
@@ -1352,7 +1364,20 @@ export class FieldEditor {
                   ></fw-input>
                 </div>
               </span>
-              {toggle}
+              {dataItem?.choice_options?.resolution_timer !== undefined &&
+                renderToggle(
+                  dataItem.id,
+                  'resolution_timer',
+                  dataItem.choice_options.resolution_timer
+                )}
+              {isSlaEnabled &&
+                dataItem?.choice_options?.pause_resolution_sla_timer !==
+                  undefined &&
+                renderToggle(
+                  dataItem.id,
+                  'pause_resolution_sla_timer',
+                  dataItem.choice_options.pause_resolution_sla_timer
+                )}
             </div>
           );
         })}
