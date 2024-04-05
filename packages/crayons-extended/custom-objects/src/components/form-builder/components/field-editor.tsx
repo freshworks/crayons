@@ -1322,12 +1322,12 @@ export class FieldEditor {
 
   private renderStatusToggle(objFormValue) {
     const strBaseClassName = 'fw-field-editor';
-    const choices = objFormValue.choices;
-
+    const choices = objFormValue?.choices;
     const isSlaEnabled =
-      objFormValue.field_options.slaTimerEnabled &&
-      (Object(choices[1].choice_options).keys.length > 1 ||
-        Object(choices[2].choice_options).keys.length > 1);
+      objFormValue?.field_options?.slaTimerEnabled &&
+      (choices[1]?.choice_options?.pause_resolution_sla_timer !== undefined ||
+        choices[2].choice_options?.pause_resolution_sla_timer !== undefined);
+    const slaClassName = `${isSlaEnabled ? 'sla' : ''}`;
 
     const renderToggle = (id, name, checked) => (
       <span>
@@ -1341,10 +1341,10 @@ export class FieldEditor {
       </span>
     );
     return (
-      <div
-        class={`${strBaseClassName}-status-toggle ${isSlaEnabled ? 'sla' : ''}`}
-      >
-        <div class={`${strBaseClassName}-status-toggle-item header`}>
+      <div class={`${strBaseClassName}-status-toggle`}>
+        <div
+          class={`${strBaseClassName}-status-toggle-item header  ${slaClassName}`}
+        >
           <span>{i18nText('fieldLabel')}</span>
           <span>{i18nText('ertText')}</span>
           {isSlaEnabled && <span>{i18nText('pstText')}</span>}
@@ -1352,7 +1352,7 @@ export class FieldEditor {
         {choices.map((dataItem) => {
           return (
             <div
-              class={`${strBaseClassName}-status-toggle-item`}
+              class={`${strBaseClassName}-status-toggle-item ${slaClassName}`}
               key={dataItem.id}
             >
               <span>
