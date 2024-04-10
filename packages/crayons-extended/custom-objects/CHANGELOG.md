@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.9...@freshworks/crayons-custom-objects@1.4.0-beta.10) (2024-04-10)
+
+
+### Bug Fixes
+
+* [FE][FC-122306]: Fixes dependent field editable permission issues ([6684563](https://github.com/freshworks/crayons/commit/6684563bb8168dc337eba746726e6726101e09d2))
+
+
+### Features
+
+* **field-editor:** i have added the sla timer toggle when we are passing the feature flag ([eb99d77](https://github.com/freshworks/crayons/commit/eb99d77f48ebe948dd77d5bfda6925b4ea0a3d78))
+* **field-editor:** i have added the sla timer toggle when we are passing the feature flag ([af9602b](https://github.com/freshworks/crayons/commit/af9602b5ac562a3979577824d73b2f1a9ce87614))
+
+
+
+
+
 ## [1.4.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.8...@freshworks/crayons-custom-objects@1.4.0-beta.9) (2024-03-18)
 
 ### Bug Fixes
