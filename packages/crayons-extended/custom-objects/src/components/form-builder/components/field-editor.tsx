@@ -15,7 +15,6 @@ import {
 } from '@stencil/core';
 import presetSchema from '../assets/form-builder-preset.json';
 import formMapper from '../assets/form-mapper.json';
-
 import {
   buildChoicesFromText,
   checkIfCustomToggleField,
