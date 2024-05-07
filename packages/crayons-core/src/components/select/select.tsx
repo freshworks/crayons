@@ -1037,6 +1037,7 @@ export class Select {
                   'select-disabled': this.disabled,
                   'button-container': this.variant === 'button',
                 }}
+                part='fw-select-input-container'
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
