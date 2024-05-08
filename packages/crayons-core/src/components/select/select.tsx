@@ -1133,6 +1133,7 @@ export class Select {
                 optionValuePath={this.optionValuePath}
                 enableVirtualScroll={this.enableVirtualScroll}
                 estimatedSize={this.estimatedSize}
+                exportparts='fw-list-options-container'
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>

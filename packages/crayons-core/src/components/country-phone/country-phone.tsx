@@ -360,6 +360,7 @@ export class CountryPhone {
             onFwChange={this.onSelectChange.bind(this)}
             sameWidth={false}
             disabled={this.disabled}
+            exportparts='fw-list-options-container, fw-select-input-container'
           >
             {countries.map((item) => {
               return (
@@ -392,6 +393,7 @@ export class CountryPhone {
             warning-text={this.warningText}
             error-text={this.errorText}
             state={this.state}
+            exportparts='fw-input-container, fw-input-inner-container'
             placeholder={this.inputPlaceholder || ''}
             readonly={this.readonly}
             required={this.required}
