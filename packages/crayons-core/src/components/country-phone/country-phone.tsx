@@ -133,6 +133,11 @@ export class CountryPhone {
    */
   @Prop({ reflect: true, mutable: true }) value?: string | null = '';
 
+  /**
+   * Default countryCode to be displayed.
+   */
+  @Prop() countryCodeDefaultValue = '';
+
   // Events
   /**
    * Triggered when phone element is input.
@@ -194,7 +199,11 @@ export class CountryPhone {
   }
 
   componentWillLoad() {
-    this.setPhoneNumberDetails(this.value);
+    if (this.countryCodeDefaultValue) {
+      this.updateAppropriateValue(this.countryCodeDefaultValue);
+    } else {
+      this.setPhoneNumberDetails(this.value);
+    }
   }
 
   private getSingleFormat(code = '', number = '') {
@@ -320,8 +329,11 @@ export class CountryPhone {
   private onSelectChange(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
-    this.countryCode = value as CountryCode;
+    this.updateAppropriateValue(value);
+  }
 
+  private updateAppropriateValue(value: string) {
+    this.countryCode = value as CountryCode;
     const currentCountry = this.getCountryDetails(value);
     if (currentCountry && currentCountry.length > 0) {
       this.phoneCode = currentCountry[0]?.phone || '';
