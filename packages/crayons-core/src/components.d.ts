@@ -157,7 +157,7 @@ export namespace Components {
          */
         "clearInput": boolean;
         /**
-         * Default countryCode to be displayed.
+          * Default countryCode to be displayed.
          */
         "countryCodeDefaultValue": string;
         /**
@@ -3262,6 +3262,9 @@ declare namespace LocalJSX {
           * Displays a right-justified clear icon in the text box. Clicking the icon clears the input text. If the attribute’s value is undefined, the value is set to false. For a read-only input box, the clear icon is not displayed unless a default value is specified for the input box.
          */
         "clearInput"?: boolean;
+        /**
+          * Default countryCode to be displayed.
+         */
         "countryCodeDefaultValue"?: string;
         /**
           * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
