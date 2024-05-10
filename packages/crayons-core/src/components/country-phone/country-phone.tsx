@@ -199,10 +199,10 @@ export class CountryPhone {
   }
 
   componentWillLoad() {
-    if (this.countryCodeDefaultValue) {
-      this.updateAppropriateValue(this.countryCodeDefaultValue);
-    } else {
+    if (this.value) {
       this.setPhoneNumberDetails(this.value);
+    } else if (this.countryCodeDefaultValue) {
+      this.updateAppropriateValue(this.countryCodeDefaultValue);
     }
   }
 
@@ -405,7 +405,7 @@ export class CountryPhone {
             warning-text={this.warningText}
             error-text={this.errorText}
             state={this.state}
-            exportparts='fw-input-container, fw-input-inner-container'
+            exportparts='fw-input-container, fw-input-inner-container, fw-slot-error-text'
             placeholder={this.inputPlaceholder || ''}
             readonly={this.readonly}
             required={this.required}
