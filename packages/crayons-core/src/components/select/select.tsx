@@ -1037,6 +1037,7 @@ export class Select {
                   'select-disabled': this.disabled,
                   'button-container': this.variant === 'button',
                 }}
+                part='fw-select-input-container'
                 onClick={() => this.innerOnClick()}
                 onKeyDown={handleKeyDown(this.innerOnClick, true)}
               >
@@ -1132,6 +1133,7 @@ export class Select {
                 optionValuePath={this.optionValuePath}
                 enableVirtualScroll={this.enableVirtualScroll}
                 estimatedSize={this.estimatedSize}
+                exportparts='fw-list-options-container'
                 {...listAttributes}
               ></fw-list-options>
             </fw-popover>

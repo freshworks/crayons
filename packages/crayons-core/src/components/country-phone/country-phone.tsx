@@ -133,6 +133,11 @@ export class CountryPhone {
    */
   @Prop({ reflect: true, mutable: true }) value?: string | null = '';
 
+  /**
+   * Default countryCode to be displayed.
+   */
+  @Prop() countryCodeDefaultValue = '';
+
   // Events
   /**
    * Triggered when phone element is input.
@@ -194,7 +199,11 @@ export class CountryPhone {
   }
 
   componentWillLoad() {
-    this.setPhoneNumberDetails(this.value);
+    if (this.value) {
+      this.setPhoneNumberDetails(this.value);
+    } else if (this.countryCodeDefaultValue) {
+      this.updateAppropriateValue(this.countryCodeDefaultValue);
+    }
   }
 
   private getSingleFormat(code = '', number = '') {
@@ -320,8 +329,11 @@ export class CountryPhone {
   private onSelectChange(event: Event) {
     event.stopPropagation();
     const value = (event.target as HTMLInputElement).value;
-    this.countryCode = value as CountryCode;
+    this.updateAppropriateValue(value);
+  }
 
+  private updateAppropriateValue(value: string) {
+    this.countryCode = value as CountryCode;
     const currentCountry = this.getCountryDetails(value);
     if (currentCountry && currentCountry.length > 0) {
       this.phoneCode = currentCountry[0]?.phone || '';
@@ -360,6 +372,7 @@ export class CountryPhone {
             onFwChange={this.onSelectChange.bind(this)}
             sameWidth={false}
             disabled={this.disabled}
+            exportparts='fw-list-options-container, fw-select-input-container'
           >
             {countries.map((item) => {
               return (
@@ -392,6 +405,7 @@ export class CountryPhone {
             warning-text={this.warningText}
             error-text={this.errorText}
             state={this.state}
+            exportparts='fw-input-container, fw-input-inner-container, fw-slot-error-text'
             placeholder={this.inputPlaceholder || ''}
             readonly={this.readonly}
             required={this.required}

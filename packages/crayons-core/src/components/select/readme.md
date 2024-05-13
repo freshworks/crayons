@@ -2062,6 +2062,13 @@ Type: `Promise<any>`
 
 
 
+## Shadow Parts
+
+| Part                          | Description |
+| ----------------------------- | ----------- |
+| `"fw-select-input-container"` |             |
+
+
 ## CSS Custom Properties
 
 | Name                        | Description                           |
