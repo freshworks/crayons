@@ -8,9 +8,15 @@ import {
   Host,
   EventEmitter,
   Event,
+  State,
 } from '@stencil/core';
 
-import { hasCustomProperty, i18nText } from '../utils/form-builder-utils';
+import {
+  hasCustomProperty,
+  i18nText,
+  getMaxLimitProperty,
+  getMaximumLimitsConfig,
+} from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fw-fb-field-dropdown-item',
@@ -22,6 +28,14 @@ export class FbFieldDropdownItem {
 
   private divBaseElement: HTMLElement;
 
+  /**
+   * State to show label input warning message
+   */
+  @State() labelWarningMessage = '';
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /**
    * flag to notify if an api call is in progress
    */
@@ -120,6 +134,26 @@ export class FbFieldDropdownItem {
       ? event?.detail?.value || ''
       : event?.target?.['value']?.trim() || '';
 
+    const isValidValue = strUpdatedValue && strUpdatedValue !== '';
+
+    if (isValidValue) {
+      const objMaxLimitField = getMaxLimitProperty(
+        this.productName,
+        'maxChoiceChars'
+      );
+      if (
+        objMaxLimitField &&
+        strUpdatedValue.length >= objMaxLimitField.count
+      ) {
+        this.labelWarningMessage = i18nText(objMaxLimitField.message, {
+          count: objMaxLimitField.count,
+        });
+      } else {
+        this.labelWarningMessage = '';
+      }
+    } else {
+      this.labelWarningMessage = '';
+    }
     if (
       !strUpdatedValue ||
       strUpdatedValue.length === 0 ||
@@ -196,6 +230,8 @@ export class FbFieldDropdownItem {
       return null;
     }
 
+    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+
     const strErrorMsg = hasCustomProperty(dpSource, 'error')
       ? dpSource.error
       : '';
@@ -205,6 +241,16 @@ export class FbFieldDropdownItem {
     if (strErrorMsg === i18nText('errors.duplicate')) {
       showFieldNameError = true;
     }
+
+    const boolShowLabelWarning =
+      !showFieldNameError &&
+      this.labelWarningMessage &&
+      this.labelWarningMessage !== ''
+        ? true
+        : false;
+    const strInputWarning = boolShowLabelWarning
+      ? this.labelWarningMessage
+      : '';
 
     const strBaseClassName = 'fb-field-dropdown-item';
     const formattedInputPrompt = `${this.toOrdinalSuffix(
@@ -225,6 +271,7 @@ export class FbFieldDropdownItem {
       strDragClassName += ` ${strBaseDragClassName}--unsortable`;
     }
 
+    const numNameMaxChars = objMaxLimits?.['maxChoiceChars']?.count || 255;
     const itemSelectedClass =
       this.isDependentField && this.itemSelected
         ? 'dropdown-item-selected'
@@ -252,11 +299,19 @@ export class FbFieldDropdownItem {
           <div class={`${strBaseClassName}-input-container`}>
             <fw-input
               class={`${strBaseClassName}-content-required-input`}
-              state={showFieldNameError ? 'error' : 'normal'}
               errorText={strErrorMsg}
               placeholder={strInputPrompt}
               value={dpSource.value}
               disabled={this.disabled}
+              warningText={strInputWarning}
+              maxlength={numNameMaxChars}
+              state={
+                showFieldNameError
+                  ? 'error'
+                  : boolShowLabelWarning
+                  ? 'warning'
+                  : 'normal'
+              }
               onFwBlur={this.nameBlurHandler}
               onFwInput={this.nameChangeHandler}
               onFwFocus={this.nameFocusHandler}
