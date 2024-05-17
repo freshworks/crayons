@@ -756,6 +756,7 @@ export class ListOptions {
         ref={(container) => {
           this.container = container;
         }}
+        part='fw-list-options-container'
       >
         {this.searchable && this.renderSearchInput()}
         {this.enableVirtualScroll

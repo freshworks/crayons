@@ -9,6 +9,22 @@ describe('fw-country-phone hydrated', () => {
     expect(element).toHaveClass('hydrated');
   });
 
+  it('renders with default country code if provided', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-country-phone country-code-default-value="US"></fw-country-phone>'
+    );
+    const element = await page.find('fw-country-phone');
+    await page.waitForChanges();
+    const value = await element.getProperty('value');
+    expect(value).toBe('+1');
+
+    const selectElement = await page.find('fw-country-phone >>> fw-select');
+    const selectValue = await selectElement.getProperty('value');
+    expect(selectValue).toBe('US');
+  });
+
   it('renders with proper country code phone number', async () => {
     const page = await newE2EPage();
 

@@ -516,6 +516,13 @@ Type: `Promise<any>`
 
 
 
+## Shadow Parts
+
+| Part                          | Description |
+| ----------------------------- | ----------- |
+| `"fw-list-options-container"` |             |
+
+
 ## Dependencies
 
 ### Used by

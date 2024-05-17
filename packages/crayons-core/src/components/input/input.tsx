@@ -283,6 +283,7 @@ export class Input {
             class={{
               'input-container': true,
             }}
+            part='fw-input-container'
           >
             <div
               class={{
@@ -291,6 +292,7 @@ export class Input {
                 'disabled': this.disabled,
                 [this.state]: true,
               }}
+              part='fw-input-inner-container'
             >
               <div class='inner__content'>
                 <div

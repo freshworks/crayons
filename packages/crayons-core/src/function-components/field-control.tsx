@@ -92,6 +92,7 @@ const FieldControl: FunctionalComponent<FieldControlProps> = (
         <div
           id={props.errorTextId}
           class='field-control-error-text'
+          part='fw-slot-error-text'
           aria-hidden={hasErrorText ? 'false' : 'true'}
         >
           <slot name='error-text'>{props.errorText}</slot>

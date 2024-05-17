@@ -389,6 +389,14 @@ Type: `Promise<void>`
 
 
 
+## Shadow Parts
+
+| Part                         | Description |
+| ---------------------------- | ----------- |
+| `"fw-input-container"`       |             |
+| `"fw-input-inner-container"` |             |
+
+
 ## CSS Custom Properties
 
 | Name                       | Description                 |
