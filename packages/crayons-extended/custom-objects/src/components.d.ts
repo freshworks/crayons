@@ -126,10 +126,6 @@ export namespace Components {
          */
         "itemSelected": boolean;
         /**
-          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
-         */
-        "productName": string;
-        /**
           * property to show the errors on click of the save/add button from the parent
          */
         "showErrors": boolean;
@@ -936,10 +932,6 @@ declare namespace LocalJSX {
           * Triggered on choice selection
          */
         "onFwSelect"?: (event: FwFbFieldDropdownItemCustomEvent<any>) => void;
-        /**
-          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
-         */
-        "productName"?: string;
         /**
           * property to show the errors on click of the save/add button from the parent
          */
