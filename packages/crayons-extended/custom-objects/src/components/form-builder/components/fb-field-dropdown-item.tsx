@@ -15,7 +15,6 @@ import {
   hasCustomProperty,
   i18nText,
   getMaxLimitProperty,
-  getMaximumLimitsConfig,
 } from '../utils/form-builder-utils';
 
 @Component({
@@ -230,7 +229,10 @@ export class FbFieldDropdownItem {
       return null;
     }
 
-    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const objMaxLimits = getMaxLimitProperty(
+      this.productName,
+      'maxChoiceChars'
+    );
 
     const strErrorMsg = hasCustomProperty(dpSource, 'error')
       ? dpSource.error
@@ -271,7 +273,7 @@ export class FbFieldDropdownItem {
       strDragClassName += ` ${strBaseDragClassName}--unsortable`;
     }
 
-    const numNameMaxChars = objMaxLimits?.['maxChoiceChars']?.count || 255;
+    const numNameMaxChars = objMaxLimits?.count || 255;
     const itemSelectedClass =
       this.isDependentField && this.itemSelected
         ? 'dropdown-item-selected'
