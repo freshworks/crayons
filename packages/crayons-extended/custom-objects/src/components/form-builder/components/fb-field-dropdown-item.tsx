@@ -15,7 +15,6 @@ import {
   hasCustomProperty,
   i18nText,
   getMaxLimitProperty,
-  getMaximumLimitsConfig,
 } from '../utils/form-builder-utils';
 
 @Component({
@@ -230,7 +229,10 @@ export class FbFieldDropdownItem {
       return null;
     }
 
-    const objMaxLimits = getMaximumLimitsConfig(this.productName);
+    const objMaxLimits = getMaxLimitProperty(
+      this.productName,
+      'maxChoiceChars'
+    );
 
     const strErrorMsg = hasCustomProperty(dpSource, 'error')
       ? dpSource.error
