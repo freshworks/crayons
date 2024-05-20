@@ -1053,7 +1053,15 @@ export class FieldEditor {
 
     let strInternalName = '';
     let boolInternalNameUpdated = false;
-    if ((!this.isInternalNameEdited && this.isNewField) || field.isNew) {
+    const objMaxLimitFieldInternalName = getMaxLimitProperty(
+      this.productName,
+      'maxInternalNameChars'
+    );
+    if (
+      ((!this.isInternalNameEdited && this.isNewField) || field.isNew) &&
+      objMaxLimitFieldInternalName &&
+      strInputValue.length <= objMaxLimitFieldInternalName.count
+    ) {
       strInternalName = deriveInternalNameFromLabel(strInputValue);
       boolInternalNameUpdated = true;
     }
@@ -1088,8 +1096,7 @@ export class FieldEditor {
         'maxInternalNameChars'
       );
       if (
-        !this.internalNameWarningMessage &&
-        this.internalNameWarningMessage !== '' &&
+        this.internalNameWarningMessage === '' &&
         objMaxLimitFieldName &&
         strInternalName.length >= objMaxLimitFieldName.count
       ) {
@@ -1099,6 +1106,8 @@ export class FieldEditor {
             count: objMaxLimitFieldName.count,
           }
         );
+      } else {
+        this.internalNameWarningMessage = '';
       }
 
       if (!this.isInternalNameEdited || field.isNew) {
