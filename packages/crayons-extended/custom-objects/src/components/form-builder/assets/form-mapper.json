@@ -272,6 +272,10 @@
         "count": 255,
         "message": "maximumLimits.maxCharsWarning"
       },
+      "maxChoiceChars": {
+        "count": 255,
+        "message": "maximumLimits.maxCharsChoicesWarning"
+      },
       "maxInternalNameChars": {
         "count": 50,
         "message": "maximumLimits.maxCharsWarning"
