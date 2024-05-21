@@ -17,6 +17,7 @@ import {
   buildChoicesFromText,
   getParentId,
   getChildChoices,
+  getMaximumLimitsConfig,
 } from './form-builder-utils';
 
 describe('getFieldBasedOnLevel', () => {
@@ -584,5 +585,49 @@ describe('getChildChoices', () => {
       choices: [],
       pId: 'parent1',
     });
+  });
+});
+describe('getMaximumLimitsConfig', () => {
+  it('returns maximum limits config for CUSTOM_OBJECTS', () => {
+    const formMapper = {
+      CUSTOM_OBJECTS: {
+        maximumLimits: {
+          DECIMAL: { count: 20, message: 'maximumLimits.fields' },
+        },
+      },
+    };
+    const result = getMaximumLimitsConfig();
+    expect(result.DECIMAL.count).toEqual(
+      formMapper.CUSTOM_OBJECTS.maximumLimits.DECIMAL.count
+    );
+  });
+
+  it('returns maximum limits config for Internal Name', () => {
+    const formMapper = {
+      CUSTOM_OBJECTS: {
+        maximumLimits: {
+          maxInternalNameChars: {
+            count: 50,
+            message: 'maximumLimits.maxCharsWarning',
+          },
+        },
+      },
+    };
+    const result = getMaximumLimitsConfig();
+    expect(result.maxInternalNameChars.count).toEqual(
+      formMapper.CUSTOM_OBJECTS.maximumLimits.maxInternalNameChars.count
+    );
+  });
+
+  it('returns null when productName is not found in formMapper', () => {
+    const formMapper = {
+      OTHER_PRODUCT: {
+        maximumLimits: {
+          DECIMAL: { count: 20, message: 'maximumLimits.fields' },
+        },
+      },
+    };
+    const result = getMaximumLimitsConfig('OTHER_PRODUCT');
+    expect(result).toBeNull();
   });
 });
