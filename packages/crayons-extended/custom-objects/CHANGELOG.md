@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.12](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.11...@freshworks/crayons-custom-objects@1.4.0-beta.12) (2024-05-22)
+
+
+### Bug Fixes
+
+* added validation for dropdown ([3c4c376](https://github.com/freshworks/crayons/commit/3c4c37606b5c9e6bffb93ee0201add8fc73e8b51))
+* bug fix ([c8657b3](https://github.com/freshworks/crayons/commit/c8657b3a3d43cfa54cb7b8eed716843c4dc3ff99))
+* fix ([cb9646e](https://github.com/freshworks/crayons/commit/cb9646ea5aefe819d8e9a66840630fd4306567c1))
+* test cases add ([5401509](https://github.com/freshworks/crayons/commit/540150915dad8b41f07c1f1fba2cb92069476b09))
+* user is not shown with the correct error message on exceeding the limit for internal name field ([45f801d](https://github.com/freshworks/crayons/commit/45f801dc681d24aaa7b0808a94278e309336cdf5))
+
+
+
+
+
 ## [1.4.0-beta.10](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.9...@freshworks/crayons-custom-objects@1.4.0-beta.10) (2024-04-10)
 
 ### Bug Fixes

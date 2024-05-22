@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.1-beta.1...@freshworks/crayons-i18n@4.2.1-beta.2) (2024-05-22)
+
+
+### Bug Fixes
+
+* added validation for dropdown ([3c4c376](https://github.com/freshworks/crayons/commit/3c4c37606b5c9e6bffb93ee0201add8fc73e8b51))
+
+
+
+
+
 ## [4.2.0-beta.8](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.0-beta.7...@freshworks/crayons-i18n@4.2.0-beta.8) (2023-06-27)
 
 ### Features
