@@ -1485,6 +1485,7 @@ export class FieldEditor {
             }
             onFwBlur={(el) => this.internalNameBlurHandler(el, level)}
             onFwInput={(el) => this.internalNameInputHandler(el, level)}
+            onFwFocus={(el) => this.internalNameInputHandler(el, level)}
           ></fw-input>
         </div>
       </div>
