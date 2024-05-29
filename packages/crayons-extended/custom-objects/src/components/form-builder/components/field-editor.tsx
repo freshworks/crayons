@@ -1059,10 +1059,13 @@ export class FieldEditor {
     );
     if (
       ((!this.isInternalNameEdited && this.isNewField) || field.isNew) &&
-      objMaxLimitFieldInternalName &&
-      strInputValue.length <= objMaxLimitFieldInternalName.count
+      objMaxLimitFieldInternalName
     ) {
-      strInternalName = deriveInternalNameFromLabel(strInputValue);
+      const derivedInternalName = deriveInternalNameFromLabel(strInputValue);
+      strInternalName =
+        strInputValue.length <= objMaxLimitFieldInternalName.count
+          ? derivedInternalName
+          : derivedInternalName.slice(0, objMaxLimitFieldInternalName.count);
       boolInternalNameUpdated = true;
     }
 
@@ -1106,7 +1109,7 @@ export class FieldEditor {
             count: objMaxLimitFieldName.count,
           }
         );
-      } else {
+      } else if (strInternalName.length < objMaxLimitFieldName.count) {
         this.internalNameWarningMessage = '';
       }
 
