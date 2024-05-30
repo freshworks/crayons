@@ -1571,6 +1571,7 @@ export class FieldEditor {
         disabled={boolDIsableInputLabel}
         onFwBlur={(el) => this.labelBlurHandler(el, level)}
         onFwInput={(el) => this.labelInputHandler(el, level)}
+        onFwFocus={(el) => this.labelBlurHandler(el, level)}
       ></fw-input>
     );
   }
