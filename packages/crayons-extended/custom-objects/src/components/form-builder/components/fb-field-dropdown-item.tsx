@@ -212,11 +212,10 @@ export class FbFieldDropdownItem {
 
   private nameFocusHandler = (event: CustomEvent) => {
     if (!this.isDependentField) {
+      this.performLabelChange(event, true);
       return;
     }
 
-    event.stopImmediatePropagation();
-    event.stopPropagation();
     this.fwSelect.emit({
       index: this.index,
       id: this.dataProvider.id,
