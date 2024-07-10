@@ -4,4 +4,4 @@
 
 Custom objects is an extension of crayons components. This collection of [Web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) helps developers build apps that adhere to the UX standards set by the Freshworks Design System.
 
-These components are designed to be used in traditional frontend view libraries/frameworks or on their own through traditional JavaScript in the browser.
+These components are designed to be used in traditional frontend view libraries/frameworks or on their own through traditional JavaScript in the browser. Custom Objects / Conversation Properties are available in this custom objects crayons component.
