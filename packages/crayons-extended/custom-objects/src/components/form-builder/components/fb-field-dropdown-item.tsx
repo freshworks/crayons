@@ -30,7 +30,7 @@ export class FbFieldDropdownItem {
   /**
    * State to show label input warning message
    */
-  @State() labelWarningMessage = '';
+  @State() labelWarningMsg = '';
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
    */
@@ -144,14 +144,14 @@ export class FbFieldDropdownItem {
         objMaxLimitField &&
         strUpdatedValue.length >= objMaxLimitField.count
       ) {
-        this.labelWarningMessage = i18nText(objMaxLimitField.message, {
+        this.labelWarningMsg = i18nText(objMaxLimitField.message, {
           count: objMaxLimitField.count,
         });
       } else {
-        this.labelWarningMessage = '';
+        this.labelWarningMsg = '';
       }
     } else {
-      this.labelWarningMessage = '';
+      this.labelWarningMsg = '';
     }
     if (
       !strUpdatedValue ||
@@ -244,14 +244,10 @@ export class FbFieldDropdownItem {
     }
 
     const boolShowLabelWarning =
-      !showFieldNameError &&
-      this.labelWarningMessage &&
-      this.labelWarningMessage !== ''
+      !showFieldNameError && this.labelWarningMsg && this.labelWarningMsg !== ''
         ? true
         : false;
-    const strInputWarning = boolShowLabelWarning
-      ? this.labelWarningMessage
-      : '';
+    const strInputWarning = boolShowLabelWarning ? this.labelWarningMsg : '';
 
     const strBaseClassName = 'fb-field-dropdown-item';
     const formattedInputPrompt = `${this.toOrdinalSuffix(
