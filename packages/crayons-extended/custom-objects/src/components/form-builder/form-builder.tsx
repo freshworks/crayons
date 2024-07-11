@@ -80,7 +80,7 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) lookupTargetObjects = null;
   /**
-   * flag to show lookupField is for CONVERSATION_PROPERTIES or not
+   * flag to show lookupField for CONVERSATION_PROPERTIES or not
    */
   @Prop({ mutable: true }) showLookupField = true;
   /**
