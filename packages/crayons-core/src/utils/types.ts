@@ -4,7 +4,7 @@ export type TagVariant = 'standard' | 'avatar';
 
 export type TagState = 'normal' | 'error' | 'transparent';
 
-export type DropdownVariant = 'standard' | 'icon' | 'avatar';
+export type DropdownVariant = 'standard' | 'icon' | 'avatar' | 'conversation';
 
 export type PopoverPlacementType =
   | 'top-start'
@@ -103,4 +103,10 @@ export type DataTableActionWithGraphics = {
   hideForRowIds?: string[];
   handler: (row: DataTableRow) => any;
   graphicsProps?: GraphicsProps;
+};
+
+export type Author = {
+  name?: string;
+  email?: string;
+  phone?: string;
 };

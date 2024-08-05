@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
+import { Author, DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
 import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
@@ -1967,6 +1967,10 @@ export namespace Components {
           * Whether clicking on option selects it.
          */
         "allowSelect": boolean;
+        /**
+          * Third line text in conversation can be author details etc.
+         */
+        "author": Author;
         /**
           * Place a checkbox.
          */
@@ -5071,6 +5075,10 @@ declare namespace LocalJSX {
           * Whether clicking on option selects it.
          */
         "allowSelect"?: boolean;
+        /**
+          * Third line text in conversation can be author details etc.
+         */
+        "author"?: Author;
         /**
           * Place a checkbox.
          */
