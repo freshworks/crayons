@@ -87,6 +87,18 @@ $bg-color-disabled: $color-smoke-25;
       color: $color-smoke-700;
     }
 
+    &-subText-conversation {
+      font-weight: $font-weight-400;
+      font-size: $font-size-14;
+      color: $color-smoke-700;
+    }
+
+    &-author-details {
+      font-weight: $font-weight-400;
+      font-size: $font-size-12;
+      color: $color-smoke-700;
+    }
+
     &.icon-margin {
       margin-inline-start: 18px;
     }

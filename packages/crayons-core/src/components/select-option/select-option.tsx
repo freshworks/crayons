@@ -10,7 +10,7 @@ import {
   Method,
   Listen,
 } from '@stencil/core';
-import { DropdownVariant } from '../../utils/types';
+import { Author, DropdownVariant } from '../../utils/types';
 
 /**
  * @parent select
@@ -61,6 +61,10 @@ export class SelectOption {
    * Second line text can be description etc.
    */
   @Prop({ reflect: true }) subText: string;
+  /**
+   * Third line text in conversation can be author details etc.
+   */
+  @Prop({ reflect: true }) author: Author;
   /**
    * Used in grouped list, provides the group in which the option belongs
    */
@@ -180,6 +184,15 @@ export class SelectOption {
             {selectedIconContainer}
           </Fragment>
         );
+      case 'conversation':
+        return (
+          <Fragment>
+            {checkbox}
+            {this.createIcon()}
+            {this.createConversationDescription()}
+            {selectedIconContainer}
+          </Fragment>
+        );
       default:
         return (
           <Fragment>
@@ -211,6 +224,25 @@ export class SelectOption {
       >
         {this.text}
       </span>
+    );
+  }
+
+  createConversationDescription() {
+    const authorDetails = [];
+    if (this.author.name) authorDetails.push(this.author.name);
+    if (this.author.email) authorDetails.push(this.author.email);
+    if (this.author.phone) authorDetails.push(this.author.phone);
+
+    return this.subText ? (
+      <div class={'description ' + 'icon-margin '}>
+        <span class='description-text'>{this.text}</span>
+        <span class='description-subText-conversation'>{this.subText}</span>
+        <span class='description-author-details'>
+          {authorDetails?.join(' | ')}
+        </span>
+      </div>
+    ) : (
+      <span class={'description ' + 'icon-margin'}>{this.text}</span>
     );
   }
 
