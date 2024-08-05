@@ -98,4 +98,36 @@ describe('fw-select-option', () => {
     expect(text).toBeTruthy();
     expect(text.innerText).toBe('This is a select option');
   });
+
+  it('should render text when variant is conversaton', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" author.name="Author Name" author.email="author@example.com" author.phone="123-456-7890"></fw-select-option>'
+    );
+
+    await page.$eval('fw-select-option', (elm: any) => {
+      elm.variant = 'icon';
+    });
+    await page.waitForChanges();
+
+    await page.$eval('fw-select-option', (elm: any) => {
+      elm.variant = undefined;
+    });
+    await page.waitForChanges();
+
+    const text = await page.find('fw-select-option >>> .description');
+    expect(text).toBeTruthy();
+    expect(text.innerText).toBe('This is a select option description');
+
+    const authorName = await page.$eval('fw-select-option', (elm: any) =>
+      elm.getAttribute('author.name')
+    );
+    expect(authorName).toBe('Author Name');
+
+    const authorPhone = await page.$eval('fw-select-option', (elm: any) =>
+      elm.getAttribute('author.phone')
+    );
+    expect(authorPhone).toBe('123-456-7890');
+  });
 });
