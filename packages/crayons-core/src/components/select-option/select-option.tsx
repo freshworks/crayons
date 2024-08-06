@@ -247,6 +247,13 @@ export class SelectOption {
   }
 
   createIcon() {
+    const { imageSrc } = this.graphicsProps;
+
+    if (imageSrc) {
+      return (
+        <img src={imageSrc} class='image-icon-dimension-standard' alt='icon' />
+      );
+    }
     return <fw-icon {...this.graphicsProps}></fw-icon>;
   }
 
