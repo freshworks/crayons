@@ -97,6 +97,10 @@ export function isPrimaryFieldType(
   return false;
 }
 
+export function isDropdownField(dataItem) {
+  return dataItem.type === 'DROPDOWN';
+}
+
 // function to check if the field is unique
 export function isUniqueField(objField) {
   try {

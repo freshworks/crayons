@@ -15,6 +15,7 @@ import {
 } from '@stencil/core';
 import presetSchema from '../assets/form-builder-preset.json';
 import formMapper from '../assets/form-mapper.json';
+import { TranslationController } from '../../../global/Translation';
 import {
   buildChoicesFromText,
   checkIfCustomToggleField,
@@ -152,6 +153,8 @@ export class FieldEditor {
     edit: boolean;
     delete: boolean;
   } = { view: true, create: true, edit: true, delete: true };
+
+  @Prop() showSection = false;
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -2048,6 +2051,28 @@ export class FieldEditor {
                 </div>
               )}
             </div>
+            {!isDefaultNonCustomField && this.showSection && (
+              <fw-tooltip
+                placement='left'
+                trigger='hover'
+                content='This is the tooltip that activates on hover'
+              >
+                <fw-button
+                  color='text'
+                  class={`${strBaseClassName}-add-section-btn`}
+                >
+                  <fw-icon
+                    name='square-plus'
+                    slot='before-label'
+                    size='16'
+                    library='system'
+                  ></fw-icon>
+                  <span class={`${strBaseClassName}-add-section-text`}>
+                    {TranslationController.t('formBuilder.sections.add')}{' '}
+                  </span>
+                </fw-button>
+              </fw-tooltip>
+            )}
             {!this.expanded &&
               !this.isPrimaryField &&
               !this.isDeleting &&
