@@ -24,6 +24,7 @@ import {
   isUniqueField,
   getDefaultDependentLevels,
   checkAndAppendLevel3,
+  isDropdownField,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -1003,8 +1004,9 @@ export class FormBuilder {
       intIndex,
       !this.searching
     );
-    const boolItemExpanded =
-      this.expandedFieldIndex === intIndex ? true : false;
+
+    const showSection = isDropdownField(dataItem),
+      boolItemExpanded = this.expandedFieldIndex === intIndex ? true : false;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
@@ -1029,6 +1031,7 @@ export class FormBuilder {
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
         dependentFieldLink={this.dependentFieldLink}
+        showSection={showSection}
         onFwUpdate={this.saveFieldHandler}
         onFwDelete={this.deleteFieldHandler}
         onFwExpand={this.expandFieldHandler}

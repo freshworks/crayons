@@ -125,6 +125,15 @@
       transition: opacity 0.3s;
     }
 
+    .fw-field-editor-add-section-btn {
+      background: $color-smoke-25;
+      border-radius: 4px;
+
+      .fw-field-editor-add-section-text {
+        color: $color-azure-800;
+      }
+    }
+
     .fw-field-editor-lock-container {
       width: 16px;
       height: 16px;

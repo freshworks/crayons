@@ -190,6 +190,9 @@
       "maxCharsWarning": "You have reached a maximum limit of {{count}} characters.",
       "maxChoiceOptionsWarning": "You have added maximum limit of {{count}} choices.",
       "maxCharsChoicesWarning": "Choice name should not exceed {{count}} characters."
+    },
+    "sections": {
+      "add": "Add Section"
     }
   },
   "platformCouiWidgets": {

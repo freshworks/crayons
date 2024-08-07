@@ -254,6 +254,7 @@ export namespace Components {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
+        "showSection": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1085,6 +1086,7 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+        "showSection"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
