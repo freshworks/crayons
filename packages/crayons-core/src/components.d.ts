@@ -2509,6 +2509,10 @@ export namespace Components {
          */
         "fallbackPlacements": [PopoverPlacementType];
         /**
+          * Header of the tooltip.
+         */
+        "header": string;
+        /**
           * Hides the tooltip.
           * @returns promise that resolves to true
          */
@@ -5660,6 +5664,10 @@ declare namespace LocalJSX {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Header of the tooltip.
+         */
+        "header"?: string;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */

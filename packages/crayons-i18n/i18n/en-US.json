@@ -192,7 +192,11 @@
       "maxCharsChoicesWarning": "Choice name should not exceed {{count}} characters."
     },
     "sections": {
-      "add": "Add Section"
+      "add": "Add Section",
+      "hide": "Hide sections",
+      "show": "Show sections",
+      "addTooltipTitle": "Dynamic Sections",
+      "addTooltipDescription": "Sections are conditional fields that show up based on the rules you have defined."
     }
   },
   "platformCouiWidgets": {

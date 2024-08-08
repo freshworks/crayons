@@ -1,0 +1,39 @@
+@import '../styles/variables/form-builder-style-utils.scss';
+
+:host {
+  max-width: $form-builder-field-editor-max-width;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.fb-section-container {
+  height: 210px;
+  width: 100%;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-radius: 4px;
+  border: 1px solid $color-smoke-100;
+  background: $color-smoke-25;
+  box-sizing: border-box;
+
+  .fb-section-visibility {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    .fb-section-count {
+      padding-block: 1px;
+      padding-inline: 8px;
+      border-radius: 8px;
+      background: #475867;
+      color: $color-milk;
+      text-align: center;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+  }
+}

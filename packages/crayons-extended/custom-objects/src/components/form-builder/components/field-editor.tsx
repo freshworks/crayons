@@ -2055,7 +2055,12 @@ export class FieldEditor {
               <fw-tooltip
                 placement='left'
                 trigger='hover'
-                content='This is the tooltip that activates on hover'
+                content={TranslationController.t(
+                  'formBuilder.sections.addTooltipDescription'
+                )}
+                header={TranslationController.t(
+                  'formBuilder.sections.addTooltipTitle'
+                )}
               >
                 <fw-button
                   color='text'
@@ -2068,7 +2073,7 @@ export class FieldEditor {
                     library='system'
                   ></fw-icon>
                   <span class={`${strBaseClassName}-add-section-text`}>
-                    {TranslationController.t('formBuilder.sections.add')}{' '}
+                    {TranslationController.t('formBuilder.sections.add')}
                   </span>
                 </fw-button>
               </fw-tooltip>

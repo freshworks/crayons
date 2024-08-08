@@ -6,6 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface FbFieldDragDropItem {
+        "fieldElement": any;
+    }
     interface FwCoExport {
         "close": () => Promise<boolean>;
         /**
@@ -655,6 +658,12 @@ export interface FwWidgetCustomizeFieldItemCustomEvent<T> extends CustomEvent<T>
     target: HTMLFwWidgetCustomizeFieldItemElement;
 }
 declare global {
+    interface HTMLFbFieldDragDropItemElement extends Components.FbFieldDragDropItem, HTMLStencilElement {
+    }
+    var HTMLFbFieldDragDropItemElement: {
+        prototype: HTMLFbFieldDragDropItemElement;
+        new (): HTMLFbFieldDragDropItemElement;
+    };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
     var HTMLFwCoExportElement: {
@@ -770,6 +779,7 @@ declare global {
         new (): HTMLFwWidgetCustomizeFieldItemElement;
     };
     interface HTMLElementTagNameMap {
+        "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -792,6 +802,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FbFieldDragDropItem {
+        "fieldElement"?: any;
+    }
     interface FwCoExport {
         /**
           * The value to show the modal or close
@@ -1475,6 +1488,7 @@ declare namespace LocalJSX {
         "selected"?: boolean;
     }
     interface IntrinsicElements {
+        "fb-field-drag-drop-item": FbFieldDragDropItem;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1500,6 +1514,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;

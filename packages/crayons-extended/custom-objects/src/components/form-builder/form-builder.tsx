@@ -987,7 +987,8 @@ export class FormBuilder {
     dataItem,
     intIndex,
     boolFieldEditingState,
-    strEntityName
+    strEntityName,
+    showSection
   ) {
     if (!dataItem) {
       return null;
@@ -1005,8 +1006,8 @@ export class FormBuilder {
       !this.searching
     );
 
-    const showSection = isDropdownField(dataItem),
-      boolItemExpanded = this.expandedFieldIndex === intIndex ? true : false;
+    const boolItemExpanded =
+      this.expandedFieldIndex === intIndex ? true : false;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
@@ -1130,14 +1131,20 @@ export class FormBuilder {
 
     const fieldElements =
       arrFieldElements && arrFieldElements.length > 0
-        ? arrFieldElements.map((dataItem, index) =>
-            this.renderFieldEditorElement(
-              dataItem,
-              index,
-              boolFieldEditingState,
-              strEntityName
-            )
-          )
+        ? arrFieldElements.map((dataItem, index) => {
+            const showSection = isDropdownField(dataItem);
+            return (
+              <fb-field-drag-drop-item
+                fieldElement={this.renderFieldEditorElement(
+                  dataItem,
+                  index,
+                  boolFieldEditingState,
+                  strEntityName,
+                  showSection
+                )}
+              ></fb-field-drag-drop-item>
+            );
+          })
         : null;
 
     const boolShowEmptySearchResults =
