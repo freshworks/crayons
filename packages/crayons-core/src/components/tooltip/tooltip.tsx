@@ -112,7 +112,7 @@ export class Tooltip {
               slot='popover-content'
               role='tooltip'
             >
-              {this.header?.length && <h3>{this.header}</h3>}
+              {!!this.header?.length && <h3>{this.header}</h3>}
               {this.content.trim()}
             </div>
           )
