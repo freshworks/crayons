@@ -62,7 +62,7 @@ export class SelectOption {
    */
   @Prop({ reflect: true }) subText: string;
   /**
-   * Third line text in conversation can be author details etc.
+   * Third line text in conversation can be metaText additional details etc.
    */
   @Prop({ reflect: true }) metaText: MetaText;
   /**
@@ -237,7 +237,7 @@ export class SelectOption {
       <div class={'description ' + 'icon-margin '}>
         <span class='description-text'>{this.text}</span>
         <span class='description-subText-conversation'>{this.subText}</span>
-        <span class='description-author-details'>
+        <span class='description-metaText-details'>
           {metaTextDetails?.join(' | ')}
         </span>
       </div>

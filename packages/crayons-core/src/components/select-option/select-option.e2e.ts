@@ -103,7 +103,7 @@ describe('fw-select-option', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" author.name="Author Name" author.email="author@example.com" author.mobile="123-456-7890"></fw-select-option>'
+      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" metaText.name="Author Name" metaText.email="author@example.com" metaText.mobile="123-456-7890"></fw-select-option>'
     );
 
     await page.$eval('fw-select-option', (elm: any) => {
@@ -121,12 +121,12 @@ describe('fw-select-option', () => {
     expect(text.innerText).toBe('This is a select option description');
 
     const authorName = await page.$eval('fw-select-option', (elm: any) =>
-      elm.getAttribute('author.name')
+      elm.getAttribute('metaText.name')
     );
     expect(authorName).toBe('Author Name');
 
     const authorMobile = await page.$eval('fw-select-option', (elm: any) =>
-      elm.getAttribute('author.mobile')
+      elm.getAttribute('metaText.mobile')
     );
     expect(authorMobile).toBe('123-456-7890');
   });
