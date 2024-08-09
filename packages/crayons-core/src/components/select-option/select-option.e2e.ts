@@ -103,7 +103,7 @@ describe('fw-select-option', () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" author.name="Author Name" author.email="author@example.com" author.phone="123-456-7890"></fw-select-option>'
+      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" author.name="Author Name" author.email="author@example.com" author.mobile="123-456-7890"></fw-select-option>'
     );
 
     await page.$eval('fw-select-option', (elm: any) => {
