@@ -105,8 +105,8 @@ export type DataTableActionWithGraphics = {
   graphicsProps?: GraphicsProps;
 };
 
-export type Author = {
+export type MetaText = {
   name?: string;
   email?: string;
-  phone?: string;
+  mobile?: string;
 };

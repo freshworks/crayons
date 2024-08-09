@@ -125,9 +125,9 @@ describe('fw-select-option', () => {
     );
     expect(authorName).toBe('Author Name');
 
-    const authorPhone = await page.$eval('fw-select-option', (elm: any) =>
-      elm.getAttribute('author.phone')
+    const authorMobile = await page.$eval('fw-select-option', (elm: any) =>
+      elm.getAttribute('author.mobile')
     );
-    expect(authorPhone).toBe('123-456-7890');
+    expect(authorMobile).toBe('123-456-7890');
   });
 });

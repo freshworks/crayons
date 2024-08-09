@@ -10,7 +10,7 @@ import {
   Method,
   Listen,
 } from '@stencil/core';
-import { Author, DropdownVariant } from '../../utils/types';
+import { DropdownVariant, MetaText } from '../../utils/types';
 
 /**
  * @parent select
@@ -64,7 +64,7 @@ export class SelectOption {
   /**
    * Third line text in conversation can be author details etc.
    */
-  @Prop({ reflect: true }) author: Author;
+  @Prop({ reflect: true }) metaText: MetaText;
   /**
    * Used in grouped list, provides the group in which the option belongs
    */
@@ -228,17 +228,17 @@ export class SelectOption {
   }
 
   createConversationDescription() {
-    const authorDetails = [];
-    if (this.author.name) authorDetails.push(this.author.name);
-    if (this.author.email) authorDetails.push(this.author.email);
-    if (this.author.phone) authorDetails.push(this.author.phone);
+    const metaTextDetails = [];
+    if (this.metaText.name) metaTextDetails.push(this.metaText.name);
+    if (this.metaText.email) metaTextDetails.push(this.metaText.email);
+    if (this.metaText.mobile) metaTextDetails.push(this.metaText.mobile);
 
     return this.subText ? (
       <div class={'description ' + 'icon-margin '}>
         <span class='description-text'>{this.text}</span>
         <span class='description-subText-conversation'>{this.subText}</span>
         <span class='description-author-details'>
-          {authorDetails?.join(' | ')}
+          {metaTextDetails?.join(' | ')}
         </span>
       </div>
     ) : (
