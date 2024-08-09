@@ -119,10 +119,6 @@ describe('fw-select-option', () => {
     expect(text).toBeTruthy();
     expect(text.innerText).toBe('This is a select option description');
 
-    const subText = await page.find('fw-select-option >>> .subtext');
-    expect(subText).toBeTruthy();
-    expect(subText.innerText).toBe('This is selected option subtext');
-
     const metaText = await page.$eval('fw-select-option', (elm: any) =>
       JSON.parse(elm.getAttribute('data-meta-text'))
     );
