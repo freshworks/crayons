@@ -99,20 +99,19 @@ describe('fw-select-option', () => {
     expect(text.innerText).toBe('This is a select option');
   });
 
-  it('should render text when variant is conversaton', async () => {
+  it('should render fw-select-option with conversation variant and verify attributes', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
-      '<fw-select-option text="This is a select option description" subText="This is selected option subtext" metaText.name="Author Name" metaText.email="author@example.com" metaText.mobile="123-456-7890"></fw-select-option>'
+      `<fw-select-option 
+          text="This is a select option description" 
+          subText="This is selected option subtext" 
+          data-meta-text='{"name": "Author Name", "email": "author@example.com", "mobile": "123-456-7890"}'>
+        </fw-select-option>`
     );
 
     await page.$eval('fw-select-option', (elm: any) => {
-      elm.variant = 'icon';
-    });
-    await page.waitForChanges();
-
-    await page.$eval('fw-select-option', (elm: any) => {
-      elm.variant = undefined;
+      elm.variant = 'conversation';
     });
     await page.waitForChanges();
 
@@ -120,14 +119,15 @@ describe('fw-select-option', () => {
     expect(text).toBeTruthy();
     expect(text.innerText).toBe('This is a select option description');
 
-    const authorName = await page.$eval('fw-select-option', (elm: any) =>
-      elm.getAttribute('metaText.name')
-    );
-    expect(authorName).toBe('Author Name');
+    const subText = await page.find('fw-select-option >>> .subtext');
+    expect(subText).toBeTruthy();
+    expect(subText.innerText).toBe('This is selected option subtext');
 
-    const authorMobile = await page.$eval('fw-select-option', (elm: any) =>
-      elm.getAttribute('metaText.mobile')
+    const metaText = await page.$eval('fw-select-option', (elm: any) =>
+      JSON.parse(elm.getAttribute('data-meta-text'))
     );
-    expect(authorMobile).toBe('123-456-7890');
+    expect(metaText.name).toBe('Author Name');
+    expect(metaText.email).toBe('author@example.com');
+    expect(metaText.mobile).toBe('123-456-7890');
   });
 });

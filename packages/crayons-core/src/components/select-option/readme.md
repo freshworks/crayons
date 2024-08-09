@@ -56,12 +56,6 @@ function App() {
   text="Checkbox Variant Without Tick Mark"
   sub-text="This is multiline checkbox element"
 ></fw-select-option>
-<fw-select-option 
-  text="This is a select option description" 
-  subText="This is selected option subtext" 
-  metaText.name="Author Name" 
-  metaText.email="author@example.com" 
-  metaText.mobile="123-456-7890"></fw-select-option>
 ```
 
 #### Usage - Variants

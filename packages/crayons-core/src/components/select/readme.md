@@ -1801,6 +1801,75 @@ function App() {
 </script>
 ```
 
+### Demo with conversation variant
+
+```html live
+<fw-select
+  id="conversationOptionsSelect"
+  label="Select Conversations"
+  placeholder="Your choices"
+  options-variant="conversation"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var conversationDataSource = [
+      {
+        id: '1',
+        name: 'When can I access my account?',
+        subText: 'When will i get my refund? prioritise it.',
+        author: {
+          name: 'User 1',
+        },
+        graphicsProps: { name: 'verified', size: '18px' },
+      },
+      {
+        id: '2',
+        name: 'When is my refund?',
+        subText:
+          'No Confirmation When will i get my.When will i get my refund? ...',
+        author: {
+          phone: '1234567890',
+          email: 'user@test.com',
+        },
+        graphicsProps: { name: 'magic-wand', size: '18px' },
+      },
+      {
+        id: '3',
+        name: 'Fix it now.',
+        subText: 'No Booking Confirmation',
+        author: {
+          name: 'User2',
+          phone: '1234567890',
+        },
+        graphicsProps: { name: 'instagram', size: '18px' },
+      },
+    ];
+    var conversationOptionsSelect = document.getElementById(
+      'conversationOptionsSelect'
+    );
+    conversationOptionsSelect.options = conversationDataSource;
+    conversationOptionsSelect.setSelectedOptions([
+      {
+        id: '2',
+        name: 'When will i get my.When will i get my refund? ...',
+        subText:
+          'No Confirmation When will i get my.When will i get my refund? ...',
+        author: {
+          phone: '1234567890',
+          email: 'harshith@test.com',
+        },
+        graphicsProps: { name: 'magic-wand', size: '18px' },
+      },
+    ]);
+    conversationOptionsSelect.addEventListener('fwChange', (e) => {
+      console.log(e.detail);
+    });
+</script>
+```
+
 </code-block>
 <code-block title="React">
 

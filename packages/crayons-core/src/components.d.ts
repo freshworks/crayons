@@ -1996,7 +1996,7 @@ export namespace Components {
          */
         "htmlContent"?: string;
         /**
-          * Third line text in conversation can be author details etc.
+          * Third line text in conversation can be metaText additional details etc.
          */
         "metaText": MetaText;
         /**
@@ -5104,7 +5104,7 @@ declare namespace LocalJSX {
          */
         "htmlContent"?: string;
         /**
-          * Third line text in conversation can be author details etc.
+          * Third line text in conversation can be metaText additional details etc.
          */
         "metaText"?: MetaText;
         /**
