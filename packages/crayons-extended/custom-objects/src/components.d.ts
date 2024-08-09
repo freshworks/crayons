@@ -7,7 +7,97 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FbFieldDragDropItem {
-        "fieldElement": any;
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema": any;
+        "deleteFieldHandler": any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Disable the repositioning option
+         */
+        "disabledSort": boolean;
+        "dynamicSectionsBetaEnabled": boolean;
+        /**
+          * Flag to enable / disable the the filterable option
+         */
+        "enableFilterable": boolean;
+        /**
+          * Flag to enable / disable the the unique option
+         */
+        "enableUnique": boolean;
+        /**
+          * defines the name of the entity to be used in Lookup field
+         */
+        "entityName": string;
+        "expandFieldHandler": any;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded": boolean;
+        /**
+          * variable to store form values
+         */
+        "formValues": any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading": boolean;
+        /**
+          * defines if the field is primary
+         */
+        "isPrimaryField": boolean;
+        "keyProp": any;
+        /**
+          * object to store the lookup target entities
+         */
+        "lookupTargetObjects": boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned": 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        "reorderFieldProgressHandler": any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
+        "saveFieldHandler": any;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
     }
     interface FwCoExport {
         "close": () => Promise<boolean>;
@@ -172,6 +262,7 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
+        "addSectionHandler": any;
         /**
           * data source used to set and edit the field values
          */
@@ -192,6 +283,7 @@ export namespace Components {
           * Disable the repositioning option
          */
         "disabledSort": boolean;
+        "dynamicSectionsBetaEnabled": boolean;
         /**
           * Flag to enable / disable the the filterable option
          */
@@ -257,7 +349,6 @@ export namespace Components {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
-        "showSection": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -372,6 +463,7 @@ export namespace Components {
           * link to show dependent field document
          */
         "dependentFieldLink": string;
+        "dynamicSectionsBetaEnabled": boolean;
         /**
           * svg image to be shown for empty record
          */
@@ -803,7 +895,97 @@ declare global {
 }
 declare namespace LocalJSX {
     interface FbFieldDragDropItem {
-        "fieldElement"?: any;
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema"?: any;
+        "deleteFieldHandler"?: any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Disable the repositioning option
+         */
+        "disabledSort"?: boolean;
+        "dynamicSectionsBetaEnabled"?: boolean;
+        /**
+          * Flag to enable / disable the the filterable option
+         */
+        "enableFilterable"?: boolean;
+        /**
+          * Flag to enable / disable the the unique option
+         */
+        "enableUnique"?: boolean;
+        /**
+          * defines the name of the entity to be used in Lookup field
+         */
+        "entityName"?: string;
+        "expandFieldHandler"?: any;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded"?: boolean;
+        /**
+          * variable to store form values
+         */
+        "formValues"?: any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading"?: boolean;
+        /**
+          * defines if the field is primary
+         */
+        "isPrimaryField"?: boolean;
+        "keyProp"?: any;
+        /**
+          * object to store the lookup target entities
+         */
+        "lookupTargetObjects"?: boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned"?: 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        "reorderFieldProgressHandler"?: any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
+        "saveFieldHandler"?: any;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
     }
     interface FwCoExport {
         /**
@@ -998,6 +1180,7 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
+        "addSectionHandler"?: any;
         /**
           * data source used to set and edit the field values
          */
@@ -1018,6 +1201,7 @@ declare namespace LocalJSX {
           * Disable the repositioning option
          */
         "disabledSort"?: boolean;
+        "dynamicSectionsBetaEnabled"?: boolean;
         /**
           * Flag to enable / disable the the filterable option
          */
@@ -1099,7 +1283,6 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
-        "showSection"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1222,6 +1405,7 @@ declare namespace LocalJSX {
           * link to show dependent field document
          */
         "dependentFieldLink"?: string;
+        "dynamicSectionsBetaEnabled"?: boolean;
         /**
           * svg image to be shown for empty record
          */

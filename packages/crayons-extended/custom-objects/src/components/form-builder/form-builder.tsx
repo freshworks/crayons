@@ -24,7 +24,6 @@ import {
   isUniqueField,
   getDefaultDependentLevels,
   checkAndAppendLevel3,
-  isDropdownField,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -116,6 +115,10 @@ export class FormBuilder {
    * svg image to be shown for empty record
    */
   @Prop() emptySearchImage = null;
+  /*
+   * Beta flag to enable Dynamic sections
+   */
+  @Prop() dynamicSectionsBetaEnabled = true;
   /**
    * State to store the formValues as a state to transfer the field types
    */
@@ -987,8 +990,7 @@ export class FormBuilder {
     dataItem,
     intIndex,
     boolFieldEditingState,
-    strEntityName,
-    showSection
+    strEntityName
   ) {
     if (!dataItem) {
       return null;
@@ -1011,9 +1013,9 @@ export class FormBuilder {
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
-      <fw-field-editor
+      <fb-field-drag-drop-item
         index={intIndex}
-        key={strKey}
+        keyProp={strKey}
         productName={this.productName}
         dataProvider={dataItem}
         entityName={strEntityName}
@@ -1032,12 +1034,12 @@ export class FormBuilder {
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
         dependentFieldLink={this.dependentFieldLink}
-        showSection={showSection}
-        onFwUpdate={this.saveFieldHandler}
-        onFwDelete={this.deleteFieldHandler}
-        onFwExpand={this.expandFieldHandler}
-        onFwReorder={this.reorderFieldProgressHandler}
-      ></fw-field-editor>
+        dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
+        saveFieldHandler={this.saveFieldHandler}
+        deleteFieldHandler={this.deleteFieldHandler}
+        expandFieldHandler={this.expandFieldHandler}
+        reorderFieldProgressHandler={this.reorderFieldProgressHandler}
+      ></fb-field-drag-drop-item>
     );
   }
 
@@ -1131,20 +1133,14 @@ export class FormBuilder {
 
     const fieldElements =
       arrFieldElements && arrFieldElements.length > 0
-        ? arrFieldElements.map((dataItem, index) => {
-            const showSection = isDropdownField(dataItem);
-            return (
-              <fb-field-drag-drop-item
-                fieldElement={this.renderFieldEditorElement(
-                  dataItem,
-                  index,
-                  boolFieldEditingState,
-                  strEntityName,
-                  showSection
-                )}
-              ></fb-field-drag-drop-item>
-            );
-          })
+        ? arrFieldElements.map((dataItem, index) =>
+            this.renderFieldEditorElement(
+              dataItem,
+              index,
+              boolFieldEditingState,
+              strEntityName
+            )
+          )
         : null;
 
     const boolShowEmptySearchResults =
