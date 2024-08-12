@@ -193,10 +193,14 @@
     },
     "sections": {
       "add": "Add Section",
+      "addTooltipTitle": "Dynamic Sections",
+      "addTooltipDescription": "Sections are conditional fields that show up based on the rules you have defined.",
       "hide": "Hide sections",
       "show": "Show sections",
-      "addTooltipTitle": "Dynamic Sections",
-      "addTooltipDescription": "Sections are conditional fields that show up based on the rules you have defined."
+      "new": "New section",
+      "sectionDescription": "Sections are conditional fields that show up based on the rules you have defined.",
+      "next": "Next",
+      "cancel": "Cancel"
     }
   },
   "platformCouiWidgets": {

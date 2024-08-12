@@ -161,7 +161,7 @@ export class FieldEditor {
   /*
    * Handler function to create a new section
    */
-  @Prop() addSectionHandler;
+  @Prop() setSectionsExpandStateHandler;
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -2075,7 +2075,7 @@ export class FieldEditor {
                     color='text'
                     class={`${strBaseClassName}-add-section-btn`}
                     onFwClick={() => {
-                      this.addSectionHandler();
+                      this.setSectionsExpandStateHandler(true);
                     }}
                   >
                     <fw-icon

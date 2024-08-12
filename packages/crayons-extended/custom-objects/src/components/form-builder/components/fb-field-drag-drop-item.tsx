@@ -124,8 +124,8 @@ export class FormBuilderFieldDragDropItem {
    */
   @State() sectionsExpanded = false;
 
-  private addSection = () => {
-    this.sectionsExpanded = true;
+  private setSectionsExpandState = (expanded) => {
+    this.sectionsExpanded = expanded;
   };
 
   render() {
@@ -153,14 +153,14 @@ export class FormBuilderFieldDragDropItem {
           showDependentFieldResolveProp={this.showDependentFieldResolveProp}
           dependentFieldLink={this.dependentFieldLink}
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
-          addSectionHandler={this.addSection}
+          setSectionsExpandStateHandler={this.setSectionsExpandState}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}
           onFwExpand={this.expandFieldHandler}
           onFwReorder={this.reorderFieldProgressHandler}
         ></fw-field-editor>
         {this.sectionsExpanded && (
-          <section class='fb-section-container'>
+          <div class='fb-section-container'>
             <div class='fb-section-visibility'>
               {this.sectionsExpanded ? (
                 <span class='fb-section-hide'>
@@ -172,9 +172,16 @@ export class FormBuilderFieldDragDropItem {
                 </span>
               )}
               <i class='fb-section-count'>1</i>
-              <fw-icon class='fb-section-' name='chevron-up'></fw-icon>
+              <fw-icon
+                class={{
+                  'fb-section-arrow-down': !this.sectionsExpanded,
+                }}
+                size='10'
+                name='chevron-up'
+              ></fw-icon>
             </div>
-          </section>
+            <fb-section />
+          </div>
         )}
       </Host>
     );

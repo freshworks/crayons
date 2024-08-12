@@ -8,7 +8,6 @@
 }
 
 .fb-section-container {
-  height: 210px;
   width: 100%;
   padding-block: 8px;
   padding-inline: 12px;
@@ -22,6 +21,7 @@
     align-items: center;
     gap: 8px;
     align-self: stretch;
+    margin-block-end: 8px;
 
     .fb-section-count {
       padding-block: 1px;
@@ -34,6 +34,14 @@
       font-style: normal;
       font-weight: 600;
       line-height: normal;
+    }
+
+    .fb-section-hide {
+      font-size: 12px;
+    }
+
+    .fb-section-arrow-down {
+      rotate: transform(180deg);
     }
   }
 }

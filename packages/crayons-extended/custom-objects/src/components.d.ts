@@ -99,6 +99,8 @@ export namespace Components {
          */
         "showDependentFieldResolveProp": boolean;
     }
+    interface FbSection {
+    }
     interface FwCoExport {
         "close": () => Promise<boolean>;
         /**
@@ -262,7 +264,6 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
-        "addSectionHandler": any;
         /**
           * data source used to set and edit the field values
          */
@@ -345,6 +346,7 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        "setSectionsExpandStateHandler": any;
         /**
           * flag to show dependentField resolve checkbox
          */
@@ -756,6 +758,12 @@ declare global {
         prototype: HTMLFbFieldDragDropItemElement;
         new (): HTMLFbFieldDragDropItemElement;
     };
+    interface HTMLFbSectionElement extends Components.FbSection, HTMLStencilElement {
+    }
+    var HTMLFbSectionElement: {
+        prototype: HTMLFbSectionElement;
+        new (): HTMLFbSectionElement;
+    };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
     var HTMLFwCoExportElement: {
@@ -872,6 +880,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
+        "fb-section": HTMLFbSectionElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -986,6 +995,8 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+    }
+    interface FbSection {
     }
     interface FwCoExport {
         /**
@@ -1180,7 +1191,6 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
-        "addSectionHandler"?: any;
         /**
           * data source used to set and edit the field values
          */
@@ -1279,6 +1289,7 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        "setSectionsExpandStateHandler"?: any;
         /**
           * flag to show dependentField resolve checkbox
          */
@@ -1673,6 +1684,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fb-field-drag-drop-item": FbFieldDragDropItem;
+        "fb-section": FbSection;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1699,6 +1711,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
+            "fb-section": LocalJSX.FbSection & JSXBase.HTMLAttributes<HTMLFbSectionElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
