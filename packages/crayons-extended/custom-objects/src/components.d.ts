@@ -100,6 +100,11 @@ export namespace Components {
         "showDependentFieldResolveProp": boolean;
     }
     interface FbSection {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        "setSectionsExpandStateHandler": any;
     }
     interface FwCoExport {
         "close": () => Promise<boolean>;
@@ -346,11 +351,13 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        "sectionsExpanded": boolean;
         "setSectionsExpandStateHandler": any;
         /**
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
+        "showSection": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -997,6 +1004,11 @@ declare namespace LocalJSX {
         "showDependentFieldResolveProp"?: boolean;
     }
     interface FbSection {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        "setSectionsExpandStateHandler"?: any;
     }
     interface FwCoExport {
         /**
@@ -1289,11 +1301,13 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        "sectionsExpanded"?: boolean;
         "setSectionsExpandStateHandler"?: any;
         /**
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+        "showSection"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**

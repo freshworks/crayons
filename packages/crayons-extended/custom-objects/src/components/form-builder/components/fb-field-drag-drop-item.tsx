@@ -1,5 +1,10 @@
 import { Component, Prop, h, Host, State } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
+import formMapper from '../assets/form-mapper.json';
+import {
+  hasCustomProperty,
+  isDropdownField,
+} from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fb-field-drag-drop-item',
@@ -129,6 +134,21 @@ export class FormBuilderFieldDragDropItem {
   };
 
   render() {
+    const objProductPreset = formMapper[this.productName];
+    const objProductConfig = objProductPreset.config;
+
+    const isDefaultNonCustomField =
+      objProductConfig?.showDefaultTag &&
+      objProductConfig?.defaultTagKey &&
+      objProductConfig.defaultTagKey !== '' &&
+      hasCustomProperty(this.dataProvider, objProductConfig.defaultTagKey) &&
+      !this.dataProvider[objProductConfig.defaultTagKey];
+
+    const showSection =
+      this.dynamicSectionsBetaEnabled &&
+      !isDefaultNonCustomField &&
+      isDropdownField(this.dataProvider);
+
     return (
       <Host tabIndex='-1'>
         <fw-field-editor
@@ -150,16 +170,18 @@ export class FormBuilderFieldDragDropItem {
           lookupTargetObjects={this.lookupTargetObjects}
           formValues={this.formValues}
           isLoading={this.isLoading}
+          sectionsExpanded={this.sectionsExpanded}
           showDependentFieldResolveProp={this.showDependentFieldResolveProp}
           dependentFieldLink={this.dependentFieldLink}
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
           setSectionsExpandStateHandler={this.setSectionsExpandState}
+          showSection={showSection}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}
           onFwExpand={this.expandFieldHandler}
           onFwReorder={this.reorderFieldProgressHandler}
         ></fw-field-editor>
-        {this.sectionsExpanded && (
+        {showSection && (
           <div class='fb-section-container'>
             <div class='fb-section-visibility'>
               {this.sectionsExpanded ? (
@@ -180,7 +202,12 @@ export class FormBuilderFieldDragDropItem {
                 name='chevron-up'
               ></fw-icon>
             </div>
-            <fb-section />
+            {this.sectionsExpanded && (
+              <fb-section
+                setSectionsExpandStateHandler={this.setSectionsExpandState}
+                dataProvider={this.dataProvider}
+              />
+            )}
           </div>
         )}
       </Host>

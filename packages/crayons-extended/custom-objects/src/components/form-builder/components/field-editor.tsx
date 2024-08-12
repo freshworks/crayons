@@ -33,7 +33,6 @@ import {
   hasPermission,
   hasStringDuplicates,
   i18nText,
-  isDropdownField,
   removeFirstOccurrence,
   removeIsNewFromField,
   updateChoicesInFields,
@@ -162,6 +161,14 @@ export class FieldEditor {
    * Handler function to create a new section
    */
   @Prop() setSectionsExpandStateHandler;
+  /*
+   * Sections expand state
+   */
+  @Prop() sectionsExpanded = false;
+  /*
+   * Show section
+   */
+  @Prop() showSection = false;
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -874,6 +881,7 @@ export class FieldEditor {
 
     if (!this.expanded) {
       this.dictInteractiveElements = {};
+      this.setSectionsExpandStateHandler(false);
       this.expanded = true;
 
       this.fwExpand.emit({
@@ -1888,10 +1896,11 @@ export class FieldEditor {
     const boolEditAllowed =
       this.isNewField || hasPermission(this.role, this.permission, 'EDIT');
     const boolDeleteAllowed = hasPermission(
-      this.role,
-      this.permission,
-      'DELETE'
-    );
+        this.role,
+        this.permission,
+        'DELETE'
+      ),
+      boolCreateAllowed = hasPermission(this.role, this.permission, 'CREATE');
     const boolDisableDelete = !boolDeleteAllowed;
 
     const boolShowDeleteModalInlineMsg =
@@ -2058,38 +2067,40 @@ export class FieldEditor {
                 </div>
               )}
             </div>
-            {this.dynamicSectionsBetaEnabled &&
-              !isDefaultNonCustomField &&
-              isDropdownField(this.dataProvider) && (
-                <fw-tooltip
-                  placement='left'
-                  trigger='hover'
-                  content={TranslationController.t(
-                    'formBuilder.sections.addTooltipDescription'
-                  )}
-                  header={TranslationController.t(
-                    'formBuilder.sections.addTooltipTitle'
-                  )}
+            {this.showSection && (
+              <fw-tooltip
+                placement='left'
+                trigger='hover'
+                content={TranslationController.t(
+                  'formBuilder.sections.addTooltipDescription'
+                )}
+                header={TranslationController.t(
+                  'formBuilder.sections.addTooltipTitle'
+                )}
+              >
+                <fw-button
+                  color='text'
+                  class={{
+                    'fw-field-editor-add-section-btn': true,
+                    'fw-field-editor-add-section-disable':
+                      this.sectionsExpanded || !boolCreateAllowed,
+                  }}
+                  onFwClick={() => {
+                    this.setSectionsExpandStateHandler(true);
+                  }}
                 >
-                  <fw-button
-                    color='text'
-                    class={`${strBaseClassName}-add-section-btn`}
-                    onFwClick={() => {
-                      this.setSectionsExpandStateHandler(true);
-                    }}
-                  >
-                    <fw-icon
-                      name='square-plus'
-                      slot='before-label'
-                      size='16'
-                      library='system'
-                    ></fw-icon>
-                    <span class={`${strBaseClassName}-add-section-text`}>
-                      {TranslationController.t('formBuilder.sections.add')}
-                    </span>
-                  </fw-button>
-                </fw-tooltip>
-              )}
+                  <fw-icon
+                    name='square-plus'
+                    slot='before-label'
+                    size='16'
+                    library='system'
+                  ></fw-icon>
+                  <span class={`${strBaseClassName}-add-section-text`}>
+                    {TranslationController.t('formBuilder.sections.add')}
+                  </span>
+                </fw-button>
+              </fw-tooltip>
+            )}
             {!this.expanded &&
               !this.isPrimaryField &&
               !this.isDeleting &&

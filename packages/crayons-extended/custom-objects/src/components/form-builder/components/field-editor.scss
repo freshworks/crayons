@@ -129,6 +129,11 @@
       background: $color-smoke-25;
       border-radius: 4px;
 
+      &.fw-field-editor-add-section-disable {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
       .fw-field-editor-add-section-text {
         color: $color-azure-800;
       }

@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 
 @Component({
@@ -7,7 +7,19 @@ import { TranslationController } from '../../../global/Translation';
   shadow: true,
 })
 export class FormBuilderSection {
+  /*
+   * Handler function to create a new section
+   */
+  @Prop() setSectionsExpandStateHandler;
+  /**
+   * data source used to set and edit the field values
+   */
+  @Prop({ mutable: true }) dataProvider = null;
+
   render() {
+    const options = this.dataProvider.choices.map((choice) => {
+      return { text: choice.value, value: choice.value };
+    });
     return (
       <section class='fb-section'>
         <header>
@@ -38,7 +50,8 @@ export class FormBuilderSection {
             <fw-select
               class='fb-section-content-value'
               label='Show section if Type is'
-              value='1'
+              value={options[0].text}
+              options={options}
             ></fw-select>
           </div>
         </div>
@@ -47,7 +60,12 @@ export class FormBuilderSection {
             {' '}
             {TranslationController.t('formBuilder.sections.next')}{' '}
           </fw-button>
-          <fw-button color='secondary'>
+          <fw-button
+            color='secondary'
+            onFwClick={() => {
+              this.setSectionsExpandStateHandler(false);
+            }}
+          >
             {' '}
             {TranslationController.t('formBuilder.sections.cancel')}{' '}
           </fw-button>
