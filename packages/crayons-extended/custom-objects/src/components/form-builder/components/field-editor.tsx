@@ -170,6 +170,10 @@ export class FieldEditor {
    */
   @Prop() showSection = false;
   /**
+   * Flag to detect default fields
+   */
+  @Prop() isDefaultNonCustomField = false;
+  /**
    * State to check if the values have been changed and enable the save button
    */
   @State() isValuesChanged = false;
@@ -1435,7 +1439,6 @@ export class FieldEditor {
   private renderInternalName(
     objProductConfig,
     objMaxLimits,
-    isDefaultNonCustomField,
     boolEditAllowed,
     fieldBuilderOptions
   ) {
@@ -1489,7 +1492,7 @@ export class FieldEditor {
           {i18nText('internalName')}
         </label>
         <div class={`${strBaseClassName}-internal-name-container`}>
-          {!isDefaultNonCustomField && (
+          {!this.isDefaultNonCustomField && (
             <label class={`${strBaseClassName}-internal-name-prefix`}>
               {this.internalNamePrefix}
             </label>
@@ -1521,18 +1524,14 @@ export class FieldEditor {
     );
   }
 
-  private renderLabel(
-    objMaxLimits,
-    isDefaultNonCustomField,
-    boolEditAllowed,
-    fieldBuilderOptions
-  ) {
+  private renderLabel(objMaxLimits, boolEditAllowed, fieldBuilderOptions) {
     const objFieldBuilder = fieldBuilderOptions;
     const strBaseClassName = 'fw-field-editor';
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
-    const boolDIsableInputLabel = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDIsableInputLabel =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const strInputHint = this.isPrimaryField
       ? i18nText('primaryFieldNameHint')
@@ -1594,16 +1593,13 @@ export class FieldEditor {
     );
   }
 
-  private renderFieldContent(
-    objProductConfig,
-    isDefaultNonCustomField,
-    boolEditAllowed
-  ) {
+  private renderFieldContent(objProductConfig, boolEditAllowed) {
     const strBaseClassName = 'fw-field-editor';
     const renderLabelAndName = [];
     const renderFields = [];
     const objFieldBuilder = this.fieldBuilderOptions;
-    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDisableDropdowns =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const arrCheckboxes = hasCustomProperty(objFieldBuilder, 'checkboxes')
       ? objFieldBuilder.checkboxes
@@ -1620,7 +1616,6 @@ export class FieldEditor {
       // Renders Label input and Internal name input
       const fieldLabelAndName = this.renderLabelAndInternalName(
         objProductConfig,
-        isDefaultNonCustomField,
         boolEditAllowed,
         data
       );
@@ -1725,7 +1720,6 @@ export class FieldEditor {
 
   private renderLabelAndInternalName(
     objProductConfig,
-    isDefaultNonCustomField,
     boolEditAllowed,
     fieldBuilderOptions
   ) {
@@ -1735,17 +1729,11 @@ export class FieldEditor {
 
     return (
       <div class={`${strBaseClassName}-content-label-interalName`}>
-        {this.renderLabel(
-          objMaxLimits,
-          isDefaultNonCustomField,
-          boolEditAllowed,
-          fieldBuilderOptions
-        )}
+        {this.renderLabel(objMaxLimits, boolEditAllowed, fieldBuilderOptions)}
         {boolSupportInternalName &&
           this.renderInternalName(
             objProductConfig,
             objMaxLimits,
-            isDefaultNonCustomField,
             boolEditAllowed,
             fieldBuilderOptions
           )}
@@ -1753,11 +1741,7 @@ export class FieldEditor {
     );
   }
 
-  private renderContent(
-    objProductConfig,
-    isDefaultNonCustomField,
-    boolEditAllowed
-  ) {
+  private renderContent(objProductConfig, boolEditAllowed) {
     if (!this.expanded) {
       return null;
     }
@@ -1773,7 +1757,8 @@ export class FieldEditor {
       objFormValue.name
     );
 
-    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDisableDropdowns =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
@@ -1839,7 +1824,6 @@ export class FieldEditor {
           )}
           {this.renderLabel(
             objMaxLimits,
-            isDefaultNonCustomField,
             boolEditAllowed,
             this.fieldBuilderOptions
           )}
@@ -1847,7 +1831,6 @@ export class FieldEditor {
             this.renderInternalName(
               objProductConfig,
               objMaxLimits,
-              isDefaultNonCustomField,
               boolEditAllowed,
               this.fieldBuilderOptions
             )}
@@ -1885,13 +1868,6 @@ export class FieldEditor {
       !boolNewField && hasCustomProperty(objFieldBuilder, 'required')
         ? objFieldBuilder.required
         : false;
-
-    const isDefaultNonCustomField =
-      objProductConfig?.showDefaultTag &&
-      objProductConfig?.defaultTagKey &&
-      objProductConfig.defaultTagKey !== '' &&
-      hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
-      !objFormValue[objProductConfig.defaultTagKey];
 
     const boolEditAllowed =
       this.isNewField || hasPermission(this.role, this.permission, 'EDIT');
@@ -1979,7 +1955,7 @@ export class FieldEditor {
             fwLabelItems.push(elLookupUniqueTag);
           }
         }
-      } else if (isDefaultNonCustomField) {
+      } else if (this.isDefaultNonCustomField) {
         const elDefaultCustomTag = this.renderFwLabel({
           key: 'customDefault',
           selected: true,
@@ -2021,16 +1997,8 @@ export class FieldEditor {
       : objFieldBuilder.icon;
 
     const contentElements = this.isDependentField
-      ? this.renderFieldContent(
-          objProductConfig,
-          isDefaultNonCustomField,
-          boolEditAllowed
-        )
-      : this.renderContent(
-          objProductConfig,
-          isDefaultNonCustomField,
-          boolEditAllowed
-        );
+      ? this.renderFieldContent(objProductConfig, boolEditAllowed)
+      : this.renderContent(objProductConfig, boolEditAllowed);
 
     return (
       <Host tabIndex='-1'>
@@ -2104,7 +2072,7 @@ export class FieldEditor {
             {!this.expanded &&
               !this.isPrimaryField &&
               !this.isDeleting &&
-              !isDefaultNonCustomField && (
+              !this.isDefaultNonCustomField && (
                 <fw-button
                   part='delete-field-btn'
                   size='icon'
@@ -2116,7 +2084,7 @@ export class FieldEditor {
                   <fw-icon name='delete'></fw-icon>
                 </fw-button>
               )}
-            {/* {!this.expanded && isDefaultNonCustomField && (
+            {/* {!this.expanded && this.isDefaultNonCustomField && (
               <span class={`${strBaseClassName}-lock-container`}>
                 <fw-icon name='lock'></fw-icon>
               </span>

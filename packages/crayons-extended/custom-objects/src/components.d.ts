@@ -315,6 +315,10 @@ export namespace Components {
          */
         "index": number;
         /**
+          * Flag to detect default fields
+         */
+        "isDefaultNonCustomField": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -1248,6 +1252,10 @@ declare namespace LocalJSX {
           * index attached inside the parent group component
          */
         "index"?: number;
+        /**
+          * Flag to detect default fields
+         */
+        "isDefaultNonCustomField"?: boolean;
         /**
           * flag to notify if an api call is in progress
          */

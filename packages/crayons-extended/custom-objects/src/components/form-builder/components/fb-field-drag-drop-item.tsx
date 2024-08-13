@@ -176,6 +176,7 @@ export class FormBuilderFieldDragDropItem {
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
           setSectionsExpandStateHandler={this.setSectionsExpandState}
           showSection={showSection}
+          isDefaultNonCustomField={isDefaultNonCustomField}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}
           onFwExpand={this.expandFieldHandler}
