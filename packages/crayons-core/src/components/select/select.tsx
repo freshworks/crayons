@@ -790,7 +790,7 @@ export class Select {
         name={this.name}
         id={this.name}
         placeholder={this.valueExists() ? '' : this.placeholder || ''}
-        readOnly={this.readonly}
+        readOnly={this.readonly || undefined}
         required={this.required}
         type={this.type}
         value=''
