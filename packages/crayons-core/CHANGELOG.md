@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.12...@freshworks/crayons@4.3.0-beta.13) (2024-08-13)
+
+
+### Bug Fixes
+
+* **select:** fix readonly issue in rendering input ([#931](https://github.com/freshworks/crayons/issues/931)) ([af360f1](https://github.com/freshworks/crayons/commit/af360f11c0eaf212ce4880558fd20c9f41e40627))
+
+
+### Features
+
+* addition of variation in select options which will let users to add information related to author details ([#930](https://github.com/freshworks/crayons/issues/930)) ([1fe6f88](https://github.com/freshworks/crayons/commit/1fe6f88acfa8ea4729a8cf31a3c41c5ad51920fc))
+
+
+
+
+
 ## [4.3.0-beta.9](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.8...@freshworks/crayons@4.3.0-beta.9) (2024-01-17)
 
 ### Bug Fixes
