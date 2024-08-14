@@ -70,7 +70,7 @@ export class FormBuilder {
   /**
    * Prop to store the expanded field index
    */
-  @Prop({ mutable: true }) expandedFieldIndex = -1;
+  @Prop({ mutable: true }) expandedFieldIndex = {};
   /**
    * variable to store form values
    */
@@ -305,7 +305,16 @@ export class FormBuilder {
 
           if (mappedFieldTypes) {
             if (hasCustomProperty(mappedFieldTypes, objField.type)) {
-              objField.type = mappedFieldTypes[objField.type];
+              if (objField.field_options?.has_sections) {
+                //Changes to handle the type for sections
+                objField?.fields?.forEach(
+                  (sectionField) =>
+                    (sectionField.type = mappedFieldTypes[sectionField.type])
+                );
+                objField.type = mappedFieldTypes[objField.type];
+              } else {
+                objField.type = mappedFieldTypes[objField.type];
+              }
             } else {
               console.log(
                 `${objField.type} is not added in the mapper - Unsupported field type`
@@ -451,7 +460,12 @@ export class FormBuilder {
     this.fwDeleteField.emit({ ...event.detail });
   };
 
-  private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
+  private composeNewField = (
+    strNewFieldType,
+    objFieldData,
+    intIndex = -1,
+    sectionData?
+  ) => {
     const fieldType = strNewFieldType;
     const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
@@ -498,14 +512,16 @@ export class FormBuilder {
       fieldSchema: objNewField,
       value: { ...objFieldData },
       index: intIndex,
+      sectionSource: sectionData,
     });
   };
 
-  private fieldTypeDropHandler = (event: CustomEvent) => {
+  private fieldTypeDropHandler = (event: CustomEvent, dataItem?) => {
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
+    const sectionData = dataItem;
 
     // New field type element dropped inside the container
     if (objDetail.dragFromId !== objDetail.dropToId) {
@@ -521,7 +537,8 @@ export class FormBuilder {
       this.composeNewField(
         elFieldType.dataProvider.type,
         { ...elFieldType.dataProvider },
-        intDroppedIndex
+        intDroppedIndex,
+        sectionData
       );
     } else {
       // Reposition inside the fields list
@@ -986,6 +1003,54 @@ export class FormBuilder {
     );
   }
 
+  private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
+    return (
+      <div class={`section-container`}>
+        <div class={`form-builder`}>
+          <div class={`form-builder-right-panel`}>
+            <div
+              ref={(el) => (this.fieldEditorPanel = el)}
+              class={`form-builder-right-panel-list-container`}
+            >
+              <fw-drag-container
+                key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                class={`form-builder-right-panel-field-editor-list`}
+                id='sectionContainer'
+                acceptFrom='fieldTypesList'
+                addOnDrop={false}
+                sortable={true}
+                onFwDrop={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  e.stopImmediatePropagation();
+                  this.fieldTypeDropHandler(e, dataItem);
+                }}
+              >
+                {dataItem.choices.map((choice) => {
+                  // Loop through each dependent field ID in the choice
+                  return choice?.dependent_ids?.field.map((fieldId, index) => {
+                    // Find the matching field in dataItem.fields
+                    const field = dataItem.fields.find((f) => f.id === fieldId);
+                    if (field) {
+                      return this.renderFieldEditorElement(
+                        field,
+                        index,
+                        boolFieldEditingState,
+                        strEntityName
+                      );
+                    } else {
+                      return null;
+                    }
+                  });
+                })}
+              </fw-drag-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   private renderFieldEditorElement(
     dataItem,
     intIndex,
@@ -1008,8 +1073,7 @@ export class FormBuilder {
       !this.searching
     );
 
-    const boolItemExpanded =
-      this.expandedFieldIndex === intIndex ? true : false;
+    const boolItemExpanded = this.expandedFieldIndex[dataItem.id] === intIndex;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
@@ -1039,7 +1103,15 @@ export class FormBuilder {
         deleteFieldHandler={this.deleteFieldHandler}
         expandFieldHandler={this.expandFieldHandler}
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
-      ></fb-field-drag-drop-item>
+      >
+        <div slot='section'>
+          {this.renderSectionFields(
+            dataItem,
+            boolFieldEditingState,
+            strEntityName
+          )}
+        </div>
+      </fb-field-drag-drop-item>
     );
   }
 
@@ -1098,7 +1170,7 @@ export class FormBuilder {
         arrFieldOrder.splice(dependentIndex, 1);
       }
     }
-    const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
+    const boolFieldEditingState = !!Object.keys(this.expandedFieldIndex).length;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
       ? objLabelsDb.fieldsHeader

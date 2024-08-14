@@ -207,7 +207,11 @@ export class FormBuilderFieldDragDropItem {
               <fb-section
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
-              />
+              >
+                <div slot='sectiondragdrop'>
+                  <slot name='section'></slot>
+                </div>
+              </fb-section>
             )}
           </div>
         )}

@@ -869,6 +869,7 @@ export class FieldEditor {
         expanded: false,
         index: this.index,
         isNew: this.isNewField,
+        value: this.dataProvider,
       });
     }
   };

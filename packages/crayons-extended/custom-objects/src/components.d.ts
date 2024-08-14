@@ -484,7 +484,7 @@ export namespace Components {
         /**
           * Prop to store the expanded field index
          */
-        "expandedFieldIndex": number;
+        "expandedFieldIndex": {};
         /**
           * Method to force render the drag container's children containing all the added fields
          */
@@ -1446,7 +1446,7 @@ declare namespace LocalJSX {
         /**
           * Prop to store the expanded field index
          */
-        "expandedFieldIndex"?: number;
+        "expandedFieldIndex"?: {};
         /**
           * variable to store form values
          */
