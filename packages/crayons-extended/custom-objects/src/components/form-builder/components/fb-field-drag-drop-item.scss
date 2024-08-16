@@ -16,6 +16,11 @@
   background: $color-smoke-25;
   box-sizing: border-box;
 
+  .fb-show-hide-sections-btn {
+    --fw-button-label-vertical-padding: 0;
+    --fw-button-hover-background-color: unset;
+  }
+
   .fb-section-visibility {
     display: flex;
     align-items: center;
