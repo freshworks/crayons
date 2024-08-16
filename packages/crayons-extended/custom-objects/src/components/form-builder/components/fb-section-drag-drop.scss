@@ -1,0 +1,42 @@
+.fb-section {
+  padding-inline: 12px;
+  padding-block: 12px;
+  background: $color-smoke-50;
+  border-radius: 8px;
+  border: 1px solid $color-smoke-100;
+
+  .fb-section-add {
+    color: $color-elephant-900;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0;
+  }
+
+  .fb-section-content {
+    background: $color-milk;
+    padding-block: 12px;
+    padding-inline: 16px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    .fb-section-content-create {
+      display: flex;
+      gap: 5px;
+
+      .fb-section-content-name {
+        flex-grow: 1;
+      }
+
+      .fb-section-content-divider {
+        width: 1px;
+        height: 54px;
+        background: $color-smoke-100;
+      }
+
+      .fb-section-content-value {
+        flex-grow: 1;
+      }
+    }
+  }
+}

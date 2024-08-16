@@ -129,6 +129,10 @@ export class FormBuilderFieldDragDropItem {
    */
   @State() sectionsExpanded = false;
 
+  @Prop() fieldTypeDropHandler;
+
+  @Prop() fieldRerenderCount;
+
   private setSectionsExpandState = (expanded) => {
     this.sectionsExpanded = expanded;
   };
@@ -204,14 +208,31 @@ export class FormBuilderFieldDragDropItem {
               ></fw-icon>
             </div>
             {this.sectionsExpanded && (
-              <fb-section
+              <fb-section-drag-drop
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
               >
                 <div slot='sectiondragdrop'>
-                  <slot name='section'></slot>
+                  <div class={`form-builder-right-panel`}>
+                    <fw-drag-container
+                      key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                      class={`form-builder-right-panel-field-editor-list`}
+                      id='sectionContainer'
+                      acceptFrom='fieldTypesList'
+                      addOnDrop={false}
+                      sortable={true}
+                      onFwDrop={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        this.fieldTypeDropHandler(e, this.dataProvider);
+                      }}
+                    >
+                      <slot name='section'></slot>
+                    </fw-drag-container>
+                  </div>
                 </div>
-              </fb-section>
+              </fb-section-drag-drop>
             )}
           </div>
         )}

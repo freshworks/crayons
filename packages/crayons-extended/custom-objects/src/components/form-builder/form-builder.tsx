@@ -1006,47 +1006,23 @@ export class FormBuilder {
   private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
     return (
       <div class={`section-container`}>
-        <div class={`form-builder`}>
-          <div class={`form-builder-right-panel`}>
-            <div
-              ref={(el) => (this.fieldEditorPanel = el)}
-              class={`form-builder-right-panel-list-container`}
-            >
-              <fw-drag-container
-                key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-                class={`form-builder-right-panel-field-editor-list`}
-                id='sectionContainer'
-                acceptFrom='fieldTypesList'
-                addOnDrop={false}
-                sortable={true}
-                onFwDrop={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  e.stopImmediatePropagation();
-                  this.fieldTypeDropHandler(e, dataItem);
-                }}
-              >
-                {dataItem.choices.map((choice) => {
-                  // Loop through each dependent field ID in the choice
-                  return choice?.dependent_ids?.field.map((fieldId, index) => {
-                    // Find the matching field in dataItem.fields
-                    const field = dataItem.fields.find((f) => f.id === fieldId);
-                    if (field) {
-                      return this.renderFieldEditorElement(
-                        field,
-                        index,
-                        boolFieldEditingState,
-                        strEntityName
-                      );
-                    } else {
-                      return null;
-                    }
-                  });
-                })}
-              </fw-drag-container>
-            </div>
-          </div>
-        </div>
+        {dataItem.choices?.map((choice) => {
+          // Loop through each dependent field ID in the choice
+          return choice?.dependent_ids?.field.map((fieldId, index) => {
+            // Find the matching field in dataItem.fields
+            const field = dataItem.fields.find((f) => f.id === fieldId);
+            if (field) {
+              return this.renderFieldEditorElement(
+                field,
+                index,
+                boolFieldEditingState,
+                strEntityName
+              );
+            } else {
+              return null;
+            }
+          });
+        })}
       </div>
     );
   }
@@ -1103,6 +1079,8 @@ export class FormBuilder {
         deleteFieldHandler={this.deleteFieldHandler}
         expandFieldHandler={this.expandFieldHandler}
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
+        fieldTypeDropHandler={this.fieldTypeDropHandler}
+        fieldRerenderCount={this.fieldRerenderCount}
       >
         <div slot='section'>
           {this.renderSectionFields(

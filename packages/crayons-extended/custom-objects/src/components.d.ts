@@ -46,6 +46,8 @@ export namespace Components {
           * Property to determine expanded state or collapsed
          */
         "expanded": boolean;
+        "fieldRerenderCount": any;
+        "fieldTypeDropHandler": any;
         /**
           * variable to store form values
          */
@@ -100,6 +102,13 @@ export namespace Components {
         "showDependentFieldResolveProp": boolean;
     }
     interface FbSection {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        "setSectionsExpandStateHandler": any;
+    }
+    interface FbSectionDragDrop {
         /**
           * data source used to set and edit the field values
          */
@@ -775,6 +784,12 @@ declare global {
         prototype: HTMLFbSectionElement;
         new (): HTMLFbSectionElement;
     };
+    interface HTMLFbSectionDragDropElement extends Components.FbSectionDragDrop, HTMLStencilElement {
+    }
+    var HTMLFbSectionDragDropElement: {
+        prototype: HTMLFbSectionDragDropElement;
+        new (): HTMLFbSectionDragDropElement;
+    };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
     var HTMLFwCoExportElement: {
@@ -892,6 +907,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
         "fb-section": HTMLFbSectionElement;
+        "fb-section-drag-drop": HTMLFbSectionDragDropElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -954,6 +970,8 @@ declare namespace LocalJSX {
           * Property to determine expanded state or collapsed
          */
         "expanded"?: boolean;
+        "fieldRerenderCount"?: any;
+        "fieldTypeDropHandler"?: any;
         /**
           * variable to store form values
          */
@@ -1008,6 +1026,13 @@ declare namespace LocalJSX {
         "showDependentFieldResolveProp"?: boolean;
     }
     interface FbSection {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        "setSectionsExpandStateHandler"?: any;
+    }
+    interface FbSectionDragDrop {
         /**
           * data source used to set and edit the field values
          */
@@ -1707,6 +1732,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "fb-field-drag-drop-item": FbFieldDragDropItem;
         "fb-section": FbSection;
+        "fb-section-drag-drop": FbSectionDragDrop;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1734,6 +1760,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
             "fb-section": LocalJSX.FbSection & JSXBase.HTMLAttributes<HTMLFbSectionElement>;
+            "fb-section-drag-drop": LocalJSX.FbSectionDragDrop & JSXBase.HTMLAttributes<HTMLFbSectionDragDropElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;
