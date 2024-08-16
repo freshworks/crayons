@@ -1,9 +1,9 @@
-import { Component, h, Prop, State } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 
 @Component({
-  tag: 'fb-section',
-  styleUrl: 'fb-section.scss',
+  tag: 'fb-section-create',
+  styleUrl: 'fb-section-create.scss',
   shadow: true,
 })
 export class FormBuilderSection {
@@ -15,8 +15,6 @@ export class FormBuilderSection {
    * data source used to set and edit the field values
    */
   @Prop({ mutable: true }) dataProvider = null;
-
-  @State() sectionCreated = true;
 
   render() {
     const options = this.dataProvider.choices.map((choice) => {
@@ -42,25 +40,21 @@ export class FormBuilderSection {
           </p>
         </header>
         <div class='fb-section-content'>
-          {this.sectionCreated ? (
-            <slot name='sectiondragdrop'></slot>
-          ) : (
-            <div class='fb-section-content-create'>
-              {' '}
-              <fw-input
-                label='Name'
-                placeholder='Section Name'
-                class='fb-section-content-name'
-              ></fw-input>
-              <div class='fb-section-content-divider'></div>
-              <fw-select
-                class='fb-section-content-value'
-                label='Show section if Type is'
-                value={options[0].text}
-                options={options}
-              ></fw-select>{' '}
-            </div>
-          )}
+          <div class='fb-section-content-create'>
+            {' '}
+            <fw-input
+              label='Name'
+              placeholder='Section Name'
+              class='fb-section-content-name'
+            ></fw-input>
+            <div class='fb-section-content-divider'></div>
+            <fw-select
+              class='fb-section-content-value'
+              label='Show section if Type is'
+              value={options[0].text}
+              options={options}
+            ></fw-select>{' '}
+          </div>
         </div>
         <footer>
           <fw-button color='primary'>
@@ -70,7 +64,7 @@ export class FormBuilderSection {
           <fw-button
             color='secondary'
             onFwClick={() => {
-              this.setSectionsExpandStateHandler(false);
+              this.setSectionsExpandStateHandler(true, false);
             }}
           >
             {' '}

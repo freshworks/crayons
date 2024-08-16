@@ -123,7 +123,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-primary-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-primary-bg-dark
+      );
       background-image: none;
     }
 

@@ -99,7 +99,7 @@ export namespace Components {
          */
         "showDependentFieldResolveProp": boolean;
     }
-    interface FbSection {
+    interface FbSectionCreate {
         /**
           * data source used to set and edit the field values
          */
@@ -361,7 +361,7 @@ export namespace Components {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
-        "showSection": boolean;
+        "showSections": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -769,11 +769,11 @@ declare global {
         prototype: HTMLFbFieldDragDropItemElement;
         new (): HTMLFbFieldDragDropItemElement;
     };
-    interface HTMLFbSectionElement extends Components.FbSection, HTMLStencilElement {
+    interface HTMLFbSectionCreateElement extends Components.FbSectionCreate, HTMLStencilElement {
     }
-    var HTMLFbSectionElement: {
-        prototype: HTMLFbSectionElement;
-        new (): HTMLFbSectionElement;
+    var HTMLFbSectionCreateElement: {
+        prototype: HTMLFbSectionCreateElement;
+        new (): HTMLFbSectionCreateElement;
     };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
@@ -891,7 +891,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
-        "fb-section": HTMLFbSectionElement;
+        "fb-section-create": HTMLFbSectionCreateElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -1007,7 +1007,7 @@ declare namespace LocalJSX {
          */
         "showDependentFieldResolveProp"?: boolean;
     }
-    interface FbSection {
+    interface FbSectionCreate {
         /**
           * data source used to set and edit the field values
          */
@@ -1315,7 +1315,7 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
-        "showSection"?: boolean;
+        "showSections"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1706,7 +1706,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fb-field-drag-drop-item": FbFieldDragDropItem;
-        "fb-section": FbSection;
+        "fb-section-create": FbSectionCreate;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1733,7 +1733,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
-            "fb-section": LocalJSX.FbSection & JSXBase.HTMLAttributes<HTMLFbSectionElement>;
+            "fb-section-create": LocalJSX.FbSectionCreate & JSXBase.HTMLAttributes<HTMLFbSectionCreateElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;

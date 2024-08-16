@@ -128,9 +128,14 @@ export class FormBuilderFieldDragDropItem {
    * Dynamic section expandable state
    */
   @State() sectionsExpanded = false;
+  /*
+   * Create dynamic section
+   */
+  @State() createDynamicSection = false;
 
-  private setSectionsExpandState = (expanded) => {
-    this.sectionsExpanded = expanded;
+  private setSectionsExpandState = (sectionExpanded, createSection) => {
+    this.sectionsExpanded = sectionExpanded;
+    this.createDynamicSection = createSection;
   };
 
   render() {
@@ -144,7 +149,7 @@ export class FormBuilderFieldDragDropItem {
       hasCustomProperty(this.dataProvider, objProductConfig.defaultTagKey) &&
       !this.dataProvider[objProductConfig.defaultTagKey];
 
-    const showSection =
+    const showSections =
       this.dynamicSectionsBetaEnabled &&
       !isDefaultNonCustomField &&
       isDropdownField(this.dataProvider);
@@ -175,43 +180,51 @@ export class FormBuilderFieldDragDropItem {
           dependentFieldLink={this.dependentFieldLink}
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
           setSectionsExpandStateHandler={this.setSectionsExpandState}
-          showSection={showSection}
+          showSections={showSections}
           isDefaultNonCustomField={isDefaultNonCustomField}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}
           onFwExpand={this.expandFieldHandler}
           onFwReorder={this.reorderFieldProgressHandler}
         ></fw-field-editor>
-        {showSection && (
+        {showSections && (
           <div class='fb-section-container'>
-            <div class='fb-section-visibility'>
-              {this.sectionsExpanded ? (
-                <span class='fb-section-hide'>
-                  {TranslationController.t('formBuilder.sections.hide')}
-                </span>
-              ) : (
-                <span class='fb-section-show'>
-                  {TranslationController.t('formBuilder.sections.show')}
-                </span>
-              )}
-              <i class='fb-section-count'>1</i>
-              <fw-icon
-                class={{
-                  'fb-section-arrow-down': !this.sectionsExpanded,
-                }}
-                size='10'
-                name='chevron-up'
-              ></fw-icon>
-            </div>
-            {this.sectionsExpanded && (
-              <fb-section
+            <fw-button
+              color='text'
+              class='fb-show-hide-sections-btn'
+              onFwClick={() => {
+                this.setSectionsExpandState(!this.sectionsExpanded, false);
+              }}
+            >
+              <div class='fb-section-visibility'>
+                {this.sectionsExpanded ? (
+                  <span class='fb-section-hide'>
+                    {TranslationController.t('formBuilder.sections.hide')}
+                  </span>
+                ) : (
+                  <span class='fb-section-show'>
+                    {TranslationController.t('formBuilder.sections.show')}
+                  </span>
+                )}
+                <i class='fb-section-count'>1</i>
+                <fw-icon
+                  class={{
+                    'fb-section-arrow-down': !this.sectionsExpanded,
+                  }}
+                  size='10'
+                  name='chevron-up'
+                ></fw-icon>
+              </div>
+            </fw-button>
+            {this.createDynamicSection && (
+              <fb-section-create
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
               >
                 <div slot='sectiondragdrop'>
                   <slot name='section'></slot>
                 </div>
-              </fb-section>
+              </fb-section-create>
             )}
           </div>
         )}

@@ -166,9 +166,9 @@ export class FieldEditor {
    */
   @Prop() sectionsExpanded = false;
   /*
-   * Show section
+   * Flag to Show sections
    */
-  @Prop() showSection = false;
+  @Prop() showSections = false;
   /**
    * Flag to detect default fields
    */
@@ -886,7 +886,7 @@ export class FieldEditor {
 
     if (!this.expanded) {
       this.dictInteractiveElements = {};
-      this.setSectionsExpandStateHandler(false);
+      this.setSectionsExpandStateHandler(false, false);
       this.expanded = true;
 
       this.fwExpand.emit({
@@ -2036,7 +2036,7 @@ export class FieldEditor {
                 </div>
               )}
             </div>
-            {this.showSection && (
+            {this.showSections && (
               <fw-tooltip
                 placement='left'
                 trigger='hover'
@@ -2055,7 +2055,7 @@ export class FieldEditor {
                       this.sectionsExpanded || !boolCreateAllowed,
                   }}
                   onFwClick={() => {
-                    this.setSectionsExpandStateHandler(true);
+                    this.setSectionsExpandStateHandler(true, true);
                   }}
                 >
                   <fw-icon
