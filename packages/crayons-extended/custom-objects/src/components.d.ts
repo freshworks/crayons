@@ -46,8 +46,6 @@ export namespace Components {
           * Property to determine expanded state or collapsed
          */
         "expanded": boolean;
-        "fieldRerenderCount": any;
-        "fieldTypeDropHandler": any;
         /**
           * variable to store form values
          */
@@ -970,8 +968,6 @@ declare namespace LocalJSX {
           * Property to determine expanded state or collapsed
          */
         "expanded"?: boolean;
-        "fieldRerenderCount"?: any;
-        "fieldTypeDropHandler"?: any;
         /**
           * variable to store form values
          */

@@ -133,10 +133,6 @@ export class FormBuilderFieldDragDropItem {
    */
   @State() createDynamicSection = false;
 
-  @Prop() fieldTypeDropHandler;
-
-  @Prop() fieldRerenderCount;
-
   private setSectionsExpandState = (sectionExpanded, createSection) => {
     this.sectionsExpanded = sectionExpanded;
     this.createDynamicSection = createSection;
@@ -226,24 +222,7 @@ export class FormBuilderFieldDragDropItem {
                 dataProvider={this.dataProvider}
               >
                 <div slot='sectiondragdrop'>
-                  <div class={`form-builder-right-panel`}>
-                    <fw-drag-container
-                      key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-                      class={`form-builder-right-panel-field-editor-list`}
-                      id='sectionContainer'
-                      acceptFrom='fieldTypesList'
-                      addOnDrop={false}
-                      sortable={true}
-                      onFwDrop={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                        this.fieldTypeDropHandler(e, this.dataProvider);
-                      }}
-                    >
-                      <slot name='section'></slot>
-                    </fw-drag-container>
-                  </div>
+                  <slot name='section'></slot>
                 </div>
               </fb-section-create>
             ) : (
@@ -252,24 +231,7 @@ export class FormBuilderFieldDragDropItem {
                 dataProvider={this.dataProvider}
               >
                 <div slot='sectiondragdrop'>
-                  <div class={`form-builder-right-panel`}>
-                    <fw-drag-container
-                      key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-                      class={`form-builder-right-panel-field-editor-list`}
-                      id='sectionContainer'
-                      acceptFrom='fieldTypesList'
-                      addOnDrop={false}
-                      sortable={true}
-                      onFwDrop={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                        this.fieldTypeDropHandler(e, this.dataProvider);
-                      }}
-                    >
-                      <slot name='section'></slot>
-                    </fw-drag-container>
-                  </div>
+                  <slot name='section'></slot>
                 </div>
               </fb-section-drag-drop>
             )}

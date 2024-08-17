@@ -19,9 +19,9 @@ export class FormBuilderSection {
   @State() sectionCreated = true;
 
   render() {
-    const options = this.dataProvider.choices.map((choice) => {
-      return { text: choice.value, value: choice.value };
-    });
+    // const options = this.dataProvider.choices.map((choice) => {
+    //   return { text: choice.value, value: choice.value };
+    // });
     return (
       <section class='fb-section'>
         <header>

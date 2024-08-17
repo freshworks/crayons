@@ -505,7 +505,7 @@
         var objDetail = event.detail;
         var intAddedIndex = -1;
         var objFormValues = getFormValues();
-        var arrFields =  objFormValues.fields;
+        var arrFields = objFormValues.fields;
         var intIndex = objDetail.index;
         var objDefaultField = objDetail.fieldSchema;
         objDefaultField.isNew = true;
@@ -518,25 +518,27 @@
           arrFields = [...arrFields, objDefaultField];
           intAddedIndex = arrFields.length - 1;
         } else {
-            if(objDetail?.sectionSource?.field_options?.has_sections){
-              let foundObject = arrFields.find(item => item.id === objDetail?.sectionSource?.id);
-                foundObject?.choices?.forEach((choice) => {
-                  // Check if the section name matches
-                  // if (choice.choice_options?.section_name === sectionNameToMatch) {
-                choice?.dependent_ids?.field.push(objDefaultField.id);
-                });
-              foundObject?.fields.splice(intIndex, 0, objDefaultField);
-              intAddedIndex = intIndex;
-            }
-            else{
-              arrFields = [
-                ...arrFields.slice(0, intIndex),
-                objDefaultField,
-                ...arrFields.slice(intIndex),
-              ];
-              intAddedIndex = intIndex;
-            }
+          if (objDetail?.sectionSource?.field_options?.has_sections) {
+            
+            let foundObject = arrFields.find(
+              (item) => item.id === objDetail?.sectionSource?.id
+            );
+            foundObject?.choices?.forEach((choice) => {
+              // Check if the section name matches
+              // if (choice.choice_options?.section_name === sectionNameToMatch) {
+              choice?.dependent_ids?.field.push(objDefaultField.id);
+            });
+            foundObject?.fields.splice(intIndex, 0, objDefaultField);
+            intAddedIndex = intIndex;
+          } else {
+            arrFields = [
+              ...arrFields.slice(0, intIndex),
+              objDefaultField,
+              ...arrFields.slice(intIndex),
+            ];
+            intAddedIndex = intIndex;
           }
+        }
         if (intAddedIndex !== -1) {
           var objFormValues = getFormValues();
           objFormValues = { ...objFormValues, fields: arrFields };
@@ -544,16 +546,14 @@
           fb.formValues = objFormValues;
           fb.expandedFieldIndex[objDefaultField.id] = intAddedIndex;
           // fb.expandedFieldIndex= intAddedIndex;
-          
         }
       });
 
-      deleteNewLocalFieldAtIndex = (intIndex,objDetail) => {
+      deleteNewLocalFieldAtIndex = (intIndex, objDetail) => {
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
         if (
-          arrFields &&
-          arrFields.length > 0 &&
+          arrFields?.length > 0 &&
           intIndex < arrFields.length &&
           arrFields[intIndex]?.isNew === true
         ) {
@@ -561,27 +561,41 @@
             ...arrFields.slice(0, intIndex),
             ...arrFields.slice(intIndex + 1),
           ];
-          objFormValues = { ...objFormValues, fields: arrFields };
-          setFormValues(objFormValues);
-          fb.formValues = objFormValues;
+        } else {
+          arrFields.forEach((field) => {
+            if (field.field_options?.has_sections) {
+              field.choices?.forEach((choice) => {
+                if (choice.dependent_ids?.field) {
+                  const indexInDependent = choice.dependent_ids.field.indexOf(
+                    objDetail.value?.id
+                  );
+                  if (indexInDependent > -1) {
+                    choice.dependent_ids.field.splice(indexInDependent, 1);
+                  }
+                }
+              });
+            }
+          });
         }
+        objFormValues = { ...objFormValues, fields: arrFields };
+        setFormValues(objFormValues);
+        fb.formValues = objFormValues;
       };
 
       fb.addEventListener('fwExpandField', (event) => {
         var objDetail = event.detail;
         var intIndex = objDetail.index;
         var boolExpanded = objDetail.expanded;
-        if(boolExpanded) {
-          let boolRefObj = {}
+        if (boolExpanded) {
+          let boolRefObj = {};
           boolRefObj[objDetail.value?.id] = intIndex;
           fb.expandedFieldIndex = boolRefObj;
-        }
-        else {
-          fb.expandedFieldIndex = {}
+        } else {
+          fb.expandedFieldIndex = {};
         }
         // fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
         if (!boolExpanded && objDetail.isNew && intIndex > -1) {
-          deleteNewLocalFieldAtIndex(intIndex,objDetail);
+          deleteNewLocalFieldAtIndex(intIndex, objDetail);
         }
       });
 
@@ -788,7 +802,6 @@
 
         fb.expandedFieldIndex = {};
         // fb.expandedFieldIndex = -1;
-
 
         objFormValues = { ...objFormValues, fields: arrFields };
         setFormValues(objFormValues);
