@@ -526,7 +526,7 @@
             foundObject?.choices?.forEach((choice) => {
               // Check if the section name matches
               // if (choice.choice_options?.section_name === sectionNameToMatch) {
-              choice?.dependent_ids?.field.push(objDefaultField.id);
+              choice?.dependent_ids?.field.splice(intIndex, 0, objDefaultField.id);
             });
             foundObject?.fields.splice(intIndex, 0, objDefaultField);
             intAddedIndex = intIndex;
