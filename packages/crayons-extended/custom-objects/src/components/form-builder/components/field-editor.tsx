@@ -659,6 +659,7 @@ export class FieldEditor {
     let level = null;
     let objValues = {
       type: this.dataProvider.type,
+      newSectionData: this.dataProvider,
       isPrimaryField: this.isPrimaryField,
     };
 
