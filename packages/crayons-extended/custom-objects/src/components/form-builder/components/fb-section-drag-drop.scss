@@ -1,10 +1,14 @@
 .fb-section {
-  padding-inline: 12px;
-  padding-block: 12px;
   background: $color-smoke-50;
   border-radius: 8px;
   border: 1px solid $color-smoke-100;
 
+  header {
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+  }
   .fb-section-add {
     color: $color-elephant-900;
     font-size: 14px;
@@ -16,10 +20,17 @@
   .fb-section-content {
     background: $color-milk;
     padding-block: 12px;
+    display: flex;
     padding-inline: 16px 8px;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
+    align-self: stretch;
+    min-height: 3rem;
+    height: auto;
+    border-radius: 0 0 8px 8px;
+
     .fb-section-content-create {
       display: flex;
       gap: 5px;

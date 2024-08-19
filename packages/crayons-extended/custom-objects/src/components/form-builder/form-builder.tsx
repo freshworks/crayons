@@ -521,7 +521,7 @@ export class FormBuilder {
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
-    const sectionData = dataItem;
+    const sectionData = { data: dataItem, name: objDetail.dropToId };
 
     // New field type element dropped inside the container
     if (objDetail.dragFromId !== objDetail.dropToId) {
@@ -1005,39 +1005,55 @@ export class FormBuilder {
 
   private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
     return (
-      <div class={`section-container`}>
-        <fw-drag-container
-          key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-          class={`form-builder-right-panel-field-editor-list`}
-          id='sectionContainer'
-          acceptFrom='fieldTypesList'
-          addOnDrop={false}
-          sortable={true}
-          onFwDrop={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            this.fieldTypeDropHandler(e, dataItem);
-          }}
-        >
-          {dataItem.choices?.map((choice) => {
-            // Loop through each dependent field ID in the choice
-            return choice?.dependent_ids?.field.map((fieldId, index) => {
-              // Find the matching field in dataItem.fields
-              const field = dataItem.fields.find((f) => f.id === fieldId);
-              if (field) {
-                return this.renderFieldEditorElement(
-                  field,
-                  index,
-                  boolFieldEditingState,
-                  strEntityName
-                );
-              } else {
-                return null;
-              }
-            });
-          })}
-        </fw-drag-container>
+      <div class='section-container'>
+        {dataItem.choices?.map((choice) => {
+          const sectionName = choice.choice_options?.section_name;
+          const fieldsContent =
+            sectionName && !choice.dependent_ids?.field.length ? (
+              <p>Drag and drop fields to add to this section</p>
+            ) : (
+              choice.dependent_ids?.field.map((fieldId, index) => {
+                const field = dataItem.fields.find((f) => f.id === fieldId);
+                return field
+                  ? this.renderFieldEditorElement(
+                      field,
+                      index,
+                      boolFieldEditingState,
+                      strEntityName,
+                      sectionName
+                    )
+                  : null;
+              })
+            );
+
+          return (
+            sectionName && (
+              <section key={choice.id} class={`fb-section`}>
+                <header>
+                  <h4 class='fb-section-add'>{sectionName}</h4>
+                </header>
+                <div class='fb-section-content'>
+                  <fw-drag-container
+                    key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                    class={`form-builder-right-panel-field-editor-list`}
+                    id={sectionName}
+                    acceptFrom='fieldTypesList'
+                    addOnDrop={false}
+                    sortable={true}
+                    onFwDrop={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      e.stopImmediatePropagation();
+                      this.fieldTypeDropHandler(e, dataItem);
+                    }}
+                  >
+                    {fieldsContent}
+                  </fw-drag-container>
+                </div>
+              </section>
+            )
+          );
+        })}
       </div>
     );
   }
@@ -1046,7 +1062,8 @@ export class FormBuilder {
     dataItem,
     intIndex,
     boolFieldEditingState,
-    strEntityName
+    strEntityName,
+    sectionName?
   ) {
     if (!dataItem) {
       return null;
@@ -1064,7 +1081,9 @@ export class FormBuilder {
       !this.searching
     );
 
-    const boolItemExpanded = this.expandedFieldIndex[dataItem.id] === intIndex;
+    const boolItemExpanded = sectionName
+      ? this.expandedFieldIndex[`${sectionName}-${dataItem.id}`] === intIndex
+      : this.expandedFieldIndex[dataItem.id] === intIndex;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
