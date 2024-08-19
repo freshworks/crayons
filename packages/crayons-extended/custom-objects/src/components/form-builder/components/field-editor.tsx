@@ -173,6 +173,10 @@ export class FieldEditor {
    * Flag to detect default fields
    */
   @Prop() isDefaultNonCustomField = false;
+  /*
+   * Create dynamic section
+   */
+  @Prop() createDynamicSection = false;
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -2053,7 +2057,9 @@ export class FieldEditor {
                   class={{
                     'fw-field-editor-add-section-btn': true,
                     'fw-field-editor-add-section-disable':
-                      this.sectionsExpanded || !boolCreateAllowed,
+                      !boolCreateAllowed ||
+                      this.expanded ||
+                      this.createDynamicSection,
                   }}
                   onFwClick={() => {
                     this.setSectionsExpandStateHandler(true, true);

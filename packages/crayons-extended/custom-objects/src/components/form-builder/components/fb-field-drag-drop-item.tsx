@@ -186,6 +186,7 @@ export class FormBuilderFieldDragDropItem {
           onFwDelete={this.deleteFieldHandler}
           onFwExpand={this.expandFieldHandler}
           onFwReorder={this.reorderFieldProgressHandler}
+          createDynamicSection={this.createDynamicSection}
         ></fw-field-editor>
         {showSections && (
           <div class='fb-section-container'>
@@ -216,16 +217,15 @@ export class FormBuilderFieldDragDropItem {
                 ></fw-icon>
               </div>
             </fw-button>
-            {this.createDynamicSection ? (
+
+            {this.createDynamicSection && (
               <fb-section-create
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
-              >
-                <div slot='sectiondragdrop'>
-                  <slot name='section'></slot>
-                </div>
-              </fb-section-create>
-            ) : (
+              />
+            )}
+
+            {this.sectionsExpanded && (
               <fb-section-drag-drop
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}

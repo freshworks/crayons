@@ -158,7 +158,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-secondary-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-secondary-bg-dark
+      );
       background-image: none;
     }
 
@@ -182,7 +185,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-danger-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-danger-bg-dark
+      );
       background-image: none;
     }
 
@@ -221,7 +227,7 @@ $input-height-mini: 16px;
     }
 
     &:hover:not([disabled]) {
-      background-color: $btn-link-bg;
+      background-color: var(--fw-button-hover-background-color, $btn-link-bg);
     }
 
     &.disabled,
