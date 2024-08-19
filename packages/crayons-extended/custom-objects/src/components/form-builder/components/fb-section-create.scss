@@ -4,6 +4,7 @@
   background: $color-smoke-50;
   border-radius: 8px;
   border: 1px solid $color-smoke-100;
+  margin-block: 10px;
 
   .fb-section-add {
     color: $color-elephant-900;
@@ -23,6 +24,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    --fw-button-label-vertical-padding: 0;
   }
 
   .fb-section-content {

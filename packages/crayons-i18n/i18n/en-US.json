@@ -199,7 +199,7 @@
       "show": "Show sections",
       "new": "New section",
       "sectionDescription": "Sections are conditional fields that show up based on the rules you have defined.",
-      "next": "Next",
+      "save": "Save",
       "cancel": "Cancel"
     }
   },

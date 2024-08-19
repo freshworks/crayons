@@ -276,6 +276,7 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
+        "createDynamicSection": boolean;
         /**
           * data source used to set and edit the field values
          */
@@ -1228,6 +1229,7 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
+        "createDynamicSection"?: boolean;
         /**
           * data source used to set and edit the field values
          */

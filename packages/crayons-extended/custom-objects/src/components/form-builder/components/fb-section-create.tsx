@@ -59,7 +59,7 @@ export class FormBuilderSection {
         <footer>
           <fw-button color='primary'>
             {' '}
-            {TranslationController.t('formBuilder.sections.next')}{' '}
+            {TranslationController.t('formBuilder.sections.save')}{' '}
           </fw-button>
           <fw-button
             color='secondary'
