@@ -1036,6 +1036,18 @@ export class FormBuilder {
               <section key={choice.id} class={`fb-section`}>
                 <header>
                   <h4 class='fb-section-add'>{sectionName}</h4>
+                  <div class='section-edit-delete'>
+                    <fw-icon
+                      name='edit'
+                      size='16'
+                      slot='before-label'
+                    ></fw-icon>
+                    <fw-icon
+                      name='delete'
+                      size='16'
+                      slot='before-label'
+                    ></fw-icon>
+                  </div>
                 </header>
                 <div class='fb-section-content'>
                   <fw-drag-container

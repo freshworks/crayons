@@ -29,6 +29,12 @@
     margin: 0;
   }
 
+  .section-edit-delete {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+  }
+
   .fb-section-content {
     background: $color-milk;
     padding-block: 12px;
