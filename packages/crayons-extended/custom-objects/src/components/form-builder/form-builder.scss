@@ -42,6 +42,19 @@
     min-height: 3rem;
     height: auto;
     border-radius: 0 0 8px 8px;
+
+    .empty-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .empty-section-icon {
+        padding: 16px;
+        align-items: flex-start;
+        border-radius: 8px;
+        background: $smoke-25;
+      }
+    }
   }
 }
 

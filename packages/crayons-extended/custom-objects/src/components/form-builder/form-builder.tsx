@@ -1010,7 +1010,12 @@ export class FormBuilder {
           const sectionName = choice.choice_options?.section_name;
           const fieldsContent =
             sectionName && !choice.dependent_ids?.field.length ? (
-              <p>Drag and drop fields to add to this section</p>
+              <span class='empty-section'>
+                <div class='empty-section-icon'>
+                  <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
+                </div>
+                Drag and drop fields to add to this section
+              </span>
             ) : (
               choice.dependent_ids?.field.map((fieldId, index) => {
                 const field = dataItem.fields.find((f) => f.id === fieldId);
