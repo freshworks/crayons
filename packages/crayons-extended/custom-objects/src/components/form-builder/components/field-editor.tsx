@@ -57,6 +57,7 @@ export class FieldEditor {
   private isInternalNameEdited = false;
   private internalNamePrefix = '';
   private isNewField = false;
+  private isSectionField = false;
   private oldFormValues;
   private errorType;
   private isDependentField = false;
@@ -275,7 +276,10 @@ export class FieldEditor {
         hasCustomProperty(objDP, 'isNew') && objDP['isNew'] === true
           ? true
           : false;
-
+      this.isSectionField =
+        hasCustomProperty(objDP, 'isSection') && objDP?.isSection === true
+          ? true
+          : false;
       // Currently supports dropdown format
       this.isDependentField = objDP.type === 'DEPENDENT_FIELD';
 
@@ -1263,9 +1267,13 @@ export class FieldEditor {
   private renderCheckboxField(dataCheckbox) {
     const boolEditCheckboxAllowed =
       this.isNewField ||
+      this.isSectionField ||
       hasPermission(this.role, this.permission, 'EDIT', true);
+    const editSectionField = this.isSectionField
+      ? this.isSectionField
+      : this.dataProvider?.field_options?.is_section_field ?? false; //When it is inside section required field should be disabled.
     const boolDisableCheckbox =
-      !boolEditCheckboxAllowed || !dataCheckbox.enabled;
+      !boolEditCheckboxAllowed || !dataCheckbox.enabled || editSectionField;
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 

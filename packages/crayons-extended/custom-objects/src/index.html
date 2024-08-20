@@ -813,6 +813,7 @@
           } else {
             // store the element at the passed index
             if (objDetail?.value?.newSectionData?.isSection) {
+              objUpdatedField.field_options.is_section_field = true;
               let foundObject = arrFields.find(
                 (item) => item.id === objDetail?.value?.newSectionData?.sectionDetails?.id
               );
