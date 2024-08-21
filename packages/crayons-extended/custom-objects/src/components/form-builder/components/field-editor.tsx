@@ -58,6 +58,7 @@ export class FieldEditor {
   private internalNamePrefix = '';
   private isNewField = false;
   private isSectionField = false;
+  private editSectionField = false;
   private oldFormValues;
   private errorType;
   private isDependentField = false;
@@ -280,6 +281,7 @@ export class FieldEditor {
         hasCustomProperty(objDP, 'isSection') && objDP?.isSection === true
           ? true
           : false;
+      this.editSectionField = objDP.field_options?.is_section_field;
       // Currently supports dropdown format
       this.isDependentField = objDP.type === 'DEPENDENT_FIELD';
 
@@ -1269,11 +1271,11 @@ export class FieldEditor {
       this.isNewField ||
       this.isSectionField ||
       hasPermission(this.role, this.permission, 'EDIT', true);
-    const editSectionField = this.isSectionField
+    const sectionEditMode = this.isSectionField
       ? this.isSectionField
-      : this.dataProvider?.field_options?.is_section_field ?? false; //When it is inside section required field should be disabled.
+      : this.editSectionField ?? false; //When it is inside section required field should be disabled.
     const boolDisableCheckbox =
-      !boolEditCheckboxAllowed || !dataCheckbox.enabled || editSectionField;
+      !boolEditCheckboxAllowed || !dataCheckbox.enabled || sectionEditMode;
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 
@@ -2088,7 +2090,8 @@ export class FieldEditor {
             {!this.expanded &&
               !this.isPrimaryField &&
               !this.isDeleting &&
-              !this.isDefaultNonCustomField && (
+              !this.isDefaultNonCustomField &&
+              !this.editSectionField && (
                 <fw-button
                   part='delete-field-btn'
                   size='icon'
