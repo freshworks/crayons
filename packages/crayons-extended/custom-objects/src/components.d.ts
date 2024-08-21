@@ -710,6 +710,10 @@ export namespace Components {
         "selected": boolean;
     }
 }
+export interface FbSectionCreateCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFbSectionCreateElement;
+}
 export interface FwCoExportCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportElement;
@@ -1027,6 +1031,10 @@ declare namespace LocalJSX {
           * data source used to set and edit the field values
          */
         "dataProvider"?: any;
+        /**
+          * Triggered when the field is expanded or collapsed
+         */
+        "onFwExpand"?: (event: FbSectionCreateCustomEvent<any>) => void;
         "setSectionsExpandStateHandler"?: any;
     }
     interface FbSectionDragDrop {

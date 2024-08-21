@@ -192,7 +192,10 @@ export class FormBuilderFieldDragDropItem {
           <div class='fb-section-container'>
             <fw-button
               color='text'
-              class='fb-show-hide-sections-btn'
+              class={{
+                'fb-show-hide-sections-btn': true,
+                'disabled': this.disabled,
+              }}
               onFwClick={() => {
                 this.setSectionsExpandState(!this.sectionsExpanded, false);
               }}
@@ -222,6 +225,7 @@ export class FormBuilderFieldDragDropItem {
               <fb-section-create
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
+                onFwExpand={this.expandFieldHandler}
               />
             )}
 
