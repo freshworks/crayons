@@ -528,18 +528,21 @@
             let foundObject = arrFields.find(
               (item) => item.id === objDetail?.sectionSource?.data.id
             );
-            if(foundObject){
+            if (foundObject) {
               objDefaultField.sectionDetails = deepCloneObject(foundObject); //To add the fields for section
               objDefaultField.isSection = true;
               objDefaultField.sectionName = objDetail?.sectionSource?.name;
               foundObject?.choices?.forEach((choice) => {
                 // Check if the section name matches
-                if (choice.choice_options?.section_name === objDetail?.sectionSource?.name) {
-                choice?.dependent_ids?.field.splice(
-                  intIndex,
-                  0,
-                  objDefaultField.id
-                );
+                if (
+                  choice.choice_options?.section_name ===
+                  objDetail?.sectionSource?.name
+                ) {
+                  choice?.dependent_ids?.field.splice(
+                    intIndex,
+                    0,
+                    objDefaultField.id
+                  );
                 }
               });
               foundObject?.fields.splice(intIndex, 0, objDefaultField);
@@ -560,7 +563,9 @@
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
           if (objDefaultField.isSection) {
-            fb.expandedFieldIndex[`${objDetail?.sectionSource?.name}-${objDefaultField.id}`] = intAddedIndex;
+            fb.expandedFieldIndex[
+              `${objDetail?.sectionSource?.name}-${objDefaultField.id}`
+            ] = intAddedIndex;
           } else {
             fb.expandedFieldIndex[objDefaultField.id] = intAddedIndex;
           }
@@ -608,7 +613,9 @@
         var boolExpanded = objDetail.expanded;
         if (boolExpanded) {
           let boolRefObj = {};
-          let expandId = objDetail.sectionName ? `${objDetail.sectionName}-${objDetail.value?.id}` : objDetail.value?.id;
+          let expandId = objDetail.sectionName
+            ? `${objDetail.sectionName}-${objDetail.value?.id}`
+            : objDetail.value?.id;
           boolRefObj[expandId] = intIndex;
           fb.expandedFieldIndex = boolRefObj;
         } else {
@@ -815,17 +822,22 @@
             if (objDetail?.value?.newSectionData?.isSection) {
               objUpdatedField.field_options.is_section_field = true;
               let foundObject = arrFields.find(
-                (item) => item.id === objDetail?.value?.newSectionData?.sectionDetails?.id
+                (item) =>
+                  item.id ===
+                  objDetail?.value?.newSectionData?.sectionDetails?.id
               );
 
               if (foundObject) {
                 foundObject?.choices?.forEach((choice) => {
-                  if (choice.choice_options?.section_name === objDetail?.value?.newSectionData?.sectionName) {
-                  choice?.dependent_ids?.field.splice(
-                    intIndex,
-                    1,
-                    objUpdatedField.id
-                  );
+                  if (
+                    choice.choice_options?.section_name ===
+                    objDetail?.value?.newSectionData?.sectionName
+                  ) {
+                    choice?.dependent_ids?.field.splice(
+                      intIndex,
+                      1,
+                      objUpdatedField.id
+                    );
                   }
                 });
                 foundObject.fields = [
@@ -876,10 +888,38 @@
         try {
           var objFormValues = getFormValues();
           var arrFields = objFormValues.fields;
-
-          var objField = arrFields.splice(intSourceIndex, 1)[0];
-          arrFields.splice(intTargetIndex, 0, objField);
-
+          if (objDetail?.sectionData?.data?.field_options?.has_sections) { //Reposition if it is inside sections
+            let foundObject = arrFields.find(
+              (item) => item.id === objDetail?.sectionData?.data.id
+            );
+            if (foundObject) {
+              foundObject?.choices?.forEach((choice) => {
+                // Check if the section name matches
+                if (
+                  choice.choice_options?.section_name ===
+                  objDetail?.sectionData?.name
+                ) {
+                  let arrSectionFields = choice?.dependent_ids?.field;
+                  [
+                    arrSectionFields[intSourceIndex],
+                    arrSectionFields[intTargetIndex],
+                  ] = [
+                    arrSectionFields[intTargetIndex],
+                    arrSectionFields[intSourceIndex],
+                  ];
+                }
+              });
+              const objSecField = foundObject?.fields.splice(
+                intSourceIndex,
+                1
+              )[0];
+              foundObject?.fields.splice(intTargetIndex, 0, objSecField);
+            }
+          } else {
+            const objField = arrFields.splice(intSourceIndex, 1)[0];
+            arrFields.splice(intTargetIndex, 0, objField);
+          }
+          console.log(arrFields,"array")
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;

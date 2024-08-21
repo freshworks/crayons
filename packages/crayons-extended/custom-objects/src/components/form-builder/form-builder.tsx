@@ -547,6 +547,7 @@ export class FormBuilder {
         this.fwRepositionField.emit({
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
+          sectionData,
         });
       }
     }
