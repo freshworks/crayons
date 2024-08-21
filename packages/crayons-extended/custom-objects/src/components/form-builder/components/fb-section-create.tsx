@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, EventEmitter, Event } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
 
 @Component({
@@ -15,11 +15,27 @@ export class FormBuilderSection {
    * data source used to set and edit the field values
    */
   @Prop({ mutable: true }) dataProvider = null;
+  /**
+   * Triggered when the field is expanded or collapsed
+   */
+  @Event() fwExpand!: EventEmitter;
+
+  private sectionExpandHandler(expanded) {
+    const sectionKey = 'sectionCreate';
+    this.fwExpand.emit({
+      expanded: expanded,
+      index: sectionKey,
+      value: { id: sectionKey },
+    });
+  }
 
   render() {
     const options = this.dataProvider.choices.map((choice) => {
       return { text: choice.value, value: choice.value };
     });
+
+    this.sectionExpandHandler(true);
+
     return (
       <section class='fb-section'>
         <header>
@@ -65,6 +81,7 @@ export class FormBuilderSection {
             color='secondary'
             onFwClick={() => {
               this.setSectionsExpandStateHandler(true, false);
+              this.sectionExpandHandler(false);
             }}
           >
             {' '}

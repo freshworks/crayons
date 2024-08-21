@@ -1012,7 +1012,12 @@ export class FormBuilder {
           const sectionName = choice.choice_options?.section_name;
           const fieldsContent =
             sectionName && !choice.dependent_ids?.field.length ? (
-              <span class='empty-section'>
+              <span
+                class={{
+                  'empty-section': true,
+                  'disabled': boolFieldEditingState,
+                }}
+              >
                 <div class='empty-section-icon'>
                   <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
                 </div>
@@ -1036,7 +1041,7 @@ export class FormBuilder {
           return (
             sectionName && (
               <section key={choice.id} class={`fb-section`}>
-                <header>
+                <header class={{ disabled: boolFieldEditingState }}>
                   <span
                     class='fb-section-add'
                     innerHTML={TranslationController.t(
