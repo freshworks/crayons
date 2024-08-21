@@ -28,6 +28,7 @@ import {
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
 import { debounce } from '../../utils/utils';
+import { TranslationController } from '../../global/Translation';
 
 @Component({
   tag: 'fw-form-builder',
@@ -1007,6 +1008,7 @@ export class FormBuilder {
     return (
       <div class='section-container'>
         {dataItem.choices?.map((choice) => {
+          const sectionChoiceValue = choice?.value;
           const sectionName = choice.choice_options?.section_name;
           const fieldsContent =
             sectionName && !choice.dependent_ids?.field.length ? (
@@ -1035,7 +1037,17 @@ export class FormBuilder {
             sectionName && (
               <section key={choice.id} class={`fb-section`}>
                 <header>
-                  <h4 class='fb-section-add'>{sectionName}</h4>
+                  <span
+                    class='fb-section-add'
+                    innerHTML={TranslationController.t(
+                      'formBuilder.sections.sectionHeading',
+                      {
+                        sectionName: sectionName,
+                        sectionChoiceValue: sectionChoiceValue,
+                        fieldLabel: dataItem?.label,
+                      }
+                    )}
+                  ></span>
                   <div class='section-edit-delete'>
                     <fw-icon
                       name='edit'
