@@ -104,6 +104,7 @@ export namespace Components {
           * data source used to set and edit the field values
          */
         "dataProvider": any;
+        "fieldChoices": any;
         "setSectionsExpandStateHandler": any;
     }
     interface FbSectionDragDrop {
@@ -1031,10 +1032,15 @@ declare namespace LocalJSX {
           * data source used to set and edit the field values
          */
         "dataProvider"?: any;
+        "fieldChoices"?: any;
         /**
-          * Triggered when the field is expanded or collapsed
+          * Triggered when the section is expanded or collapsed
          */
         "onFwExpand"?: (event: FbSectionCreateCustomEvent<any>) => void;
+        /**
+          * Triggered when the section details need to be saved on the server
+         */
+        "onFwUpdate"?: (event: FbSectionCreateCustomEvent<any>) => void;
         "setSectionsExpandStateHandler"?: any;
     }
     interface FbSectionDragDrop {

@@ -1032,7 +1032,7 @@ export class FormBuilder {
           const sectionChoiceValue = choice?.value;
           const sectionName = choice.choice_options?.section_name;
           const fieldsContent =
-            sectionName && !choice.dependent_ids?.field.length ? (
+            sectionName && !choice.dependent_ids?.field?.length ? (
               <span
                 class={{
                   'empty-section': true,
@@ -1140,6 +1140,13 @@ export class FormBuilder {
       ? this.expandedFieldIndex[`${sectionName}-${dataItem.id}`] === intIndex
       : this.expandedFieldIndex[dataItem.id] === intIndex;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
+
+    console.log(
+      'boolItemExpanded',
+      boolItemExpanded,
+      'expandedFieldIndex',
+      this.expandedFieldIndex
+    );
 
     return (
       <fb-field-drag-drop-item
