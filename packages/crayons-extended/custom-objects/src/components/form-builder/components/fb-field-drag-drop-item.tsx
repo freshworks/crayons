@@ -149,10 +149,34 @@ export class FormBuilderFieldDragDropItem {
       hasCustomProperty(this.dataProvider, objProductConfig.defaultTagKey) &&
       !this.dataProvider[objProductConfig.defaultTagKey];
 
-    const showSections =
+    const showDynamicFieldSections =
       this.dynamicSectionsBetaEnabled &&
       !isDefaultNonCustomField &&
       isDropdownField(this.dataProvider);
+
+    let choicesWithNoSectionCreated = [],
+      noOfSections = 0;
+
+    if (showDynamicFieldSections) {
+      choicesWithNoSectionCreated = this.dataProvider.choices.reduce(
+        (choicesWithNoSection, choice) => {
+          if (!choice?.choice_options?.section_name) {
+            choicesWithNoSection.push({
+              text: choice.value,
+              value: choice.value,
+            });
+          }
+          return choicesWithNoSection;
+        },
+        []
+      );
+      noOfSections =
+        this.dataProvider?.choices?.length -
+        choicesWithNoSectionCreated?.length;
+    }
+
+    const showAddSectionBtn =
+      showDynamicFieldSections && !!choicesWithNoSectionCreated?.length;
 
     return (
       <Host tabIndex='-1'>
@@ -180,7 +204,7 @@ export class FormBuilderFieldDragDropItem {
           dependentFieldLink={this.dependentFieldLink}
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
           setSectionsExpandStateHandler={this.setSectionsExpandState}
-          showSections={showSections}
+          showSections={showAddSectionBtn}
           isDefaultNonCustomField={isDefaultNonCustomField}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}
@@ -188,7 +212,7 @@ export class FormBuilderFieldDragDropItem {
           onFwReorder={this.reorderFieldProgressHandler}
           createDynamicSection={this.createDynamicSection}
         ></fw-field-editor>
-        {showSections && (
+        {showDynamicFieldSections && (
           <div class='fb-section-container'>
             <fw-button
               color='text'
@@ -210,7 +234,7 @@ export class FormBuilderFieldDragDropItem {
                     {TranslationController.t('formBuilder.sections.show')}
                   </span>
                 )}
-                <i class='fb-section-count'>1</i>
+                <i class='fb-section-count'>{noOfSections}</i>
                 <fw-icon
                   class={{
                     'fb-section-arrow-down': !this.sectionsExpanded,
@@ -226,6 +250,8 @@ export class FormBuilderFieldDragDropItem {
                 setSectionsExpandStateHandler={this.setSectionsExpandState}
                 dataProvider={this.dataProvider}
                 onFwExpand={this.expandFieldHandler}
+                onFwUpdate={this.saveFieldHandler}
+                fieldChoices={choicesWithNoSectionCreated}
               />
             )}
 

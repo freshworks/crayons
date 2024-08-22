@@ -201,6 +201,7 @@
       "sectionDescription": "Sections are conditional fields that show up based on the rules you have defined.",
       "save": "Save",
       "cancel": "Cancel",
+      "sectionNameEmpty": "Section name can't be empty",
       "sectionHeading": "<span class='highlight'>{{sectionName}}</span> | Show section if <span class='highlight'>{{fieldLabel}}</span> is : <span class='highlight'>{{sectionChoiceValue}}</span>"
     }
   },

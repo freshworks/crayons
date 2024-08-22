@@ -405,6 +405,11 @@
                   choice: [],
                 },
               },
+              {
+                id: '5d5ca7c2-dd8a-4efa-8122-6beef78hce0f',
+                field_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                value: 'cancel',
+              }
             ],
             fields: [
               {
@@ -661,10 +666,30 @@
       };
 
       fb.addEventListener('fwSaveField', (event) => {
-        fb.loading = true;
+        var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        var objDetail = event.detail;
+        console.log('fwSaveField emitted',event.detail, arrFields);
+
+        if(objDetail.sectionCreation) {
+           const { value, selectedFieldValue, sectionName } = objDetail;
+           const fieldIndex = arrFields.findIndex((arrField)=>{
+            return value.id === arrField.id;
+           });
+           arrFields[fieldIndex].field_options = {has_sections: true};
+           const choiceIndex = arrFields[fieldIndex].choices.findIndex((choice) =>  choice.value === selectedFieldValue);
+           arrFields[fieldIndex].choices[choiceIndex].choice_options = {section_name: sectionName};
+           arrFields[fieldIndex].choices[choiceIndex].dependent_ids = [{field:[], choice:[]}];
+           objFormValues = { ...objFormValues, fields: arrFields };
+           fb.expandedFieldIndex = {};
+           setFormValues(objFormValues);
+           fb.formValues = objFormValues;
+           return;
+        }
+
+        fb.loading = true;
+
+ 
         var objSubmitFormValues =
           objDetail.value.type === 22
             ? objDetail.value.fields[0]
