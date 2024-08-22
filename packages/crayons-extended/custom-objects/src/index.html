@@ -599,6 +599,13 @@
                   }
                 }
               });
+              const fieldIndex = field.fields.findIndex(field => field.id === objDetail.value?.id);
+            
+            // If the field is found, remove it from the fields array
+            if (fieldIndex !== -1) {
+                field.fields.splice(fieldIndex, 1);
+            }
+              
             }
           });
         }
@@ -919,7 +926,6 @@
             const objField = arrFields.splice(intSourceIndex, 1)[0];
             arrFields.splice(intTargetIndex, 0, objField);
           }
-          console.log(arrFields,"array")
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
