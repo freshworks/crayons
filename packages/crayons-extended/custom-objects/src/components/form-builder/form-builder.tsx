@@ -523,6 +523,12 @@ export class FormBuilder {
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
     const sectionData = { data: dataItem, name: objDetail.dropToId };
+    const inValidTypesForSection = [
+      'DROPDOWN',
+      'DEPENDENT_FIELD',
+      'MULTI_SELECT',
+      'RELATIONSHIP',
+    ];
     // New field type element dropped inside the container
     if (objDetail.dragFromId !== objDetail.dropToId) {
       const boolCreationAllowed = hasPermission(
@@ -534,16 +540,19 @@ export class FormBuilder {
         return;
       }
 
-      if (
-        dataItem?.field_options?.has_sections &&
-        dataItem?.choices?.find(
+      if (dataItem?.field_options?.has_sections) {
+        const choiceLimit = dataItem?.choices?.find(
           (choice) =>
             choice.choice_options.section_name === objDetail.dropToId &&
             choice.dependent_ids.field.length === 15
-        )
-      ) {
-        //Shouldn't allow more then 15 fields inside section.
-        return;
+        ); //Shouldn't allow more then 15 fields inside section.
+
+        if (
+          choiceLimit ||
+          inValidTypesForSection.includes(elFieldType.dataProvider.type)
+        ) {
+          return;
+        }
       }
 
       this.composeNewField(
