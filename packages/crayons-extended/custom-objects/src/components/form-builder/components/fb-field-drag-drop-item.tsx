@@ -154,10 +154,10 @@ export class FormBuilderFieldDragDropItem {
       !isDefaultNonCustomField &&
       isDropdownField(this.dataProvider);
 
-    let choicesWithNoSectionCreated = [];
+    let choicesWithNoSectionCreated = [],
+      noOfSections = 0;
 
     if (showDynamicFieldSections) {
-      console.log('this.dataProvider', this.dataProvider.choices);
       choicesWithNoSectionCreated = this.dataProvider.choices.reduce(
         (choicesWithNoSection, choice) => {
           if (!choice?.choice_options?.section_name) {
@@ -170,6 +170,9 @@ export class FormBuilderFieldDragDropItem {
         },
         []
       );
+      noOfSections =
+        this.dataProvider?.choices?.length -
+        choicesWithNoSectionCreated?.length;
     }
 
     const showAddSectionBtn =
@@ -231,7 +234,7 @@ export class FormBuilderFieldDragDropItem {
                     {TranslationController.t('formBuilder.sections.show')}
                   </span>
                 )}
-                <i class='fb-section-count'>1</i>
+                <i class='fb-section-count'>{noOfSections}</i>
                 <fw-icon
                   class={{
                     'fb-section-arrow-down': !this.sectionsExpanded,

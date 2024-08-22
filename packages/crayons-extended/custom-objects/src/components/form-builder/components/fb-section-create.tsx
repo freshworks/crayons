@@ -27,6 +27,10 @@ export class FormBuilderSection {
    * Choosen field value for a section
    */
   @State() selectedFieldValue;
+  /*
+   * Section name field error state
+   */
+  @State() sectionInputState;
   /**
    * Triggered when the section is expanded or collapsed
    */
@@ -50,6 +54,7 @@ export class FormBuilderSection {
     event.stopPropagation();
     const strInputText = event?.detail?.value?.trim() || '';
     if (strInputText) {
+      this.sectionInputState = '';
       this.sectionName = strInputText;
     }
   }
@@ -66,6 +71,10 @@ export class FormBuilderSection {
   private sectionEditOrSave(event: CustomEvent) {
     event.stopImmediatePropagation();
     event.stopPropagation();
+    if (!this.sectionName) {
+      this.sectionInputState = 'error';
+      return;
+    }
     const value = { ...this.dataProvider };
     this.fwUpdate.emit({
       sectionCreation: true,
@@ -109,6 +118,10 @@ export class FormBuilderSection {
               placeholder='Section Name'
               class='fb-section-content-name'
               onFwInput={this.sectionNameChangeHandler.bind(this)}
+              errorText={TranslationController.t(
+                'formBuilder.sections.sectionNameEmpty'
+              )}
+              state={this.sectionInputState}
             ></fw-input>
             <div class='fb-section-content-divider'></div>
             <fw-select
