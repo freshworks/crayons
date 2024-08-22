@@ -599,13 +599,14 @@
                   }
                 }
               });
-              const fieldIndex = field.fields.findIndex(field => field.id === objDetail.value?.id);
-            
-            // If the field is found, remove it from the fields array
-            if (fieldIndex !== -1) {
+              const fieldIndex = field.fields.findIndex(
+                (field) => field.id === objDetail.value?.id
+              );
+
+              // If the field is found, remove it from the fields array
+              if (fieldIndex !== -1) {
                 field.fields.splice(fieldIndex, 1);
-            }
-              
+              }
             }
           });
         }
@@ -895,32 +896,68 @@
         try {
           var objFormValues = getFormValues();
           var arrFields = objFormValues.fields;
-          if (objDetail?.sectionData?.data?.field_options?.has_sections) { //Reposition if it is inside sections
+
+          if (objDetail?.sectionData?.data?.field_options?.has_sections) {
             let foundObject = arrFields.find(
               (item) => item.id === objDetail?.sectionData?.data.id
             );
+
             if (foundObject) {
-              foundObject?.choices?.forEach((choice) => {
-                // Check if the section name matches
+              let sourceSectionName, targetSectionName;
+
+              // Determine source and target section names based on indexes
+              foundObject.choices?.forEach((choice) => {
+                if (
+                  choice.dependent_ids?.field.includes(objDetail.sourceFieldId)
+                ) {
+                  sourceSectionName = choice.choice_options?.section_name;
+                }
                 if (
                   choice.choice_options?.section_name ===
                   objDetail?.sectionData?.name
                 ) {
-                  let arrSectionFields = choice?.dependent_ids?.field;
-                  [
-                    arrSectionFields[intSourceIndex],
-                    arrSectionFields[intTargetIndex],
-                  ] = [
-                    arrSectionFields[intTargetIndex],
-                    arrSectionFields[intSourceIndex],
-                  ];
+                  targetSectionName = choice.choice_options?.section_name;
                 }
               });
-              const objSecField = foundObject?.fields.splice(
-                intSourceIndex,
-                1
-              )[0];
-              foundObject?.fields.splice(intTargetIndex, 0, objSecField);
+
+              if (sourceSectionName && targetSectionName) {
+                foundObject.choices?.forEach((choice) => {
+                  let arrSectionFields = choice?.dependent_ids?.field;
+
+                  if (
+                    choice.choice_options?.section_name === sourceSectionName
+                  ) {
+                    // Remove from source section
+                    const [movedFieldId] = arrSectionFields.splice(
+                      intSourceIndex,
+                      1
+                    );
+
+                    if (sourceSectionName === targetSectionName) {
+                      // Reposition within the same section
+                      arrSectionFields.splice(intTargetIndex, 0, movedFieldId);
+                    } else if (targetSectionName) {
+                      // Add to target section
+                      let targetSectionFields = foundObject.choices.find(
+                        (c) =>
+                          c.choice_options?.section_name === targetSectionName
+                      )?.dependent_ids?.field;
+                      targetSectionFields.splice(
+                        intTargetIndex,
+                        0,
+                        movedFieldId
+                      );
+                    }
+                  }
+                });
+
+                // Adjust fields order in the target section if needed
+                const objSecField = foundObject?.fields.splice(
+                  intSourceIndex,
+                  1
+                )[0];
+                foundObject?.fields.splice(intTargetIndex, 0, objSecField);
+              }
             }
           } else {
             const objField = arrFields.splice(intSourceIndex, 1)[0];
@@ -929,7 +966,7 @@
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
-
+          
           // Set the below 2 lines for resetting the position
           // fb.formValues = objPrePositionSource;
           // fb.forceRenderFields();

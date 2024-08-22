@@ -517,12 +517,16 @@ export class FormBuilder {
     });
   };
 
-  private fieldTypeDropHandler = (event: CustomEvent, dataItem?) => {
+  private fieldTypeDropHandler = (
+    event: CustomEvent,
+    dataItem?,
+    sectionName?
+  ) => {
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
-    const sectionData = { data: dataItem, name: objDetail.dropToId };
+    const sectionData = { data: dataItem, name: sectionName };
     const inValidTypesForSection = [
       'DROPDOWN',
       'DEPENDENT_FIELD',
@@ -568,6 +572,7 @@ export class FormBuilder {
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
           sectionData,
+          sourceFieldId: elFieldType.dataProvider?.id,
         });
       }
     }
@@ -1033,7 +1038,7 @@ export class FormBuilder {
           const sectionName = choice.choice_options?.section_name;
           const fieldsContent =
             sectionName && !choice.dependent_ids?.field.length ? (
-              <span
+              <div
                 class={{
                   'empty-section': true,
                   'disabled': boolFieldEditingState,
@@ -1043,7 +1048,7 @@ export class FormBuilder {
                   <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
                 </div>
                 Drag and drop fields to add to this section
-              </span>
+              </div>
             ) : (
               choice.dependent_ids?.field.map((fieldId, index) => {
                 const field = dataItem.fields.find((f) => f.id === fieldId);
@@ -1091,15 +1096,15 @@ export class FormBuilder {
                   <fw-drag-container
                     key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
                     class={`form-builder-right-panel-field-editor-list`}
-                    id={sectionName}
-                    acceptFrom='fieldTypesList'
+                    id='sectionContainer'
+                    acceptFrom={`fieldTypesList,fieldsContainer,sectionContainer`}
                     addOnDrop={false}
                     sortable={true}
                     onFwDrop={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       e.stopImmediatePropagation();
-                      this.fieldTypeDropHandler(e, dataItem);
+                      this.fieldTypeDropHandler(e, dataItem, sectionName);
                     }}
                   >
                     {fieldsContent}
