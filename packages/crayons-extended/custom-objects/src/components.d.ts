@@ -105,6 +105,10 @@ export namespace Components {
          */
         "dataProvider": any;
         "fieldChoices": any;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
         "setSectionsExpandStateHandler": any;
     }
     interface FbSectionDragDrop {
@@ -1041,6 +1045,10 @@ declare namespace LocalJSX {
           * Triggered when the section details need to be saved on the server
          */
         "onFwUpdate"?: (event: FbSectionCreateCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
         "setSectionsExpandStateHandler"?: any;
     }
     interface FbSectionDragDrop {

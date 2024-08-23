@@ -252,6 +252,7 @@ export class FormBuilderFieldDragDropItem {
                 onFwExpand={this.expandFieldHandler}
                 onFwUpdate={this.saveFieldHandler}
                 fieldChoices={choicesWithNoSectionCreated}
+                productName={this.productName}
               />
             )}
 

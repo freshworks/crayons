@@ -19,6 +19,8 @@
   .fb-show-hide-sections-btn {
     --fw-button-label-vertical-padding: 0;
     --fw-button-hover-background-color: $color-smoke-25;
+    --fw-button-active-box-shadow: $color-smoke-25;
+    --fw-button--lg-focus-border: $color-smoke-25;
 
     &.disabled {
       pointer-events: none;

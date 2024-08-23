@@ -1,5 +1,6 @@
 import { Component, h, Prop, EventEmitter, Event, State } from '@stencil/core';
 import { TranslationController } from '../../../global/Translation';
+import { getMaxLimitProperty, i18nText } from '../utils/form-builder-utils';
 
 @Component({
   tag: 'fb-section-create',
@@ -19,6 +20,10 @@ export class FormBuilderSection {
    * List of field options
    */
   @Prop() fieldChoices;
+  /**
+   * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+   */
+  @Prop() productName = 'CUSTOM_OBJECTS';
   /*
    * Name of the section
    */
@@ -31,6 +36,10 @@ export class FormBuilderSection {
    * Section name field error state
    */
   @State() sectionInputState;
+  /**
+   * State to show section input warning message
+   */
+  @State() sectionWarningMessage = '';
   /**
    * Triggered when the section is expanded or collapsed
    */
@@ -53,9 +62,24 @@ export class FormBuilderSection {
     event.stopImmediatePropagation();
     event.stopPropagation();
     const strInputText = event?.detail?.value?.trim() || '';
+    this.sectionWarningMessage = '';
+    this.sectionInputState = '';
     if (strInputText) {
-      this.sectionInputState = '';
       this.sectionName = strInputText;
+      const objMaxLimitField = getMaxLimitProperty(
+        this.productName,
+        'maxLabelChars'
+      );
+      if (objMaxLimitField && strInputText.length >= objMaxLimitField.count) {
+        this.sectionInputState = 'warning';
+        this.sectionWarningMessage = i18nText(objMaxLimitField.message, {
+          count: objMaxLimitField.count,
+        });
+      } else {
+        this.sectionWarningMessage = '';
+      }
+    } else {
+      this.sectionName = '';
     }
   }
 
@@ -121,6 +145,7 @@ export class FormBuilderSection {
               errorText={TranslationController.t(
                 'formBuilder.sections.sectionNameEmpty'
               )}
+              warningText={this.sectionWarningMessage}
               state={this.sectionInputState}
             ></fw-input>
             <div class='fb-section-content-divider'></div>
