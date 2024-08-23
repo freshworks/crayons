@@ -533,8 +533,11 @@ export class FormBuilder {
       'MULTI_SELECT',
       'RELATIONSHIP',
     ];
+    const isRepositionSection =
+      objDetail.dragFromId.includes('sectionIdentifier-') &&
+      objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop new field or existing field inside the multiple sections
     // New field type element dropped inside the container
-    if (objDetail.dragFromId !== objDetail.dropToId) {
+    if (objDetail.dragFromId !== objDetail.dropToId && !isRepositionSection) {
       const boolCreationAllowed = hasPermission(
         this.role,
         this.permission,
@@ -547,8 +550,8 @@ export class FormBuilder {
       if (dataItem?.field_options?.has_sections) {
         const choiceLimit = dataItem?.choices?.find(
           (choice) =>
-            choice.choice_options.section_name === objDetail.dropToId &&
-            choice.dependent_ids.field.length === 15
+            choice.choice_options?.section_name === objDetail.dropToId &&
+            choice.dependent_ids?.field.length === 15
         ); //Shouldn't allow more then 15 fields inside section.
 
         if (
@@ -1033,87 +1036,96 @@ export class FormBuilder {
   private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
     return (
       <div class='section-container'>
-        {dataItem.choices?.map((choice) => {
-          const sectionChoiceValue = choice?.value;
-          const sectionName = choice.choice_options?.section_name;
-          const fieldsContent =
-            sectionName && !choice.dependent_ids?.field.length ? (
-              <div
-                class={{
-                  'empty-section': true,
-                  'disabled': boolFieldEditingState,
-                }}
-              >
-                <div class='empty-section-icon'>
-                  <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
-                </div>
-                Drag and drop fields to add to this section
-              </div>
-            ) : (
-              choice.dependent_ids?.field.map((fieldId, index) => {
-                const field = dataItem.fields.find((f) => f.id === fieldId);
-                return field
-                  ? this.renderFieldEditorElement(
-                      field,
-                      index,
-                      boolFieldEditingState,
-                      strEntityName,
-                      sectionName
-                    )
-                  : null;
-              })
-            );
-
-          return (
-            sectionName && (
-              <section key={choice.id} class={`fb-section`}>
-                <header class={{ disabled: boolFieldEditingState }}>
-                  <span
-                    class='fb-section-add'
-                    innerHTML={TranslationController.t(
-                      'formBuilder.sections.sectionHeading',
-                      {
-                        sectionName: sectionName,
-                        sectionChoiceValue: sectionChoiceValue,
-                        fieldLabel: dataItem?.label,
-                      }
-                    )}
-                  ></span>
-                  <div class='section-edit-delete'>
+        {dataItem?.field_options?.has_sections &&
+          dataItem.choices?.map((choice) => {
+            const acceptFromSections = dataItem.choices
+              .map((c) => `sectionIdentifier-${c.choice_options?.section_name}`)
+              .filter(Boolean) // Removes any undefined or null values
+              .join(',');
+            const sectionChoiceValue = choice?.value;
+            const sectionName = choice.choice_options?.section_name;
+            const fieldsContent =
+              sectionName && !choice.dependent_ids?.field?.length ? (
+                <div
+                  class={{
+                    'empty-section': true,
+                    'disabled': boolFieldEditingState,
+                  }}
+                >
+                  <div class='empty-section-icon' id={sectionName}>
                     <fw-icon
-                      name='edit'
-                      size='16'
-                      slot='before-label'
-                    ></fw-icon>
-                    <fw-icon
-                      name='delete'
+                      name='plus'
                       size='16'
                       slot='before-label'
                     ></fw-icon>
                   </div>
-                </header>
-                <div class='fb-section-content'>
-                  <fw-drag-container
-                    key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-                    class={`form-builder-right-panel-field-editor-list`}
-                    id='sectionContainer'
-                    acceptFrom={`fieldTypesList,fieldsContainer,sectionContainer`}
-                    addOnDrop={false}
-                    sortable={true}
-                    onFwDrop={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      e.stopImmediatePropagation();
-                      this.fieldTypeDropHandler(e, dataItem, sectionName);
-                    }}
-                  >
-                    {fieldsContent}
-                  </fw-drag-container>
+                  Drag and drop fields to add to this section
                 </div>
-              </section>
-            )
-          );
-        })}
+              ) : (
+                choice.dependent_ids?.field.map((fieldId, index) => {
+                  const field = dataItem.fields.find((f) => f.id === fieldId);
+                  return field
+                    ? this.renderFieldEditorElement(
+                        field,
+                        index,
+                        boolFieldEditingState,
+                        strEntityName,
+                        sectionName
+                      )
+                    : null;
+                })
+              );
+
+            return (
+              sectionName && (
+                <section key={choice.id} class={`fb-section`}>
+                  <header class={{ disabled: boolFieldEditingState }}>
+                    <span
+                      class='fb-section-add'
+                      innerHTML={TranslationController.t(
+                        'formBuilder.sections.sectionHeading',
+                        {
+                          sectionName: sectionName,
+                          sectionChoiceValue: sectionChoiceValue,
+                          fieldLabel: dataItem?.label,
+                        }
+                      )}
+                    ></span>
+                    <div class='section-edit-delete'>
+                      <fw-icon
+                        name='edit'
+                        size='16'
+                        slot='before-label'
+                      ></fw-icon>
+                      <fw-icon
+                        name='delete'
+                        size='16'
+                        slot='before-label'
+                      ></fw-icon>
+                    </div>
+                  </header>
+                  <div class='fb-section-content'>
+                    <fw-drag-container
+                      key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                      class={`form-builder-right-panel-field-editor-list`}
+                      id={`sectionIdentifier-${sectionName}`}
+                      acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
+                      addOnDrop={false}
+                      sortable={true}
+                      onFwDrop={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        this.fieldTypeDropHandler(e, dataItem, sectionName);
+                      }}
+                    >
+                      {fieldsContent}
+                    </fw-drag-container>
+                  </div>
+                </section>
+              )
+            );
+          })}
       </div>
     );
   }
