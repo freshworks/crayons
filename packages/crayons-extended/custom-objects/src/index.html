@@ -308,6 +308,27 @@
             updated_at: '2023-03-14 13:20:09',
           },
           {
+            id: '410a9452-70f4-4519-8b68-2bf0157ad46b',
+            name: 'testadd',
+            label: 'test_add',
+            type: 1,
+            required: false,
+            filterable: false,
+            editable: true,
+            visible: false,
+            deleted: false,
+            link: null,
+            placeholder: null,
+            hint: null,
+            field_options: {
+              unique: false,
+            },
+            searchable: true,
+            parent_id: null,
+            choices: [],
+            custom: true,
+          },
+          {
             id: '8df0849d-f09a-448b-b697-b3fc864fb133',
             name: 'priority',
             column_name: 'priority',
@@ -409,7 +430,7 @@
                 id: '5d5ca7c2-dd8a-4efa-8122-6beef78hce0f',
                 field_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
                 value: 'cancel',
-              }
+              },
             ],
             fields: [
               {
@@ -473,6 +494,333 @@
           },
         ],
       };
+
+      //       var formValuesConvProps = {
+      //     "docId": "34812d27-6455-4eb4-8654-cd2c4cd0ed5d",
+      //     "form_id": "0",
+      //     "bundle_id": [
+      //         "555741949072343098"
+      //     ],
+      //     "coll_id": "ConversationForm",
+      //     "prod_id": "freshchat",
+      //     "organisation_id": "555741948833267800",
+      //     "name": "Conversation Form",
+      //     "account_id": "721079537498489",
+      //     "title": "Conversation Form",
+      //     "description": "This is a conversation form",
+      //     "deleted": false,
+      //     "active": true,
+      //     "compressed": false,
+      //     "form_options": {
+      //         "unique_attributes": "name, column_name, label"
+      //     },
+      //     "version": 46,
+      //     "fields": [
+      //         {
+      //             "id": "0395c89a-ff56-49a0-a393-79bf48d8b65c",
+      //             "name": "group",
+      //             "column_name": "group",
+      //             "label": "Group",
+      //             "type": 2,
+      //             "field_options": {
+      //                 "reference": "true",
+      //                 "option_value_path": "id",
+      //                 "option_label_path": "value"
+      //             },
+      //             "custom": false,
+      //             "editable": true,
+      //             "position": 49,
+      //             "deleted": false,
+      //             "required": false,
+      //             "visible": true,
+      //             "column_type_blob": false,
+      //             "nodegroup_skip": false,
+      //             "validatable": false,
+      //             "builder": false,
+      //             "internal": false,
+      //             "choices": [],
+      //             "fields": [],
+      //             "regex": {},
+      //             "created_at": "2023-03-14 13:20:09",
+      //             "updated_at": "2023-03-14 13:20:09"
+      //         },
+      //         {
+      //             "id": "4747b941-a2cf-45ef-9118-d4007826fa92",
+      //             "name": "agent",
+      //             "column_name": "agent",
+      //             "label": "Agent",
+      //             "type": 2,
+      //             "field_options": {
+      //                 "reference": "true",
+      //                 "option_value_path": "id",
+      //                 "option_label_path": "value"
+      //             },
+      //             "custom": false,
+      //             "editable": true,
+      //             "position": 50,
+      //             "deleted": false,
+      //             "required": false,
+      //             "visible": true,
+      //             "column_type_blob": false,
+      //             "nodegroup_skip": false,
+      //             "validatable": false,
+      //             "builder": false,
+      //             "internal": false,
+      //             "choices": [],
+      //             "fields": [],
+      //             "regex": {},
+      //             "created_at": "2023-03-14 13:20:09",
+      //             "updated_at": "2023-03-14 13:20:09"
+      //         },
+      //         {
+      //             "id": "e189019d-ac50-4852-a17f-97acf2b05582",
+      //             "name": "status",
+      //             "column_name": "status",
+      //             "label": "Status",
+      //             "type": 2,
+      //             "field_options": {
+      //                 "option_value_path": "id",
+      //                 "option_label_path": "value"
+      //             },
+      //             "custom": false,
+      //             "editable": true,
+      //             "position": 51,
+      //             "deleted": false,
+      //             "required": false,
+      //             "visible": true,
+      //             "column_type_blob": false,
+      //             "nodegroup_skip": false,
+      //             "validatable": false,
+      //             "builder": false,
+      //             "internal": false,
+      //             "choices": [
+      //                 {
+      //                     "id": "0",
+      //                     "account_id": "0",
+      //                     "internal_name": "open",
+      //                     "value": "Open",
+      //                     "field_id": "e189019d-ac50-4852-a17f-97acf2b05582",
+      //                     "position": 1
+      //                 },
+      //                 {
+      //                     "id": "5",
+      //                     "account_id": "0",
+      //                     "internal_name": "waiting_on_customer",
+      //                     "value": "Waiting on customer",
+      //                     "field_id": "e189019d-ac50-4852-a17f-97acf2b05582",
+      //                     "position": 2
+      //                 },
+      //                 {
+      //                     "id": "6",
+      //                     "account_id": "0",
+      //                     "internal_name": "waiting_on_internal_teams",
+      //                     "value": "Waiting on internal teams",
+      //                     "field_id": "e189019d-ac50-4852-a17f-97acf2b05582",
+      //                     "position": 3
+      //                 },
+      //                 {
+      //                     "id": "2",
+      //                     "account_id": "0",
+      //                     "internal_name": "resolved",
+      //                     "value": "Resolved",
+      //                     "field_id": "e189019d-ac50-4852-a17f-97acf2b05582",
+      //                     "position": 4
+      //                 }
+      //             ],
+      //             "fields": [],
+      //             "regex": {},
+      //             "default_value": "0",
+      //             "created_at": "2023-03-14 13:20:09",
+      //             "updated_at": "2023-03-14 13:20:09"
+      //         },
+      //         {
+      //             "id": "8df0849d-f09a-448b-b697-b3fc864fb133",
+      //             "name": "priority",
+      //             "column_name": "priority",
+      //             "label": "Priority",
+      //             "type": 2,
+      //             "field_options": {
+      //                 "option_value_path": "id",
+      //                 "option_label_path": "value"
+      //             },
+      //             "custom": false,
+      //             "editable": true,
+      //             "position": 52,
+      //             "deleted": false,
+      //             "required": false,
+      //             "visible": true,
+      //             "column_type_blob": false,
+      //             "nodegroup_skip": false,
+      //             "validatable": false,
+      //             "builder": false,
+      //             "internal": false,
+      //             "choices": [
+      //                 {
+      //                     "id": "1",
+      //                     "account_id": "0",
+      //                     "internal_name": "low",
+      //                     "value": "Low",
+      //                     "field_id": "8df0849d-f09a-448b-b697-b3fc864fb133",
+      //                     "position": 1
+      //                 },
+      //                 {
+      //                     "id": "2",
+      //                     "account_id": "0",
+      //                     "internal_name": "medium",
+      //                     "value": "Medium",
+      //                     "field_id": "8df0849d-f09a-448b-b697-b3fc864fb133",
+      //                     "position": 2
+      //                 },
+      //                 {
+      //                     "id": "3",
+      //                     "account_id": "0",
+      //                     "internal_name": "high",
+      //                     "value": "High",
+      //                     "field_id": "8df0849d-f09a-448b-b697-b3fc864fb133",
+      //                     "position": 3
+      //                 },
+      //                 {
+      //                     "id": "4",
+      //                     "account_id": "0",
+      //                     "internal_name": "urgent",
+      //                     "value": "Urgent",
+      //                     "field_id": "8df0849d-f09a-448b-b697-b3fc864fb133",
+      //                     "position": 4
+      //                 }
+      //             ],
+      //             "fields": [],
+      //             "regex": {},
+      //             "default_value": "1",
+      //             "created_at": "2023-03-14 13:20:09",
+      //             "updated_at": "2023-03-14 13:20:09"
+      //         },
+      //         {
+      //             "id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //             "name": "cf_type",
+      //             "column_name": "cf_bigint011",
+      //             "label": "Type",
+      //             "type": 2,
+      //             "field_options": {
+      //                 "has_sections": true
+      //             },
+      //             "choices": [
+      //                 {
+      //                     "id": "58b9bf66-accb-450a-86ff-e8598827665c",
+      //                     "value": "order",
+      //                     "field_id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //                     "choice_options": {
+      //                         "section_name": "orderSection"
+      //                     },
+      //                     "dependent_ids": {
+      //                         "field": [
+      //                             "410a9452-70f4-4519-8b68-2bf0157ad46b",
+      //                             "67c99d97-8a54-4805-b416-a676f714ff1b",
+      //                             "b3d6cf5e-7090-4503-a42a-51e460c0adcb"
+      //                         ],
+      //                         "choice": []
+      //                     }
+      //                 },
+      //                 {
+      //                     "id": "5d5ca7c2-dd8a-4efa-8122-6beef9d6ce0f",
+      //                     "value": "refund",
+      //                     "field_id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //                     "choice_options": {
+      //                         "section_name": "orderSection1"
+      //                     },
+      //                     "dependent_ids": {
+      //                         "field": [],
+      //                         "choice": []
+      //                     }
+      //                 },
+      //                 {
+      //                     "id": "5d5ca7c2-dd8a-4efa-8122-6beef78hce0f",
+      //                     "field_id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //                     "value": "cancel"
+      //                 }
+      //             ],
+      //             "fields": [
+      //                 {
+      //                     "id": "410a9452-70f4-4519-8b68-2bf0157ad46b",
+      //                     "name": "testadd",
+      //                     "label": "test_add",
+      //                     "type": 1,
+      //                     "required": false,
+      //                     "filterable": false,
+      //                     "editable": true,
+      //                     "visible": false,
+      //                     "deleted": false,
+      //                     "link": null,
+      //                     "placeholder": null,
+      //                     "hint": null,
+      //                     "field_options": {
+      //                         "unique": false
+      //                     },
+      //                     "searchable": true,
+      //                     "parent_id": null,
+      //                     "choices": [],
+      //                     "custom": true
+      //                 },
+      //                 {
+      //                     "id": "67c99d97-8a54-4805-b416-a676f714ff1b",
+      //                     "parent_id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //                     "name": "cf_orderid",
+      //                     "column_name": "cf_str023",
+      //                     "label": "orderid",
+      //                     "type": 1,
+      //                     "field_options": {
+      //                         "is_section_field": true
+      //                     },
+      //                     "custom": true,
+      //                     "editable": true,
+      //                     "position": 114,
+      //                     "deleted": false,
+      //                     "required": true,
+      //                     "visible": true,
+      //                     "column_type_blob": false,
+      //                     "nodegroup_skip": false,
+      //                     "validatable": false,
+      //                     "builder": false,
+      //                     "internal": false,
+      //                     "choices": [],
+      //                     "fields": [],
+      //                     "regex": {},
+      //                     "created_at": "2024-07-11 10:49:48",
+      //                     "updated_at": "2024-07-11 11:06:33"
+      //                 },
+      //                 {
+      //                     "id": "b3d6cf5e-7090-4503-a42a-51e460c0adcb",
+      //                     "parent_id": "7fdc76ec-a855-495d-a935-9bfa4fa8f834",
+      //                     "name": "cf_orderstatus",
+      //                     "column_name": "cf_str023",
+      //                     "label": "orderstatus",
+      //                     "type": 1,
+      //                     "field_options": {
+      //                         "is_section_field": true
+      //                     },
+      //                     "custom": true,
+      //                     "editable": true,
+      //                     "position": 114,
+      //                     "deleted": false,
+      //                     "required": true,
+      //                     "visible": true,
+      //                     "column_type_blob": false,
+      //                     "nodegroup_skip": false,
+      //                     "validatable": false,
+      //                     "builder": false,
+      //                     "internal": false,
+      //                     "choices": [],
+      //                     "fields": [],
+      //                     "regex": {},
+      //                     "created_at": "2024-07-11 10:49:48",
+      //                     "updated_at": "2024-07-11 11:06:33"
+      //                 }
+      //             ],
+      //             "regex": {},
+      //             "created_at": "2024-06-10 09:00:42",
+      //             "updated_at": "2024-07-11 11:11:30"
+      //         }
+      //     ]
+      // }
 
       var fb = document.getElementById('formBuilder');
       fb.productName = productName;
@@ -669,27 +1017,32 @@
         var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        console.log('fwSaveField emitted',event.detail, arrFields);
+        console.log('fwSaveField emitted', event.detail, arrFields);
 
-        if(objDetail.sectionCreation) {
-           const { value, selectedFieldValue, sectionName } = objDetail;
-           const fieldIndex = arrFields.findIndex((arrField)=>{
+        if (objDetail.sectionCreation) {
+          const { value, selectedFieldValue, sectionName } = objDetail;
+          const fieldIndex = arrFields.findIndex((arrField) => {
             return value.id === arrField.id;
-           });
-           arrFields[fieldIndex].field_options = {has_sections: true};
-           const choiceIndex = arrFields[fieldIndex].choices.findIndex((choice) =>  choice.value === selectedFieldValue);
-           arrFields[fieldIndex].choices[choiceIndex].choice_options = {section_name: sectionName};
-           arrFields[fieldIndex].choices[choiceIndex].dependent_ids = [{field:[], choice:[]}];
-           objFormValues = { ...objFormValues, fields: arrFields };
-           fb.expandedFieldIndex = {};
-           setFormValues(objFormValues);
-           fb.formValues = objFormValues;
-           return;
+          });
+          arrFields[fieldIndex].field_options = { has_sections: true };
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex(
+            (choice) => choice.value === selectedFieldValue
+          );
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {
+            section_name: sectionName,
+          };
+          arrFields[fieldIndex].choices[choiceIndex].dependent_ids = [
+            { field: [], choice: [] },
+          ];
+          objFormValues = { ...objFormValues, fields: arrFields };
+          fb.expandedFieldIndex = {};
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+          return;
         }
 
         fb.loading = true;
 
- 
         var objSubmitFormValues =
           objDetail.value.type === 22
             ? objDetail.value.fields[0]
@@ -910,89 +1263,166 @@
         }
       }
 
+      // Function to find section names based on source field ID and section name
+      function findSectionNames(foundObject, sourceFieldId, sectionName) {
+        let sourceSectionName, targetSectionName;
+
+        foundObject.choices?.forEach((choice) => {
+          if (choice.dependent_ids?.field.includes(sourceFieldId)) {
+            sourceSectionName = choice.choice_options?.section_name;
+          }
+          if (choice.choice_options?.section_name === sectionName) {
+            targetSectionName = choice.choice_options?.section_name;
+          }
+        });
+
+        return { sourceSectionName, targetSectionName };
+      }
+
+      // Function to move a field between sections or within a section
+      function moveFieldBetweenSections(
+        foundObject,
+        sourceSectionName,
+        targetSectionName,
+        intSourceIndex,
+        intTargetIndex,
+        arrFields
+      ) {
+        let movedFieldId;
+
+        foundObject.choices?.forEach((choice) => {
+          let arrSectionFields = choice?.dependent_ids?.field;
+
+          if (choice.choice_options?.section_name === sourceSectionName) {
+            // Remove from source section
+            movedFieldId = arrSectionFields.splice(intSourceIndex, 1)[0];
+
+            if (sourceSectionName === targetSectionName) {
+              // Reposition within the same section
+              arrSectionFields.splice(intTargetIndex, 0, movedFieldId);
+            } else if (targetSectionName) {
+              // Add to target section
+              let targetSectionFields = foundObject.choices.find(
+                (c) => c.choice_options?.section_name === targetSectionName
+              )?.dependent_ids?.field;
+              targetSectionFields.splice(intTargetIndex, 0, movedFieldId);
+            }
+          }
+        });
+
+        return movedFieldId;
+      }
+
+      // Function to handle field repositioning
+      function handleFieldRepositioning(
+        objDetail,
+        intSourceIndex,
+        intTargetIndex,
+        arrFields
+      ) {
+        let objFormValues = getFormValues();
+        let foundObject = arrFields.find(
+          (item) => item.id === objDetail?.sectionData?.data.id
+        );
+
+        if (foundObject) {
+          const { sourceSectionName, targetSectionName } = findSectionNames(
+            foundObject,
+            objDetail.sourceFieldId,
+            objDetail?.sectionData?.name
+          );
+
+          if (!sourceSectionName && targetSectionName) {
+            // Dragged from outside to inside a section
+            const objFieldOut = arrFields.splice(intSourceIndex, 1)[0]; // Remove the field from arrFields
+
+            foundObject.choices?.forEach((choice) => {
+              if (choice.choice_options?.section_name === targetSectionName) {
+                // Add the field ID to the target section's dependent_ids array
+                choice.dependent_ids?.field.splice(
+                  intTargetIndex,
+                  0,
+                  objFieldOut.id
+                );
+              }
+            });
+
+            objFieldOut.field_options.is_section_field = true;
+            objFieldOut.parent_id = foundObject.id;
+
+            // Add the field object to the target section's fields array
+            foundObject.fields.splice(intTargetIndex, 0, objFieldOut);
+          } else if (sourceSectionName && !targetSectionName) {
+            // Dragged from inside a section to outside
+            const movedFieldId = moveFieldBetweenSections(
+              foundObject,
+              sourceSectionName,
+              targetSectionName,
+              intSourceIndex,
+              intTargetIndex,
+              arrFields
+            );
+
+            // Add the field object back to the main arrFields array
+            const objFieldInSection = foundObject.fields.find(
+              (field) => field.id === movedFieldId
+            );
+            if (objFieldInSection) {
+              foundObject.fields.splice(
+                foundObject.fields.indexOf(objFieldInSection),
+                1
+              ); // Remove from the section's fields array
+              objFieldInSection.field_options.is_section_field = false;
+              delete objFieldInSection.parent_id;
+              arrFields.splice(intTargetIndex, 0, objFieldInSection); // Add to the main fields array
+            }
+          } else if (sourceSectionName && targetSectionName) {
+            moveFieldBetweenSections(
+              foundObject,
+              sourceSectionName,
+              targetSectionName,
+              intSourceIndex,
+              intTargetIndex,
+              arrFields
+            );
+          }
+        } else {
+          const objField = arrFields.splice(intSourceIndex, 1)[0];
+          arrFields.splice(intTargetIndex, 0, objField);
+        }
+
+        return objFormValues;
+      }
+
+      // Event listener for repositioning fields
       fb.addEventListener('fwRepositionField', (event) => {
         var objDetail = event.detail;
         var intSourceIndex = objDetail.sourceIndex;
         var intTargetIndex = objDetail.targetIndex;
-        if (intSourceIndex === intTargetIndex) {
+
+        if (
+          intSourceIndex === intTargetIndex &&
+          !objDetail?.isRepositionSection
+        ) {
           return;
         }
+
         var objPrePositionSource = deepCloneObject(getFormValues());
+
         try {
-          var objFormValues = getFormValues();
-          var arrFields = objFormValues.fields;
+          var arrFields = getFormValues().fields;
+          var objFormValues = handleFieldRepositioning(
+            objDetail,
+            intSourceIndex,
+            intTargetIndex,
+            arrFields
+          );
 
-          if (objDetail?.sectionData?.data?.field_options?.has_sections) {
-            let foundObject = arrFields.find(
-              (item) => item.id === objDetail?.sectionData?.data.id
-            );
-
-            if (foundObject) {
-              let sourceSectionName, targetSectionName;
-
-              // Determine source and target section names based on indexes
-              foundObject.choices?.forEach((choice) => {
-                if (
-                  choice.dependent_ids?.field.includes(objDetail.sourceFieldId)
-                ) {
-                  sourceSectionName = choice.choice_options?.section_name;
-                }
-                if (
-                  choice.choice_options?.section_name ===
-                  objDetail?.sectionData?.name
-                ) {
-                  targetSectionName = choice.choice_options?.section_name;
-                }
-              });
-
-              if (sourceSectionName && targetSectionName) {
-                foundObject.choices?.forEach((choice) => {
-                  let arrSectionFields = choice?.dependent_ids?.field;
-
-                  if (
-                    choice.choice_options?.section_name === sourceSectionName
-                  ) {
-                    // Remove from source section
-                    const [movedFieldId] = arrSectionFields.splice(
-                      intSourceIndex,
-                      1
-                    );
-
-                    if (sourceSectionName === targetSectionName) {
-                      // Reposition within the same section
-                      arrSectionFields.splice(intTargetIndex, 0, movedFieldId);
-                    } else if (targetSectionName) {
-                      // Add to target section
-                      let targetSectionFields = foundObject.choices.find(
-                        (c) =>
-                          c.choice_options?.section_name === targetSectionName
-                      )?.dependent_ids?.field;
-                      targetSectionFields.splice(
-                        intTargetIndex,
-                        0,
-                        movedFieldId
-                      );
-                    }
-                  }
-                });
-
-                // Adjust fields order in the target section if needed
-                const objSecField = foundObject?.fields.splice(
-                  intSourceIndex,
-                  1
-                )[0];
-                foundObject?.fields.splice(intTargetIndex, 0, objSecField);
-              }
-            }
-          } else {
-            const objField = arrFields.splice(intSourceIndex, 1)[0];
-            arrFields.splice(intTargetIndex, 0, objField);
-          }
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
-          
-          // Set the below 2 lines for resetting the position
+
+          // Uncomment the below lines if you need to reset the position
           // fb.formValues = objPrePositionSource;
           // fb.forceRenderFields();
         } catch (error) {

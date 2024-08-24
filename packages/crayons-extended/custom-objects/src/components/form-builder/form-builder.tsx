@@ -526,7 +526,17 @@ export class FormBuilder {
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
-    const sectionData = { data: dataItem, name: sectionName };
+    let sectionData = { data: dataItem, name: sectionName };
+    const sectionOut = objDetail.dragFromId.split('sectionIdentifier-'); //When it is moving from inside section to outside so it will have acceptfrom sectionIdentifier.
+    if (sectionOut.length > 1 && sectionOut[1]) {
+      sectionData = {
+        data: {
+          id: elFieldType.dataProvider.parent_id,
+          field_options: { has_sections: true },
+        },
+        name: sectionName,
+      };
+    }
     const inValidTypesForSection = [
       'DROPDOWN',
       'DEPENDENT_FIELD',
@@ -536,8 +546,17 @@ export class FormBuilder {
     const isRepositionSection =
       objDetail.dragFromId.includes('sectionIdentifier-') &&
       objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop new field or existing field inside the multiple sections
+
+    // Determine if it's a reposition involving the Field container
+    const isRepositionWithFieldsContainer =
+      objDetail.dragFromId.includes('fieldsContainer') ||
+      objDetail.dropToId.includes('fieldsContainer');
+
     // New field type element dropped inside the container
-    if (objDetail.dragFromId !== objDetail.dropToId && !isRepositionSection) {
+    if (
+      objDetail.dragFromId !== objDetail.dropToId &&
+      !(isRepositionSection || isRepositionWithFieldsContainer)
+    ) {
       const boolCreationAllowed = hasPermission(
         this.role,
         this.permission,
@@ -570,12 +589,13 @@ export class FormBuilder {
       );
     } else {
       // Reposition inside the fields list
-      if (elFieldType.index !== intDroppedIndex) {
+      if (elFieldType.index !== intDroppedIndex || isRepositionSection) {
         this.fwRepositionField.emit({
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
           sectionData,
           sourceFieldId: elFieldType.dataProvider?.id,
+          isRepositionSection,
         });
       }
     }
@@ -1039,8 +1059,8 @@ export class FormBuilder {
         {dataItem?.field_options?.has_sections &&
           dataItem.choices?.map((choice) => {
             const acceptFromSections = dataItem.choices
-              .map((c) => `sectionIdentifier-${c.choice_options?.section_name}`)
-              .filter(Boolean) // Removes any undefined or null values
+              .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
+              .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
               .join(',');
             const sectionChoiceValue = choice?.value;
             const sectionName = choice.choice_options?.section_name;
@@ -1429,10 +1449,15 @@ export class FormBuilder {
                   key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
                   class={`${strBaseClassName}-right-panel-field-editor-list`}
                   id='fieldsContainer'
-                  acceptFrom='fieldTypesList'
+                  acceptFrom='fieldTypesList,sectionIdentifier-'
                   addOnDrop={false}
                   sortable={true}
-                  onFwDrop={this.fieldTypeDropHandler}
+                  onFwDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    this.fieldTypeDropHandler(e);
+                  }}
                 >
                   {fieldElements}
                 </fw-drag-container>
