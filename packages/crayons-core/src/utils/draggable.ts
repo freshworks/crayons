@@ -239,7 +239,10 @@ export class Draggable {
       return false;
     }
     const sortContainerId = dragElement.parentElement.id;
-    return this.acceptFrom.includes(sortContainerId);
+    return (
+      this.acceptFrom.includes(sortContainerId) ||
+      sortContainerId.includes('sectionIdentifier-') //When it is moving from section container to outside.
+    );
   }
 
   canInsertBefore(element) {
