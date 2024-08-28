@@ -992,15 +992,15 @@
         var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        if(event.detail?.deleteSection) {
+        if (event.detail?.deleteSection) {
           const { value, choice } = objDetail;
           const fieldIndex = arrFields.findIndex((arrField) => {
             return value.id === arrField.id;
           });
-          const choiceIndex = arrFields[fieldIndex].choices.findIndex( // Selected choice index
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex(
+            // Selected choice index
             (_choice) => _choice.value === choice.value
           );
-          console.log('before',arrFields[fieldIndex].choices[choiceIndex], choice);
           arrFields[fieldIndex].choices[choiceIndex].choice_options = {};
           arrFields[fieldIndex].choices[choiceIndex].dependent_ids = {};
 
@@ -1038,29 +1038,44 @@
         var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        if(objDetail.editSection) {
-          const { value, selectedFieldValue, previousSelectedValue, sectionName } = objDetail;
+        if (objDetail.editSection) {
+          const {
+            value,
+            selectedFieldValue,
+            previousSelectedValue,
+            sectionName,
+          } = objDetail;
           const fieldIndex = arrFields.findIndex((arrField) => {
             return value.id === arrField.id;
           });
           arrFields[fieldIndex].field_options = { has_sections: true };
-          const choiceIndex = arrFields[fieldIndex].choices.findIndex( // Selected choice index
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex(
+            // Selected choice index
             (choice) => choice.value === selectedFieldValue
           );
-          arrFields[fieldIndex].choices[choiceIndex].choice_options = {  // Update section name
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {
+            // Update section name
             section_name: sectionName,
           };
-          if(previousSelectedValue !== selectedFieldValue) { // When choice is updated
-            const previouslySelectedchoiceIndex = arrFields[fieldIndex].choices.findIndex(
-            (choice) => choice.value === previousSelectedValue
+          if (previousSelectedValue !== selectedFieldValue) {
+            // When choice is updated
+            const previouslySelectedchoiceIndex = arrFields[
+              fieldIndex
+            ].choices.findIndex(
+              (choice) => choice.value === previousSelectedValue
             );
-            arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].choice_options = {
+            arrFields[fieldIndex].choices[
+              previouslySelectedchoiceIndex
+            ].choice_options = {
               section_name: '',
             };
-            arrFields[fieldIndex].choices[choiceIndex].dependent_ids = arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].dependent_ids;
-            arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].dependent_ids = [
-              { field: [], choice: [] },
-            ];
+            arrFields[fieldIndex].choices[choiceIndex].dependent_ids =
+              arrFields[fieldIndex].choices[
+                previouslySelectedchoiceIndex
+              ].dependent_ids;
+            arrFields[fieldIndex].choices[
+              previouslySelectedchoiceIndex
+            ].dependent_ids = [{ field: [], choice: [] }];
           }
 
           objFormValues = { ...objFormValues, fields: arrFields };
@@ -1461,17 +1476,16 @@
         var objPrePositionSource = deepCloneObject(getFormValues());
 
         try {
-          var arrFields = getFormValues().fields;
-          var objFormValues = handleFieldRepositioning(
+          let arrFields = getFormValues().fields;
+          let objFormValues = handleFieldRepositioning(
             objDetail,
             intSourceIndex,
             intTargetIndex,
             arrFields
           );
 
-          objFormValues = { ...objFormValues };
-          setFormValues(objFormValues);
-          fb.formValues = objFormValues;
+          setFormValues({ ...objFormValues });
+          fb.formValues = { ...objFormValues };
           // Uncomment the below lines if you need to reset the position
           // fb.formValues = objPrePositionSource;
           // fb.forceRenderFields();
