@@ -552,15 +552,18 @@ export class FormBuilder {
       objDetail.dragFromId.includes('sectionIdentifier-') &&
       objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop new field or existing field inside the multiple sections
 
-    // Determine if it's a reposition involving the Field container
-    const isRepositionWithFieldsContainer =
-      objDetail.dragFromId.includes('fieldsContainer') ||
+    const isSectionOutside =
+      objDetail.dragFromId.includes('sectionIdentifier-') &&
       objDetail.dropToId.includes('fieldsContainer');
+    // Determine if it's a reposition involving the Field container
+    const isSectionInside =
+      objDetail.dragFromId.includes('fieldsContainer') &&
+      objDetail.dropToId.includes('sectionIdentifier-');
 
     // New field type element dropped inside the container
     if (
       objDetail.dragFromId !== objDetail.dropToId &&
-      !(isRepositionSection || isRepositionWithFieldsContainer)
+      !(isSectionOutside || isSectionInside || isRepositionSection)
     ) {
       const boolCreationAllowed = hasPermission(
         this.role,
