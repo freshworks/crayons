@@ -160,9 +160,13 @@ export class FieldEditor {
    */
   @Prop() dynamicSectionsBetaEnabled = false;
   /*
-   * Handler function to create a new section
+   * Function to set section expand state
    */
-  @Prop() setSectionsExpandStateHandler;
+  @Prop() setSectionsExpandState;
+  /*
+   * Function to expand create section pane
+   */
+  @Prop() setSectionCreationExpandState;
   /*
    * Sections expand state
    */
@@ -897,7 +901,8 @@ export class FieldEditor {
 
     if (!this.expanded) {
       this.dictInteractiveElements = {};
-      this.setSectionsExpandStateHandler(false, false);
+      this.setSectionsExpandState(false);
+      this.setSectionCreationExpandState(false);
       this.expanded = true;
 
       this.fwExpand.emit({
@@ -2072,7 +2077,8 @@ export class FieldEditor {
                       this.createDynamicSection,
                   }}
                   onFwClick={() => {
-                    this.setSectionsExpandStateHandler(true, true);
+                    this.setSectionsExpandState(true);
+                    this.setSectionCreationExpandState(true);
                   }}
                 >
                   <fw-icon

@@ -4,6 +4,7 @@ import formMapper from '../assets/form-mapper.json';
 import {
   hasCustomProperty,
   isDropdownField,
+  getChoicesWithNoSectionCreated,
 } from '../utils/form-builder-utils';
 
 @Component({
@@ -133,8 +134,11 @@ export class FormBuilderFieldDragDropItem {
    */
   @State() createDynamicSection = false;
 
-  private setSectionsExpandState = (sectionExpanded, createSection) => {
+  private setSectionsExpandState = (sectionExpanded) => {
     this.sectionsExpanded = sectionExpanded;
+  };
+
+  private setSectionCreationExpandState = (createSection) => {
     this.createDynamicSection = createSection;
   };
 
@@ -158,17 +162,8 @@ export class FormBuilderFieldDragDropItem {
       noOfSections = 0;
 
     if (showDynamicFieldSections) {
-      choicesWithNoSectionCreated = this.dataProvider.choices.reduce(
-        (choicesWithNoSection, choice) => {
-          if (!choice?.choice_options?.section_name) {
-            choicesWithNoSection.push({
-              text: choice.value,
-              value: choice.value,
-            });
-          }
-          return choicesWithNoSection;
-        },
-        []
+      choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
+        this.dataProvider.choices
       );
       noOfSections =
         this.dataProvider?.choices?.length -
@@ -203,7 +198,8 @@ export class FormBuilderFieldDragDropItem {
           showDependentFieldResolveProp={this.showDependentFieldResolveProp}
           dependentFieldLink={this.dependentFieldLink}
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
-          setSectionsExpandStateHandler={this.setSectionsExpandState}
+          setSectionsExpandState={this.setSectionsExpandState}
+          setSectionCreationExpandState={this.setSectionCreationExpandState}
           showSections={showAddSectionBtn}
           isDefaultNonCustomField={isDefaultNonCustomField}
           onFwUpdate={this.saveFieldHandler}
@@ -221,7 +217,8 @@ export class FormBuilderFieldDragDropItem {
                 'disabled': this.disabled,
               }}
               onFwClick={() => {
-                this.setSectionsExpandState(!this.sectionsExpanded, false);
+                this.setSectionsExpandState(!this.sectionsExpanded);
+                this.setSectionCreationExpandState(false);
               }}
             >
               <div class='fb-section-visibility'>
@@ -247,7 +244,7 @@ export class FormBuilderFieldDragDropItem {
 
             {this.createDynamicSection && (
               <fb-section-create
-                setSectionsExpandStateHandler={this.setSectionsExpandState}
+                showCreateOrEditSectionPane={this.setSectionCreationExpandState}
                 dataProvider={this.dataProvider}
                 onFwExpand={this.expandFieldHandler}
                 onFwUpdate={this.saveFieldHandler}

@@ -480,6 +480,20 @@ export function getValueForField(values, field) {
   return value;
 }
 
+export function getChoicesWithNoSectionCreated(choices) {
+  const choicesWithNoSection = [];
+  choices.reduce((choicesWithNoSection, choice) => {
+    if (!choice?.choice_options?.section_name) {
+      choicesWithNoSection.push({
+        text: choice.value,
+        value: choice.value,
+      });
+    }
+    return choicesWithNoSection;
+  }, []);
+  return choicesWithNoSection;
+}
+
 const handleUserTimeZoneOffset = (date) => {
   return (
     new Date(date).valueOf() + new Date(date).getTimezoneOffset() * 60 * 1000

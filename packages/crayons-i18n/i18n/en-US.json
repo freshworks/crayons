@@ -202,6 +202,7 @@
       "save": "Save",
       "cancel": "Cancel",
       "sectionNameEmpty": "Section name can't be empty",
+      "emptySection": "Drag and drop fields to add to this section",
       "sectionHeading": "<span class='highlight'>{{sectionName}}</span> | Show section if <span class='highlight'>{{fieldLabel}}</span> is : <span class='highlight'>{{sectionChoiceValue}}</span>"
     }
   },

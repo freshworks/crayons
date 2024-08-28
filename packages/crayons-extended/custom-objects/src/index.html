@@ -1017,7 +1017,36 @@
         var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        console.log('fwSaveField emitted', event.detail, arrFields);
+        if(objDetail.editSection) {
+          const { value, selectedFieldValue, previousSelectedValue, sectionName } = objDetail;
+          const fieldIndex = arrFields.findIndex((arrField) => {
+            return value.id === arrField.id;
+          });
+          arrFields[fieldIndex].field_options = { has_sections: true };
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex( // Selected choice index
+            (choice) => choice.value === selectedFieldValue
+          );
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {  // Update section name
+            section_name: sectionName,
+          };
+          if(previousSelectedValue !== selectedFieldValue) { // When choice is updated
+            const previouslySelectedchoiceIndex = arrFields[fieldIndex].choices.findIndex(
+            (choice) => choice.value === previousSelectedValue
+            );
+            arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].choice_options = {
+              section_name: '',
+            };
+            arrFields[fieldIndex].choices[choiceIndex].dependent_ids = arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].dependent_ids;
+            arrFields[fieldIndex].choices[previouslySelectedchoiceIndex].dependent_ids = [
+              { field: [], choice: [] },
+            ];
+          }
+
+          objFormValues = { ...objFormValues, fields: arrFields };
+          fb.expandedFieldIndex = {};
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+        }
 
         if (objDetail.sectionCreation) {
           const { value, selectedFieldValue, sectionName } = objDetail;

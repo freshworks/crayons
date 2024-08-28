@@ -105,11 +105,14 @@ export namespace Components {
          */
         "dataProvider": any;
         "fieldChoices": any;
+        "isEditing": any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName": string;
-        "setSectionsExpandStateHandler": any;
+        "sectionName": string;
+        "selectedFieldValue": any;
+        "showCreateOrEditSectionPane": any;
     }
     interface FbSectionDragDrop {
         /**
@@ -369,7 +372,8 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         "sectionsExpanded": boolean;
-        "setSectionsExpandStateHandler": any;
+        "setSectionCreationExpandState": any;
+        "setSectionsExpandState": any;
         /**
           * flag to show dependentField resolve checkbox
          */
@@ -1037,6 +1041,7 @@ declare namespace LocalJSX {
          */
         "dataProvider"?: any;
         "fieldChoices"?: any;
+        "isEditing"?: any;
         /**
           * Triggered when the section is expanded or collapsed
          */
@@ -1049,7 +1054,9 @@ declare namespace LocalJSX {
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
         "productName"?: string;
-        "setSectionsExpandStateHandler"?: any;
+        "sectionName"?: string;
+        "selectedFieldValue"?: any;
+        "showCreateOrEditSectionPane"?: any;
     }
     interface FbSectionDragDrop {
         /**
@@ -1355,7 +1362,8 @@ declare namespace LocalJSX {
          */
         "role"?: 'trial' | 'admin';
         "sectionsExpanded"?: boolean;
-        "setSectionsExpandStateHandler"?: any;
+        "setSectionCreationExpandState"?: any;
+        "setSectionsExpandState"?: any;
         /**
           * flag to show dependentField resolve checkbox
          */

@@ -11,7 +11,7 @@ export class FormBuilderSection {
   /*
    * Handler function to create a new section
    */
-  @Prop() setSectionsExpandStateHandler;
+  @Prop() showCreateOrEditSectionPane;
   /**
    * data source used to set and edit the field values
    */
@@ -27,15 +27,23 @@ export class FormBuilderSection {
   /*
    * Name of the section
    */
-  @State() sectionName;
+  @Prop({ mutable: true }) sectionName = '';
   /*
    * Choosen field value for a section
    */
-  @State() selectedFieldValue;
+  @Prop({ mutable: true }) selectedFieldValue;
+  /*
+   * Flag to show section pane in edit mode
+   */
+  @Prop() isEditing;
   /*
    * Section name field error state
    */
   @State() sectionInputState;
+  /*
+   * Previously selected choice value while in edit mode
+   */
+  @State() previousSelectedValue;
   /**
    * State to show section input warning message
    */
@@ -88,6 +96,9 @@ export class FormBuilderSection {
     event.stopPropagation();
     const selectedValue = event.detail.value;
     if (selectedValue) {
+      if (this.isEditing) {
+        this.previousSelectedValue = this.selectedFieldValue;
+      }
       this.selectedFieldValue = selectedValue;
     }
   }
@@ -99,19 +110,30 @@ export class FormBuilderSection {
       this.sectionInputState = 'error';
       return;
     }
-    const value = { ...this.dataProvider };
-    this.fwUpdate.emit({
-      sectionCreation: true,
+    const detail = {
       sectionName: this.sectionName,
       selectedFieldValue: this.selectedFieldValue,
-      value,
-    });
-    this.setSectionsExpandStateHandler(true, false);
+      value: { ...this.dataProvider },
+    };
+
+    if (this.isEditing) {
+      detail['editSection'] = true;
+      detail['previousSelectedValue'] = this.previousSelectedValue;
+    } else {
+      detail['sectionCreation'] = true;
+    }
+
+    this.fwUpdate.emit(detail);
+    this.showCreateOrEditSectionPane(false);
   }
 
   componentWillLoad() {
-    this.selectedFieldValue = this.fieldChoices[0].text;
-    this.sectionExpandHandler(true);
+    if (this.isEditing) {
+      this.previousSelectedValue = this.selectedFieldValue;
+    } else {
+      this.selectedFieldValue = this.fieldChoices[0].text;
+      this.sectionExpandHandler(true);
+    }
   }
 
   render() {
@@ -145,6 +167,7 @@ export class FormBuilderSection {
               errorText={TranslationController.t(
                 'formBuilder.sections.sectionNameEmpty'
               )}
+              value={this.sectionName}
               warningText={this.sectionWarningMessage}
               state={this.sectionInputState}
             ></fw-input>
@@ -169,7 +192,7 @@ export class FormBuilderSection {
           <fw-button
             color='secondary'
             onFwClick={() => {
-              this.setSectionsExpandStateHandler(true, false);
+              this.showCreateOrEditSectionPane(false);
               this.sectionExpandHandler(false);
             }}
           >

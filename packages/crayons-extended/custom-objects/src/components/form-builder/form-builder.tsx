@@ -24,6 +24,7 @@ import {
   isUniqueField,
   getDefaultDependentLevels,
   checkAndAppendLevel3,
+  getChoicesWithNoSectionCreated,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
@@ -168,6 +169,10 @@ export class FormBuilder {
    * State to re-render the drag container children after re render
    */
   @State() fieldRerenderCount = 0;
+  /**
+   * Flag to enable edit dynamic section
+   */
+  @State() isEditingDynamicSection = false;
   /**
    * Triggered on Add/Save field button click from the field list items
    */
@@ -799,6 +804,10 @@ export class FormBuilder {
     }
   };
 
+  private setEditDynamicSectionState(isEditingDynamicSection) {
+    this.isEditingDynamicSection = isEditingDynamicSection;
+  }
+
   private renderFieldTypesHeader(objProductPreset) {
     const strBaseClassName = 'form-builder';
     const objLabelsDb = objProductPreset.labels;
@@ -1055,34 +1064,23 @@ export class FormBuilder {
 
   private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
     return (
-      <div class='section-container'>
+      <div>
         {dataItem?.field_options?.has_sections &&
           dataItem.choices?.map((choice) => {
             const acceptFromSections = dataItem.choices
               .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
               .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
               .join(',');
-            const sectionChoiceValue = choice?.value;
-            const sectionName = choice.choice_options?.section_name;
-            const fieldsContent =
-              sectionName && !choice.dependent_ids?.field?.length ? (
-                <div
-                  class={{
-                    'empty-section': true,
-                    'disabled': boolFieldEditingState,
-                  }}
-                >
-                  <div class='empty-section-icon' id={sectionName}>
-                    <fw-icon
-                      name='plus'
-                      size='16'
-                      slot='before-label'
-                    ></fw-icon>
-                  </div>
-                  Drag and drop fields to add to this section
-                </div>
-              ) : (
-                choice.dependent_ids?.field.map((fieldId, index) => {
+            const sectionChoiceValue = choice?.value,
+              sectionName = choice.choice_options?.section_name,
+              isEmptySection =
+                sectionName && !choice.dependent_ids?.field?.length;
+            const fieldsContent = isEmptySection
+              ? this.renderDragDropEmptyState(
+                  sectionName,
+                  boolFieldEditingState
+                )
+              : choice.dependent_ids?.field?.map((fieldId, index) => {
                   const field = dataItem.fields.find((f) => f.id === fieldId);
                   return field
                     ? this.renderFieldEditorElement(
@@ -1093,11 +1091,32 @@ export class FormBuilder {
                         sectionName
                       )
                     : null;
-                })
-              );
+                });
+            const editSectionKey = `sectionEdit_${choice.id}`;
+            this.isEditingDynamicSection =
+              !!this.expandedFieldIndex[editSectionKey];
+            const choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
+              dataItem.choices
+            );
+            choicesWithNoSectionCreated.push({
+              text: choice.value,
+              value: choice.value,
+            });
 
             return (
-              sectionName && (
+              sectionName &&
+              (this.isEditingDynamicSection ? (
+                <fb-section-create
+                  isEditing={true}
+                  dataProvider={dataItem}
+                  onFwExpand={this.expandFieldHandler}
+                  onFwUpdate={this.saveFieldHandler}
+                  fieldChoices={choicesWithNoSectionCreated}
+                  selectedFieldValue={sectionChoiceValue}
+                  sectionName={sectionName}
+                  showCreateOrEditSectionPane={this.setEditDynamicSectionState}
+                />
+              ) : (
                 <section key={choice.id} class={`fb-section`}>
                   <header class={{ disabled: boolFieldEditingState }}>
                     <span
@@ -1116,6 +1135,13 @@ export class FormBuilder {
                         name='edit'
                         size='16'
                         slot='before-label'
+                        onClick={() => {
+                          this.fwExpandField.emit({
+                            expanded: true,
+                            index: 'sectionEdit',
+                            value: { id: `sectionEdit_${choice.id}` },
+                          });
+                        }}
                       ></fw-icon>
                       <fw-icon
                         name='delete'
@@ -1143,9 +1169,25 @@ export class FormBuilder {
                     </fw-drag-container>
                   </div>
                 </section>
-              )
+              ))
             );
           })}
+      </div>
+    );
+  }
+
+  private renderDragDropEmptyState(sectionName, boolFieldEditingState) {
+    return (
+      <div
+        class={{
+          'empty-section': true,
+          'disabled': boolFieldEditingState,
+        }}
+      >
+        <div class='empty-section-icon' id={sectionName}>
+          <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
+        </div>
+        {TranslationController.t('formBuilder.sections.emptySection')}
       </div>
     );
   }

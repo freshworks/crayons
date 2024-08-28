@@ -710,3 +710,16 @@ export function removeIsNewFromField(fieldEl) {
 
   return fieldEl;
 }
+// Function to return choices with no section
+export function getChoicesWithNoSectionCreated(choices) {
+  return choices.reduce((choicesWithNoSection, choice) => {
+    if (!choice?.choice_options?.section_name) {
+      // Push if doesn't have section name
+      choicesWithNoSection.push({
+        text: choice.value,
+        value: choice.value,
+      });
+    }
+    return choicesWithNoSection;
+  }, []);
+}
