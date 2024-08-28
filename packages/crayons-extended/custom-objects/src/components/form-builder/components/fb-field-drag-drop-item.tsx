@@ -209,38 +209,45 @@ export class FormBuilderFieldDragDropItem {
           createDynamicSection={this.createDynamicSection}
         ></fw-field-editor>
         {showDynamicFieldSections && (
-          <div class='fb-section-container'>
-            <fw-button
-              color='text'
-              class={{
-                'fb-show-hide-sections-btn': true,
-                'disabled': this.disabled,
-              }}
-              onFwClick={() => {
-                this.setSectionsExpandState(!this.sectionsExpanded);
-                this.setSectionCreationExpandState(false);
-              }}
-            >
-              <div class='fb-section-visibility'>
-                {this.sectionsExpanded ? (
-                  <span class='fb-section-hide'>
-                    {TranslationController.t('formBuilder.sections.hide')}
-                  </span>
-                ) : (
-                  <span class='fb-section-show'>
-                    {TranslationController.t('formBuilder.sections.show')}
-                  </span>
-                )}
-                <i class='fb-section-count'>{noOfSections}</i>
-                <fw-icon
-                  class={{
-                    'fb-section-arrow-down': !this.sectionsExpanded,
-                  }}
-                  size='10'
-                  name='chevron-up'
-                ></fw-icon>
-              </div>
-            </fw-button>
+          <div
+            class={{
+              'fb-section-container': true,
+              'hide': noOfSections === 0 && !this.createDynamicSection,
+            }}
+          >
+            {!!noOfSections && (
+              <fw-button
+                color='text'
+                class={{
+                  'fb-show-hide-sections-btn': true,
+                  'disabled': this.disabled,
+                }}
+                onFwClick={() => {
+                  this.setSectionsExpandState(!this.sectionsExpanded);
+                  this.setSectionCreationExpandState(false);
+                }}
+              >
+                <div class='fb-section-visibility'>
+                  {this.sectionsExpanded ? (
+                    <span class='fb-section-hide'>
+                      {TranslationController.t('formBuilder.sections.hide')}
+                    </span>
+                  ) : (
+                    <span class='fb-section-show'>
+                      {TranslationController.t('formBuilder.sections.show')}
+                    </span>
+                  )}
+                  <i class='fb-section-count'>{noOfSections}</i>
+                  <fw-icon
+                    class={{
+                      'fb-section-arrow-down': !this.sectionsExpanded,
+                    }}
+                    size='10'
+                    name='chevron-up'
+                  ></fw-icon>
+                </div>
+              </fw-button>
+            )}
 
             {this.createDynamicSection && (
               <fb-section-create
