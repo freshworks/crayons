@@ -989,6 +989,27 @@
       });
 
       fb.addEventListener('fwDeleteField', (event) => {
+        var objDetail = event.detail;
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+        if(event.detail?.deleteSection) {
+          const { value, choice } = objDetail;
+          const fieldIndex = arrFields.findIndex((arrField) => {
+            return value.id === arrField.id;
+          });
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex( // Selected choice index
+            (_choice) => _choice.value === choice.value
+          );
+          console.log('before',arrFields[fieldIndex].choices[choiceIndex], choice);
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {};
+          arrFields[fieldIndex].choices[choiceIndex].dependent_ids = {};
+
+          objFormValues = { ...objFormValues, fields: arrFields };
+          setFormValues(objFormValues);
+          fb.expandedFieldIndex = {};
+          fb.formValues = objFormValues;
+          return;
+        }
         fb.loading = true;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
@@ -1046,6 +1067,7 @@
           fb.expandedFieldIndex = {};
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
+          return;
         }
 
         if (objDetail.sectionCreation) {

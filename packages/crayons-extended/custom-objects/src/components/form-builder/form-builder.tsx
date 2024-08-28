@@ -1150,6 +1150,13 @@ export class FormBuilder {
                         name='delete'
                         size='16'
                         slot='before-label'
+                        onClick={() => {
+                          this.fwDeleteField.emit({
+                            deleteSection: true,
+                            value: dataItem,
+                            choice: choice,
+                          });
+                        }}
                       ></fw-icon>
                     </div>
                   </header>

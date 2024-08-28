@@ -30,6 +30,10 @@
     }
   }
 
+  &.hide {
+    display: none;
+  }
+
   .fb-section-visibility {
     display: flex;
     align-items: center;
