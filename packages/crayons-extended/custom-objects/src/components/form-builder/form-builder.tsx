@@ -522,6 +522,30 @@ export class FormBuilder {
     });
   };
 
+  private canDropFieldIntoSection = (dataItem, objDetail, elFieldType) => {
+    const inValidTypesForSection = [
+      'DROPDOWN',
+      'DEPENDENT_FIELD',
+      'MULTI_SELECT',
+      'RELATIONSHIP',
+    ];
+    if (dataItem?.field_options?.has_sections) {
+      const choiceLimit = dataItem?.choices?.find(
+        (choice) =>
+          choice.choice_options?.section_name === objDetail.dropToId &&
+          choice.dependent_ids?.field.length === 15
+      ); //Shouldn't allow more then 15 fields inside section.
+
+      if (
+        choiceLimit ||
+        inValidTypesForSection.includes(elFieldType.dataProvider?.type)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   private fieldTypeDropHandler = (
     event: CustomEvent,
     dataItem?,
@@ -542,15 +566,15 @@ export class FormBuilder {
         name: sectionName,
       };
     }
-    const inValidTypesForSection = [
-      'DROPDOWN',
-      'DEPENDENT_FIELD',
-      'MULTI_SELECT',
-      'RELATIONSHIP',
-    ];
+
+    const isDropAllowed = this.canDropFieldIntoSection(
+      dataItem,
+      objDetail,
+      elFieldType
+    );
     const isRepositionSection =
       objDetail.dragFromId.includes('sectionIdentifier-') &&
-      objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop new field or existing field inside the multiple sections
+      objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop between the multiple sections
 
     const isSectionOutside =
       objDetail.dragFromId.includes('sectionIdentifier-') &&
@@ -570,23 +594,8 @@ export class FormBuilder {
         this.permission,
         'CREATE'
       );
-      if (!boolCreationAllowed) {
+      if (!boolCreationAllowed || !isDropAllowed) {
         return;
-      }
-
-      if (dataItem?.field_options?.has_sections) {
-        const choiceLimit = dataItem?.choices?.find(
-          (choice) =>
-            choice.choice_options?.section_name === objDetail.dropToId &&
-            choice.dependent_ids?.field.length === 15
-        ); //Shouldn't allow more then 15 fields inside section.
-
-        if (
-          choiceLimit ||
-          inValidTypesForSection.includes(elFieldType.dataProvider.type)
-        ) {
-          return;
-        }
       }
 
       this.composeNewField(
@@ -597,6 +606,9 @@ export class FormBuilder {
       );
     } else {
       // Reposition inside the fields list
+      if (!isDropAllowed) {
+        return;
+      }
       if (elFieldType.index !== intDroppedIndex || isRepositionSection) {
         this.fwRepositionField.emit({
           sourceIndex: elFieldType.index,
