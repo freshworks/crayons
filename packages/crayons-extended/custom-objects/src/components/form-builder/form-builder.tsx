@@ -1221,7 +1221,6 @@ export class FormBuilder {
                     submitText={i18nText('deleteFieldSubmit')}
                     onFwSubmit={() => {
                       this.confirmDeleteSectionHandler({
-                        sectionName,
                         index,
                         id: choice.id,
                       });
@@ -1231,7 +1230,7 @@ export class FormBuilder {
                       <fw-inline-message open type='warning'>
                         {i18nText('deleteFieldInlineMessage')}
                       </fw-inline-message>
-                      {i18nText('formBuilder.sections.deleteSectionContent')}
+                      {i18nText('sections.deleteSectionContent')}
                     </span>
                   </fw-modal>
                 </section>
