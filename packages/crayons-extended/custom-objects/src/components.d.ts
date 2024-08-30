@@ -105,6 +105,10 @@ export namespace Components {
          */
         "dataProvider": any;
         "fieldChoices": any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
         "isEditing": any;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
@@ -1041,6 +1045,10 @@ declare namespace LocalJSX {
          */
         "dataProvider"?: any;
         "fieldChoices"?: any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
         "isEditing"?: any;
         /**
           * Triggered when the section is expanded or collapsed

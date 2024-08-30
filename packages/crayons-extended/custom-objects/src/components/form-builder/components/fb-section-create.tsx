@@ -36,6 +36,10 @@ export class FormBuilderSection {
    * Flag to show section pane in edit mode
    */
   @Prop() isEditing;
+  /**
+   * index attached inside the parent group component
+   */
+  @Prop() index = -1;
   /*
    * Section name field error state
    */
@@ -114,6 +118,7 @@ export class FormBuilderSection {
       sectionName: this.sectionName,
       selectedFieldValue: this.selectedFieldValue,
       value: { ...this.dataProvider },
+      index: this.index,
     };
 
     if (this.isEditing) {

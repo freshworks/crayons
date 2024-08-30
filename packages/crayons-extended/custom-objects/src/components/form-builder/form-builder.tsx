@@ -259,6 +259,8 @@ export class FormBuilder {
     this.removeResizeObserver();
   }
 
+  private modalConfirmDelete!: any;
+
   private validateFormValues(objFormValue = null) {
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
@@ -464,6 +466,24 @@ export class FormBuilder {
 
   private deleteFieldHandler = (event: CustomEvent) => {
     this.fwDeleteField.emit({ ...event.detail });
+  };
+
+  private confirmDeleteSectionHandler = (objDetail) => {
+    this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
+    this.modalConfirmDelete?.close();
+  };
+
+  private deleteSectionClickHandler = (event: CustomEvent) => {
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const boolDeleteAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'DELETE'
+    );
+    if (boolDeleteAllowed) {
+      this.modalConfirmDelete?.open();
+    }
   };
 
   private composeNewField = (
@@ -1077,7 +1097,12 @@ export class FormBuilder {
     );
   }
 
-  private renderSectionFields(dataItem, boolFieldEditingState, strEntityName) {
+  private renderSectionFields(
+    dataItem,
+    boolFieldEditingState,
+    strEntityName,
+    index
+  ) {
     return (
       <div>
         {dataItem?.field_options?.has_sections &&
@@ -1122,6 +1147,7 @@ export class FormBuilder {
               sectionName &&
               (this.isEditingDynamicSection ? (
                 <fb-section-create
+                  index={index}
                   isEditing={true}
                   dataProvider={dataItem}
                   onFwExpand={this.expandFieldHandler}
@@ -1162,12 +1188,8 @@ export class FormBuilder {
                         name='delete'
                         size='16'
                         slot='before-label'
-                        onClick={() => {
-                          this.fwDeleteField.emit({
-                            deleteSection: true,
-                            value: dataItem,
-                            choice: choice,
-                          });
+                        onClick={(e) => {
+                          this.deleteSectionClickHandler(e);
                         }}
                       ></fw-icon>
                     </div>
@@ -1190,6 +1212,28 @@ export class FormBuilder {
                       {fieldsContent}
                     </fw-drag-container>
                   </div>
+                  <fw-modal
+                    ref={(el) => (this.modalConfirmDelete = el)}
+                    icon='delete'
+                    submitColor='danger'
+                    hasCloseIconButton={false}
+                    titleText={i18nText('formBuilder.sections.deleteSection')}
+                    submitText={i18nText('deleteFieldSubmit')}
+                    onFwSubmit={() => {
+                      this.confirmDeleteSectionHandler({
+                        sectionName,
+                        index,
+                        id: choice.id,
+                      });
+                    }}
+                  >
+                    <span class={'fb-section-delete-modal-content'}>
+                      <fw-inline-message open type='warning'>
+                        {i18nText('deleteFieldInlineMessage')}
+                      </fw-inline-message>
+                      {i18nText('formBuilder.sections.deleteSectionContent')}
+                    </span>
+                  </fw-modal>
                 </section>
               ))
             );
@@ -1274,7 +1318,8 @@ export class FormBuilder {
           {this.renderSectionFields(
             dataItem,
             boolFieldEditingState,
-            strEntityName
+            strEntityName,
+            intIndex
           )}
         </div>
       </fb-field-drag-drop-item>

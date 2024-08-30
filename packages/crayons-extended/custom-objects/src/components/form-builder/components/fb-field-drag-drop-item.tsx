@@ -257,6 +257,7 @@ export class FormBuilderFieldDragDropItem {
                 onFwUpdate={this.saveFieldHandler}
                 fieldChoices={choicesWithNoSectionCreated}
                 productName={this.productName}
+                index={this.index}
               />
             )}
 
