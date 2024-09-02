@@ -1103,6 +1103,13 @@ export class FormBuilder {
     strEntityName,
     index
   ) {
+    const boolEditAllowed = hasPermission(this.role, this.permission, 'EDIT');
+    const boolDeleteAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'DELETE'
+    );
+
     return (
       <div>
         {dataItem?.field_options?.has_sections &&
@@ -1174,8 +1181,8 @@ export class FormBuilder {
                     <div class='section-edit-delete'>
                       <fw-icon
                         name='edit'
+                        class={{ disabled: !boolEditAllowed }}
                         size='16'
-                        slot='before-label'
                         onClick={() => {
                           this.fwExpandField.emit({
                             expanded: true,
@@ -1186,8 +1193,8 @@ export class FormBuilder {
                       ></fw-icon>
                       <fw-icon
                         name='delete'
+                        class={{ disabled: !boolDeleteAllowed }}
                         size='16'
-                        slot='before-label'
                         onClick={(e) => {
                           this.deleteSectionClickHandler(e);
                         }}
