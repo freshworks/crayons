@@ -116,6 +116,14 @@ export class FieldEditor {
    */
   @Prop() entityName = '';
   /**
+   * defines the parent index of the field
+   */
+  @Prop() parentIndex;
+  /**
+   * stores the section name for this field
+   */
+  @Prop() sectionName;
+  /**
    * stores the default field type schema for this editor type
    */
   @Prop() defaultFieldTypeSchema;
@@ -668,13 +676,16 @@ export class FieldEditor {
   private addFieldHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-
     let boolValidForm = true;
     let level = null;
     let objValues = {
       type: this.dataProvider.type,
       newSectionData: this.dataProvider,
       isPrimaryField: this.isPrimaryField,
+      sectionDetails: {
+        parentIndex: this.parentIndex,
+        sectionName: this.sectionName,
+      },
     };
 
     if (this.isDependentField) {

@@ -82,6 +82,14 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop() index = -1;
   /**
+   *parent index of the section.
+   */
+  @Prop() parentIndex;
+  /**
+   * Name of the section, where field is part of.
+   */
+  @Prop() sectionName;
+  /**
    * Name of the component, saved as part of the form data.
    */
   @Prop() name = '';
@@ -207,6 +215,8 @@ export class FormBuilderFieldDragDropItem {
           onFwExpand={this.expandFieldHandler}
           onFwReorder={this.reorderFieldProgressHandler}
           createDynamicSection={this.createDynamicSection}
+          parentIndex={this.parentIndex}
+          sectionName={this.sectionName}
         ></fw-field-editor>
         {showDynamicFieldSections && (
           <div

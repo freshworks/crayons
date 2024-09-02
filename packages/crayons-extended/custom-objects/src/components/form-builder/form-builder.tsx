@@ -1101,7 +1101,7 @@ export class FormBuilder {
     dataItem,
     boolFieldEditingState,
     strEntityName,
-    index
+    parentIndex
   ) {
     return (
       <div>
@@ -1128,7 +1128,8 @@ export class FormBuilder {
                         index,
                         boolFieldEditingState,
                         strEntityName,
-                        sectionName
+                        sectionName,
+                        parentIndex
                       )
                     : null;
                 });
@@ -1147,7 +1148,7 @@ export class FormBuilder {
               sectionName &&
               (this.isEditingDynamicSection ? (
                 <fb-section-create
-                  index={index}
+                  index={parentIndex}
                   isEditing={true}
                   dataProvider={dataItem}
                   onFwExpand={this.expandFieldHandler}
@@ -1221,7 +1222,7 @@ export class FormBuilder {
                     submitText={i18nText('deleteFieldSubmit')}
                     onFwSubmit={() => {
                       this.confirmDeleteSectionHandler({
-                        index,
+                        parentIndex,
                         id: choice.id,
                       });
                     }}
@@ -1262,7 +1263,8 @@ export class FormBuilder {
     intIndex,
     boolFieldEditingState,
     strEntityName,
-    sectionName?
+    sectionName?,
+    parentIndex?
   ) {
     if (!dataItem) {
       return null;
@@ -1312,6 +1314,8 @@ export class FormBuilder {
         deleteFieldHandler={this.deleteFieldHandler}
         expandFieldHandler={this.expandFieldHandler}
         reorderFieldProgressHandler={this.reorderFieldProgressHandler}
+        sectionName={sectionName}
+        parentIndex={parentIndex}
       >
         <div slot='section'>
           {this.renderSectionFields(

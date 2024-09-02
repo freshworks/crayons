@@ -72,6 +72,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * parent index of the section.
+         */
+        "parentIndex": any;
+        /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
         "permission": {
@@ -94,6 +98,10 @@ export namespace Components {
          */
         "role": 'trial' | 'admin';
         "saveFieldHandler": any;
+        /**
+          * Name of the section, where field is part of.
+         */
+        "sectionName": any;
         /**
           * flag to show dependentField resolve checkbox
          */
@@ -355,6 +363,10 @@ export namespace Components {
          */
         "name": string;
         /**
+          * defines the parent index of the field
+         */
+        "parentIndex": any;
+        /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
         "permission": {
@@ -375,6 +387,10 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        /**
+          * stores the section name for this field
+         */
+        "sectionName": any;
         "sectionsExpanded": boolean;
         "setSectionCreationExpandState": any;
         "setSectionsExpandState": any;
@@ -1012,6 +1028,10 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         /**
+          * parent index of the section.
+         */
+        "parentIndex"?: any;
+        /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
         "permission"?: {
@@ -1034,6 +1054,10 @@ declare namespace LocalJSX {
          */
         "role"?: 'trial' | 'admin';
         "saveFieldHandler"?: any;
+        /**
+          * Name of the section, where field is part of.
+         */
+        "sectionName"?: any;
         /**
           * flag to show dependentField resolve checkbox
          */
@@ -1349,6 +1373,10 @@ declare namespace LocalJSX {
          */
         "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
+          * defines the parent index of the field
+         */
+        "parentIndex"?: any;
+        /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
         "permission"?: {
@@ -1369,6 +1397,10 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        /**
+          * stores the section name for this field
+         */
+        "sectionName"?: any;
         "sectionsExpanded"?: boolean;
         "setSectionCreationExpandState"?: any;
         "setSectionsExpandState"?: any;
