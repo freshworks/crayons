@@ -1231,7 +1231,7 @@ export class FormBuilder {
                     submitText={i18nText('deleteFieldSubmit')}
                     onFwSubmit={() => {
                       this.confirmDeleteSectionHandler({
-                        parentIndex,
+                        index: parentIndex,
                         id: choice.id,
                       });
                     }}
