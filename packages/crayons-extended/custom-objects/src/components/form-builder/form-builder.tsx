@@ -1191,6 +1191,7 @@ export class FormBuilder {
                             value: { id: `sectionEdit_${choice.id}` },
                           });
                         }}
+                        color='#264966'
                       ></fw-icon>
                       <fw-icon
                         name='delete'
@@ -1199,6 +1200,7 @@ export class FormBuilder {
                         onClick={(e) => {
                           this.deleteSectionClickHandler(e);
                         }}
+                        color='#264966'
                       ></fw-icon>
                     </div>
                   </header>
@@ -1258,7 +1260,12 @@ export class FormBuilder {
         }}
       >
         <div class='empty-section-icon' id={sectionName}>
-          <fw-icon name='plus' size='16' slot='before-label'></fw-icon>
+          <fw-icon
+            name='plus'
+            size='16'
+            slot='before-label'
+            color='#264966'
+          ></fw-icon>
         </div>
         {TranslationController.t('formBuilder.sections.emptySection')}
       </div>
