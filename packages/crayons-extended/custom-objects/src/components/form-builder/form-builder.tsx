@@ -550,12 +550,13 @@ export class FormBuilder {
       'RELATIONSHIP',
     ];
     if (dataItem?.field_options?.has_sections) {
+      const dropSectionName = objDetail.dropToId.split('sectionIdentifier-')[1];
+
       const choiceLimit = dataItem?.choices?.find(
         (choice) =>
-          choice.choice_options?.section_name === objDetail.dropToId &&
+          choice.choice_options?.section_name === dropSectionName &&
           choice.dependent_ids?.field.length === 15
       ); //Shouldn't allow more then 15 fields inside section.
-
       if (
         choiceLimit ||
         inValidTypesForSection.includes(elFieldType.dataProvider?.type)
