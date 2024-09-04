@@ -82,7 +82,7 @@ export class FormBuilderSection {
         this.productName,
         'maxLabelChars'
       );
-      if (objMaxLimitField && strInputText.length >= objMaxLimitField.count) {
+      if (objMaxLimitField && strInputText.length > objMaxLimitField.count) {
         this.sectionInputState = 'warning';
         this.sectionWarningMessage = i18nText(objMaxLimitField.message, {
           count: objMaxLimitField.count,
