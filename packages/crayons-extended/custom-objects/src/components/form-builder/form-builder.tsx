@@ -555,7 +555,7 @@ export class FormBuilder {
       const choiceLimit = dataItem?.choices?.find(
         (choice) =>
           choice.choice_options?.section_name === dropSectionName &&
-          choice.dependent_ids?.field.length === 15
+          choice.dependent_ids?.field?.length === 15
       ); //Shouldn't allow more then 15 fields inside section.
       if (
         choiceLimit ||
@@ -570,13 +570,18 @@ export class FormBuilder {
   private fieldTypeDropHandler = (
     event: CustomEvent,
     dataItem?,
-    sectionName?
+    sectionName?,
+    parentIndex?
   ) => {
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
-    let sectionData = { data: dataItem, name: sectionName };
+    let sectionData = {
+      data: dataItem,
+      name: sectionName,
+      targetIndex: parentIndex,
+    };
     const sectionOut = objDetail.dragFromId.split('sectionIdentifier-'); //When it is moving from inside section to outside so it will have acceptfrom sectionIdentifier.
     if (sectionOut.length > 1 && sectionOut[1]) {
       sectionData = {
@@ -585,6 +590,7 @@ export class FormBuilder {
           field_options: { has_sections: true },
         },
         name: sectionName,
+        targetIndex: parentIndex,
       };
     }
 
@@ -1217,7 +1223,12 @@ export class FormBuilder {
                         e.preventDefault();
                         e.stopPropagation();
                         e.stopImmediatePropagation();
-                        this.fieldTypeDropHandler(e, dataItem, sectionName);
+                        this.fieldTypeDropHandler(
+                          e,
+                          dataItem,
+                          sectionName,
+                          parentIndex
+                        );
                       }}
                     >
                       {fieldsContent}
