@@ -259,8 +259,6 @@ export class FormBuilder {
     this.removeResizeObserver();
   }
 
-  private modalConfirmDelete!: any;
-
   private validateFormValues(objFormValue = null) {
     this.fieldTypesCount = null;
     const objMaxLimitCount = { filterable: 0, unique: 0 };
@@ -466,24 +464,6 @@ export class FormBuilder {
 
   private deleteFieldHandler = (event: CustomEvent) => {
     this.fwDeleteField.emit({ ...event.detail });
-  };
-
-  private confirmDeleteSectionHandler = (objDetail) => {
-    this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
-    this.modalConfirmDelete?.close();
-  };
-
-  private deleteSectionClickHandler = (event: CustomEvent) => {
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    const boolDeleteAllowed = hasPermission(
-      this.role,
-      this.permission,
-      'DELETE'
-    );
-    if (boolDeleteAllowed) {
-      this.modalConfirmDelete?.open();
-    }
   };
 
   private composeNewField = (
@@ -1111,6 +1091,21 @@ export class FormBuilder {
       'DELETE'
     );
 
+    let modalConfirmDelete: any = null;
+
+    const confirmDeleteSectionHandler = (objDetail) => {
+      this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
+      modalConfirmDelete?.close();
+    };
+
+    const deleteSectionClickHandler = (event: CustomEvent) => {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      if (boolDeleteAllowed) {
+        modalConfirmDelete?.open();
+      }
+    };
+
     return (
       <div>
         {dataItem?.field_options?.has_sections &&
@@ -1199,7 +1194,7 @@ export class FormBuilder {
                         class={{ disabled: !boolDeleteAllowed }}
                         size='16'
                         onClick={(e) => {
-                          this.deleteSectionClickHandler(e);
+                          deleteSectionClickHandler(e);
                         }}
                         color='#264966'
                       ></fw-icon>
@@ -1224,14 +1219,14 @@ export class FormBuilder {
                     </fw-drag-container>
                   </div>
                   <fw-modal
-                    ref={(el) => (this.modalConfirmDelete = el)}
+                    ref={(el) => (modalConfirmDelete = el)}
                     icon='delete'
                     submitColor='danger'
                     hasCloseIconButton={false}
                     titleText={i18nText('formBuilder.sections.deleteSection')}
                     submitText={i18nText('deleteFieldSubmit')}
                     onFwSubmit={() => {
-                      this.confirmDeleteSectionHandler({
+                      confirmDeleteSectionHandler({
                         index: parentIndex,
                         id: choice.id,
                       });
