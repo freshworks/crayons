@@ -39,9 +39,19 @@ export class DragContainer {
   @Prop() sortable = true;
 
   /**
-   * Triggered when an draggable item is dropped inside the container.
+   * Triggered when a draggable item is dropped inside the container.
    */
   @Event() fwDrop: EventEmitter<void>;
+
+  /**
+   * Triggered when a draggable item enters the container.
+   */
+  @Event() fwDragEnter: EventEmitter<void>;
+
+  /**
+   * Triggered when a draggable item leaves the container.
+   */
+  @Event() fwDragLeave: EventEmitter<void>;
 
   componentWillLoad() {
     this.containerInstance = new Draggable(this.host, {
@@ -51,16 +61,35 @@ export class DragContainer {
       placeholderClass: this.placeholderClass,
       sortable: this.sortable,
     });
+
     this.host.addEventListener('fwDropBase', this.emitFwDrop.bind(this));
+    this.host.addEventListener(
+      'fwDragEnterBase',
+      this.emitDragEnter.bind(this)
+    );
+    this.host.addEventListener(
+      'fwDragLeaveBase',
+      this.emitDragLeave.bind(this)
+    );
   }
 
   emitFwDrop(ev) {
     this.fwDrop.emit(ev['detail']);
   }
 
+  emitDragEnter(ev) {
+    this.fwDragEnter.emit(ev['detail']); // Emit fwDragEnter event
+  }
+
+  emitDragLeave(ev) {
+    this.fwDragLeave.emit(ev); // Emit fwDragLeave event
+  }
+
   disconnectedCallback() {
     this.containerInstance?.destroy();
     this.host.removeEventListener('fwDropBase', this.emitFwDrop);
+    this.host.removeEventListener('fwDragEnterBase', this.emitDragEnter);
+    this.host.removeEventListener('fwDragLeaveBase', this.emitDragLeave);
   }
 
   render() {

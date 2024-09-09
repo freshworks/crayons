@@ -3588,7 +3588,15 @@ declare namespace LocalJSX {
          */
         "copy"?: boolean;
         /**
-          * Triggered when an draggable item is dropped inside the container.
+          * Triggered when a draggable item enters the container.
+         */
+        "onFwDragEnter"?: (event: FwDragContainerCustomEvent<void>) => void;
+        /**
+          * Triggered when a draggable item leaves the container.
+         */
+        "onFwDragLeave"?: (event: FwDragContainerCustomEvent<void>) => void;
+        /**
+          * Triggered when a draggable item is dropped inside the container.
          */
         "onFwDrop"?: (event: FwDragContainerCustomEvent<void>) => void;
         /**

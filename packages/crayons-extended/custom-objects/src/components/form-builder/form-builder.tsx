@@ -206,6 +206,8 @@ export class FormBuilder {
    */
   @Event() fwSaveWidgetFields!: EventEmitter;
 
+  @State() dragErrorMessages = {}; // State to track errors for each section
+
   @Watch('searching')
   watchSearchHandler(): void {
     this.fwSearchField.emit({ searching: this.searching });
@@ -522,29 +524,31 @@ export class FormBuilder {
     });
   };
 
-  private canDropFieldIntoSection = (dataItem, objDetail, elFieldType) => {
-    const inValidTypesForSection = [
-      'DROPDOWN',
-      'DEPENDENT_FIELD',
-      'MULTI_SELECT',
-      'RELATIONSHIP',
-    ];
-    if (dataItem?.field_options?.has_sections) {
-      const dropSectionName = objDetail.dropToId.split('sectionIdentifier-')[1];
+  private onDragEnter = (event: CustomEvent, sectionName) => {
+    //Show Error message when they drag into section container
+    event.preventDefault();
+    event.stopPropagation();
+    const objDetail = event.detail,
+      elField = objDetail.droppedElement;
+    let elFieldType = elField.dataProvider.type;
 
-      const choiceLimit = dataItem?.choices?.find(
-        (choice) =>
-          choice.choice_options?.section_name === dropSectionName &&
-          choice.dependent_ids?.field?.length === 15
-      ); //Shouldn't allow more then 15 fields inside section.
-      if (
-        choiceLimit ||
-        inValidTypesForSection.includes(elFieldType.dataProvider?.type)
-      ) {
-        return false;
-      }
+    if (elField.dataProvider.required) {
+      elFieldType = 'REQUIRED';
     }
-    return true;
+
+    if (!elField.dataProvider.custom && elField.dataProvider.label) {
+      elFieldType = 'DEFAULT';
+    }
+
+    this.dragErrorMessages = {
+      [sectionName]: i18nText(`sections.errorMessages.${elFieldType}`),
+    };
+  };
+
+  private hideErrorMessage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragErrorMessages = {};
   };
 
   private fieldTypeDropHandler = (
@@ -553,6 +557,9 @@ export class FormBuilder {
     sectionName?,
     parentIndex?
   ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
@@ -574,11 +581,6 @@ export class FormBuilder {
       };
     }
 
-    const isDropAllowed = this.canDropFieldIntoSection(
-      dataItem,
-      objDetail,
-      elFieldType
-    );
     const isRepositionSection =
       objDetail.dragFromId.includes('sectionIdentifier-') &&
       objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop between the multiple sections
@@ -601,7 +603,7 @@ export class FormBuilder {
         this.permission,
         'CREATE'
       );
-      if (!boolCreationAllowed || !isDropAllowed) {
+      if (!boolCreationAllowed) {
         return;
       }
 
@@ -613,9 +615,6 @@ export class FormBuilder {
       );
     } else {
       // Reposition inside the fields list
-      if (!isDropAllowed) {
-        return;
-      }
       if (elFieldType.index !== intDroppedIndex || isRepositionSection) {
         this.fwRepositionField.emit({
           sourceIndex: elFieldType.index,
@@ -1214,18 +1213,33 @@ export class FormBuilder {
                       acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
                       addOnDrop={false}
                       sortable={true}
-                      onFwDrop={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
+                      onFwDrop={(e) =>
                         this.fieldTypeDropHandler(
                           e,
                           dataItem,
                           sectionName,
                           parentIndex
-                        );
-                      }}
+                        )
+                      }
+                      onFwDragEnter={(e) => this.onDragEnter(e, sectionName)}
+                      onFwDragLeave={
+                        this.hideErrorMessage // Hide error when drag leaves
+                      }
                     >
+                      {this.dragErrorMessages[sectionName] && (
+                        <div class='error-message'>
+                          <span>
+                            <fw-icon
+                              name='alert'
+                              size='16'
+                              slot='before-label'
+                              color='#E43538'
+                            ></fw-icon>
+                            <span class='seperator'></span>
+                            {this.dragErrorMessages[sectionName]}
+                          </span>
+                        </div>
+                      )}
                       {fieldsContent}
                     </fw-drag-container>
                   </div>
