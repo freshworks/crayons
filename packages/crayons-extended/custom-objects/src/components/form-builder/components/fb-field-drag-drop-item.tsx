@@ -167,7 +167,8 @@ export class FormBuilderFieldDragDropItem {
       isDropdownField(this.dataProvider);
 
     let choicesWithNoSectionCreated = [],
-      noOfSections = 0;
+      noOfSections = 0,
+      sectionCreatedForAllChoices = false;
 
     if (showDynamicFieldSections) {
       choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
@@ -176,10 +177,9 @@ export class FormBuilderFieldDragDropItem {
       noOfSections =
         this.dataProvider?.choices?.length -
         choicesWithNoSectionCreated?.length;
-    }
 
-    const showAddSectionBtn =
-      showDynamicFieldSections && !!choicesWithNoSectionCreated?.length;
+      sectionCreatedForAllChoices = choicesWithNoSectionCreated?.length === 0;
+    }
 
     return (
       <Host tabIndex='-1'>
@@ -208,7 +208,8 @@ export class FormBuilderFieldDragDropItem {
           dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
           setSectionsExpandState={this.setSectionsExpandState}
           setSectionCreationExpandState={this.setSectionCreationExpandState}
-          showSections={showAddSectionBtn}
+          showSections={showDynamicFieldSections}
+          sectionCreatedForAllChoices={sectionCreatedForAllChoices}
           isDefaultNonCustomField={isDefaultNonCustomField}
           onFwUpdate={this.saveFieldHandler}
           onFwDelete={this.deleteFieldHandler}

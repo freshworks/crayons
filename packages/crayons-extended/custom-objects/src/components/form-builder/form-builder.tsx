@@ -1182,28 +1182,44 @@ export class FormBuilder {
                       )}
                     ></span>
                     <div class='section-edit-delete'>
-                      <fw-icon
-                        name='edit'
-                        class={{ disabled: !boolEditAllowed }}
-                        size='16'
-                        onClick={() => {
-                          this.fwExpandField.emit({
-                            expanded: true,
-                            index: 'sectionEdit',
-                            value: { id: `sectionEdit_${choice.id}` },
-                          });
-                        }}
-                        color='#264966'
-                      ></fw-icon>
-                      <fw-icon
-                        name='delete'
-                        class={{ disabled: !boolDeleteAllowed }}
-                        size='16'
-                        onClick={(e) => {
-                          deleteSectionClickHandler(e);
-                        }}
-                        color='#264966'
-                      ></fw-icon>
+                      <fw-tooltip
+                        placement='bottom'
+                        trigger='hover'
+                        content={TranslationController.t(
+                          'formBuilder.sections.editTooltipText'
+                        )}
+                      >
+                        <fw-icon
+                          name='edit'
+                          class={{ disabled: !boolEditAllowed }}
+                          size='16'
+                          onClick={() => {
+                            this.fwExpandField.emit({
+                              expanded: true,
+                              index: 'sectionEdit',
+                              value: { id: `sectionEdit_${choice.id}` },
+                            });
+                          }}
+                          color='#264966'
+                        ></fw-icon>
+                      </fw-tooltip>
+                      <fw-tooltip
+                        placement='bottom'
+                        trigger='hover'
+                        content={TranslationController.t(
+                          'formBuilder.sections.deleteTooltipText'
+                        )}
+                      >
+                        <fw-icon
+                          name='delete'
+                          class={{ disabled: !boolDeleteAllowed }}
+                          size='16'
+                          onClick={(e) => {
+                            deleteSectionClickHandler(e);
+                          }}
+                          color='#264966'
+                        ></fw-icon>
+                      </fw-tooltip>
                     </div>
                   </header>
                   <div class='fb-section-content'>
