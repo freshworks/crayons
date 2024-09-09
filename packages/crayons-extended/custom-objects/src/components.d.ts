@@ -387,6 +387,7 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        "sectionCreatedForAllChoices": boolean;
         /**
           * stores the section name for this field
          */
@@ -1397,6 +1398,7 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        "sectionCreatedForAllChoices"?: boolean;
         /**
           * stores the section name for this field
          */

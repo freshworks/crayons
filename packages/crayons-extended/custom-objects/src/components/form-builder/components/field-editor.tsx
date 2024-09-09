@@ -183,6 +183,10 @@ export class FieldEditor {
    * Flag to Show sections
    */
   @Prop() showSections = false;
+  /*
+   * Flag to hide add section button and show tooltip
+   */
+  @Prop() sectionCreatedForAllChoices = false;
   /**
    * Flag to detect default fields
    */
@@ -2032,6 +2036,12 @@ export class FieldEditor {
       ? this.renderFieldContent(objProductConfig, boolEditAllowed)
       : this.renderContent(objProductConfig, boolEditAllowed);
 
+    const disableAddSectionBtn =
+      !boolCreateAllowed ||
+      this.expanded ||
+      this.createDynamicSection ||
+      this.sectionCreatedForAllChoices;
+
     return (
       <Host tabIndex='-1'>
         <div
@@ -2069,24 +2079,29 @@ export class FieldEditor {
             </div>
             {this.showSections && (
               <fw-tooltip
-                placement='left'
+                placement={this.sectionCreatedForAllChoices ? 'bottom' : 'left'}
                 trigger='hover'
-                content={TranslationController.t(
-                  'formBuilder.sections.addTooltipDescription'
-                )}
-                header={TranslationController.t(
-                  'formBuilder.sections.addTooltipTitle'
-                )}
+                content={
+                  this.sectionCreatedForAllChoices
+                    ? TranslationController.t(
+                        'formBuilder.sections.sectionCreatedForAllChoices'
+                      )
+                    : TranslationController.t(
+                        'formBuilder.sections.addTooltipDescription'
+                      )
+                }
+                header={
+                  this.sectionCreatedForAllChoices
+                    ? ''
+                    : TranslationController.t(
+                        'formBuilder.sections.addTooltipTitle'
+                      )
+                }
               >
                 <fw-button
                   color='text'
-                  class={{
-                    'fw-field-editor-add-section-btn': true,
-                    'fw-field-editor-add-section-disable':
-                      !boolCreateAllowed ||
-                      this.expanded ||
-                      this.createDynamicSection,
-                  }}
+                  class='fw-field-editor-add-section-btn'
+                  disabled={disableAddSectionBtn}
                   onFwClick={() => {
                     this.setSectionsExpandState(true);
                     this.setSectionCreationExpandState(true);
