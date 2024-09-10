@@ -87,6 +87,18 @@ $bg-color-disabled: $color-smoke-25;
       color: $color-smoke-700;
     }
 
+    &-subText-conversation {
+      font-weight: $font-weight-400;
+      font-size: $font-size-14;
+      color: $color-smoke-700;
+    }
+
+    &-metaText-details {
+      font-weight: $font-weight-400;
+      font-size: $font-size-12;
+      color: $color-smoke-700;
+    }
+
     &.icon-margin {
       margin-inline-start: 18px;
     }
@@ -115,4 +127,9 @@ $bg-color-disabled: $color-smoke-25;
     align-items: center;
     display: flex;
   }
+}
+
+.image-icon-dimension-standard {
+  width: 1.25rem;
+  height: 1.25rem;
 }

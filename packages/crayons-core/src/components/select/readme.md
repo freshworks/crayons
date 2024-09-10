@@ -1801,6 +1801,75 @@ function App() {
 </script>
 ```
 
+### Demo with conversation variant
+
+```html live
+<fw-select
+  id="conversationOptionsSelect"
+  label="Select Conversations"
+  placeholder="Your choices"
+  options-variant="conversation"
+  option-label-path="name"
+  option-value-path="id"
+>
+</fw-select>
+
+<script type="application/javascript">
+  var conversationDataSource = [
+      {
+        id: '1',
+        name: 'When can I access my account?',
+        subText: 'When will i get my refund? prioritise it.',
+        author: {
+          name: 'User 1',
+        },
+        graphicsProps: { name: 'verified', size: '18px' },
+      },
+      {
+        id: '2',
+        name: 'When is my refund?',
+        subText:
+          'No Confirmation When will i get my.When will i get my refund? ...',
+        author: {
+          phone: '1234567890',
+          email: 'user@test.com',
+        },
+        graphicsProps: { name: 'magic-wand', size: '18px' },
+      },
+      {
+        id: '3',
+        name: 'Fix it now.',
+        subText: 'No Booking Confirmation',
+        author: {
+          name: 'User2',
+          phone: '1234567890',
+        },
+        graphicsProps: { name: 'instagram', size: '18px' },
+      },
+    ];
+    var conversationOptionsSelect = document.getElementById(
+      'conversationOptionsSelect'
+    );
+    conversationOptionsSelect.options = conversationDataSource;
+    conversationOptionsSelect.setSelectedOptions([
+      {
+        id: '2',
+        name: 'When will i get my.When will i get my refund? ...',
+        subText:
+          'No Confirmation When will i get my.When will i get my refund? ...',
+        author: {
+          phone: '1234567890',
+          email: 'harshith@test.com',
+        },
+        graphicsProps: { name: 'magic-wand', size: '18px' },
+      },
+    ]);
+    conversationOptionsSelect.addEventListener('fwChange', (e) => {
+      console.log(e.detail);
+    });
+</script>
+```
+
 </code-block>
 <code-block title="React">
 
@@ -1973,7 +2042,7 @@ Refer the [css variables](#css-custom-properties) for modifying the appearance o
 | `optionValuePath`     | `option-value-path`     | Key for determining the value for a given option                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `string`                                                                                                                                                             | `'value'`                                                                                                                          |
 | `options`             | `options`               | The data for the select component, the options will be of type array of fw-select-options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `any`                                                                                                                                                                | `undefined`                                                                                                                        |
 | `optionsPlacement`    | `options-placement`     | Placement of the options list with respect to select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `"bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`                                                                                                                         |
-| `optionsVariant`      | `options-variant`       | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.                                                                                                                                                                                                                                                                                                                                                                           | `"avatar" \| "icon" \| "standard"`                                                                                                                                   | `'standard'`                                                                                                                       |
+| `optionsVariant`      | `options-variant`       | Standard is the default option without any graphics other options are icon and avatar which places either the icon or avatar at the beginning of the row. The props for the icon or avatar are passed as an object via the graphicsProps.                                                                                                                                                                                                                                                                                                                                                                           | `"avatar" \| "conversation" \| "icon" \| "standard"`                                                                                                                 | `'standard'`                                                                                                                       |
 | `placeholder`         | `placeholder`           | Text displayed in the list box before an option is selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`                                                                                                                                                             | `undefined`                                                                                                                        |
 | `readonly`            | `readonly`              | If true, the user cannot modify the default value selected. If the attribute's value is undefined, the value is set to true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                                                                                                            | `false`                                                                                                                            |
 | `required`            | `required`              | Specifies the select field as a mandatory field and displays an asterisk next to the label. If the attribute’s value is undefined, the value is set to false.                                                                                                                                                                                                                                                                                                                                                                                                                                                       | `boolean`                                                                                                                                                            | `false`                                                                                                                            |

@@ -1,0 +1,20 @@
+0 silly argv {
+0 silly argv   _: [ 'version' ],
+0 silly argv   'conventional-commits': true,
+0 silly argv   conventionalCommits: true,
+0 silly argv   'conventional-prerelease': true,
+0 silly argv   conventionalPrerelease: true,
+0 silly argv   preid: 'beta',
+0 silly argv   'create-release': 'github',
+0 silly argv   createRelease: 'github',
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'lerna'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /Users/rsiddhi/Desktop/Work/crayons
+3 silly createGitHubClient
+4 error Error: A GH_TOKEN environment variable is required.
+4 error     at createGitHubClient (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/github-client/lib/github-client.js:17:11)
+4 error     at createReleaseClient (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/version/lib/create-release.js:20:14)
+4 error     at VersionCommand.configureProperties (/Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/version/index.js:80:58)
+4 error     at /Users/rsiddhi/Desktop/Work/crayons/node_modules/@lerna/command/index.js:50:37

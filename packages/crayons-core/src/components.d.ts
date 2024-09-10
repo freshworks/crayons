@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { AccordionToggleEvent } from "./components/accordion/accordion";
 import { CountryCode } from "libphonenumber-js/types";
-import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
+import { DataTableAction, DataTableActionWithGraphics, DataTableColumn, DataTableRow, DropdownVariant, MetaText, PopoverPlacementType, PopoverTriggerType, TagState, TagVariant, WidthStyles } from "./utils/types";
 import { InitialUploaderFile, UploaderFile } from "./components/file-uploader-2/file-uploader2-util";
 import { FormErrors, FormRequired, FormSubmit, FormValues } from "./components/form/form-declaration";
 import { ToastOptions } from "./components/toast/toast-util";
@@ -1995,6 +1995,10 @@ export namespace Components {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Third line text in conversation can be metaText additional details etc.
+         */
+        "metaText": MetaText;
         /**
           * Alternate text displayed on the interface, in place of the actual HTML content.
          */
@@ -5111,6 +5115,10 @@ declare namespace LocalJSX {
           * HTML content that is displayed as the option.
          */
         "htmlContent"?: string;
+        /**
+          * Third line text in conversation can be metaText additional details etc.
+         */
+        "metaText"?: MetaText;
         /**
           * Triggered when an option loses focus.
          */

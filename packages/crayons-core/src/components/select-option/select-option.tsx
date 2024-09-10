@@ -10,7 +10,7 @@ import {
   Method,
   Listen,
 } from '@stencil/core';
-import { DropdownVariant } from '../../utils/types';
+import { DropdownVariant, MetaText } from '../../utils/types';
 
 /**
  * @parent select
@@ -61,6 +61,10 @@ export class SelectOption {
    * Second line text can be description etc.
    */
   @Prop({ reflect: true }) subText: string;
+  /**
+   * Third line text in conversation can be metaText additional details etc.
+   */
+  @Prop({ reflect: true }) metaText: MetaText;
   /**
    * Used in grouped list, provides the group in which the option belongs
    */
@@ -180,6 +184,15 @@ export class SelectOption {
             {selectedIconContainer}
           </Fragment>
         );
+      case 'conversation':
+        return (
+          <Fragment>
+            {checkbox}
+            {this.createIcon()}
+            {this.createConversationDescription()}
+            {selectedIconContainer}
+          </Fragment>
+        );
       default:
         return (
           <Fragment>
@@ -214,7 +227,33 @@ export class SelectOption {
     );
   }
 
+  createConversationDescription() {
+    const metaTextDetails = [];
+    if (this.metaText.name) metaTextDetails.push(this.metaText.name);
+    if (this.metaText.email) metaTextDetails.push(this.metaText.email);
+    if (this.metaText.mobile) metaTextDetails.push(this.metaText.mobile);
+
+    return this.subText ? (
+      <div class={'description ' + 'icon-margin '}>
+        <span class='description-text'>{this.text}</span>
+        <span class='description-subText-conversation'>{this.subText}</span>
+        <span class='description-metaText-details'>
+          {metaTextDetails?.join(' | ')}
+        </span>
+      </div>
+    ) : (
+      <span class={'description ' + 'icon-margin'}>{this.text}</span>
+    );
+  }
+
   createIcon() {
+    const { imageSrc } = this.graphicsProps;
+
+    if (imageSrc) {
+      return (
+        <img src={imageSrc} class='image-icon-dimension-standard' alt='icon' />
+      );
+    }
     return <fw-icon {...this.graphicsProps}></fw-icon>;
   }
 
