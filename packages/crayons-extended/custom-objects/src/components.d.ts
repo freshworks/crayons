@@ -126,13 +126,6 @@ export namespace Components {
         "selectedFieldValue": any;
         "showCreateOrEditSectionPane": any;
     }
-    interface FbSectionDragDrop {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider": any;
-        "setSectionsExpandStateHandler": any;
-    }
     interface FwCoExport {
         "close": () => Promise<boolean>;
         /**
@@ -817,12 +810,6 @@ declare global {
         prototype: HTMLFbSectionCreateElement;
         new (): HTMLFbSectionCreateElement;
     };
-    interface HTMLFbSectionDragDropElement extends Components.FbSectionDragDrop, HTMLStencilElement {
-    }
-    var HTMLFbSectionDragDropElement: {
-        prototype: HTMLFbSectionDragDropElement;
-        new (): HTMLFbSectionDragDropElement;
-    };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
     var HTMLFwCoExportElement: {
@@ -940,7 +927,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
         "fb-section-create": HTMLFbSectionCreateElement;
-        "fb-section-drag-drop": HTMLFbSectionDragDropElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -1090,13 +1076,6 @@ declare namespace LocalJSX {
         "sectionName"?: string;
         "selectedFieldValue"?: any;
         "showCreateOrEditSectionPane"?: any;
-    }
-    interface FbSectionDragDrop {
-        /**
-          * data source used to set and edit the field values
-         */
-        "dataProvider"?: any;
-        "setSectionsExpandStateHandler"?: any;
     }
     interface FwCoExport {
         /**
@@ -1802,7 +1781,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "fb-field-drag-drop-item": FbFieldDragDropItem;
         "fb-section-create": FbSectionCreate;
-        "fb-section-drag-drop": FbSectionDragDrop;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1830,7 +1808,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
             "fb-section-create": LocalJSX.FbSectionCreate & JSXBase.HTMLAttributes<HTMLFbSectionCreateElement>;
-            "fb-section-drag-drop": LocalJSX.FbSectionDragDrop & JSXBase.HTMLAttributes<HTMLFbSectionDragDropElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;

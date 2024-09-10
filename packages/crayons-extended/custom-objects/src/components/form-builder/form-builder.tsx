@@ -1113,177 +1113,173 @@ export class FormBuilder {
 
     return (
       <div>
-        {dataItem?.field_options?.has_sections &&
-          dataItem.choices?.map((choice) => {
-            const acceptFromSections = dataItem.choices
-              .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
-              .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
-              .join(',');
-            const sectionChoiceValue = choice?.value,
-              sectionName = choice.choice_options?.section_name,
-              isEmptySection =
-                sectionName && !choice.dependent_ids?.field?.length;
-            const fieldsContent = isEmptySection
-              ? this.renderDragDropEmptyState(
-                  sectionName,
-                  boolFieldEditingState
-                )
-              : choice.dependent_ids?.field?.map((fieldId, index) => {
-                  const field = dataItem.fields.find((f) => f.id === fieldId);
-                  return field
-                    ? this.renderFieldEditorElement(
-                        field,
-                        index,
-                        boolFieldEditingState,
-                        strEntityName,
+        {dataItem.choices?.map((choice) => {
+          const acceptFromSections = dataItem.choices
+            .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
+            .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
+            .join(',');
+          const sectionChoiceValue = choice?.value,
+            sectionName = choice.choice_options?.section_name,
+            isEmptySection =
+              sectionName && !choice.dependent_ids?.field?.length;
+          const fieldsContent = isEmptySection
+            ? this.renderDragDropEmptyState(sectionName, boolFieldEditingState)
+            : choice.dependent_ids?.field?.map((fieldId, index) => {
+                const field = dataItem.fields.find((f) => f.id === fieldId);
+                return field
+                  ? this.renderFieldEditorElement(
+                      field,
+                      index,
+                      boolFieldEditingState,
+                      strEntityName,
+                      sectionName,
+                      parentIndex
+                    )
+                  : null;
+              });
+          const editSectionKey = `sectionEdit_${choice.id}`;
+          this.isEditingDynamicSection =
+            !!this.expandedFieldIndex[editSectionKey];
+          const choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
+            dataItem.choices
+          );
+          choicesWithNoSectionCreated.push({
+            text: choice.value,
+            value: choice.value,
+          });
+
+          return (
+            sectionName &&
+            (this.isEditingDynamicSection ? (
+              <fb-section-create
+                index={parentIndex}
+                isEditing={true}
+                dataProvider={dataItem}
+                onFwExpand={this.expandFieldHandler}
+                onFwUpdate={this.saveFieldHandler}
+                fieldChoices={choicesWithNoSectionCreated}
+                selectedFieldValue={sectionChoiceValue}
+                sectionName={sectionName}
+                showCreateOrEditSectionPane={this.setEditDynamicSectionState}
+              />
+            ) : (
+              <section key={choice.id} class={`fb-section`}>
+                <header class={{ disabled: boolFieldEditingState }}>
+                  <span
+                    class='fb-section-add'
+                    innerHTML={TranslationController.t(
+                      'formBuilder.sections.sectionHeading',
+                      {
+                        sectionName: sectionName,
+                        sectionChoiceValue: sectionChoiceValue,
+                        fieldLabel: dataItem?.label,
+                      }
+                    )}
+                  ></span>
+                  <div class='section-edit-delete'>
+                    <fw-tooltip
+                      placement='bottom'
+                      trigger='hover'
+                      content={TranslationController.t(
+                        'formBuilder.sections.editTooltipText'
+                      )}
+                    >
+                      <fw-icon
+                        name='edit'
+                        class={{ disabled: !boolEditAllowed }}
+                        size='16'
+                        onClick={() => {
+                          this.fwExpandField.emit({
+                            expanded: true,
+                            index: 'sectionEdit',
+                            value: { id: `sectionEdit_${choice.id}` },
+                          });
+                        }}
+                        color='#264966'
+                      ></fw-icon>
+                    </fw-tooltip>
+                    <fw-tooltip
+                      placement='bottom'
+                      trigger='hover'
+                      content={TranslationController.t(
+                        'formBuilder.sections.deleteTooltipText'
+                      )}
+                    >
+                      <fw-icon
+                        name='delete'
+                        class={{ disabled: !boolDeleteAllowed }}
+                        size='16'
+                        onClick={(e) => {
+                          deleteSectionClickHandler(e);
+                        }}
+                        color='#264966'
+                      ></fw-icon>
+                    </fw-tooltip>
+                  </div>
+                </header>
+                <div class='fb-section-content'>
+                  <fw-drag-container
+                    key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                    class={`form-builder-right-panel-field-editor-list`}
+                    id={`sectionIdentifier-${sectionName}`}
+                    acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
+                    addOnDrop={false}
+                    sortable={true}
+                    onFwDrop={(e) =>
+                      this.fieldTypeDropHandler(
+                        e,
+                        dataItem,
                         sectionName,
                         parentIndex
                       )
-                    : null;
-                });
-            const editSectionKey = `sectionEdit_${choice.id}`;
-            this.isEditingDynamicSection =
-              !!this.expandedFieldIndex[editSectionKey];
-            const choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
-              dataItem.choices
-            );
-            choicesWithNoSectionCreated.push({
-              text: choice.value,
-              value: choice.value,
-            });
-
-            return (
-              sectionName &&
-              (this.isEditingDynamicSection ? (
-                <fb-section-create
-                  index={parentIndex}
-                  isEditing={true}
-                  dataProvider={dataItem}
-                  onFwExpand={this.expandFieldHandler}
-                  onFwUpdate={this.saveFieldHandler}
-                  fieldChoices={choicesWithNoSectionCreated}
-                  selectedFieldValue={sectionChoiceValue}
-                  sectionName={sectionName}
-                  showCreateOrEditSectionPane={this.setEditDynamicSectionState}
-                />
-              ) : (
-                <section key={choice.id} class={`fb-section`}>
-                  <header class={{ disabled: boolFieldEditingState }}>
-                    <span
-                      class='fb-section-add'
-                      innerHTML={TranslationController.t(
-                        'formBuilder.sections.sectionHeading',
-                        {
-                          sectionName: sectionName,
-                          sectionChoiceValue: sectionChoiceValue,
-                          fieldLabel: dataItem?.label,
-                        }
-                      )}
-                    ></span>
-                    <div class='section-edit-delete'>
-                      <fw-tooltip
-                        placement='bottom'
-                        trigger='hover'
-                        content={TranslationController.t(
-                          'formBuilder.sections.editTooltipText'
-                        )}
-                      >
-                        <fw-icon
-                          name='edit'
-                          class={{ disabled: !boolEditAllowed }}
-                          size='16'
-                          onClick={() => {
-                            this.fwExpandField.emit({
-                              expanded: true,
-                              index: 'sectionEdit',
-                              value: { id: `sectionEdit_${choice.id}` },
-                            });
-                          }}
-                          color='#264966'
-                        ></fw-icon>
-                      </fw-tooltip>
-                      <fw-tooltip
-                        placement='bottom'
-                        trigger='hover'
-                        content={TranslationController.t(
-                          'formBuilder.sections.deleteTooltipText'
-                        )}
-                      >
-                        <fw-icon
-                          name='delete'
-                          class={{ disabled: !boolDeleteAllowed }}
-                          size='16'
-                          onClick={(e) => {
-                            deleteSectionClickHandler(e);
-                          }}
-                          color='#264966'
-                        ></fw-icon>
-                      </fw-tooltip>
-                    </div>
-                  </header>
-                  <div class='fb-section-content'>
-                    <fw-drag-container
-                      key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
-                      class={`form-builder-right-panel-field-editor-list`}
-                      id={`sectionIdentifier-${sectionName}`}
-                      acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
-                      addOnDrop={false}
-                      sortable={true}
-                      onFwDrop={(e) =>
-                        this.fieldTypeDropHandler(
-                          e,
-                          dataItem,
-                          sectionName,
-                          parentIndex
-                        )
-                      }
-                      onFwDragEnter={(e) => this.onDragEnter(e, sectionName)}
-                      onFwDragLeave={
-                        this.hideErrorMessage // Hide error when drag leaves
-                      }
-                    >
-                      {this.dragErrorMessages[sectionName] && (
-                        <div class='error-message'>
-                          <span>
-                            <fw-icon
-                              name='alert'
-                              size='16'
-                              slot='before-label'
-                              color='#E43538'
-                            ></fw-icon>
-                            <span class='seperator'></span>
-                            {this.dragErrorMessages[sectionName]}
-                          </span>
-                        </div>
-                      )}
-                      {fieldsContent}
-                    </fw-drag-container>
-                  </div>
-                  <fw-modal
-                    ref={(el) => (modalConfirmDelete = el)}
-                    icon='delete'
-                    submitColor='danger'
-                    hasCloseIconButton={false}
-                    titleText={i18nText('formBuilder.sections.deleteSection')}
-                    submitText={i18nText('deleteFieldSubmit')}
-                    onFwSubmit={() => {
-                      confirmDeleteSectionHandler({
-                        index: parentIndex,
-                        id: choice.id,
-                      });
-                    }}
+                    }
+                    onFwDragEnter={(e) => this.onDragEnter(e, sectionName)}
+                    onFwDragLeave={
+                      this.hideErrorMessage // Hide error when drag leaves
+                    }
                   >
-                    <span class={'fb-section-delete-modal-content'}>
-                      <fw-inline-message open type='warning'>
-                        {i18nText('deleteFieldInlineMessage')}
-                      </fw-inline-message>
-                      {i18nText('sections.deleteSectionContent')}
-                    </span>
-                  </fw-modal>
-                </section>
-              ))
-            );
-          })}
+                    {this.dragErrorMessages[sectionName] && (
+                      <div class='error-message'>
+                        <span>
+                          <fw-icon
+                            name='alert'
+                            size='16'
+                            slot='before-label'
+                            color='#E43538'
+                          ></fw-icon>
+                          <span class='seperator'></span>
+                          {this.dragErrorMessages[sectionName]}
+                        </span>
+                      </div>
+                    )}
+                    {fieldsContent}
+                  </fw-drag-container>
+                </div>
+                <fw-modal
+                  ref={(el) => (modalConfirmDelete = el)}
+                  icon='delete'
+                  submitColor='danger'
+                  hasCloseIconButton={false}
+                  titleText={i18nText('sections.deleteSection')}
+                  submitText={i18nText('deleteFieldSubmit')}
+                  onFwSubmit={() => {
+                    confirmDeleteSectionHandler({
+                      index: parentIndex,
+                      id: choice.id,
+                    });
+                  }}
+                >
+                  <span class={'fb-section-delete-modal-content'}>
+                    <fw-inline-message open type='warning'>
+                      {i18nText('deleteFieldInlineMessage')}
+                    </fw-inline-message>
+                    {i18nText('sections.deleteSectionContent')}
+                  </span>
+                </fw-modal>
+              </section>
+            ))
+          );
+        })}
       </div>
     );
   }
@@ -1369,12 +1365,13 @@ export class FormBuilder {
         parentIndex={parentIndex}
       >
         <div slot='section'>
-          {this.renderSectionFields(
-            dataItem,
-            boolFieldEditingState,
-            strEntityName,
-            intIndex
-          )}
+          {dataItem?.field_options?.has_sections &&
+            this.renderSectionFields(
+              dataItem,
+              boolFieldEditingState,
+              strEntityName,
+              intIndex
+            )}
         </div>
       </fb-field-drag-drop-item>
     );
