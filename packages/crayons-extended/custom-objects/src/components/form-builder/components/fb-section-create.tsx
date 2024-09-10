@@ -19,7 +19,7 @@ export class FormBuilderSection {
   /*
    * List of field options
    */
-  @Prop() fieldChoices;
+  @Prop() fieldChoices = null;
   /**
    * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
    */
@@ -31,11 +31,11 @@ export class FormBuilderSection {
   /*
    * Choosen field value for a section
    */
-  @Prop({ mutable: true }) selectedFieldValue;
+  @Prop({ mutable: true }) selectedFieldValue = null;
   /*
    * Flag to show section pane in edit mode
    */
-  @Prop() isEditing;
+  @Prop() isEditing = false;
   /**
    * index attached inside the parent group component
    */
@@ -43,11 +43,11 @@ export class FormBuilderSection {
   /*
    * Section name field error state
    */
-  @State() sectionInputState;
+  @State() sectionInputState = '';
   /*
    * Previously selected choice value while in edit mode
    */
-  @State() previousSelectedValue;
+  @State() previousSelectedValue = null;
   /**
    * State to show section input warning message
    */

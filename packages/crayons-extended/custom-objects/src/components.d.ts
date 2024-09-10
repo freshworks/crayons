@@ -117,7 +117,7 @@ export namespace Components {
           * index attached inside the parent group component
          */
         "index": number;
-        "isEditing": any;
+        "isEditing": boolean;
         /**
           * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
          */
@@ -1074,7 +1074,7 @@ declare namespace LocalJSX {
           * index attached inside the parent group component
          */
         "index"?: number;
-        "isEditing"?: any;
+        "isEditing"?: boolean;
         /**
           * Triggered when the section is expanded or collapsed
          */

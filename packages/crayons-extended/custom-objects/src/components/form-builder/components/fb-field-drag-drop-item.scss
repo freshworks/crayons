@@ -21,13 +21,6 @@
     --fw-button-hover-background-color: $color-smoke-25;
     --fw-button-active-box-shadow: $color-smoke-25;
     --fw-button--lg-focus-border: $color-smoke-25;
-
-    &.disabled {
-      pointer-events: none;
-      user-select: none;
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
   }
 
   &.hide {
