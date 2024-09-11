@@ -72,7 +72,7 @@ export class FormBuilder {
   /**
    * Prop to store the expanded field index
    */
-  @Prop({ mutable: true }) expandedFieldIndex = {};
+  @Prop({ mutable: true }) currentFieldIndex = {};
   /**
    * variable to store form values
    */
@@ -1139,7 +1139,7 @@ export class FormBuilder {
               });
           const editSectionKey = `sectionEdit_${choice.id}`;
           this.isEditingDynamicSection =
-            !!this.expandedFieldIndex[editSectionKey];
+            !!this.currentFieldIndex[editSectionKey];
           const choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
             dataItem.choices
           );
@@ -1330,8 +1330,8 @@ export class FormBuilder {
     );
 
     const boolItemExpanded = sectionName
-      ? this.expandedFieldIndex[`${sectionName}-${dataItem.id}`] === intIndex
-      : this.expandedFieldIndex[dataItem.id] === intIndex;
+      ? this.currentFieldIndex[`${sectionName}-${dataItem.id}`] === intIndex
+      : this.currentFieldIndex[dataItem.id] === intIndex;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
@@ -1432,7 +1432,7 @@ export class FormBuilder {
         arrFieldOrder.splice(dependentIndex, 1);
       }
     }
-    const boolFieldEditingState = !!Object.keys(this.expandedFieldIndex).length;
+    const boolFieldEditingState = !!Object.keys(this.currentFieldIndex).length;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
       ? objLabelsDb.fieldsHeader

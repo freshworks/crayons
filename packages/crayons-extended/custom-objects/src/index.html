@@ -916,14 +916,12 @@
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
           if (objDefaultField.isSection) {
-            fb.expandedFieldIndex[
+            fb.currentFieldIndex[
               `${objDetail?.sectionSource?.name}-${objDefaultField.id}`
             ] = intAddedIndex;
           } else {
-            fb.expandedFieldIndex[objDefaultField.id] = intAddedIndex;
+            fb.currentFieldIndex[objDefaultField.id] = intAddedIndex;
           }
-          // fb.expandedFieldIndex[objDefaultField.id] = intAddedIndex;
-          // fb.expandedFieldIndex= intAddedIndex;
         }
       });
 
@@ -978,11 +976,10 @@
             ? `${objDetail.sectionName}-${objDetail.value?.id}`
             : objDetail.value?.id;
           boolRefObj[expandId] = intIndex;
-          fb.expandedFieldIndex = boolRefObj;
+          fb.currentFieldIndex = boolRefObj;
         } else {
-          fb.expandedFieldIndex = {};
+          fb.currentFieldIndex = {};
         }
-        // fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
         if (!boolExpanded && objDetail.isNew && intIndex > -1) {
           deleteNewLocalFieldAtIndex(intIndex, objDetail);
         }
@@ -1004,7 +1001,7 @@
 
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
-          fb.expandedFieldIndex = {};
+          fb.currentFieldIndex = {};
           fb.formValues = objFormValues;
           return;
         }
@@ -1077,7 +1074,7 @@
           }
 
           objFormValues = { ...objFormValues, fields: arrFields };
-          fb.expandedFieldIndex = {};
+          fb.currentFieldIndex = {};
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
           return;
@@ -1099,7 +1096,7 @@
             { field: [], choice: [] },
           ];
           objFormValues = { ...objFormValues, fields: arrFields };
-          fb.expandedFieldIndex = {};
+          fb.currentFieldIndex = {};
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
           return;
@@ -1308,8 +1305,7 @@
           }
         }
 
-        fb.expandedFieldIndex = {};
-        // fb.expandedFieldIndex = -1;
+        fb.currentFieldIndex = {};
 
         objFormValues = { ...objFormValues, fields: arrFields };
         setFormValues(objFormValues);

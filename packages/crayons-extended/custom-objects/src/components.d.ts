@@ -500,6 +500,10 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * Prop to store the expanded field index
+         */
+        "currentFieldIndex": {};
+        /**
           * variable to store customize widget fields
          */
         "customizeWidgetFields": any;
@@ -512,10 +516,6 @@ export namespace Components {
           * svg image to be shown for empty record
          */
         "emptySearchImage": any;
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex": {};
         /**
           * Method to force render the drag container's children containing all the added fields
          */
@@ -1505,6 +1505,10 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * Prop to store the expanded field index
+         */
+        "currentFieldIndex"?: {};
+        /**
           * variable to store customize widget fields
          */
         "customizeWidgetFields"?: any;
@@ -1517,10 +1521,6 @@ declare namespace LocalJSX {
           * svg image to be shown for empty record
          */
         "emptySearchImage"?: any;
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex"?: {};
         /**
           * variable to store form values
          */

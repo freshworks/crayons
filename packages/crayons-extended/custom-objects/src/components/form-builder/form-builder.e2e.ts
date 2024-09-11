@@ -1806,13 +1806,13 @@ describe('fw-form-builder', () => {
         await page.waitForChanges();
         await page.$eval(
           'fw-form-builder',
-          (elm: any, { formValues, expandedFieldIndex }: any) => {
+          (elm: any, { formValues, currentFieldIndex }: any) => {
             elm.formValues = formValues;
-            elm.expandedFieldIndex = expandedFieldIndex;
+            elm.currentFieldIndex = currentFieldIndex;
           },
           {
             formValues: formValues[productName],
-            expandedFieldIndex: 2,
+            currentFieldIndex: 2,
           }
         );
         await page.waitForChanges();
@@ -1860,13 +1860,13 @@ describe('fw-form-builder', () => {
         const validateIndex = formValues[productName].fields.length - 1;
         await page.$eval(
           'fw-form-builder',
-          (elm: any, { formValues, expandedFieldIndex }: any) => {
+          (elm: any, { formValues, currentFieldIndex }: any) => {
             elm.formValues = formValues;
-            elm.expandedFieldIndex = expandedFieldIndex;
+            elm.currentFieldIndex = currentFieldIndex;
           },
           {
             formValues: formValues[productName],
-            expandedFieldIndex: validateIndex,
+            currentFieldIndex: validateIndex,
           }
         );
         await page.waitForChanges();
@@ -2007,11 +2007,11 @@ describe('fw-form-builder', () => {
     await page.waitForChanges();
     await page.$eval(
       'fw-form-builder',
-      (elm: any, { formValues, expandedFieldIndex }: any) => {
+      (elm: any, { formValues, currentFieldIndex }: any) => {
         elm.formValues = formValues;
-        elm.expandedFieldIndex = expandedFieldIndex;
+        elm.currentFieldIndex = currentFieldIndex;
       },
-      { formValues: formValues.CUSTOM_OBJECTS, expandedFieldIndex: 1 }
+      { formValues: formValues.CUSTOM_OBJECTS, currentFieldIndex: 1 }
     );
     await page.waitForChanges();
     const rightPanel = await page.find(
@@ -2099,13 +2099,13 @@ describe('fw-form-builder', () => {
       await page.waitForChanges();
       await page.$eval(
         'fw-form-builder',
-        (elm: any, { formValues, expandedFieldIndex }: any) => {
+        (elm: any, { formValues, currentFieldIndex }: any) => {
           elm.formValues = formValues;
-          elm.expandedFieldIndex = expandedFieldIndex;
+          elm.currentFieldIndex = currentFieldIndex;
         },
         {
           formValues: formValues.CONVERSATION_PROPERTIES,
-          expandedFieldIndex: fieldIndex,
+          currentFieldIndex: fieldIndex,
         }
       );
       await page.waitForChanges();
@@ -2205,13 +2205,13 @@ describe('fw-form-builder', () => {
       await page.waitForChanges();
       await page.$eval(
         'fw-form-builder',
-        (elm: any, { formValues, expandedFieldIndex }: any) => {
+        (elm: any, { formValues, currentFieldIndex }: any) => {
           elm.formValues = formValues;
-          elm.expandedFieldIndex = expandedFieldIndex;
+          elm.currentFieldIndex = currentFieldIndex;
         },
         {
           formValues: formValues.CUSTOM_OBJECTS,
-          expandedFieldIndex: fieldIndex,
+          currentFieldIndex: fieldIndex,
         }
       );
       await page.waitForChanges();
@@ -2452,11 +2452,11 @@ describe('fw-form-builder', () => {
     for (let i = 0; i <= 4; i++) {
       await page.$eval(
         'fw-form-builder',
-        (elm: any, { expandedFieldIndex }: any) => {
-          elm.expandedFieldIndex = expandedFieldIndex;
+        (elm: any, { currentFieldIndex }: any) => {
+          elm.currentFieldIndex = currentFieldIndex;
         },
         {
-          expandedFieldIndex: i,
+          currentFieldIndex: i,
         }
       );
       await page.waitForChanges();
@@ -2541,14 +2541,14 @@ describe('fw-form-builder', () => {
           await page.waitForChanges();
           await page.$eval(
             'fw-form-builder',
-            (elm: any, { formValues, expandedFieldIndex, permission }: any) => {
+            (elm: any, { formValues, currentFieldIndex, permission }: any) => {
               elm.formValues = formValues;
-              elm.expandedFieldIndex = expandedFieldIndex;
+              elm.currentFieldIndex = currentFieldIndex;
               elm.permission = permission;
             },
             {
               formValues: formValues.CONVERSATION_PROPERTIES,
-              expandedFieldIndex: fieldIndex,
+              currentFieldIndex: fieldIndex,
               permission,
             }
           );
@@ -2645,14 +2645,14 @@ describe('fw-form-builder', () => {
           permission[key] = false;
           await page.$eval(
             'fw-form-builder',
-            (elm: any, { formValues, expandedFieldIndex, permission }: any) => {
+            (elm: any, { formValues, currentFieldIndex, permission }: any) => {
               elm.formValues = formValues;
-              elm.expandedFieldIndex = expandedFieldIndex;
+              elm.currentFieldIndex = currentFieldIndex;
               elm.permission = permission;
             },
             {
               formValues: formValues.CUSTOM_OBJECTS,
-              expandedFieldIndex: fieldIndex,
+              currentFieldIndex: fieldIndex,
               permission,
             }
           );
@@ -2730,14 +2730,14 @@ describe('fw-form-builder', () => {
         permission[key] = false;
         await page.$eval(
           'fw-form-builder',
-          (elm: any, { formValues, expandedFieldIndex, permission }: any) => {
+          (elm: any, { formValues, currentFieldIndex, permission }: any) => {
             elm.formValues = formValues;
-            elm.expandedFieldIndex = expandedFieldIndex;
+            elm.currentFieldIndex = currentFieldIndex;
             elm.permission = permission;
           },
           {
             formValues: formValues.CONVERSATION_PROPERTIES,
-            expandedFieldIndex: fieldIndex,
+            currentFieldIndex: fieldIndex,
             permission,
           }
         );
