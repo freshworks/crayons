@@ -207,7 +207,7 @@
       "sectionNameEmpty": "Section name can't be empty",
       "emptySection": "Drag and drop fields to add to this section",
       "sectionHeading": "<span class='highlight'>{{sectionName}}</span> | Show section if <span class='highlight'>{{fieldLabel}}</span> is : <span class='highlight'>{{sectionChoiceValue}}</span>",
-      "deleteSectionContent":" Are you sure you want to delete this section? This will delete the conversation properties within the section and will impact the conversations, views, forms, automations and reports.",
+      "deleteSectionContent":"Are you sure you want to delete this section? This will delete the conversation properties within the section and will impact the conversations, views, forms, automations and reports.",
       "deleteSection": "Delete Section",
       "disableChoiceOption": "This option is used to create a section and cannot be edited",
       "errorMessages" : {
