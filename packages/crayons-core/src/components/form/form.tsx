@@ -195,8 +195,27 @@ export class Form {
   }
 
   async handleFormSchemaAndInitialValuesChange(formSchema, initialValues) {
+    const getSectionFields = (fields = []) => {
+      return fields.reduce((acc, field) => {
+        // Update the type based on formServFieldTypes
+        field.type = formServFieldTypes[field.type]?.type || field.type;
+        return {
+          ...acc,
+          [field.name]: field,
+          ...getSectionFields(field?.fields || []),
+        };
+      }, {});
+    };
+
     this.fields = formSchema?.fields?.reduce((acc, field) => {
-      return { ...acc, [field.name]: field };
+      // If there are Section fields, add them as well, outside of `fields` key
+      const nestedFields = getSectionFields(field?.fields || []);
+
+      return {
+        ...acc,
+        [field.name]: field,
+        ...nestedFields,
+      };
     }, {});
 
     this.formValidationSchema =
@@ -361,6 +380,26 @@ export class Form {
       componentValue = files;
     } else {
       componentValue = value;
+    }
+
+    // reset for section fields when values changed
+
+    const previousfield = this.formSchema.fields.find(
+      (field) => field.name === name
+    );
+
+    if (previousfield && previousfield?.field_options?.has_sections) {
+      const selectedObj = previousfield?.choices?.find(
+        ({ id }) => id === this.values[name]
+      );
+
+      selectedObj?.dependent_ids?.field?.forEach((fieldId) => {
+        const fieldOptionName = previousfield?.fields.find(
+          ({ id }) => id === fieldId
+        )?.name;
+
+        delete this.values[fieldOptionName];
+      });
     }
 
     this.values = {
@@ -807,7 +846,7 @@ export class Form {
     const dependendFieldIds = field.choices?.find(
       ({ id }) => id === selectedChoiceHash
     )?.dependent_ids?.field;
-    if (!dependendFieldIds || !dependendFieldIds.length) return null;
+    if (!dependendFieldIds?.length) return null;
 
     // Map dependent field IDs to form controls
     return (
@@ -822,7 +861,7 @@ export class Form {
             <fw-form-control
               key={fieldObj.name}
               name={fieldObj.name}
-              type={formServFieldTypes[fieldObj.type]?.type}
+              type={fieldObj.type}
               label={fieldObj.label}
               required={fieldObj.required}
               hint={fieldObj.hint}
