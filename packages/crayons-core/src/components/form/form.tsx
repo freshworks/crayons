@@ -10,6 +10,7 @@ import {
   Watch,
   Event,
   EventEmitter,
+  Fragment,
 } from '@stencil/core';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -32,11 +33,12 @@ import {
   getMappedSchema,
   getValueForField,
   LEGO,
+  formServFieldTypes,
 } from './form-util';
 import { debounce, hasSlot } from '../../utils';
-
 @Component({
   tag: 'fw-form',
+  styleUrl: 'form.scss',
   shadow: true,
 })
 export class Form {
@@ -795,6 +797,50 @@ export class Form {
       ) || {};
   }
 
+  renderSectionFields(field) {
+    const utils: FormUtils = this.composedUtils();
+    // Early return if no value for the field or no dependent choices
+    const selectedChoiceHash = this.values[field.name];
+    if (!selectedChoiceHash) return null;
+
+    // Find the selected field and get dependent field IDs
+    const dependendFieldIds = field.choices?.find(
+      ({ id }) => id === selectedChoiceHash
+    )?.dependent_ids?.field;
+    if (!dependendFieldIds || !dependendFieldIds.length) return null;
+
+    // Map dependent field IDs to form controls
+    return (
+      <div class='nest_indent'>
+        {dependendFieldIds.map((dependendFieldId) => {
+          const fieldObj = field.fields?.find(
+            ({ id }) => id === dependendFieldId
+          );
+          if (!fieldObj) return null;
+
+          return (
+            <fw-form-control
+              key={fieldObj.name}
+              name={fieldObj.name}
+              type={formServFieldTypes[fieldObj.type]?.type}
+              label={fieldObj.label}
+              required={fieldObj.required}
+              hint={fieldObj.hint}
+              placeholder={fieldObj.placeholder}
+              hidden={fieldObj.hidden}
+              error={this.errors[fieldObj.name]}
+              touched={this.touched[fieldObj.name]}
+              disabled={this.isDisabledField(fieldObj)}
+              choices={fieldObj.choices}
+              fieldProps={fieldObj}
+              controlProps={utils}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+
   render() {
     const utils: FormUtils = this.composedUtils();
 
@@ -807,22 +853,25 @@ export class Form {
             .map((field) => {
               return (
                 this.shouldRenderFormControl(field) && (
-                  <fw-form-control
-                    key={field.name}
-                    name={field.name}
-                    type={field.type}
-                    label={field.label}
-                    required={field.required}
-                    hint={field.hint}
-                    placeholder={field.placeholder}
-                    hidden={field.hidden}
-                    error={this.errors[field.name]}
-                    touched={this.touched[field.name]}
-                    disabled={this.isDisabledField(field)}
-                    choices={field.choices}
-                    fieldProps={field}
-                    controlProps={utils}
-                  ></fw-form-control>
+                  <Fragment>
+                    <fw-form-control
+                      key={field.name}
+                      name={field.name}
+                      type={field.type}
+                      label={field.label}
+                      required={field.required}
+                      hint={field.hint}
+                      placeholder={field.placeholder}
+                      hidden={field.hidden}
+                      error={this.errors[field.name]}
+                      touched={this.touched[field.name]}
+                      disabled={this.isDisabledField(field)}
+                      choices={field.choices}
+                      fieldProps={field}
+                      controlProps={utils}
+                    ></fw-form-control>
+                    {this.renderSectionFields(field)}
+                  </Fragment>
                 )
               );
             })
