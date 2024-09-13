@@ -70,6 +70,19 @@
     .highlight {
       font-weight: 600;
     }
+    .section-header-seperator {
+      width: 1px;
+      height: 14px;
+      background-color: $bg-dark;
+      margin-block: 0;
+      margin-inline: 8px;
+      padding: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .section-choice-label {
+      margin-inline-start: 4px;
+    }
   }
 
   .section-edit-delete {

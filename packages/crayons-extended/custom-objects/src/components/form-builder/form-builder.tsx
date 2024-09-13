@@ -1165,17 +1165,31 @@ export class FormBuilder {
             ) : (
               <section key={choice.id} class={`fb-section`}>
                 <header class={{ disabled: boolFieldEditingState }}>
-                  <span
-                    class='fb-section-add'
-                    innerHTML={TranslationController.t(
-                      'formBuilder.sections.sectionHeading',
+                  <span class='fb-section-add'>
+                    <span class='highlight'>
+                      {TranslationController.t(
+                        'formBuilder.sections.sectionHeadingName',
+                        {
+                          sectionName: sectionName,
+                        }
+                      )}
+                    </span>
+                    <span class='section-header-seperator'></span>
+                    {TranslationController.t(
+                      'formBuilder.sections.sectionHeadingLabel',
                       {
-                        sectionName: sectionName,
-                        sectionChoiceValue: sectionChoiceValue,
                         fieldLabel: dataItem?.label,
                       }
                     )}
-                  ></span>
+                    <span class='highlight section-choice-label'>
+                      {TranslationController.t(
+                        'formBuilder.sections.sectionHeadingChoice',
+                        {
+                          sectionChoiceValue: sectionChoiceValue,
+                        }
+                      )}
+                    </span>
+                  </span>
                   <div class='section-edit-delete'>
                     <fw-tooltip
                       placement='bottom'
