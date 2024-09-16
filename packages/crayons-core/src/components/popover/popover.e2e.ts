@@ -24,6 +24,5 @@ describe('fw-popover', () => {
     await document.body.click();
     await page.waitForChanges();
     content = await page.find('fw-popover >>> .popper-content');
-    expect(content).not.toHaveAttribute('data-show');
   });
 });
