@@ -24,6 +24,11 @@ export class Tooltip {
    * Content of the tooltip.
    */
   @Prop() content = '';
+
+  /**
+   * Header of the tooltip.
+   */
+  @Prop() header = '';
   /**
    * Distance defines the distance between the popover trigger and the popover content along y-axis.
    */
@@ -102,7 +107,12 @@ export class Tooltip {
           </div>
         ) : (
           this.content.trim().length && (
-            <div class='tooltip' slot='popover-content' role='tooltip'>
+            <div
+              class={{ tooltip: true, header: !!this.header.length }}
+              slot='popover-content'
+              role='tooltip'
+            >
+              {!!this.header?.length && <h3>{this.header}</h3>}
               {this.content.trim()}
             </div>
           )

@@ -8,6 +8,133 @@
   box-sizing: border-box;
 }
 
+.fb-section {
+  background: $color-smoke-50;
+  border-radius: 8px;
+  border: 1px solid $color-smoke-100;
+  width: 100%;
+  margin-block-end: 10px;
+
+  .error-message {
+    color: $app-icon-color;
+    background-color: $color-persimmon-50;
+    border: 1px solid $color-persimmon-100;
+    margin-block-start: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    gap: 12px;
+    text-align: center;
+    border-radius: 4px;
+    width: 100%;
+    height: 36px;
+    span {
+      padding-block: 8px;
+      padding-inline: 16px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+    }
+    .seperator {
+      width: 1px;
+      height: 24px;
+      background-color: #ffd0d6;
+      margin-block: 0;
+      margin-inline: 8px;
+      padding: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  header {
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    align-items: center;
+
+    &.disabled {
+      pointer-events: none;
+      user-select: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+  .fb-section-add {
+    color: $color-elephant-900;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+
+    .highlight {
+      font-weight: 600;
+    }
+    .section-header-seperator {
+      width: 1px;
+      height: 14px;
+      background-color: $bg-dark;
+      margin-block: 0;
+      margin-inline: 8px;
+      padding: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .section-choice-label {
+      margin-inline-start: 4px;
+    }
+  }
+
+  .section-edit-delete {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+
+    .disabled {
+      pointer-events: none;
+      user-select: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  .fb-section-content {
+    background: $color-milk;
+    padding-block: 12px;
+    display: flex;
+    padding-inline: 16px 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    min-height: 3rem;
+    height: auto;
+    border-radius: 0 0 8px 8px;
+
+    .empty-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: $color-elephant-900;
+
+      &.disabled {
+        pointer-events: none;
+        user-select: none;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      .empty-section-icon {
+        padding: 16px;
+        align-items: flex-start;
+        border-radius: 8px;
+        background: $color-smoke-25;
+      }
+    }
+  }
+}
+
 .form-builder {
   width: 100%;
   height: 100%;
@@ -497,4 +624,14 @@
   box-sizing: border-box;
   display: flex;
   gap: 12px;
+}
+
+.fb-section-delete-modal-content {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-block-start: 4px;
 }

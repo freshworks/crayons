@@ -175,7 +175,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
     if (intAddedIndex !== -1) {
       formValues = { ...formValues, fields: arrFields };
       fb.formValues = formValues;
-      fb.expandedFieldIndex = intAddedIndex;
+      fb.currentFieldIndex = intAddedIndex;
     }
   });
 
@@ -200,7 +200,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
     var objDetail = event.detail;
     var intIndex = objDetail.index;
     var boolExpanded = objDetail.expanded;
-    fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
+    fb.currentFieldIndex = boolExpanded ? intIndex : -1;
     if (!boolExpanded && objDetail.isNew && intIndex > -1) {
       deleteNewLocalFieldAtIndex(intIndex);
     }
@@ -355,7 +355,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       }
     }
 
-    fb.expandedFieldIndex = -1;
+    fb.currentFieldIndex = -1;
     formValues = { ...formValues, fields: arrFields };
     fb.formValues = formValues;
     fb.loading = false;
@@ -563,7 +563,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
     if (intAddedIndex !== -1) {
       formValues = { ...formValues, fields: arrFields };
       fb.formValues = formValues;
-      fb.expandedFieldIndex = intAddedIndex;
+      fb.currentFieldIndex = intAddedIndex;
     }
   });
 
@@ -588,7 +588,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
     var objDetail = event.detail;
     var intIndex = objDetail.index;
     var boolExpanded = objDetail.expanded;
-    fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
+    fb.currentFieldIndex = boolExpanded ? intIndex : -1;
     if (!boolExpanded && objDetail.isNew && intIndex > -1) {
       deleteNewLocalFieldAtIndex(intIndex);
     }
@@ -743,7 +743,7 @@ fw-form-builder can be used to create/edit/delete fields in an entity. It can al
       }
     }
 
-    fb.expandedFieldIndex = -1;
+    fb.currentFieldIndex = -1;
     formValues = { ...formValues, fields: arrFields };
     fb.formValues = formValues;
     fb.loading = false;
@@ -897,7 +897,7 @@ export default function EntityBuilder() {
 
   const [isLoading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState(initialDefaultEntity);
-  const [expandedFieldIndex, setExpandedFieldIndex] = useState(-1);
+  const [currentFieldIndex, setcurrentFieldIndex] = useState(-1);
   const [customizeWidgetValues, setCustomizeWidgetValues] = useState([]);
   const [isSavingCustomizeWidget, setSavingCustomizeWidget] = useState(false);
 
@@ -1018,7 +1018,7 @@ export default function EntityBuilder() {
       }
     }
 
-    setExpandedFieldIndex(-1);
+    setcurrentFieldIndex(-1);
     const objResultFormValues = { ...formValues, fields: arrFields };
     setFormValues(objResultFormValues);
     setLoading(false);
@@ -1070,7 +1070,7 @@ export default function EntityBuilder() {
     if (intAddedIndex !== -1) {
       const objResultFormValues = { ...formValues, fields: arrFields };
       setFormValues(objResultFormValues);
-      setExpandedFieldIndex(intAddedIndex);
+      setcurrentFieldIndex(intAddedIndex);
     }
   };
 
@@ -1087,7 +1087,7 @@ export default function EntityBuilder() {
     const objDetail = event.detail;
     const intIndex = objDetail.index;
     const boolExpanded = objDetail.expanded;
-    setExpandedFieldIndex(boolExpanded ? intIndex : -1);
+    setcurrentFieldIndex(boolExpanded ? intIndex : -1);
 
     if (!boolExpanded && objDetail.isNew && intIndex > -1) {
       deleteNewLocalFieldAtIndex(intIndex);
@@ -1116,7 +1116,7 @@ export default function EntityBuilder() {
         isLoading={isLoading}
         formValues={formValues}
         lookupTargetObjects={lookupTargets}
-        expandedFieldIndex={expandedFieldIndex}
+        currentFieldIndex={currentFieldIndex}
         customizeWidgetFields={customizeWidgetValues}
         isSavingCustomizeWidget={isSavingCustomizeWidget}
         onFwSaveField={saveFieldHandler}

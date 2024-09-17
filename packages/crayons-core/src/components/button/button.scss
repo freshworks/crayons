@@ -34,7 +34,10 @@ $btn-danger-disabled-color: rgba($btn-primary-color, 0.5);
 $btn-link-color: $color-azure-800;
 $btn-link-bg: $color-smoke-50;
 
-$active-box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+$active-box-shadow: var(
+  --fw-button-active-box-shadow,
+  inset 0 0 4px 0 rgba(0, 0, 0, 0.25)
+);
 
 $btn-default-font-size: $font-size-14;
 $btn-small-font-size: $font-size-12;
@@ -98,8 +101,9 @@ $input-height-mini: 16px;
   }
 
   &:focus {
-    border: 1px solid $btn-lg-focus-border;
-    box-shadow: 0 0 0 1px $btn-lg-focus-border;
+    border: 1px solid var(--fw-button--lg-focus-border, $btn-lg-focus-border);
+    box-shadow: 0 0 0 1px
+      var(--fw-button--lg-focus-border, $btn-lg-focus-border);
   }
 
   &.disabled,
@@ -123,7 +127,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-primary-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-primary-bg-dark
+      );
       background-image: none;
     }
 
@@ -155,7 +162,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-secondary-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-secondary-bg-dark
+      );
       background-image: none;
     }
 
@@ -179,7 +189,10 @@ $input-height-mini: 16px;
 
     &:focus:not([disabled]),
     &:hover:not([disabled]) {
-      background-color: $btn-danger-bg-dark;
+      background-color: var(
+        --fw-button-hover-background-color,
+        $btn-danger-bg-dark
+      );
       background-image: none;
     }
 
@@ -212,13 +225,14 @@ $input-height-mini: 16px;
   &--text,
   &--link {
     &:focus:not([disabled]) {
-      border-color: $btn-lg-focus-border;
-      box-shadow: 0 0 0 1px $btn-lg-focus-border;
+      border-color: var(--fw-button--lg-focus-border, $btn-lg-focus-border);
+      box-shadow: 0 0 0 1px
+        var(--fw-button--lg-focus-border, $btn-lg-focus-border);
       background-color: transparent;
     }
 
     &:hover:not([disabled]) {
-      background-color: $btn-link-bg;
+      background-color: var(--fw-button-hover-background-color, $btn-link-bg);
     }
 
     &.disabled,

@@ -24,10 +24,12 @@ import {
   isUniqueField,
   getDefaultDependentLevels,
   checkAndAppendLevel3,
+  getChoicesWithNoSectionCreated,
 } from './utils/form-builder-utils';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
 import { debounce } from '../../utils/utils';
+import { TranslationController } from '../../global/Translation';
 
 @Component({
   tag: 'fw-form-builder',
@@ -70,7 +72,7 @@ export class FormBuilder {
   /**
    * Prop to store the expanded field index
    */
-  @Prop({ mutable: true }) expandedFieldIndex = -1;
+  @Prop({ mutable: true }) currentFieldIndex = {};
   /**
    * variable to store form values
    */
@@ -115,6 +117,10 @@ export class FormBuilder {
    * svg image to be shown for empty record
    */
   @Prop() emptySearchImage = null;
+  /*
+   * Beta flag to enable Dynamic sections
+   */
+  @Prop() dynamicSectionsBetaEnabled = false;
   /**
    * State to store the formValues as a state to transfer the field types
    */
@@ -164,6 +170,10 @@ export class FormBuilder {
    */
   @State() fieldRerenderCount = 0;
   /**
+   * Flag to enable edit dynamic section
+   */
+  @State() isEditingDynamicSection = false;
+  /**
    * Triggered on Add/Save field button click from the field list items
    */
   @Event() fwSaveField!: EventEmitter;
@@ -195,6 +205,8 @@ export class FormBuilder {
    * Triggered on saving the widget fields
    */
   @Event() fwSaveWidgetFields!: EventEmitter;
+
+  @State() dragErrorMessages = {}; // State to track errors for each section
 
   @Watch('searching')
   watchSearchHandler(): void {
@@ -301,7 +313,16 @@ export class FormBuilder {
 
           if (mappedFieldTypes) {
             if (hasCustomProperty(mappedFieldTypes, objField.type)) {
-              objField.type = mappedFieldTypes[objField.type];
+              if (objField.field_options?.has_sections) {
+                //Changes to handle the type for sections
+                objField?.fields?.forEach(
+                  (sectionField) =>
+                    (sectionField.type = mappedFieldTypes[sectionField.type])
+                );
+                objField.type = mappedFieldTypes[objField.type];
+              } else {
+                objField.type = mappedFieldTypes[objField.type];
+              }
             } else {
               console.log(
                 `${objField.type} is not added in the mapper - Unsupported field type`
@@ -447,7 +468,12 @@ export class FormBuilder {
     this.fwDeleteField.emit({ ...event.detail });
   };
 
-  private composeNewField = (strNewFieldType, objFieldData, intIndex = -1) => {
+  private composeNewField = (
+    strNewFieldType,
+    objFieldData,
+    intIndex = -1,
+    sectionData?
+  ) => {
     const fieldType = strNewFieldType;
     const objNewField = deepCloneObject(presetSchema.fieldTypes[fieldType]);
     const objMaxLimits = getMaximumLimitsConfig(this.productName);
@@ -494,17 +520,84 @@ export class FormBuilder {
       fieldSchema: objNewField,
       value: { ...objFieldData },
       index: intIndex,
+      sectionSource: sectionData,
     });
   };
 
-  private fieldTypeDropHandler = (event: CustomEvent) => {
+  private onDragEnter = (event: CustomEvent, sectionName) => {
+    //Show Error message when they drag into section container
+    event.preventDefault();
+    event.stopPropagation();
+    const objDetail = event.detail,
+      elField = objDetail.droppedElement;
+    let elFieldType = elField.dataProvider.type;
+
+    if (elField.dataProvider.required) {
+      elFieldType = 'REQUIRED';
+    }
+
+    if (!elField.dataProvider.custom && elField.dataProvider.label) {
+      elFieldType = 'DEFAULT';
+    }
+
+    this.dragErrorMessages = {
+      [sectionName]: i18nText(`sections.errorMessages.${elFieldType}`),
+    };
+  };
+
+  private hideErrorMessage = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.dragErrorMessages = {};
+  };
+
+  private fieldTypeDropHandler = (
+    event: CustomEvent,
+    dataItem?,
+    sectionName?,
+    parentIndex?
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
     this.removeFieldReorderClass();
     const objDetail = event.detail;
     const elFieldType = objDetail.droppedElement;
     const intDroppedIndex = objDetail.droppedIndex;
+    let sectionData = {
+      data: dataItem,
+      name: sectionName,
+      targetIndex: parentIndex,
+    };
+    const sectionOut = objDetail.dragFromId.split('sectionIdentifier-'); //When it is moving from inside section to outside so it will have acceptfrom sectionIdentifier.
+    if (sectionOut.length > 1 && sectionOut[1]) {
+      sectionData = {
+        data: {
+          id: elFieldType.dataProvider.parent_id,
+          field_options: { has_sections: true },
+        },
+        name: sectionName,
+        targetIndex: parentIndex,
+      };
+    }
+
+    const isRepositionSection =
+      objDetail.dragFromId.includes('sectionIdentifier-') &&
+      objDetail.dropToId.includes('sectionIdentifier-'); //Allow to drop between the multiple sections
+
+    const isSectionOutside =
+      objDetail.dragFromId.includes('sectionIdentifier-') &&
+      objDetail.dropToId.includes('fieldsContainer');
+    // Determine if it's a reposition involving the Field container
+    const isSectionInside =
+      objDetail.dragFromId.includes('fieldsContainer') &&
+      objDetail.dropToId.includes('sectionIdentifier-');
 
     // New field type element dropped inside the container
-    if (objDetail.dragFromId !== objDetail.dropToId) {
+    if (
+      objDetail.dragFromId !== objDetail.dropToId &&
+      !(isSectionOutside || isSectionInside || isRepositionSection)
+    ) {
       const boolCreationAllowed = hasPermission(
         this.role,
         this.permission,
@@ -517,14 +610,18 @@ export class FormBuilder {
       this.composeNewField(
         elFieldType.dataProvider.type,
         { ...elFieldType.dataProvider },
-        intDroppedIndex
+        intDroppedIndex,
+        sectionData
       );
     } else {
       // Reposition inside the fields list
-      if (elFieldType.index !== intDroppedIndex) {
+      if (elFieldType.index !== intDroppedIndex || isRepositionSection) {
         this.fwRepositionField.emit({
           sourceIndex: elFieldType.index,
           targetIndex: intDroppedIndex,
+          sectionData,
+          sourceFieldId: elFieldType.dataProvider?.id,
+          isRepositionSection,
         });
       }
     }
@@ -727,6 +824,10 @@ export class FormBuilder {
       }
     }
   };
+
+  private setEditDynamicSectionState(isEditingDynamicSection) {
+    this.isEditingDynamicSection = isEditingDynamicSection;
+  }
 
   private renderFieldTypesHeader(objProductPreset) {
     const strBaseClassName = 'form-builder';
@@ -982,11 +1083,249 @@ export class FormBuilder {
     );
   }
 
+  private renderSectionFields(
+    dataItem,
+    boolFieldEditingState,
+    strEntityName,
+    parentIndex
+  ) {
+    const boolEditAllowed = hasPermission(this.role, this.permission, 'EDIT');
+    const boolDeleteAllowed = hasPermission(
+      this.role,
+      this.permission,
+      'DELETE'
+    );
+
+    let modalConfirmDelete: any = null;
+
+    const confirmDeleteSectionHandler = (objDetail) => {
+      this.fwDeleteField.emit({ sectionDeletion: true, ...objDetail });
+      modalConfirmDelete?.close();
+    };
+
+    const deleteSectionClickHandler = (event: CustomEvent) => {
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+      if (boolDeleteAllowed) {
+        modalConfirmDelete?.open();
+      }
+    };
+
+    return (
+      <div>
+        {dataItem.choices?.map((choice) => {
+          const acceptFromSections = dataItem.choices
+            .filter((c) => c.choice_options?.section_name) // Ensure section_name is defined
+            .map((c) => `sectionIdentifier-${c.choice_options.section_name}`)
+            .join(',');
+          const sectionChoiceValue = choice?.value,
+            sectionName = choice.choice_options?.section_name,
+            isEmptySection =
+              sectionName && !choice.dependent_ids?.field?.length;
+          const fieldsContent = isEmptySection
+            ? this.renderDragDropEmptyState(sectionName, boolFieldEditingState)
+            : choice.dependent_ids?.field?.map((fieldId, index) => {
+                const field = dataItem.fields.find((f) => f.id === fieldId);
+                return field
+                  ? this.renderFieldEditorElement(
+                      field,
+                      index,
+                      boolFieldEditingState,
+                      strEntityName,
+                      sectionName,
+                      parentIndex
+                    )
+                  : null;
+              });
+          const editSectionKey = `sectionEdit_${choice.id}`;
+          this.isEditingDynamicSection =
+            !!this.currentFieldIndex[editSectionKey];
+          const choicesWithNoSectionCreated = getChoicesWithNoSectionCreated(
+            dataItem.choices
+          );
+          choicesWithNoSectionCreated.push({
+            text: choice.value,
+            value: choice.value,
+          });
+
+          return (
+            sectionName &&
+            (this.isEditingDynamicSection ? (
+              <fb-section-create
+                index={parentIndex}
+                isEditing={true}
+                dataProvider={dataItem}
+                onFwExpand={this.expandFieldHandler}
+                onFwUpdate={this.saveFieldHandler}
+                fieldChoices={choicesWithNoSectionCreated}
+                selectedFieldValue={sectionChoiceValue}
+                sectionName={sectionName}
+                showCreateOrEditSectionPane={this.setEditDynamicSectionState}
+              />
+            ) : (
+              <section key={choice.id} class={`fb-section`}>
+                <header class={{ disabled: boolFieldEditingState }}>
+                  <span class='fb-section-add'>
+                    <span class='highlight'>
+                      {TranslationController.t(
+                        'formBuilder.sections.sectionHeadingName',
+                        {
+                          sectionName: sectionName,
+                        }
+                      )}
+                    </span>
+                    <span class='section-header-seperator'></span>
+                    {TranslationController.t(
+                      'formBuilder.sections.sectionHeadingLabel',
+                      {
+                        fieldLabel: dataItem?.label,
+                      }
+                    )}
+                    <span class='highlight section-choice-label'>
+                      {TranslationController.t(
+                        'formBuilder.sections.sectionHeadingChoice',
+                        {
+                          sectionChoiceValue: sectionChoiceValue,
+                        }
+                      )}
+                    </span>
+                  </span>
+                  <div class='section-edit-delete'>
+                    <fw-tooltip
+                      placement='bottom'
+                      trigger='hover'
+                      content={TranslationController.t(
+                        'formBuilder.sections.editTooltipText'
+                      )}
+                    >
+                      <fw-icon
+                        name='edit'
+                        class={{ disabled: !boolEditAllowed }}
+                        size='16'
+                        onClick={() => {
+                          this.fwExpandField.emit({
+                            expanded: true,
+                            index: 'sectionEdit',
+                            value: { id: `sectionEdit_${choice.id}` },
+                          });
+                        }}
+                        color='#264966'
+                      ></fw-icon>
+                    </fw-tooltip>
+                    <fw-tooltip
+                      placement='bottom'
+                      trigger='hover'
+                      content={TranslationController.t(
+                        'formBuilder.sections.deleteTooltipText'
+                      )}
+                    >
+                      <fw-icon
+                        name='delete'
+                        class={{ disabled: !boolDeleteAllowed }}
+                        size='16'
+                        onClick={(e) => {
+                          deleteSectionClickHandler(e);
+                        }}
+                        color='#264966'
+                      ></fw-icon>
+                    </fw-tooltip>
+                  </div>
+                </header>
+                <div class='fb-section-content'>
+                  <fw-drag-container
+                    key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
+                    class={`form-builder-right-panel-field-editor-list`}
+                    id={`sectionIdentifier-${sectionName}`}
+                    acceptFrom={`fieldTypesList,fieldsContainer,${acceptFromSections}`}
+                    addOnDrop={false}
+                    sortable={true}
+                    onFwDrop={(e) =>
+                      this.fieldTypeDropHandler(
+                        e,
+                        dataItem,
+                        sectionName,
+                        parentIndex
+                      )
+                    }
+                    onFwDragEnter={(e) => this.onDragEnter(e, sectionName)}
+                    onFwDragLeave={
+                      this.hideErrorMessage // Hide error when drag leaves
+                    }
+                  >
+                    {this.dragErrorMessages[sectionName] && (
+                      <div class='error-message'>
+                        <span>
+                          <fw-icon
+                            name='alert'
+                            size='16'
+                            slot='before-label'
+                            color='#E43538'
+                          ></fw-icon>
+                          <span class='seperator'></span>
+                          {this.dragErrorMessages[sectionName]}
+                        </span>
+                      </div>
+                    )}
+                    {fieldsContent}
+                  </fw-drag-container>
+                </div>
+                <fw-modal
+                  ref={(el) => (modalConfirmDelete = el)}
+                  icon='delete'
+                  submitColor='danger'
+                  hasCloseIconButton={false}
+                  titleText={i18nText('sections.deleteSection')}
+                  submitText={i18nText('deleteFieldSubmit')}
+                  onFwSubmit={() => {
+                    confirmDeleteSectionHandler({
+                      index: parentIndex,
+                      id: choice.id,
+                    });
+                  }}
+                >
+                  <span class={'fb-section-delete-modal-content'}>
+                    <fw-inline-message open type='warning'>
+                      {i18nText('deleteFieldInlineMessage')}
+                    </fw-inline-message>
+                    {i18nText('sections.deleteSectionContent')}
+                  </span>
+                </fw-modal>
+              </section>
+            ))
+          );
+        })}
+      </div>
+    );
+  }
+
+  private renderDragDropEmptyState(sectionName, boolFieldEditingState) {
+    return (
+      <div
+        class={{
+          'empty-section': true,
+          'disabled': boolFieldEditingState,
+        }}
+      >
+        <div class='empty-section-icon' id={sectionName}>
+          <fw-icon
+            name='plus'
+            size='16'
+            slot='before-label'
+            color='#264966'
+          ></fw-icon>
+        </div>
+        {TranslationController.t('formBuilder.sections.emptySection')}
+      </div>
+    );
+  }
+
   private renderFieldEditorElement(
     dataItem,
     intIndex,
     boolFieldEditingState,
-    strEntityName
+    strEntityName,
+    sectionName?,
+    parentIndex?
   ) {
     if (!dataItem) {
       return null;
@@ -1003,14 +1342,16 @@ export class FormBuilder {
       intIndex,
       !this.searching
     );
-    const boolItemExpanded =
-      this.expandedFieldIndex === intIndex ? true : false;
+
+    const boolItemExpanded = sectionName
+      ? this.currentFieldIndex[`${sectionName}-${dataItem.id}`] === intIndex
+      : this.currentFieldIndex[dataItem.id] === intIndex;
     const strKey = `${dataItem.id}_${intIndex.toString()}`;
 
     return (
-      <fw-field-editor
+      <fb-field-drag-drop-item
         index={intIndex}
-        key={strKey}
+        keyProp={strKey}
         productName={this.productName}
         dataProvider={dataItem}
         entityName={strEntityName}
@@ -1029,11 +1370,24 @@ export class FormBuilder {
         isLoading={this.isLoading}
         showDependentFieldResolveProp={this.showDependentFieldResolveProp}
         dependentFieldLink={this.dependentFieldLink}
-        onFwUpdate={this.saveFieldHandler}
-        onFwDelete={this.deleteFieldHandler}
-        onFwExpand={this.expandFieldHandler}
-        onFwReorder={this.reorderFieldProgressHandler}
-      ></fw-field-editor>
+        dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
+        saveFieldHandler={this.saveFieldHandler}
+        deleteFieldHandler={this.deleteFieldHandler}
+        expandFieldHandler={this.expandFieldHandler}
+        reorderFieldProgressHandler={this.reorderFieldProgressHandler}
+        sectionName={sectionName}
+        parentIndex={parentIndex}
+      >
+        <div slot='section'>
+          {dataItem?.field_options?.has_sections &&
+            this.renderSectionFields(
+              dataItem,
+              boolFieldEditingState,
+              strEntityName,
+              intIndex
+            )}
+        </div>
+      </fb-field-drag-drop-item>
     );
   }
 
@@ -1092,7 +1446,7 @@ export class FormBuilder {
         arrFieldOrder.splice(dependentIndex, 1);
       }
     }
-    const boolFieldEditingState = this.expandedFieldIndex > -1 ? true : false;
+    const boolFieldEditingState = !!Object.keys(this.currentFieldIndex).length;
     const strEntityName = objFormValuesSchema ? objFormValuesSchema.name : '';
     const strFieldEditHeader = hasCustomProperty(objLabelsDb, 'fieldsHeader')
       ? objLabelsDb.fieldsHeader
@@ -1269,10 +1623,15 @@ export class FormBuilder {
                   key={`field-drag-container-${this.fieldRerenderCount.toString()}`}
                   class={`${strBaseClassName}-right-panel-field-editor-list`}
                   id='fieldsContainer'
-                  acceptFrom='fieldTypesList'
+                  acceptFrom='fieldTypesList,sectionIdentifier-'
                   addOnDrop={false}
                   sortable={true}
-                  onFwDrop={this.fieldTypeDropHandler}
+                  onFwDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    this.fieldTypeDropHandler(e);
+                  }}
                 >
                   {fieldElements}
                 </fw-drag-container>

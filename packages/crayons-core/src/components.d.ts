@@ -2513,6 +2513,10 @@ export namespace Components {
          */
         "fallbackPlacements": [PopoverPlacementType];
         /**
+          * Header of the tooltip.
+         */
+        "header": string;
+        /**
           * Hides the tooltip.
           * @returns promise that resolves to true
          */
@@ -3588,7 +3592,15 @@ declare namespace LocalJSX {
          */
         "copy"?: boolean;
         /**
-          * Triggered when an draggable item is dropped inside the container.
+          * Triggered when a draggable item enters the container.
+         */
+        "onFwDragEnter"?: (event: FwDragContainerCustomEvent<void>) => void;
+        /**
+          * Triggered when a draggable item leaves the container.
+         */
+        "onFwDragLeave"?: (event: FwDragContainerCustomEvent<void>) => void;
+        /**
+          * Triggered when a draggable item is dropped inside the container.
          */
         "onFwDrop"?: (event: FwDragContainerCustomEvent<void>) => void;
         /**
@@ -5668,6 +5680,10 @@ declare namespace LocalJSX {
           * Alternative placement for popover if the default placement is not possible.
          */
         "fallbackPlacements"?: [PopoverPlacementType];
+        /**
+          * Header of the tooltip.
+         */
+        "header"?: string;
         /**
           * Option to prevent the tooltip from being clipped when the component is placed inside a container with `overflow: auto|hidden|scroll`.
          */

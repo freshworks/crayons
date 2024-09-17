@@ -16,4 +16,14 @@
   overflow-wrap: anywhere;
   word-break: break-word;
   white-space: initial;
+
+  &.header {
+    padding-inline: 12px;
+    padding-block-start: 2px;
+    padding-block-end: 12px;
+
+    h3 {
+      margin-block-end: 8px;
+    }
+  }
 }
