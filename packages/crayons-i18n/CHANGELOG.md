@@ -3,32 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.1-beta.3...@freshworks/crayons-i18n@4.3.0-beta.0) (2024-09-17)
-
+## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.1-beta.3...@freshworks/crayons-i18n@4.3.0-beta.0) (2024-09-17)
 
 ### Bug Fixes
 
-* added the section header name ([b127af6](https://github.com/freshworks/crayons/commit/b127af6d84da21c1414c1fe7d80db341d5d37378))
-* addressed the comments ([f0b4462](https://github.com/freshworks/crayons/commit/f0b4462745e85d959d47ae43fa3627018df82d0b))
-* drag error message fix ([501c75d](https://github.com/freshworks/crayons/commit/501c75de67716aa15aadbff22fcc52c9e9c75250))
-* edit section ([c11b75f](https://github.com/freshworks/crayons/commit/c11b75f436f3b37696d79ef9488c2170bb7394e5))
-* review comment ([fa09d10](https://github.com/freshworks/crayons/commit/fa09d10851ed50bcde387c486f68e7ac79b5f315))
-
+- added the section header name ([b127af6](https://github.com/freshworks/crayons/commit/b127af6d84da21c1414c1fe7d80db341d5d37378))
+- addressed the comments ([f0b4462](https://github.com/freshworks/crayons/commit/f0b4462745e85d959d47ae43fa3627018df82d0b))
+- drag error message fix ([501c75d](https://github.com/freshworks/crayons/commit/501c75de67716aa15aadbff22fcc52c9e9c75250))
+- edit section ([c11b75f](https://github.com/freshworks/crayons/commit/c11b75f436f3b37696d79ef9488c2170bb7394e5))
+- review comment ([fa09d10](https://github.com/freshworks/crayons/commit/fa09d10851ed50bcde387c486f68e7ac79b5f315))
 
 ### Features
 
-* added tooltip and section container ([da8111f](https://github.com/freshworks/crayons/commit/da8111f425897283a15d78d163315c1ff0b6d723))
-* **component:** add section button changes ([2e4a92a](https://github.com/freshworks/crayons/commit/2e4a92a78f6c628dff15b31c75172f737ba0a14a))
-* create new section ([6dc9544](https://github.com/freshworks/crayons/commit/6dc9544e5e7afc4d9f2eb856c17ad8d99ee0df7b))
-* delete section changes ([3b382ff](https://github.com/freshworks/crayons/commit/3b382ffd7353da63adcf89580650e4e80ea9dc21))
-* disable choice with section ([2002f30](https://github.com/freshworks/crayons/commit/2002f305e4160d9833ff80813fc03ea114948b71))
-* expand and show sections ([e93b762](https://github.com/freshworks/crayons/commit/e93b7621251c29752f86911f3d6dd977046385b7))
-* section count and validations ([881fa2b](https://github.com/freshworks/crayons/commit/881fa2bb8a50b24ee608c5f8f1855c561c9fa1bd))
-* tooltip changes ([1f59dae](https://github.com/freshworks/crayons/commit/1f59dae1b04aa951e49a8009c3c41d06997d62c6))
-
-
-
-
+- added tooltip and section container ([da8111f](https://github.com/freshworks/crayons/commit/da8111f425897283a15d78d163315c1ff0b6d723))
+- **component:** add section button changes ([2e4a92a](https://github.com/freshworks/crayons/commit/2e4a92a78f6c628dff15b31c75172f737ba0a14a))
+- create new section ([6dc9544](https://github.com/freshworks/crayons/commit/6dc9544e5e7afc4d9f2eb856c17ad8d99ee0df7b))
+- delete section changes ([3b382ff](https://github.com/freshworks/crayons/commit/3b382ffd7353da63adcf89580650e4e80ea9dc21))
+- disable choice with section ([2002f30](https://github.com/freshworks/crayons/commit/2002f305e4160d9833ff80813fc03ea114948b71))
+- expand and show sections ([e93b762](https://github.com/freshworks/crayons/commit/e93b7621251c29752f86911f3d6dd977046385b7))
+- section count and validations ([881fa2b](https://github.com/freshworks/crayons/commit/881fa2bb8a50b24ee608c5f8f1855c561c9fa1bd))
+- tooltip changes ([1f59dae](https://github.com/freshworks/crayons/commit/1f59dae1b04aa951e49a8009c3c41d06997d62c6))
 
 ## [4.2.1-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.1-beta.1...@freshworks/crayons-i18n@4.2.1-beta.2) (2024-05-22)
 

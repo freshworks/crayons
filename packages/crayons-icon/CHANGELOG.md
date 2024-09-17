@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.1.1...@freshworks/crayons-icon@4.2.0-beta.0) (2024-09-17)
-
+## [4.2.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.1.1...@freshworks/crayons-icon@4.2.0-beta.0) (2024-09-17)
 
 ### Features
 
-* **component:** add section button changes ([2e4a92a](https://github.com/freshworks/crayons/commit/2e4a92a78f6c628dff15b31c75172f737ba0a14a))
-
-
-
-
+- **component:** add section button changes ([2e4a92a](https://github.com/freshworks/crayons/commit/2e4a92a78f6c628dff15b31c75172f737ba0a14a))
 
 ## [4.1.1-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-icon@4.1.0...@freshworks/crayons-icon@4.1.1-beta.0) (2023-02-08)
 
