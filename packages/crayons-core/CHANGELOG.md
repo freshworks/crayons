@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.15...@freshworks/crayons@4.3.0-beta.16) (2024-09-17)
+
+
+### Bug Fixes
+
+* add the changes for crayons inbox form changes for dynamic section ([886e6af](https://github.com/freshworks/crayons/commit/886e6af2d510d5b5726b7586a8f398a8db2941e1))
+* added test case fix ([235ebdf](https://github.com/freshworks/crayons/commit/235ebdf6b418fdce1bf697e97d51ff53b648ac5f))
+* added the index.html and reset changes ([cca6d7e](https://github.com/freshworks/crayons/commit/cca6d7e488c3f5a369e9156360c0d7dd9e3b3bf3))
+* added the index.html sample value and reset changes type ([c724f99](https://github.com/freshworks/crayons/commit/c724f9926b858e9d924ea47d1cd7aedcace51f2e))
+* added the reposition from section to outside and outside to section ([b69958e](https://github.com/freshworks/crayons/commit/b69958e017e50f9dcf3eda44748fa993a2cf6a61))
+* drag error message fix ([501c75d](https://github.com/freshworks/crayons/commit/501c75de67716aa15aadbff22fcc52c9e9c75250))
+* edit section ([c11b75f](https://github.com/freshworks/crayons/commit/c11b75f436f3b37696d79ef9488c2170bb7394e5))
+* fix the test case ([fc0b001](https://github.com/freshworks/crayons/commit/fc0b001c731ed504606541fdbe42760fb93d0910))
+
+
+### Features
+
+* added tooltip and section container ([da8111f](https://github.com/freshworks/crayons/commit/da8111f425897283a15d78d163315c1ff0b6d723))
+* **component:** add section button changes ([2e4a92a](https://github.com/freshworks/crayons/commit/2e4a92a78f6c628dff15b31c75172f737ba0a14a))
+* create section flows ([c04b22c](https://github.com/freshworks/crayons/commit/c04b22c9d41927d28339b9f607fc234c55d9dccf))
+* expand and show sections ([e93b762](https://github.com/freshworks/crayons/commit/e93b7621251c29752f86911f3d6dd977046385b7))
+* section name validations ([96d7d11](https://github.com/freshworks/crayons/commit/96d7d11acdf8c9f15deda634682d05674cfb4ca4))
+
+
+
+
+
 ## [4.3.0-beta.13](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.12...@freshworks/crayons@4.3.0-beta.13) (2024-08-13)
 
 ### Bug Fixes
