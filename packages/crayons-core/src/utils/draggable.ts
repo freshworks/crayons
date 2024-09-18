@@ -99,7 +99,6 @@ export class Draggable {
 
   private isDropNotAllowed() {
     const inValidTypesForSection = [
-      'DROPDOWN',
       'DEPENDENT_FIELD',
       'MULTI_SELECT',
       'RELATIONSHIP',
