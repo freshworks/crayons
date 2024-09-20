@@ -207,9 +207,9 @@ export class SelectOption {
   createDescription() {
     if ((this.subText && this.metaText) || this.metaText) {
       const metaTextDetails = [];
-      if (this.metaText.name) metaTextDetails.push(this.metaText.name);
-      if (this.metaText.email) metaTextDetails.push(this.metaText.email);
-      if (this.metaText.mobile) metaTextDetails.push(this.metaText.mobile);
+      if (this.metaText?.name) metaTextDetails.push(this.metaText.name);
+      if (this.metaText?.email) metaTextDetails.push(this.metaText.email);
+      if (this.metaText?.mobile) metaTextDetails.push(this.metaText.mobile);
 
       return (
         <div class={'description ' + 'icon-margin '}>
