@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <!-- <div
+  <!-- <div
       style="
         width: 100%;
         height: 90vh;
@@ -368,64 +368,107 @@
             updated_at: '2023-03-14 13:20:09',
           },
           {
-            id: 'b6fafdb8-82be-43cd-82de-3b4b7d48df57',
+            id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
             name: 'cf_type',
-            column_name: 'cf_type',
+            column_name: 'cf_bigint011',
             label: 'Type',
             type: 2,
             field_options: {
-              option_value_path: 'id',
-              option_label_path: 'value',
+              has_sections: true,
             },
-            custom: true,
-            editable: true,
-            position: 53,
-            deleted: false,
-            required: false,
-            visible: true,
-            column_type_blob: false,
-            nodegroup_skip: false,
-            validatable: false,
-            builder: false,
-            internal: false,
             choices: [
               {
-                id: 'e06ce911-34c5-4643-ae8e-20fa7b12a4b4',
-                account_id: '0',
-                internal_name: 'general_query',
-                value: 'General Query',
-                field_id: 'b6fafdb8-82be-43cd-82de-3b4b7d48df57',
-                position: 1,
+                id: '58b9bf66-accb-450a-86ff-e8598827665c',
+                value: 'order',
+                field_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                choice_options: {
+                  section_name: 'orderSection',
+                },
+                dependent_ids: {
+                  field: [
+                    '67c99d97-8a54-4805-b416-a676f714ff1b',
+                    'b3d6cf5e-7090-4503-a42a-51e460c0adcb',
+                  ],
+                  choice: [],
+                },
               },
               {
-                id: 'e04f8357-081d-4dac-9114-55f167526b8f',
-                account_id: '0',
-                internal_name: 'technical_query',
-                value: 'Technical Query',
-                field_id: 'b6fafdb8-82be-43cd-82de-3b4b7d48df57',
-                position: 2,
+                id: '5d5ca7c2-dd8a-4efa-8122-6beef9d6ce0f',
+                value: 'refund',
+                field_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                choice_options: {
+                  section_name: 'orderSection1',
+                },
+                dependent_ids: {
+                  field: [],
+                  choice: [],
+                },
               },
               {
-                id: 'f5e48fc2-87b5-4370-b552-ae0329055e9d',
-                account_id: '0',
-                internal_name: 'feature_request',
-                value: 'Feature Request',
-                field_id: 'b6fafdb8-82be-43cd-82de-3b4b7d48df57',
-                position: 3,
-              },
-              {
-                id: '11ecae26-846f-4428-b67d-354735d3bd22',
-                account_id: '0',
-                internal_name: 'feedback',
-                value: 'Feedback',
-                field_id: 'b6fafdb8-82be-43cd-82de-3b4b7d48df57',
-                position: 4,
+                id: '5d5ca7c2-dd8a-4efa-8122-6beef78hce0f',
+                field_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                value: 'cancel',
               },
             ],
-            fields: [],
+            fields: [
+              {
+                id: '67c99d97-8a54-4805-b416-a676f714ff1b',
+                parent_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                name: 'cf_orderid',
+                column_name: 'cf_str023',
+                label: 'orderid',
+                type: 1,
+                field_options: {
+                  is_section_field: true,
+                },
+                custom: true,
+                editable: true,
+                position: 114,
+                deleted: false,
+                required: true,
+                visible: true,
+                column_type_blob: false,
+                nodegroup_skip: false,
+                validatable: false,
+                builder: false,
+                internal: false,
+                choices: [],
+                fields: [],
+                regex: {},
+                created_at: '2024-07-11 10:49:48',
+                updated_at: '2024-07-11 11:06:33',
+              },
+              {
+                id: 'b3d6cf5e-7090-4503-a42a-51e460c0adcb',
+                parent_id: '7fdc76ec-a855-495d-a935-9bfa4fa8f834',
+                name: 'cf_orderstatus',
+                column_name: 'cf_str023',
+                label: 'orderstatus',
+                type: 1,
+                field_options: {
+                  is_section_field: true,
+                },
+                custom: true,
+                editable: true,
+                position: 114,
+                deleted: false,
+                required: true,
+                visible: true,
+                column_type_blob: false,
+                nodegroup_skip: false,
+                validatable: false,
+                builder: false,
+                internal: false,
+                choices: [],
+                fields: [],
+                regex: {},
+                created_at: '2024-07-11 10:49:48',
+                updated_at: '2024-07-11 11:06:33',
+              },
+            ],
             regex: {},
-            created_at: '2023-03-14 13:20:09',
-            updated_at: '2023-03-14 13:20:09',
+            created_at: '2024-06-10 09:00:42',
+            updated_at: '2024-07-11 11:11:30',
           },
           {
             id: '0a3cbca8-6e50-4967-9502-1335ad653f10',
@@ -1526,8 +1569,9 @@
         created_at: '2023-03-14 13:20:09',
         updated_at: '2023-03-14 14:33:21',
       };
+      
 
-      var tabProducts = document.getElementById('tabProducts');
+
       var fb = document.getElementById('formBuilder');
       fb.productName = productName;
       fb.formValues = formValuesConvProps;
@@ -1575,7 +1619,6 @@
         var objDefaultField = objDetail.fieldSchema;
         objDefaultField.isNew = true;
         objDefaultField.id = 'new-field';
-
         if (
           arrFields.length === 0 ||
           intIndex < 0 ||
@@ -1584,29 +1627,59 @@
           arrFields = [...arrFields, objDefaultField];
           intAddedIndex = arrFields.length - 1;
         } else {
-          arrFields = [
-            ...arrFields.slice(0, intIndex),
-            objDefaultField,
-            ...arrFields.slice(intIndex),
-          ];
-          intAddedIndex = intIndex;
+          if (objDetail?.sectionSource?.data?.field_options?.has_sections) {
+            let foundObject = arrFields.find(
+              (item) => item.id === objDetail?.sectionSource?.data.id
+            );
+            if (foundObject) {
+              objDefaultField.sectionDetails = deepCloneObject(foundObject); //To add the fields for section
+              objDefaultField.isSection = true;
+              objDefaultField.sectionName = objDetail?.sectionSource?.name;
+              foundObject?.choices?.forEach((choice) => {
+                // Check if the section name matches
+                if (
+                  choice.choice_options?.section_name ===
+                  objDetail?.sectionSource?.name
+                ) {
+                  choice?.dependent_ids?.field.splice(
+                    intIndex,
+                    0,
+                    objDefaultField.id
+                  );
+                }
+              });
+              foundObject?.fields.splice(intIndex, 0, objDefaultField);
+              intAddedIndex = intIndex;
+            }
+          } else {
+            arrFields = [
+              ...arrFields.slice(0, intIndex),
+              objDefaultField,
+              ...arrFields.slice(intIndex),
+            ];
+            intAddedIndex = intIndex;
+          }
         }
-
         if (intAddedIndex !== -1) {
           var objFormValues = getFormValues();
           objFormValues = { ...objFormValues, fields: arrFields };
           setFormValues(objFormValues);
           fb.formValues = objFormValues;
-          fb.expandedFieldIndex = intAddedIndex;
+          if (objDefaultField.isSection) {
+            fb.currentFieldIndex[
+              `${objDetail?.sectionSource?.name}-${objDefaultField.id}`
+            ] = intAddedIndex;
+          } else {
+            fb.currentFieldIndex[objDefaultField.id] = intAddedIndex;
+          }
         }
       });
 
-      deleteNewLocalFieldAtIndex = (intIndex) => {
+      deleteNewLocalFieldAtIndex = (intIndex, objDetail) => {
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
         if (
-          arrFields &&
-          arrFields.length > 0 &&
+          arrFields?.length > 0 &&
           intIndex < arrFields.length &&
           arrFields[intIndex]?.isNew === true
         ) {
@@ -1614,23 +1687,74 @@
             ...arrFields.slice(0, intIndex),
             ...arrFields.slice(intIndex + 1),
           ];
-          objFormValues = { ...objFormValues, fields: arrFields };
-          setFormValues(objFormValues);
-          fb.formValues = objFormValues;
+        } else {
+          arrFields.forEach((field) => {
+            if (field.field_options?.has_sections) {
+              field.choices?.forEach((choice) => {
+                if (choice.dependent_ids?.field) {
+                  const indexInDependent = choice.dependent_ids.field.indexOf(
+                    objDetail.value?.id
+                  );
+                  if (indexInDependent > -1) {
+                    choice.dependent_ids.field.splice(indexInDependent, 1);
+                  }
+                }
+              });
+              const fieldIndex = field.fields.findIndex(
+                (field) => field.id === objDetail.value?.id
+              );
+
+              // If the field is found, remove it from the fields array
+              if (fieldIndex !== -1) {
+                field.fields.splice(fieldIndex, 1);
+              }
+            }
+          });
         }
+        objFormValues = { ...objFormValues, fields: arrFields };
+        setFormValues(objFormValues);
+        fb.formValues = objFormValues;
       };
 
       fb.addEventListener('fwExpandField', (event) => {
         var objDetail = event.detail;
         var intIndex = objDetail.index;
         var boolExpanded = objDetail.expanded;
-        fb.expandedFieldIndex = boolExpanded ? intIndex : -1;
+        if (boolExpanded) {
+          let boolRefObj = {};
+          let expandId = objDetail.sectionName
+            ? `${objDetail.sectionName}-${objDetail.value?.id}`
+            : objDetail.value?.id;
+          boolRefObj[expandId] = intIndex;
+          fb.currentFieldIndex = boolRefObj;
+        } else {
+          fb.currentFieldIndex = {};
+        }
         if (!boolExpanded && objDetail.isNew && intIndex > -1) {
-          deleteNewLocalFieldAtIndex(intIndex);
+          deleteNewLocalFieldAtIndex(intIndex, objDetail);
         }
       });
 
       fb.addEventListener('fwDeleteField', (event) => {
+        var objDetail = event.detail;
+        var objFormValues = getFormValues();
+        var arrFields = objFormValues.fields;
+        if (event.detail?.sectionDeletion) {
+          const { index, id } = objDetail;
+  
+          const choiceIndex = arrFields[index].choices.findIndex(
+            // Selected choice index
+            (_choice) => _choice.id === id
+          );
+          arrFields[index].choices[choiceIndex].choice_options = {};
+          arrFields[index].choices[choiceIndex].dependent_ids = {};
+
+          objFormValues = { ...objFormValues, fields: arrFields };
+          setFormValues(objFormValues);
+          fb.currentFieldIndex = {};
+          fb.formValues = objFormValues;
+          return;
+        }
         fb.loading = true;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
@@ -1656,11 +1780,84 @@
       };
 
       fb.addEventListener('fwSaveField', (event) => {
-        fb.loading = true;
+        var objDetail = event.detail;
         var objFormValues = getFormValues();
         var arrFields = objFormValues.fields;
-        var objDetail = event.detail;
-        var objSubmitFormValues = objDetail.value.type === 22 ? objDetail.value.fields[0] : objDetail.value;
+        if (objDetail.editSection) {
+          const {
+            value,
+            selectedFieldValue,
+            previousSelectedValue,
+            sectionName,
+          } = objDetail;
+          const fieldIndex = arrFields.findIndex((arrField) => {
+            return value.id === arrField.id;
+          });
+          arrFields[fieldIndex].field_options = { has_sections: true };
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex(
+            // Selected choice index
+            (choice) => choice.value === selectedFieldValue
+          );
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {
+            // Update section name
+            section_name: sectionName,
+          };
+          if (previousSelectedValue !== selectedFieldValue) {
+            // When choice is updated
+            const previouslySelectedchoiceIndex = arrFields[
+              fieldIndex
+            ].choices.findIndex(
+              (choice) => choice.value === previousSelectedValue
+            );
+            arrFields[fieldIndex].choices[
+              previouslySelectedchoiceIndex
+            ].choice_options = {
+              section_name: '',
+            };
+            arrFields[fieldIndex].choices[choiceIndex].dependent_ids =
+              arrFields[fieldIndex].choices[
+                previouslySelectedchoiceIndex
+              ].dependent_ids;
+            arrFields[fieldIndex].choices[
+              previouslySelectedchoiceIndex
+            ].dependent_ids = [{ field: [], choice: [] }];
+          }
+
+          objFormValues = { ...objFormValues, fields: arrFields };
+          fb.currentFieldIndex = {};
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+          return;
+        }
+
+        if (objDetail.sectionCreation) {
+          const { value, selectedFieldValue, sectionName } = objDetail;
+          const fieldIndex = arrFields.findIndex((arrField) => {
+            return value.id === arrField.id;
+          });
+          arrFields[fieldIndex].field_options = { has_sections: true };
+          const choiceIndex = arrFields[fieldIndex].choices.findIndex(
+            (choice) => choice.value === selectedFieldValue
+          );
+          arrFields[fieldIndex].choices[choiceIndex].choice_options = {
+            section_name: sectionName,
+          };
+          arrFields[fieldIndex].choices[choiceIndex].dependent_ids = [
+            { field: [], choice: [] },
+          ];
+          objFormValues = { ...objFormValues, fields: arrFields };
+          fb.currentFieldIndex = {};
+          setFormValues(objFormValues);
+          fb.formValues = objFormValues;
+          return;
+        }
+
+        fb.loading = true;
+
+        var objSubmitFormValues =
+          objDetail.value.type === 22
+            ? objDetail.value.fields[0]
+            : objDetail.value;
         var boolNewField = objDetail.isNew;
         var intIndex = Object.prototype.hasOwnProperty.call(objDetail, 'index')
           ? objDetail.index
@@ -1782,7 +1979,10 @@
 
         if (fields.length) {
           objUpdatedField.fields = fields;
-          objUpdatedField.field_options = { ...objUpdatedField.field_options, ...objSubmitFormValues.field_options };
+          objUpdatedField.field_options = {
+            ...objUpdatedField.field_options,
+            ...objSubmitFormValues.field_options,
+          };
         }
 
         function addLabel(data, label) {
@@ -1816,16 +2016,46 @@
             intAddedIndex = arrFields.length - 1;
           } else {
             // store the element at the passed index
-            arrFields = [
-              ...arrFields.slice(0, intIndex),
-              objUpdatedField,
-              ...arrFields.slice(intIndex),
-            ];
-            intAddedIndex = intIndex;
+            if (objDetail?.value?.newSectionData?.isSection) {
+              objUpdatedField.field_options.is_section_field = true;
+              let foundObject = arrFields.find(
+                (item) =>
+                  item.id ===
+                  objDetail?.value?.newSectionData?.sectionDetails?.id
+              );
+
+              if (foundObject) {
+                foundObject?.choices?.forEach((choice) => {
+                  if (
+                    choice.choice_options?.section_name ===
+                    objDetail?.value?.newSectionData?.sectionName
+                  ) {
+                    choice?.dependent_ids?.field.splice(
+                      intIndex,
+                      1,
+                      objUpdatedField.id
+                    );
+                  }
+                });
+                foundObject.fields = [
+                  ...foundObject.fields.slice(0, intIndex),
+                  objUpdatedField,
+                  ...foundObject.fields.slice(intIndex + 1),
+                ];
+                intAddedIndex = intIndex;
+              }
+            } else {
+              arrFields = [
+                ...arrFields.slice(0, intIndex),
+                objUpdatedField,
+                ...arrFields.slice(intIndex),
+              ];
+              intAddedIndex = intIndex;
+            }
           }
         }
 
-        fb.expandedFieldIndex = -1;
+        fb.currentFieldIndex = {};
 
         objFormValues = { ...objFormValues, fields: arrFields };
         setFormValues(objFormValues);
@@ -1843,26 +2073,164 @@
         }
       }
 
+      // Function to find section names based on source field ID and section name
+      function findSectionNames(foundObject, sourceFieldId, sectionName) {
+        let sourceSectionName, targetSectionName;
+
+        foundObject.choices?.forEach((choice) => {
+          if (choice.dependent_ids?.field.includes(sourceFieldId)) {
+            sourceSectionName = choice.choice_options?.section_name;
+          }
+          if (choice.choice_options?.section_name === sectionName) {
+            targetSectionName = choice.choice_options?.section_name;
+          }
+        });
+
+        return { sourceSectionName, targetSectionName };
+      }
+
+      // Function to move a field between sections or within a section
+      function moveFieldBetweenSections(
+        foundObject,
+        sourceSectionName,
+        targetSectionName,
+        intSourceIndex,
+        intTargetIndex,
+        arrFields
+      ) {
+        let movedFieldId;
+
+        foundObject.choices?.forEach((choice) => {
+          let arrSectionFields = choice?.dependent_ids?.field;
+
+          if (choice.choice_options?.section_name === sourceSectionName) {
+            // Remove from source section
+            movedFieldId = arrSectionFields.splice(intSourceIndex, 1)[0];
+
+            if (sourceSectionName === targetSectionName) {
+              // Reposition within the same section
+              arrSectionFields.splice(intTargetIndex, 0, movedFieldId);
+            } else if (targetSectionName) {
+              // Add to target section
+              let targetSectionFields = foundObject.choices.find(
+                (c) => c.choice_options?.section_name === targetSectionName
+              )?.dependent_ids?.field;
+              targetSectionFields.splice(intTargetIndex, 0, movedFieldId);
+            }
+          }
+        });
+
+        return movedFieldId;
+      }
+
+      // Function to handle field repositioning
+      function handleFieldRepositioning(
+        objDetail,
+        intSourceIndex,
+        intTargetIndex,
+        arrFields
+      ) {
+        let objFormValues = getFormValues();
+        let foundObject = arrFields.find(
+          (item) => item.id === objDetail?.sectionData?.data.id
+        );
+
+        if (foundObject) {
+          const { sourceSectionName, targetSectionName } = findSectionNames(
+            foundObject,
+            objDetail.sourceFieldId,
+            objDetail?.sectionData?.name
+          );
+
+          if (!sourceSectionName && targetSectionName) {
+            // Dragged from outside to inside a section
+            const objFieldOut = arrFields.splice(intSourceIndex, 1)[0]; // Remove the field from arrFields
+
+            foundObject.choices?.forEach((choice) => {
+              if (choice.choice_options?.section_name === targetSectionName) {
+                // Add the field ID to the target section's dependent_ids array
+                choice.dependent_ids?.field.splice(
+                  intTargetIndex,
+                  0,
+                  objFieldOut.id
+                );
+              }
+            });
+
+            objFieldOut.field_options.is_section_field = true;
+            objFieldOut.parent_id = foundObject.id;
+
+            // Add the field object to the target section's fields array
+            foundObject.fields.splice(intTargetIndex, 0, objFieldOut);
+          } else if (sourceSectionName && !targetSectionName) {
+            // Dragged from inside a section to outside
+            const movedFieldId = moveFieldBetweenSections(
+              foundObject,
+              sourceSectionName,
+              targetSectionName,
+              intSourceIndex,
+              intTargetIndex,
+              arrFields
+            );
+
+            // Add the field object back to the main arrFields array
+            const objFieldInSection = foundObject.fields.find(
+              (field) => field.id === movedFieldId
+            );
+            if (objFieldInSection) {
+              foundObject.fields.splice(
+                foundObject.fields.indexOf(objFieldInSection),
+                1
+              ); // Remove from the section's fields array
+              objFieldInSection.field_options.is_section_field = false;
+              delete objFieldInSection.parent_id;
+              arrFields.splice(intTargetIndex, 0, objFieldInSection); // Add to the main fields array
+            }
+          } else if (sourceSectionName && targetSectionName) {
+            moveFieldBetweenSections(
+              foundObject,
+              sourceSectionName,
+              targetSectionName,
+              intSourceIndex,
+              intTargetIndex,
+              arrFields
+            );
+          }
+        } else {
+          const objField = arrFields.splice(intSourceIndex, 1)[0];
+          arrFields.splice(intTargetIndex, 0, objField);
+        }
+
+        return objFormValues;
+      }
+
+      // Event listener for repositioning fields
       fb.addEventListener('fwRepositionField', (event) => {
         var objDetail = event.detail;
         var intSourceIndex = objDetail.sourceIndex;
         var intTargetIndex = objDetail.targetIndex;
-        if (intSourceIndex === intTargetIndex) {
+
+        if (
+          intSourceIndex === intTargetIndex &&
+          !objDetail?.isRepositionSection
+        ) {
           return;
         }
+
         var objPrePositionSource = deepCloneObject(getFormValues());
+
         try {
-          var objFormValues = getFormValues();
-          var arrFields = objFormValues.fields;
+          let arrFields = getFormValues().fields;
+          let objFormValues = handleFieldRepositioning(
+            objDetail,
+            intSourceIndex,
+            intTargetIndex,
+            arrFields
+          );
 
-          var objField = arrFields.splice(intSourceIndex, 1)[0];
-          arrFields.splice(intTargetIndex, 0, objField);
-
-          objFormValues = { ...objFormValues, fields: arrFields };
-          setFormValues(objFormValues);
-          fb.formValues = objFormValues;
-
-          // Set the below 2 lines for resetting the position
+          setFormValues({ ...objFormValues });
+          fb.formValues = { ...objFormValues };
+          // Uncomment the below lines if you need to reset the position
           // fb.formValues = objPrePositionSource;
           // fb.forceRenderFields();
         } catch (error) {

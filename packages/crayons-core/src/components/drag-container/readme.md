@@ -164,9 +164,11 @@ drop.addEventListener('fwDrop', (e) => {
 
 ## Events
 
-| Event    | Description                                                       | Type                |
-| -------- | ----------------------------------------------------------------- | ------------------- |
-| `fwDrop` | Triggered when an draggable item is dropped inside the container. | `CustomEvent<void>` |
+| Event         | Description                                                      | Type                |
+| ------------- | ---------------------------------------------------------------- | ------------------- |
+| `fwDragEnter` | Triggered when a draggable item enters the container.            | `CustomEvent<void>` |
+| `fwDragLeave` | Triggered when a draggable item leaves the container.            | `CustomEvent<void>` |
+| `fwDrop`      | Triggered when a draggable item is dropped inside the container. | `CustomEvent<void>` |
 
 
 ## Dependencies

@@ -6,6 +6,126 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface FbFieldDragDropItem {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema": any;
+        "deleteFieldHandler": any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink": string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled": boolean;
+        /**
+          * Disable the repositioning option
+         */
+        "disabledSort": boolean;
+        "dynamicSectionsBetaEnabled": boolean;
+        /**
+          * Flag to enable / disable the the filterable option
+         */
+        "enableFilterable": boolean;
+        /**
+          * Flag to enable / disable the the unique option
+         */
+        "enableUnique": boolean;
+        /**
+          * defines the name of the entity to be used in Lookup field
+         */
+        "entityName": string;
+        "expandFieldHandler": any;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded": boolean;
+        /**
+          * variable to store form values
+         */
+        "formValues": any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading": boolean;
+        /**
+          * defines if the field is primary
+         */
+        "isPrimaryField": boolean;
+        "keyProp": any;
+        /**
+          * object to store the lookup target entities
+         */
+        "lookupTargetObjects": boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name": string;
+        /**
+          * parent index of the section.
+         */
+        "parentIndex": any;
+        /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission": {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned": 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        "reorderFieldProgressHandler": any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role": 'trial' | 'admin';
+        "saveFieldHandler": any;
+        /**
+          * Name of the section, where field is part of.
+         */
+        "sectionName": any;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp": boolean;
+    }
+    interface FbSectionCreate {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider": any;
+        "fieldChoices": any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index": number;
+        "isEditing": boolean;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName": string;
+        "sectionName": string;
+        "selectedFieldValue": any;
+        "showCreateOrEditSectionPane": any;
+    }
     interface FwCoExport {
         "close": () => Promise<boolean>;
         /**
@@ -169,6 +289,7 @@ export namespace Components {
         "targetObjects": any;
     }
     interface FwFieldEditor {
+        "createDynamicSection": boolean;
         /**
           * data source used to set and edit the field values
          */
@@ -189,6 +310,7 @@ export namespace Components {
           * Disable the repositioning option
          */
         "disabledSort": boolean;
+        "dynamicSectionsBetaEnabled": boolean;
         /**
           * Flag to enable / disable the the filterable option
          */
@@ -214,6 +336,10 @@ export namespace Components {
          */
         "index": number;
         /**
+          * Flag to detect default fields
+         */
+        "isDefaultNonCustomField": boolean;
+        /**
           * flag to notify if an api call is in progress
          */
         "isLoading": boolean;
@@ -229,6 +355,10 @@ export namespace Components {
           * Name of the component, saved as part of the form data.
          */
         "name": string;
+        /**
+          * defines the parent index of the field
+         */
+        "parentIndex": any;
         /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
@@ -250,10 +380,19 @@ export namespace Components {
           * Disable features for the users with free trial plan
          */
         "role": 'trial' | 'admin';
+        "sectionCreatedForAllChoices": boolean;
+        /**
+          * stores the section name for this field
+         */
+        "sectionName": any;
+        "sectionsExpanded": boolean;
+        "setSectionCreationExpandState": any;
+        "setSectionsExpandState": any;
         /**
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
+        "showSections": boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -361,6 +500,10 @@ export namespace Components {
     }
     interface FwFormBuilder {
         /**
+          * Prop to store the expanded field index
+         */
+        "currentFieldIndex": {};
+        /**
           * variable to store customize widget fields
          */
         "customizeWidgetFields": any;
@@ -368,14 +511,11 @@ export namespace Components {
           * link to show dependent field document
          */
         "dependentFieldLink": string;
+        "dynamicSectionsBetaEnabled": boolean;
         /**
           * svg image to be shown for empty record
          */
         "emptySearchImage": any;
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex": number;
         /**
           * Method to force render the drag container's children containing all the added fields
          */
@@ -593,6 +733,10 @@ export namespace Components {
         "selected": boolean;
     }
 }
+export interface FbSectionCreateCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFbSectionCreateElement;
+}
 export interface FwCoExportCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFwCoExportElement;
@@ -654,6 +798,18 @@ export interface FwWidgetCustomizeFieldItemCustomEvent<T> extends CustomEvent<T>
     target: HTMLFwWidgetCustomizeFieldItemElement;
 }
 declare global {
+    interface HTMLFbFieldDragDropItemElement extends Components.FbFieldDragDropItem, HTMLStencilElement {
+    }
+    var HTMLFbFieldDragDropItemElement: {
+        prototype: HTMLFbFieldDragDropItemElement;
+        new (): HTMLFbFieldDragDropItemElement;
+    };
+    interface HTMLFbSectionCreateElement extends Components.FbSectionCreate, HTMLStencilElement {
+    }
+    var HTMLFbSectionCreateElement: {
+        prototype: HTMLFbSectionCreateElement;
+        new (): HTMLFbSectionCreateElement;
+    };
     interface HTMLFwCoExportElement extends Components.FwCoExport, HTMLStencilElement {
     }
     var HTMLFwCoExportElement: {
@@ -769,6 +925,8 @@ declare global {
         new (): HTMLFwWidgetCustomizeFieldItemElement;
     };
     interface HTMLElementTagNameMap {
+        "fb-field-drag-drop-item": HTMLFbFieldDragDropItemElement;
+        "fb-section-create": HTMLFbSectionCreateElement;
         "fw-co-export": HTMLFwCoExportElement;
         "fw-co-export-field": HTMLFwCoExportFieldElement;
         "fw-date-condition": HTMLFwDateConditionElement;
@@ -791,6 +949,134 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FbFieldDragDropItem {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        /**
+          * stores the default field type schema for this editor type
+         */
+        "defaultFieldTypeSchema"?: any;
+        "deleteFieldHandler"?: any;
+        /**
+          * link to show dependent field document
+         */
+        "dependentFieldLink"?: string;
+        /**
+          * Disables the component on the interface. If the attribute’s value is undefined, the value is set to false.
+         */
+        "disabled"?: boolean;
+        /**
+          * Disable the repositioning option
+         */
+        "disabledSort"?: boolean;
+        "dynamicSectionsBetaEnabled"?: boolean;
+        /**
+          * Flag to enable / disable the the filterable option
+         */
+        "enableFilterable"?: boolean;
+        /**
+          * Flag to enable / disable the the unique option
+         */
+        "enableUnique"?: boolean;
+        /**
+          * defines the name of the entity to be used in Lookup field
+         */
+        "entityName"?: string;
+        "expandFieldHandler"?: any;
+        /**
+          * Property to determine expanded state or collapsed
+         */
+        "expanded"?: boolean;
+        /**
+          * variable to store form values
+         */
+        "formValues"?: any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        /**
+          * flag to notify if an api call is in progress
+         */
+        "isLoading"?: boolean;
+        /**
+          * defines if the field is primary
+         */
+        "isPrimaryField"?: boolean;
+        "keyProp"?: any;
+        /**
+          * object to store the lookup target entities
+         */
+        "lookupTargetObjects"?: boolean;
+        /**
+          * Name of the component, saved as part of the form data.
+         */
+        "name"?: string;
+        /**
+          * parent index of the section.
+         */
+        "parentIndex"?: any;
+        /**
+          * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
+         */
+        "permission"?: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+    delete: boolean;
+  };
+        /**
+          * Pinned position of the drag item, other drag item cannot be placed above or below it.
+         */
+        "pinned"?: 'top' | 'bottom' | '';
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        "reorderFieldProgressHandler"?: any;
+        /**
+          * Disable features for the users with free trial plan
+         */
+        "role"?: 'trial' | 'admin';
+        "saveFieldHandler"?: any;
+        /**
+          * Name of the section, where field is part of.
+         */
+        "sectionName"?: any;
+        /**
+          * flag to show dependentField resolve checkbox
+         */
+        "showDependentFieldResolveProp"?: boolean;
+    }
+    interface FbSectionCreate {
+        /**
+          * data source used to set and edit the field values
+         */
+        "dataProvider"?: any;
+        "fieldChoices"?: any;
+        /**
+          * index attached inside the parent group component
+         */
+        "index"?: number;
+        "isEditing"?: boolean;
+        /**
+          * Triggered when the section is expanded or collapsed
+         */
+        "onFwExpand"?: (event: FbSectionCreateCustomEvent<any>) => void;
+        /**
+          * Triggered when the section details need to be saved on the server
+         */
+        "onFwUpdate"?: (event: FbSectionCreateCustomEvent<any>) => void;
+        /**
+          * The db type used to determine the json to be used for CUSTOM_OBJECTS or CONVERSATION_PROPERTIES
+         */
+        "productName"?: string;
+        "sectionName"?: string;
+        "selectedFieldValue"?: any;
+        "showCreateOrEditSectionPane"?: any;
+    }
     interface FwCoExport {
         /**
           * The value to show the modal or close
@@ -984,6 +1270,7 @@ declare namespace LocalJSX {
         "targetObjects"?: any;
     }
     interface FwFieldEditor {
+        "createDynamicSection"?: boolean;
         /**
           * data source used to set and edit the field values
          */
@@ -1004,6 +1291,7 @@ declare namespace LocalJSX {
           * Disable the repositioning option
          */
         "disabledSort"?: boolean;
+        "dynamicSectionsBetaEnabled"?: boolean;
         /**
           * Flag to enable / disable the the filterable option
          */
@@ -1028,6 +1316,10 @@ declare namespace LocalJSX {
           * index attached inside the parent group component
          */
         "index"?: number;
+        /**
+          * Flag to detect default fields
+         */
+        "isDefaultNonCustomField"?: boolean;
         /**
           * flag to notify if an api call is in progress
          */
@@ -1061,6 +1353,10 @@ declare namespace LocalJSX {
          */
         "onFwUpdate"?: (event: FwFieldEditorCustomEvent<any>) => void;
         /**
+          * defines the parent index of the field
+         */
+        "parentIndex"?: any;
+        /**
           * Permission object to restrict features based on permissions "view" needs to be set to true for the rest of the permissions to be applicable By default, all the permissions are set to true to give access to all the features Example permission object : { view: true, create: true, edit: true, delete: true }
          */
         "permission"?: {
@@ -1081,10 +1377,19 @@ declare namespace LocalJSX {
           * Disable features for the users with free trial plan
          */
         "role"?: 'trial' | 'admin';
+        "sectionCreatedForAllChoices"?: boolean;
+        /**
+          * stores the section name for this field
+         */
+        "sectionName"?: any;
+        "sectionsExpanded"?: boolean;
+        "setSectionCreationExpandState"?: any;
+        "setSectionsExpandState"?: any;
         /**
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+        "showSections"?: boolean;
     }
     interface FwFieldTypeMenuItem {
         /**
@@ -1200,6 +1505,10 @@ declare namespace LocalJSX {
     }
     interface FwFormBuilder {
         /**
+          * Prop to store the expanded field index
+         */
+        "currentFieldIndex"?: {};
+        /**
           * variable to store customize widget fields
          */
         "customizeWidgetFields"?: any;
@@ -1207,14 +1516,11 @@ declare namespace LocalJSX {
           * link to show dependent field document
          */
         "dependentFieldLink"?: string;
+        "dynamicSectionsBetaEnabled"?: boolean;
         /**
           * svg image to be shown for empty record
          */
         "emptySearchImage"?: any;
-        /**
-          * Prop to store the expanded field index
-         */
-        "expandedFieldIndex"?: number;
         /**
           * variable to store form values
          */
@@ -1473,6 +1779,8 @@ declare namespace LocalJSX {
         "selected"?: boolean;
     }
     interface IntrinsicElements {
+        "fb-field-drag-drop-item": FbFieldDragDropItem;
+        "fb-section-create": FbSectionCreate;
         "fw-co-export": FwCoExport;
         "fw-co-export-field": FwCoExportField;
         "fw-date-condition": FwDateCondition;
@@ -1498,6 +1806,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fb-field-drag-drop-item": LocalJSX.FbFieldDragDropItem & JSXBase.HTMLAttributes<HTMLFbFieldDragDropItemElement>;
+            "fb-section-create": LocalJSX.FbSectionCreate & JSXBase.HTMLAttributes<HTMLFbSectionCreateElement>;
             "fw-co-export": LocalJSX.FwCoExport & JSXBase.HTMLAttributes<HTMLFwCoExportElement>;
             "fw-co-export-field": LocalJSX.FwCoExportField & JSXBase.HTMLAttributes<HTMLFwCoExportFieldElement>;
             "fw-date-condition": LocalJSX.FwDateCondition & JSXBase.HTMLAttributes<HTMLFwDateConditionElement>;

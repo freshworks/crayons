@@ -351,9 +351,13 @@ export class FbFieldDropdown {
     });
   };
 
-  private renderNameEditorElement(dataItem, intIndex) {
+  private renderNameEditorElement(
+    dataItem,
+    intIndex,
+    isChoiceDisabled,
+    isNewChoice
+  ) {
     const hasRepositionIndex = hasCustomProperty(dataItem, 'repositionKey');
-    const boolNewChoice = !hasCustomProperty(dataItem, 'id');
     const itemKey = hasRepositionIndex
       ? dataItem.repositionKey
       : `new_choice_${intIndex + 1}`;
@@ -374,8 +378,8 @@ export class FbFieldDropdown {
         key={itemKey}
         index={intIndex}
         dataProvider={dataItem}
-        isNewChoice={boolNewChoice}
-        disabled={this.disabled}
+        isNewChoice={isNewChoice}
+        disabled={isChoiceDisabled}
         isLoading={this.isLoading}
         showErrors={this.showErrors}
         isDependentField={this.isDependentField}
@@ -395,9 +399,35 @@ export class FbFieldDropdown {
     const dropdownElements =
       dpSource.length > 0
         ? dpSource
-            .map((dataItem, index) =>
-              this.renderNameEditorElement(dataItem, index)
-            )
+            .map((dataItem, index) => {
+              const isNewChoice = !hasCustomProperty(dataItem, 'id');
+              const isChoiceDisabled =
+                !isNewChoice &&
+                (this.disabled || !!dataItem?.choice_options?.section_name);
+              if (isChoiceDisabled) {
+                return (
+                  <fw-tooltip
+                    placement='bottom'
+                    trigger='hover'
+                    content={i18nText('sections.disableChoiceOption')}
+                  >
+                    {this.renderNameEditorElement(
+                      dataItem,
+                      index,
+                      isChoiceDisabled,
+                      isNewChoice
+                    )}
+                  </fw-tooltip>
+                );
+              } else {
+                return this.renderNameEditorElement(
+                  dataItem,
+                  index,
+                  isChoiceDisabled,
+                  isNewChoice
+                );
+              }
+            })
             .filter((item) => item)
         : null;
 

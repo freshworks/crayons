@@ -70,7 +70,20 @@ export class Draggable {
   };
 
   private onDragEnter = (e) => {
-    if (!this.canAcceptDragElement()) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!this.canAcceptDragElement() || this.isDropNotAllowed()) {
+      // Dispatch a custom event when drag enters the invalid field in container shows error message
+      this.dragContainer.dispatchEvent(
+        new CustomEvent('fwDragEnterBase', {
+          cancelable: true,
+          bubbles: false,
+          detail: {
+            droppedElement: dragElement,
+            dropToId: this.dragContainer.id, // Return the drop container ID
+          },
+        })
+      );
       return;
     }
     const sortContainer = e
@@ -84,8 +97,38 @@ export class Draggable {
     this.previousContainer = sortContainer;
   };
 
+  private isDropNotAllowed() {
+    const inValidTypesForSection = [
+      'DROPDOWN',
+      'DEPENDENT_FIELD',
+      'MULTI_SELECT',
+      'RELATIONSHIP',
+    ];
+    const dragId = this.dragContainer.id;
+    const isSection = dragId.includes('sectionIdentifier-');
+    const isFieldTypeNotAllowed = inValidTypesForSection.includes(
+      dragElement.dataProvider.type
+    );
+    const isFieldRequired = dragElement.dataProvider.required;
+    return isSection && (isFieldTypeNotAllowed || isFieldRequired);
+  }
+
   private onDragLeave = (e) => {
-    if (!this.canAcceptDragElement()) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!this.canAcceptDragElement() || this.isDropNotAllowed) {
+      // Dispatch a custom event when invalid field leaving the container so error message should be hide
+      this.dragContainer.dispatchEvent(
+        new CustomEvent('fwDragLeaveBase', {
+          cancelable: true,
+          bubbles: false,
+          detail: {
+            droppedElement: dragElement,
+            dropToId: this.dragContainer.id, // Return the drop container ID
+          },
+        })
+      );
       return;
     }
     const outTarget = e.fromElement || e.relatedTarget;
@@ -104,7 +147,20 @@ export class Draggable {
 
   private onDragOver = (e) => {
     e.preventDefault();
-    if (!this.canAcceptDragElement()) {
+    e.stopPropagation();
+
+    if (!this.canAcceptDragElement() || this.isDropNotAllowed()) {
+      // Dispatch a custom event when drop the invalid field so error message should be shown
+      this.dragContainer.dispatchEvent(
+        new CustomEvent('fwDragEnterBase', {
+          cancelable: true,
+          bubbles: false,
+          detail: {
+            droppedElement: dragElement,
+            dropToId: this.dragContainer.id, // Return the drop container ID
+          },
+        })
+      );
       return;
     }
     this.debouncedSetElement(this.childElements, dragElement, e.clientY);
@@ -122,7 +178,21 @@ export class Draggable {
   };
 
   private onDrop = (e) => {
-    if (!this.canAcceptDragElement()) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!this.canAcceptDragElement() || this.isDropNotAllowed()) {
+      // Dispatch a custom event when drop the invalid field so error message should be hide
+      this.dragContainer.dispatchEvent(
+        new CustomEvent('fwDragLeaveBase', {
+          cancelable: true,
+          bubbles: false,
+          detail: {
+            droppedElement: dragElement,
+            dropToId: this.dragContainer.id, // Return the drop container ID
+          },
+        })
+      );
       return;
     }
     this.dropped = true;
@@ -239,7 +309,10 @@ export class Draggable {
       return false;
     }
     const sortContainerId = dragElement.parentElement.id;
-    return this.acceptFrom.includes(sortContainerId);
+    return (
+      this.acceptFrom.includes(sortContainerId) ||
+      sortContainerId.includes('sectionIdentifier-') //When it is moving from section container to outside.
+    );
   }
 
   canInsertBefore(element) {

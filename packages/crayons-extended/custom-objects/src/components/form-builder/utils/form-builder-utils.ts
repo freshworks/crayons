@@ -97,6 +97,10 @@ export function isPrimaryFieldType(
   return false;
 }
 
+export function isDropdownField(dataItem) {
+  return dataItem.type === 'DROPDOWN';
+}
+
 // function to check if the field is unique
 export function isUniqueField(objField) {
   try {
@@ -705,4 +709,17 @@ export function removeIsNewFromField(fieldEl) {
   validateField(fieldEl.fields);
 
   return fieldEl;
+}
+// Function to return choices with no section
+export function getChoicesWithNoSectionCreated(choices) {
+  return choices.reduce((choicesWithNoSection, choice) => {
+    if (!choice?.choice_options?.section_name) {
+      // Push if doesn't have section name
+      choicesWithNoSection.push({
+        text: choice.value,
+        value: choice.value,
+      });
+    }
+    return choicesWithNoSection;
+  }, []);
 }

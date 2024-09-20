@@ -448,7 +448,6 @@ describe('updateChoicesInFields', () => {
           },
         ],
         id: 'field1',
-        fields: [{ level: '2', choices: [], id: 'field2' }],
       },
     ];
 
@@ -620,13 +619,6 @@ describe('getMaximumLimitsConfig', () => {
   });
 
   it('returns null when productName is not found in formMapper', () => {
-    const formMapper = {
-      OTHER_PRODUCT: {
-        maximumLimits: {
-          DECIMAL: { count: 20, message: 'maximumLimits.fields' },
-        },
-      },
-    };
     const result = getMaximumLimitsConfig('OTHER_PRODUCT');
     expect(result).toBeNull();
   });

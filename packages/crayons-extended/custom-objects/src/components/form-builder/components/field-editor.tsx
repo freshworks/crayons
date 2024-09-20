@@ -15,6 +15,7 @@ import {
 } from '@stencil/core';
 import presetSchema from '../assets/form-builder-preset.json';
 import formMapper from '../assets/form-mapper.json';
+import { TranslationController } from '../../../global/Translation';
 import {
   buildChoicesFromText,
   checkIfCustomToggleField,
@@ -56,6 +57,8 @@ export class FieldEditor {
   private isInternalNameEdited = false;
   private internalNamePrefix = '';
   private isNewField = false;
+  private isSectionField = false;
+  private editSectionField = false;
   private oldFormValues;
   private errorType;
   private isDependentField = false;
@@ -113,6 +116,14 @@ export class FieldEditor {
    */
   @Prop() entityName = '';
   /**
+   * defines the parent index of the field
+   */
+  @Prop() parentIndex;
+  /**
+   * stores the section name for this field
+   */
+  @Prop() sectionName;
+  /**
    * stores the default field type schema for this editor type
    */
   @Prop() defaultFieldTypeSchema;
@@ -152,6 +163,38 @@ export class FieldEditor {
     edit: boolean;
     delete: boolean;
   } = { view: true, create: true, edit: true, delete: true };
+  /*
+   * Beta flag to enable Dynamic sections
+   */
+  @Prop() dynamicSectionsBetaEnabled = false;
+  /*
+   * Function to set section expand state
+   */
+  @Prop() setSectionsExpandState;
+  /*
+   * Function to expand create section pane
+   */
+  @Prop() setSectionCreationExpandState;
+  /*
+   * Sections expand state
+   */
+  @Prop() sectionsExpanded = false;
+  /*
+   * Flag to Show sections
+   */
+  @Prop() showSections = false;
+  /*
+   * Flag to hide add section button and show tooltip
+   */
+  @Prop() sectionCreatedForAllChoices = false;
+  /**
+   * Flag to detect default fields
+   */
+  @Prop() isDefaultNonCustomField = false;
+  /*
+   * Create dynamic section
+   */
+  @Prop() createDynamicSection = false;
   /**
    * State to check if the values have been changed and enable the save button
    */
@@ -250,7 +293,11 @@ export class FieldEditor {
         hasCustomProperty(objDP, 'isNew') && objDP['isNew'] === true
           ? true
           : false;
-
+      this.isSectionField =
+        hasCustomProperty(objDP, 'isSection') && objDP?.isSection === true
+          ? true
+          : false;
+      this.editSectionField = objDP.field_options?.is_section_field;
       // Currently supports dropdown format
       this.isDependentField = objDP.type === 'DEPENDENT_FIELD';
 
@@ -633,12 +680,16 @@ export class FieldEditor {
   private addFieldHandler = (event: CustomEvent) => {
     event.stopImmediatePropagation();
     event.stopPropagation();
-
     let boolValidForm = true;
     let level = null;
     let objValues = {
       type: this.dataProvider.type,
+      newSectionData: this.dataProvider,
       isPrimaryField: this.isPrimaryField,
+      sectionDetails: {
+        parentIndex: this.parentIndex,
+        sectionName: this.sectionName,
+      },
     };
 
     if (this.isDependentField) {
@@ -848,6 +899,7 @@ export class FieldEditor {
         expanded: false,
         index: this.index,
         isNew: this.isNewField,
+        value: this.dataProvider,
       });
     }
   };
@@ -864,6 +916,8 @@ export class FieldEditor {
 
     if (!this.expanded) {
       this.dictInteractiveElements = {};
+      this.setSectionsExpandState(false);
+      this.setSectionCreationExpandState(false);
       this.expanded = true;
 
       this.fwExpand.emit({
@@ -1235,9 +1289,13 @@ export class FieldEditor {
   private renderCheckboxField(dataCheckbox) {
     const boolEditCheckboxAllowed =
       this.isNewField ||
+      this.isSectionField ||
       hasPermission(this.role, this.permission, 'EDIT', true);
+    const sectionEditMode = this.isSectionField
+      ? this.isSectionField
+      : this.editSectionField ?? false; //When it is inside section required field should be disabled.
     const boolDisableCheckbox =
-      !boolEditCheckboxAllowed || !dataCheckbox.enabled;
+      !boolEditCheckboxAllowed || !dataCheckbox.enabled || sectionEditMode;
     const strBaseClassName = 'fw-field-editor';
     const strKey = dataCheckbox.key;
 
@@ -1417,7 +1475,6 @@ export class FieldEditor {
   private renderInternalName(
     objProductConfig,
     objMaxLimits,
-    isDefaultNonCustomField,
     boolEditAllowed,
     fieldBuilderOptions
   ) {
@@ -1471,7 +1528,7 @@ export class FieldEditor {
           {i18nText('internalName')}
         </label>
         <div class={`${strBaseClassName}-internal-name-container`}>
-          {!isDefaultNonCustomField && (
+          {!this.isDefaultNonCustomField && (
             <label class={`${strBaseClassName}-internal-name-prefix`}>
               {this.internalNamePrefix}
             </label>
@@ -1503,18 +1560,14 @@ export class FieldEditor {
     );
   }
 
-  private renderLabel(
-    objMaxLimits,
-    isDefaultNonCustomField,
-    boolEditAllowed,
-    fieldBuilderOptions
-  ) {
+  private renderLabel(objMaxLimits, boolEditAllowed, fieldBuilderOptions) {
     const objFieldBuilder = fieldBuilderOptions;
     const strBaseClassName = 'fw-field-editor';
     const strInputLabel = hasCustomProperty(objFieldBuilder, 'label')
       ? objFieldBuilder.label
       : '';
-    const boolDIsableInputLabel = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDIsableInputLabel =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const strInputHint = this.isPrimaryField
       ? i18nText('primaryFieldNameHint')
@@ -1576,16 +1629,13 @@ export class FieldEditor {
     );
   }
 
-  private renderFieldContent(
-    objProductConfig,
-    isDefaultNonCustomField,
-    boolEditAllowed
-  ) {
+  private renderFieldContent(objProductConfig, boolEditAllowed) {
     const strBaseClassName = 'fw-field-editor';
     const renderLabelAndName = [];
     const renderFields = [];
     const objFieldBuilder = this.fieldBuilderOptions;
-    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDisableDropdowns =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const arrCheckboxes = hasCustomProperty(objFieldBuilder, 'checkboxes')
       ? objFieldBuilder.checkboxes
@@ -1602,7 +1652,6 @@ export class FieldEditor {
       // Renders Label input and Internal name input
       const fieldLabelAndName = this.renderLabelAndInternalName(
         objProductConfig,
-        isDefaultNonCustomField,
         boolEditAllowed,
         data
       );
@@ -1707,7 +1756,6 @@ export class FieldEditor {
 
   private renderLabelAndInternalName(
     objProductConfig,
-    isDefaultNonCustomField,
     boolEditAllowed,
     fieldBuilderOptions
   ) {
@@ -1717,17 +1765,11 @@ export class FieldEditor {
 
     return (
       <div class={`${strBaseClassName}-content-label-interalName`}>
-        {this.renderLabel(
-          objMaxLimits,
-          isDefaultNonCustomField,
-          boolEditAllowed,
-          fieldBuilderOptions
-        )}
+        {this.renderLabel(objMaxLimits, boolEditAllowed, fieldBuilderOptions)}
         {boolSupportInternalName &&
           this.renderInternalName(
             objProductConfig,
             objMaxLimits,
-            isDefaultNonCustomField,
             boolEditAllowed,
             fieldBuilderOptions
           )}
@@ -1735,11 +1777,7 @@ export class FieldEditor {
     );
   }
 
-  private renderContent(
-    objProductConfig,
-    isDefaultNonCustomField,
-    boolEditAllowed
-  ) {
+  private renderContent(objProductConfig, boolEditAllowed) {
     if (!this.expanded) {
       return null;
     }
@@ -1755,7 +1793,8 @@ export class FieldEditor {
       objFormValue.name
     );
 
-    const boolDisableDropdowns = isDefaultNonCustomField || !boolEditAllowed;
+    const boolDisableDropdowns =
+      this.isDefaultNonCustomField || !boolEditAllowed;
 
     const strFieldType = hasCustomProperty(objFieldBuilder, 'type')
       ? objFieldBuilder.type
@@ -1821,7 +1860,6 @@ export class FieldEditor {
           )}
           {this.renderLabel(
             objMaxLimits,
-            isDefaultNonCustomField,
             boolEditAllowed,
             this.fieldBuilderOptions
           )}
@@ -1829,7 +1867,6 @@ export class FieldEditor {
             this.renderInternalName(
               objProductConfig,
               objMaxLimits,
-              isDefaultNonCustomField,
               boolEditAllowed,
               this.fieldBuilderOptions
             )}
@@ -1868,20 +1905,14 @@ export class FieldEditor {
         ? objFieldBuilder.required
         : false;
 
-    const isDefaultNonCustomField =
-      objProductConfig?.showDefaultTag &&
-      objProductConfig?.defaultTagKey &&
-      objProductConfig.defaultTagKey !== '' &&
-      hasCustomProperty(objFormValue, objProductConfig.defaultTagKey) &&
-      !objFormValue[objProductConfig.defaultTagKey];
-
     const boolEditAllowed =
       this.isNewField || hasPermission(this.role, this.permission, 'EDIT');
     const boolDeleteAllowed = hasPermission(
-      this.role,
-      this.permission,
-      'DELETE'
-    );
+        this.role,
+        this.permission,
+        'DELETE'
+      ),
+      boolCreateAllowed = hasPermission(this.role, this.permission, 'CREATE');
     const boolDisableDelete = !boolDeleteAllowed;
 
     const boolShowDeleteModalInlineMsg =
@@ -1960,7 +1991,7 @@ export class FieldEditor {
             fwLabelItems.push(elLookupUniqueTag);
           }
         }
-      } else if (isDefaultNonCustomField) {
+      } else if (this.isDefaultNonCustomField) {
         const elDefaultCustomTag = this.renderFwLabel({
           key: 'customDefault',
           selected: true,
@@ -2002,16 +2033,14 @@ export class FieldEditor {
       : objFieldBuilder.icon;
 
     const contentElements = this.isDependentField
-      ? this.renderFieldContent(
-          objProductConfig,
-          isDefaultNonCustomField,
-          boolEditAllowed
-        )
-      : this.renderContent(
-          objProductConfig,
-          isDefaultNonCustomField,
-          boolEditAllowed
-        );
+      ? this.renderFieldContent(objProductConfig, boolEditAllowed)
+      : this.renderContent(objProductConfig, boolEditAllowed);
+
+    const disableAddSectionBtn =
+      !boolCreateAllowed ||
+      this.expanded ||
+      this.createDynamicSection ||
+      this.sectionCreatedForAllChoices;
 
     return (
       <Host tabIndex='-1'>
@@ -2048,10 +2077,53 @@ export class FieldEditor {
                 </div>
               )}
             </div>
+            {this.showSections && (
+              <fw-tooltip
+                placement={this.sectionCreatedForAllChoices ? 'bottom' : 'left'}
+                trigger='hover'
+                content={
+                  this.sectionCreatedForAllChoices
+                    ? TranslationController.t(
+                        'formBuilder.sections.sectionCreatedForAllChoices'
+                      )
+                    : TranslationController.t(
+                        'formBuilder.sections.addTooltipDescription'
+                      )
+                }
+                header={
+                  this.sectionCreatedForAllChoices
+                    ? ''
+                    : TranslationController.t(
+                        'formBuilder.sections.addTooltipTitle'
+                      )
+                }
+              >
+                <fw-button
+                  color='text'
+                  class='fw-field-editor-add-section-btn'
+                  disabled={disableAddSectionBtn}
+                  onFwClick={() => {
+                    this.setSectionsExpandState(true);
+                    this.setSectionCreationExpandState(true);
+                  }}
+                >
+                  <fw-icon
+                    name='square-plus'
+                    slot='before-label'
+                    size='16'
+                    library='system'
+                  ></fw-icon>
+                  <span class={`${strBaseClassName}-add-section-text`}>
+                    {TranslationController.t('formBuilder.sections.add')}
+                  </span>
+                </fw-button>
+              </fw-tooltip>
+            )}
             {!this.expanded &&
               !this.isPrimaryField &&
               !this.isDeleting &&
-              !isDefaultNonCustomField && (
+              !this.isDefaultNonCustomField &&
+              !this.editSectionField && (
                 <fw-button
                   part='delete-field-btn'
                   size='icon'
@@ -2063,7 +2135,7 @@ export class FieldEditor {
                   <fw-icon name='delete'></fw-icon>
                 </fw-button>
               )}
-            {/* {!this.expanded && isDefaultNonCustomField && (
+            {/* {!this.expanded && this.isDefaultNonCustomField && (
               <span class={`${strBaseClassName}-lock-container`}>
                 <fw-icon name='lock'></fw-icon>
               </span>

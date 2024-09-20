@@ -1,0 +1,21 @@
+{
+    "stylelint.enable": true,
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.validate": [
+        "css",
+        "scss"
+    ],
+    "stylelint.snippet": [
+        "css",
+        "less",
+        "postcss",
+        "scss"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.stylelint": "explicit"
+    },
+    "stylelint.autoFixOnSave": true
+}
