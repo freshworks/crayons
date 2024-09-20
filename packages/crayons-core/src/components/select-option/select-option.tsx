@@ -205,6 +205,24 @@ export class SelectOption {
   }
 
   createDescription() {
+    if ((this.subText && this.metaText) || this.metaText) {
+      const metaTextDetails = [];
+      if (this.metaText.name) metaTextDetails.push(this.metaText.name);
+      if (this.metaText.email) metaTextDetails.push(this.metaText.email);
+      if (this.metaText.mobile) metaTextDetails.push(this.metaText.mobile);
+
+      return (
+        <div class={'description ' + 'icon-margin '}>
+          <span class='description-text'>{this.text}</span>
+          {this.subText && (
+            <span class='description-subText-conversation'>{this.subText}</span>
+          )}
+          <span class='description-metaText-details'>
+            {metaTextDetails?.join(' | ')}
+          </span>
+        </div>
+      );
+    }
     return this.subText ? (
       <div
         class={
