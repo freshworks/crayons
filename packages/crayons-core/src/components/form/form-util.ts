@@ -402,7 +402,7 @@ export const translateErrors = async (errors = {}, fields) => {
   );
 };
 
-export const formServFieldTypes = {
+const formServFieldTypes = {
   '1': { type: 'TEXT' },
   '2': { type: 'DROPDOWN' },
   '3': { type: 'EMAIL' },
