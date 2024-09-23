@@ -188,7 +188,7 @@ export class SelectOption {
         return (
           <Fragment>
             {checkbox}
-            {this.createIcon()}
+            {this.createConversationIcon()}
             {this.createConversationDescription()}
             {selectedIconContainer}
           </Fragment>
@@ -261,6 +261,14 @@ export class SelectOption {
       </div>
     ) : (
       <span class={'description ' + 'icon-margin'}>{this.text}</span>
+    );
+  }
+
+  createConversationIcon() {
+    return (
+      <div class='conversation-icon'>
+        <fw-icon {...this.graphicsProps}></fw-icon>
+      </div>
     );
   }
 
