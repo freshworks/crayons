@@ -384,7 +384,7 @@ export class Form {
 
     // reset for section fields when values changed
 
-    const previousfield = this.formSchema.fields.find(
+    const previousfield = this.formSchema?.fields?.find(
       (field) => field.name === name
     );
 
