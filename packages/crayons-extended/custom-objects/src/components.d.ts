@@ -106,6 +106,10 @@ export namespace Components {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect": boolean;
     }
     interface FbSectionCreate {
         /**
@@ -280,6 +284,10 @@ export namespace Components {
          */
         "showErrors": boolean;
         /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect": boolean;
+        /**
           * source object value
          */
         "sourceObjectName": string;
@@ -392,6 +400,10 @@ export namespace Components {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp": boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect": boolean;
         "showSections": boolean;
     }
     interface FwFieldTypeMenuItem {
@@ -565,6 +577,10 @@ export namespace Components {
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
         "showLookupField": boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect": boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */
@@ -1049,6 +1065,10 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect"?: boolean;
     }
     interface FbSectionCreate {
         /**
@@ -1261,6 +1281,10 @@ declare namespace LocalJSX {
          */
         "showErrors"?: boolean;
         /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect"?: boolean;
+        /**
           * source object value
          */
         "sourceObjectName"?: string;
@@ -1389,6 +1413,10 @@ declare namespace LocalJSX {
           * flag to show dependentField resolve checkbox
          */
         "showDependentFieldResolveProp"?: boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect"?: boolean;
         "showSections"?: boolean;
     }
     interface FwFieldTypeMenuItem {
@@ -1598,6 +1626,10 @@ declare namespace LocalJSX {
           * flag to show lookupField for CONVERSATION_PROPERTIES or not
          */
         "showLookupField"?: boolean;
+        /**
+          * flag to show relationshipTypeSelect dropdown or not
+         */
+        "showRelationshipTypeSelect"?: boolean;
         /**
           * Show explore plans and disable features for user having free-plan
          */

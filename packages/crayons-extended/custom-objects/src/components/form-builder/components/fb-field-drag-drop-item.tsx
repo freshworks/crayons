@@ -42,6 +42,10 @@ export class FormBuilderFieldDragDropItem {
    */
   @Prop({ mutable: true }) formValues = null;
   /**
+   * flag to show relationshipTypeSelect dropdown or not
+   */
+  @Prop({ mutable: true }) showRelationshipTypeSelect = true;
+  /**
    * object to store the lookup target entities
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
@@ -187,6 +191,7 @@ export class FormBuilderFieldDragDropItem {
           index={this.index}
           key={this.keyProp}
           productName={this.productName}
+          showRelationshipTypeSelect={this.showRelationshipTypeSelect}
           dataProvider={this.dataProvider}
           entityName={this.entityName}
           expanded={this.expanded}

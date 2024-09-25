@@ -241,7 +241,6 @@
       "freePlanFieldAddDisabledButton": "",
       "noCreatePermissionFieldAddDisabledHeader": "",
       "noCreatePermissionFieldAddDisabledMessage": "",
-      "boolShowRelationshipTypeSelect": true,
       "boolShowCustomToggle": false,
       "showCustomToggleField": ""
     },
@@ -463,7 +462,6 @@
       "freePlanFieldAddDisabledButton": "freePlanFieldAddDisabledButton",
       "noCreatePermissionFieldAddDisabledHeader": "noCreatePermissionFieldAddDisabledHeader",
       "noCreatePermissionFieldAddDisabledMessage": "noCreatePermissionFieldAddDisabledMessage",
-      "boolShowRelationshipTypeSelect": false,
       "boolShowCustomToggle": true,
       "showCustomToggleField": "status"
     },
