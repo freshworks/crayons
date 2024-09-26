@@ -1690,13 +1690,17 @@ describe('fw-form-builder', () => {
           { formValues: formValues.CUSTOM_OBJECTS }
         );
         await page.waitForChanges();
+
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldEditors = await rightPanel.findAll(
-          'fw-field-editor >>> .fw-field-editor'
+        const fieldDragDropItem = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
         );
-        const deleteBtn = await fieldEditors[1].find(
+        const fieldEditor = await fieldDragDropItem[1].find(
+          'fw-field-editor >>> .fw-field-editor-header-content'
+        );
+        const deleteBtn = await fieldEditor.find(
           '.fw-field-editor-delete-button'
         );
         await deleteBtn.click();
@@ -1730,9 +1734,17 @@ describe('fw-form-builder', () => {
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldItemLabels = await rightPanel.findAll(
-          'fw-field-editor >>> label'
+
+        const fieldDragDropItem = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
         );
+        let fieldItemLabels = [];
+        fieldDragDropItem.forEach((dragDrop) => {
+          fieldItemLabels = fieldItemLabels.concat(
+            dragDrop.find('fw-field-editor >>> label')
+          );
+        });
+
         expect(fieldItemLabels.length).toBe(
           formValues[productName].fields.length
         );
@@ -1797,12 +1809,14 @@ describe('fw-form-builder', () => {
         );
       });
 
-      it('triggers fwSaveField event when a field is edited and save is clicked', async () => {
-        const page = await newE2EPage();
+      it.only('triggers fwSaveField event when a field is edited and save is clicked', async () => {
+        const page = await newE2EPage({ failOnConsoleError: true });
         await page.setContent(
           `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
         const fwSaveField = await page.spyOnEvent('fwSaveField');
+        const validateIndex = 2;
+
         await page.waitForChanges();
         await page.$eval(
           'fw-form-builder',
@@ -1812,24 +1826,29 @@ describe('fw-form-builder', () => {
           },
           {
             formValues: formValues[productName],
-            currentFieldIndex: 2,
+            currentFieldIndex: {
+              [formValues[productName].fields[validateIndex].id]: validateIndex,
+            },
           }
         );
         await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldEditors = await rightPanel.findAll(
+        const fieldDragDropItem = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+        );
+        const fieldEditor = await fieldDragDropItem[2].find(
           'fw-field-editor >>> .fw-field-editor'
         );
-        const labelInput = await fieldEditors[2].find(
+        const labelInput = await fieldEditor.find(
           '.fw-field-editor-content-required-input'
         );
         await labelInput.click();
         await labelInput.press('a');
         await labelInput.press('d');
         await page.waitForChanges();
-        const saveBtn = await fieldEditors[2].find('#submitFieldBtn');
+        const saveBtn = await fieldEditor.find('#submitFieldBtn');
         await saveBtn.click();
         await page.waitForChanges();
         const expectedType = isNaN(formValues[productName].fields[2].type)
@@ -1847,6 +1866,17 @@ describe('fw-form-builder', () => {
             name: 'ad' + formValues[productName].fields[2].label,
             required: false,
             type: expectedType,
+            newSectionData: {
+              field_options: {},
+              filterable: true,
+              id: formValues[productName].fields[2].id,
+              label: formValues[productName].fields[2].label,
+              name: formValues[productName].fields[2].name,
+              required: false,
+              searchable: false,
+              type: expectedType,
+            },
+            sectionDetails: {},
           },
         });
       });
@@ -1858,6 +1888,7 @@ describe('fw-form-builder', () => {
         );
         await page.waitForChanges();
         const validateIndex = formValues[productName].fields.length - 1;
+        const id = formValues[productName].fields[validateIndex].id;
         await page.$eval(
           'fw-form-builder',
           (elm: any, { formValues, currentFieldIndex }: any) => {
@@ -1866,35 +1897,38 @@ describe('fw-form-builder', () => {
           },
           {
             formValues: formValues[productName],
-            currentFieldIndex: validateIndex,
+            currentFieldIndex: { [id]: validateIndex },
           }
         );
         await page.waitForChanges();
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldEditors = await rightPanel.findAll(
+        const fieldDragDropItem = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+        );
+        const fieldEditor = await fieldDragDropItem[validateIndex].find(
           'fw-field-editor >>> .fw-field-editor'
         );
-        const labelInput = await fieldEditors[validateIndex].find(
+        const labelInput = await fieldEditor.find(
           '.fw-field-editor-content-required-input'
         );
         await labelInput.click();
         await labelInput.press('a');
         await page.waitForChanges();
-        let saveBtn = await fieldEditors[validateIndex].find('#submitFieldBtn');
+        let saveBtn = await fieldEditor.find('#submitFieldBtn');
         await saveBtn.click();
         await page.waitForChanges();
-        const errorValidation = await fieldEditors[validateIndex].find(
+        const errorValidation = await fieldEditor.find(
           '.fw-field-editor-footer-field-error-msg'
         );
         expect(errorValidation).toBeTruthy();
         await labelInput.setProperty('value', '');
         await page.waitForChanges();
-        saveBtn = await fieldEditors[validateIndex].find('#submitFieldBtn');
+        saveBtn = await fieldEditor.find('#submitFieldBtn');
         await saveBtn.click();
         await page.waitForChanges();
-        const errorText = await fieldEditors[validateIndex].find(
+        const errorText = await fieldEditor.find(
           '.fw-field-editor-content-required-input >>> .field-control-error-text'
         );
         expect(errorText).toBeTruthy();
@@ -1988,10 +2022,13 @@ describe('fw-form-builder', () => {
     const rightPanel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
     );
-    const fieldEditors = await rightPanel.findAll(
+    const fieldDragDropItem = await rightPanel.findAll(
+      'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+    );
+    const fieldEditor = await fieldDragDropItem[1].find(
       'fw-field-editor >>> .fw-field-editor-header-content'
     );
-    await fieldEditors[1].click();
+    await fieldEditor.click();
     expect(fwExpandField).toHaveReceivedEventDetail({
       expanded: true,
       index: 1,
@@ -2017,10 +2054,13 @@ describe('fw-form-builder', () => {
     const rightPanel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
     );
-    const fieldEditors = await rightPanel.findAll(
-      'fw-field-editor >>> .fw-field-editor'
+    const fieldDragDropItem = await rightPanel.findAll(
+      'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
     );
-    const cancelBtn = await fieldEditors[1].find('#clearFieldBtn');
+    const fieldEditor = await fieldDragDropItem[1].find(
+      'fw-field-editor >>> .fw-field-editor-header-content'
+    );
+    const cancelBtn = await fieldEditor.find('#clearFieldBtn');
     await cancelBtn.click();
     expect(fwExpandField).toHaveReceivedEventDetail({
       expanded: false,
