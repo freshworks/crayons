@@ -433,7 +433,7 @@ describe('updateChoicesInFields', () => {
     expect(updatedField.fields[0].choices).toEqual([{ id: 'newChoice' }]);
   });
 
-  it.only('updates the parent field when parentId exists', () => {
+  it('updates the parent field when parentId exists', () => {
     // Mock data setup
     event.detail.parentId = 'parentChoice';
     event.detail.level = 2;
