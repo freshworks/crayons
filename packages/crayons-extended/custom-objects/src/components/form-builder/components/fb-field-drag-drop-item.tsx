@@ -187,99 +187,103 @@ export class FormBuilderFieldDragDropItem {
 
     return (
       <Host tabIndex='-1'>
-        <fw-field-editor
-          index={this.index}
-          key={this.keyProp}
-          productName={this.productName}
-          showRelationshipTypeSelect={this.showRelationshipTypeSelect}
-          dataProvider={this.dataProvider}
-          entityName={this.entityName}
-          expanded={this.expanded}
-          isPrimaryField={this.isPrimaryField}
-          pinned={this.isPrimaryField ? 'top' : ''}
-          disabled={this.disabled}
-          disabledSort={this.disabledSort}
-          permission={this.permission}
-          role={this.role}
-          enableUnique={this.enableUnique}
-          enableFilterable={this.enableFilterable}
-          defaultFieldTypeSchema={this.defaultFieldTypeSchema}
-          lookupTargetObjects={this.lookupTargetObjects}
-          formValues={this.formValues}
-          isLoading={this.isLoading}
-          sectionsExpanded={this.sectionsExpanded}
-          showDependentFieldResolveProp={this.showDependentFieldResolveProp}
-          dependentFieldLink={this.dependentFieldLink}
-          dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
-          setSectionsExpandState={this.setSectionsExpandState}
-          setSectionCreationExpandState={this.setSectionCreationExpandState}
-          showSections={showDynamicFieldSections}
-          sectionCreatedForAllChoices={sectionCreatedForAllChoices}
-          isDefaultNonCustomField={isDefaultNonCustomField}
-          onFwUpdate={this.saveFieldHandler}
-          onFwDelete={this.deleteFieldHandler}
-          onFwExpand={this.expandFieldHandler}
-          onFwReorder={this.reorderFieldProgressHandler}
-          createDynamicSection={this.createDynamicSection}
-          parentIndex={this.parentIndex}
-          sectionName={this.sectionName}
-        ></fw-field-editor>
-        {showDynamicFieldSections && (
-          <div
-            class={{
-              'fb-section-container': true,
-              'hide': noOfSections === 0 && !this.createDynamicSection,
-            }}
-          >
-            {!!noOfSections && (
-              <fw-button
-                color='text'
-                class={{
-                  'fb-show-hide-sections-btn': true,
-                }}
-                disabled={this.disabled}
-                onFwClick={() => {
-                  this.setSectionsExpandState(!this.sectionsExpanded);
-                  this.setSectionCreationExpandState(false);
-                }}
-              >
-                <div class='fb-section-visibility'>
-                  {this.sectionsExpanded ? (
-                    <span class='fb-section-hide'>
-                      {TranslationController.t('formBuilder.sections.hide')}
-                    </span>
-                  ) : (
-                    <span class='fb-section-show'>
-                      {TranslationController.t('formBuilder.sections.show')}
-                    </span>
-                  )}
-                  <i class='fb-section-count'>{noOfSections}</i>
-                  <fw-icon
-                    class={{
-                      'fb-section-arrow-down': !this.sectionsExpanded,
-                    }}
-                    size='10'
-                    name='chevron-up'
-                  ></fw-icon>
-                </div>
-              </fw-button>
-            )}
+        <div class='fb-field-drag-drop-item'>
+          <fw-field-editor
+            index={this.index}
+            key={this.keyProp}
+            productName={this.productName}
+            showRelationshipTypeSelect={this.showRelationshipTypeSelect}
+            dataProvider={this.dataProvider}
+            entityName={this.entityName}
+            expanded={this.expanded}
+            isPrimaryField={this.isPrimaryField}
+            pinned={this.isPrimaryField ? 'top' : ''}
+            disabled={this.disabled}
+            disabledSort={this.disabledSort}
+            permission={this.permission}
+            role={this.role}
+            enableUnique={this.enableUnique}
+            enableFilterable={this.enableFilterable}
+            defaultFieldTypeSchema={this.defaultFieldTypeSchema}
+            lookupTargetObjects={this.lookupTargetObjects}
+            formValues={this.formValues}
+            isLoading={this.isLoading}
+            sectionsExpanded={this.sectionsExpanded}
+            showDependentFieldResolveProp={this.showDependentFieldResolveProp}
+            dependentFieldLink={this.dependentFieldLink}
+            dynamicSectionsBetaEnabled={this.dynamicSectionsBetaEnabled}
+            setSectionsExpandState={this.setSectionsExpandState}
+            setSectionCreationExpandState={this.setSectionCreationExpandState}
+            showSections={showDynamicFieldSections}
+            sectionCreatedForAllChoices={sectionCreatedForAllChoices}
+            isDefaultNonCustomField={isDefaultNonCustomField}
+            onFwUpdate={this.saveFieldHandler}
+            onFwDelete={this.deleteFieldHandler}
+            onFwExpand={this.expandFieldHandler}
+            onFwReorder={this.reorderFieldProgressHandler}
+            createDynamicSection={this.createDynamicSection}
+            parentIndex={this.parentIndex}
+            sectionName={this.sectionName}
+          ></fw-field-editor>
+          {showDynamicFieldSections && (
+            <div
+              class={{
+                'fb-section-container': true,
+                'hide': noOfSections === 0 && !this.createDynamicSection,
+              }}
+            >
+              {!!noOfSections && (
+                <fw-button
+                  color='text'
+                  class={{
+                    'fb-show-hide-sections-btn': true,
+                  }}
+                  disabled={this.disabled}
+                  onFwClick={() => {
+                    this.setSectionsExpandState(!this.sectionsExpanded);
+                    this.setSectionCreationExpandState(false);
+                  }}
+                >
+                  <div class='fb-section-visibility'>
+                    {this.sectionsExpanded ? (
+                      <span class='fb-section-hide'>
+                        {TranslationController.t('formBuilder.sections.hide')}
+                      </span>
+                    ) : (
+                      <span class='fb-section-show'>
+                        {TranslationController.t('formBuilder.sections.show')}
+                      </span>
+                    )}
+                    <i class='fb-section-count'>{noOfSections}</i>
+                    <fw-icon
+                      class={{
+                        'fb-section-arrow-down': !this.sectionsExpanded,
+                      }}
+                      size='10'
+                      name='chevron-up'
+                    ></fw-icon>
+                  </div>
+                </fw-button>
+              )}
 
-            {this.createDynamicSection && (
-              <fb-section-create
-                showCreateOrEditSectionPane={this.setSectionCreationExpandState}
-                dataProvider={this.dataProvider}
-                onFwExpand={this.expandFieldHandler}
-                onFwUpdate={this.saveFieldHandler}
-                fieldChoices={choicesWithNoSectionCreated}
-                productName={this.productName}
-                index={this.index}
-              />
-            )}
+              {this.createDynamicSection && (
+                <fb-section-create
+                  showCreateOrEditSectionPane={
+                    this.setSectionCreationExpandState
+                  }
+                  dataProvider={this.dataProvider}
+                  onFwExpand={this.expandFieldHandler}
+                  onFwUpdate={this.saveFieldHandler}
+                  fieldChoices={choicesWithNoSectionCreated}
+                  productName={this.productName}
+                  index={this.index}
+                />
+              )}
 
-            {this.sectionsExpanded && <slot name='section'></slot>}
-          </div>
-        )}
+              {this.sectionsExpanded && <slot name='section'></slot>}
+            </div>
+          )}
+        </div>
       </Host>
     );
   }
