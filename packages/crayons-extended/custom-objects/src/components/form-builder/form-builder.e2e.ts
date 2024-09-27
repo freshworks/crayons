@@ -1,4 +1,4 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { E2EElement, newE2EPage } from '@stencil/core/testing';
 import presetSchema from './assets/form-builder-preset.json';
 import formMapper from './assets/form-mapper.json';
 
@@ -1698,18 +1698,18 @@ describe('fw-form-builder', () => {
           'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
         );
         const fieldEditor = await fieldDragDropItem[1].find(
-          'fw-field-editor >>> .fw-field-editor-header-content'
+          'fw-field-editor >>> .fw-field-editor'
         );
         const deleteBtn = await fieldEditor.find(
           '.fw-field-editor-delete-button'
         );
         await deleteBtn.click();
         await page.waitForChanges();
-        const deleteModals = await rightPanel.findAll(
+        const deleteModal = await fieldDragDropItem[1].find(
           'fw-field-editor >>> fw-modal'
         );
-        expect(deleteModals[1]).toHaveAttribute('is-open');
-        await deleteModals[1].triggerEvent('fwSubmit');
+        expect(deleteModal).toHaveAttribute('is-open');
+        await deleteModal.triggerEvent('fwSubmit');
         await page.waitForChanges();
         expect(fwDeleteField).toHaveReceivedEventDetail({
           index: 1,
@@ -1735,41 +1735,45 @@ describe('fw-form-builder', () => {
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
 
-        const fieldDragDropItem = await rightPanel.findAll(
+        const fieldDragDropItem: E2EElement[] = await rightPanel.findAll(
           'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
         );
-        let fieldItemLabels = [];
-        fieldDragDropItem.forEach((dragDrop) => {
-          fieldItemLabels = fieldItemLabels.concat(
-            dragDrop.find('fw-field-editor >>> label')
-          );
-        });
 
-        expect(fieldItemLabels.length).toBe(
-          formValues[productName].fields.length
-        );
-        fieldItemLabels.forEach((item, index) => {
-          expect(item.innerText).toBe(
-            formValues[productName].fields[index].label
+        let fieldItemLabelsCount = 0;
+
+        for (const dragDrop of fieldDragDropItem) {
+          const fieldItemLabel = await dragDrop.find(
+            'fw-field-editor >>> label'
           );
-        });
-        const fieldItemIcons = await rightPanel.findAll(
-          'fw-field-editor >>> .fw-field-editor-icon-container > fw-icon'
-        );
-        expect(fieldItemIcons.length).toBe(
+
+          expect(fieldItemLabel.innerText).toBe(
+            formValues[productName].fields[fieldItemLabelsCount++].label
+          );
+        }
+
+        expect(fieldItemLabelsCount).toBe(
           formValues[productName].fields.length
         );
-        fieldItemIcons.forEach((item, index) => {
+
+        let fieldItemIcons = 0;
+
+        for (const dragDrop of fieldDragDropItem) {
+          const fieldItemIcon = await dragDrop.find(
+            'fw-field-editor >>> .fw-field-editor-icon-container > fw-icon'
+          );
           const fieldType =
             productName === 'CUSTOM_OBJECTS'
-              ? formValues[productName].fields[index].type
+              ? formValues[productName].fields[fieldItemIcons].type
               : formMapper[productName].reverseMappedFieldTypes[
-                  formValues[productName].fields[index].type
+                  formValues[productName].fields[fieldItemIcons].type
                 ];
-          expect(item.getAttribute('name')).toBe(
+          expect(fieldItemIcon.getAttribute('name')).toBe(
             presetSchema.fieldTypes[fieldType].icon.name
           );
-        });
+          fieldItemIcons++;
+        }
+
+        expect(fieldItemIcons).toBe(formValues[productName].fields.length);
       });
 
       it('searching a value should filter the field elements', async () => {
@@ -1799,9 +1803,13 @@ describe('fw-form-builder', () => {
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldItemLabels = await rightPanel.findAll(
+        const fieldDragDropItem: E2EElement[] = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+        );
+        const fieldItemLabels = await fieldDragDropItem[0].findAll(
           'fw-field-editor >>> label'
         );
+
         expect(fieldItemLabels.length).toBe(1);
         const addressIndex = productName === 'CUSTOM_OBJECTS' ? 2 : 0;
         expect(fieldItemLabels[0].innerText).toBe(
@@ -1809,7 +1817,7 @@ describe('fw-form-builder', () => {
         );
       });
 
-      it.only('triggers fwSaveField event when a field is edited and save is clicked', async () => {
+      it('triggers fwSaveField event when a field is edited and save is clicked', async () => {
         const page = await newE2EPage({ failOnConsoleError: true });
         await page.setContent(
           `<fw-form-builder product-name="${productName}"></fw-form-builder>`
@@ -1874,7 +1882,12 @@ describe('fw-form-builder', () => {
               name: formValues[productName].fields[2].name,
               required: false,
               searchable: false,
-              type: expectedType,
+              type:
+                productName === 'CUSTOM_OBJECTS'
+                  ? expectedType
+                  : formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[
+                      expectedType
+                    ],
             },
             sectionDetails: {},
           },
@@ -2048,7 +2061,10 @@ describe('fw-form-builder', () => {
         elm.formValues = formValues;
         elm.currentFieldIndex = currentFieldIndex;
       },
-      { formValues: formValues.CUSTOM_OBJECTS, currentFieldIndex: 1 }
+      {
+        formValues: formValues.CUSTOM_OBJECTS,
+        currentFieldIndex: { [formValues.CUSTOM_OBJECTS.fields[1].id]: 1 },
+      }
     );
     await page.waitForChanges();
     const rightPanel = await page.find(
@@ -2058,7 +2074,7 @@ describe('fw-form-builder', () => {
       'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
     );
     const fieldEditor = await fieldDragDropItem[1].find(
-      'fw-field-editor >>> .fw-field-editor-header-content'
+      'fw-field-editor >>> .fw-field-editor'
     );
     const cancelBtn = await fieldEditor.find('#clearFieldBtn');
     await cancelBtn.click();
@@ -2066,6 +2082,9 @@ describe('fw-form-builder', () => {
       expanded: false,
       index: 1,
       isNew: false,
+      value: {
+        ...formValues.CUSTOM_OBJECTS.fields[1],
+      },
     });
   });
 
@@ -2145,17 +2164,26 @@ describe('fw-form-builder', () => {
         },
         {
           formValues: formValues.CONVERSATION_PROPERTIES,
-          currentFieldIndex: fieldIndex,
+          currentFieldIndex: {
+            [formValues.CONVERSATION_PROPERTIES.fields[fieldIndex].id]:
+              fieldIndex,
+          },
         }
       );
       await page.waitForChanges();
       const rightPanel = await page.find(
         'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
       );
-      const fieldEditors = await rightPanel.findAll(
+
+      const fieldDragDropItem = await rightPanel.findAll(
+        'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+      );
+
+      const fieldEditor = await fieldDragDropItem[fieldIndex].find(
         'fw-field-editor >>> .fw-field-editor'
       );
-      const checkboxLabel = await fieldEditors[fieldIndex].find(
+
+      const checkboxLabel = await fieldEditor.find(
         '.fw-field-editor-content-checkboxes-header-label'
       );
       expect(checkboxLabel).toBeTruthy();
@@ -2169,49 +2197,47 @@ describe('fw-form-builder', () => {
           (checkbox) => checkbox.key === 'required'
         );
         if (requiredProp) {
-          const requiredCheckbox = await fieldEditors[fieldIndex].find(
-            'fw-checkbox'
-          );
+          const requiredCheckbox = await fieldEditor.find('fw-checkbox');
           expect(requiredCheckbox).toBeTruthy();
         }
       }
       if (field.type === 'RELATIONSHIP') {
-        const label = await fieldEditors[fieldIndex].find(
+        const label = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-header-label'
         );
         expect(label).toBeTruthy();
-        const sourceInput = await fieldEditors[fieldIndex].find(
+        const sourceInput = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-input'
         );
         const sourceValue = await sourceInput.getProperty('value');
         expect(sourceValue).toBe(formValues.CONVERSATION_PROPERTIES.name);
-        const relationshipType = await fieldEditors[fieldIndex].find(
+        const relationshipType = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
         );
         expect(relationshipType).toBeFalsy();
-        const lookupTarget = await fieldEditors[fieldIndex].find(
+        const lookupTarget = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
         );
         expect(lookupTarget).toBeTruthy();
       }
-      const labelInput = await fieldEditors[fieldIndex].find(
+      const labelInput = await fieldEditor.find(
         '.fw-field-editor-content-required-input'
       );
       const labelValue = await labelInput.getProperty('value');
       expect(labelValue).toBe(field.label);
-      const labelHeader = await fieldEditors[fieldIndex].find(
+      const labelHeader = await fieldEditor.find(
         '.fw-field-editor-content-required-input >>> label'
       );
       expect(labelHeader).toBeTruthy();
-      const internalNameLabel = await fieldEditors[fieldIndex].find(
+      const internalNameLabel = await fieldEditor.find(
         '.fw-field-editor-internal-name-header-label'
       );
       expect(internalNameLabel).toBeTruthy();
-      const internalNamePrefix = await fieldEditors[fieldIndex].find(
+      const internalNamePrefix = await fieldEditor.find(
         '.fw-field-editor-internal-name-prefix'
       );
       expect(internalNamePrefix).toBeTruthy();
-      const internalNameInput = await fieldEditors[fieldIndex].find(
+      const internalNameInput = await fieldEditor.find(
         '.fw-field-editor-content-required-internal-name-input'
       );
       const internalNameValue = await internalNameInput.getProperty('value');
@@ -2224,12 +2250,10 @@ describe('fw-form-builder', () => {
         ['DROPDOWN', 'MULTI_SELECT'].includes(formattedType) &&
         !parsedDropdownFieldWithoutChoicesKey
       ) {
-        const fieldDropdown = await fieldEditors[fieldIndex].find(
-          'fw-fb-field-dropdown'
-        );
+        const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
         expect(fieldDropdown).toBeTruthy();
       }
-      if (fieldIndex === fieldEditors.length - 1) {
+      if (fieldIndex === fieldDragDropItem.length - 1) {
         fieldIndex = 0;
       } else {
         fieldIndex++;
@@ -2251,22 +2275,30 @@ describe('fw-form-builder', () => {
         },
         {
           formValues: formValues.CUSTOM_OBJECTS,
-          currentFieldIndex: fieldIndex,
+          currentFieldIndex: {
+            [formValues.CUSTOM_OBJECTS.fields[fieldIndex].id]: fieldIndex,
+          },
         }
       );
       await page.waitForChanges();
       const rightPanel = await page.find(
         'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
       );
-      const fieldEditors = await rightPanel.findAll(
+      const fieldDragDropItem = await rightPanel.findAll(
+        'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+      );
+
+      const fieldEditor = await fieldDragDropItem[fieldIndex].find(
         'fw-field-editor >>> .fw-field-editor'
       );
-      const checkboxLabel = await fieldEditors[fieldIndex].find(
+
+      const checkboxLabel = await fieldEditor.find(
         '.fw-field-editor-content-checkboxes-header-label'
       );
+
       expect(checkboxLabel).toBeTruthy();
       expect(checkboxLabel.innerText).toBe('Behavior for agents');
-      const checkboxes = await fieldEditors[fieldIndex].findAll(
+      const checkboxes = await fieldEditor.findAll(
         '.fw-field-editor-content-checkbox-container > fw-checkbox'
       );
       expect(checkboxes.length).toBe(
@@ -2279,22 +2311,22 @@ describe('fw-form-builder', () => {
         );
       });
       if (field.type === 'PRIMARY') {
-        const labelHint = await fieldEditors[fieldIndex].find(
+        const labelHint = await fieldEditor.find(
           '.fw-field-editor-content-required-input >>> .field-control-hint-text'
         );
         expect(labelHint).toBeTruthy();
       }
       if (field.type === 'RELATIONSHIP') {
-        const label = await fieldEditors[fieldIndex].find(
+        const label = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-header-label'
         );
         expect(label).toBeTruthy();
-        const sourceInput = await fieldEditors[fieldIndex].find(
+        const sourceInput = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-input'
         );
         const sourceValue = await sourceInput.getProperty('value');
         expect(sourceValue).toBe(formValues.CUSTOM_OBJECTS.name);
-        const relationshipType = await fieldEditors[fieldIndex].find(
+        const relationshipType = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
         );
         const typeValue = await relationshipType.getProperty('value');
@@ -2314,27 +2346,25 @@ describe('fw-form-builder', () => {
             value: 'one_to_one',
           },
         ]);
-        const lookupTarget = await fieldEditors[fieldIndex].find(
+        const lookupTarget = await fieldEditor.find(
           'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
         );
         expect(lookupTarget).toBeTruthy();
       }
-      const labelInput = await fieldEditors[fieldIndex].find(
+      const labelInput = await fieldEditor.find(
         '.fw-field-editor-content-required-input'
       );
       const labelValue = await labelInput.getProperty('value');
       expect(labelValue).toBe(field.label);
-      const labelHeader = await fieldEditors[fieldIndex].find(
+      const labelHeader = await fieldEditor.find(
         '.fw-field-editor-content-required-input >>> label'
       );
       expect(labelHeader).toBeTruthy();
       if (['DROPDOWN', 'MULTI_SELECT'].includes(field.type)) {
-        const fieldDropdown = await fieldEditors[fieldIndex].find(
-          'fw-fb-field-dropdown'
-        );
+        const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
         expect(fieldDropdown).toBeTruthy();
       }
-      if (fieldIndex === fieldEditors.length - 1) {
+      if (fieldIndex === fieldDragDropItem.length - 1) {
         fieldIndex = 0;
       } else {
         fieldIndex++;
@@ -2370,11 +2400,13 @@ describe('fw-form-builder', () => {
       const rightPanel = await page.find(
         'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
       );
-      const fieldEditors = await rightPanel.findAll(
-        'fw-field-editor >>> .fw-field-editor'
+
+      const fieldDragDropItem = await rightPanel.findAll(
+        'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
       );
+
       // total fields
-      expect(formValues.CONV_MAX.fields.length).toBe(fieldEditors.length);
+      expect(formValues.CONV_MAX.fields.length).toBe(fieldDragDropItem.length);
       expect(formValues.CONV_MAX.fields.length).toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
@@ -2442,11 +2474,11 @@ describe('fw-form-builder', () => {
       const rightPanel = await page.find(
         'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
       );
-      const fieldEditors = await rightPanel.findAll(
-        'fw-field-editor >>> .fw-field-editor'
+      const fieldDragDropItem = await rightPanel.findAll(
+        'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
       );
       // total fields
-      expect(updatedFormValues.fields.length).toBe(fieldEditors.length);
+      expect(updatedFormValues.fields.length).toBe(fieldDragDropItem.length);
       expect(updatedFormValues.fields.length).toBeGreaterThanOrEqual(
         formMapper.CONVERSATION_PROPERTIES.maximumLimits.fields.count
       );
@@ -2486,9 +2518,11 @@ describe('fw-form-builder', () => {
     const rightPanel = await page.find(
       'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
     );
-    const fieldEditors = await rightPanel.findAll(
-      'fw-field-editor >>> .fw-field-editor'
+
+    const fieldDragDropItem = await rightPanel.findAll(
+      'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
     );
+
     for (let i = 0; i <= 4; i++) {
       await page.$eval(
         'fw-form-builder',
@@ -2496,7 +2530,7 @@ describe('fw-form-builder', () => {
           elm.currentFieldIndex = currentFieldIndex;
         },
         {
-          currentFieldIndex: i,
+          currentFieldIndex: { [formValues.CONV_MAX.fields[i].id]: i },
         }
       );
       await page.waitForChanges();
@@ -2511,9 +2545,10 @@ describe('fw-form-builder', () => {
         ['DROPDOWN', 'MULTI_SELECT'].includes(formattedType) &&
         !parsedDropdownFieldWithoutChoicesKey
       ) {
-        const fieldDropdown = await fieldEditors[i].find(
-          'fw-fb-field-dropdown'
+        const fieldEditor = await fieldDragDropItem[i].find(
+          'fw-field-editor >>> .fw-field-editor'
         );
+        const fieldDropdown = await fieldEditor.find('fw-fb-field-dropdown');
         expect(fieldDropdown).toBeTruthy();
         expect(dropdownWithoutChoicesIndices).not.toContain(i);
       }
@@ -2588,7 +2623,10 @@ describe('fw-form-builder', () => {
             },
             {
               formValues: formValues.CONVERSATION_PROPERTIES,
-              currentFieldIndex: fieldIndex,
+              currentFieldIndex: {
+                [formValues.CONVERSATION_PROPERTIES.fields[fieldIndex].id]:
+                  fieldIndex,
+              },
               permission,
             }
           );
@@ -2596,9 +2634,13 @@ describe('fw-form-builder', () => {
           const rightPanel = await page.find(
             'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
           );
-          const fieldEditors = await rightPanel.findAll(
+          const fieldDragDropItem = await rightPanel.findAll(
+            'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+          );
+          const fieldEditor = await fieldDragDropItem[fieldIndex].find(
             'fw-field-editor >>> .fw-field-editor'
           );
+
           const formattedType =
             formMapper.CONVERSATION_PROPERTIES.reverseMappedFieldTypes[
               field.type
@@ -2610,35 +2652,33 @@ describe('fw-form-builder', () => {
               (checkbox) => checkbox.key === 'required'
             );
             if (requiredProp) {
-              const requiredCheckbox = await fieldEditors[fieldIndex].find(
-                'fw-checkbox'
-              );
+              const requiredCheckbox = await fieldEditor.find('fw-checkbox');
               expect(requiredCheckbox).toBeTruthy();
               expect(await requiredCheckbox.getProperty('disabled')).toBe(true);
             }
           }
           if (field.type === 'RELATIONSHIP') {
-            const sourceInput = await fieldEditors[fieldIndex].find(
+            const sourceInput = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-input'
             );
             const sourceValue = await sourceInput.getProperty('value');
             expect(sourceValue).toBe(formValues.CONVERSATION_PROPERTIES.name);
             expect(await sourceInput.getProperty('disabled')).toBe(true);
-            const relationshipType = await fieldEditors[fieldIndex].find(
+            const relationshipType = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
             );
             expect(relationshipType).toBeFalsy();
-            const lookupTarget = await fieldEditors[fieldIndex].find(
+            const lookupTarget = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
             );
             expect(lookupTarget).toBeTruthy();
             expect(await lookupTarget.getProperty('disabled')).toBe(true);
           }
-          const labelInput = await fieldEditors[fieldIndex].find(
+          const labelInput = await fieldEditor.find(
             '.fw-field-editor-content-required-input'
           );
           expect(await labelInput.getProperty('disabled')).toBe(true);
-          const internalNameInput = await fieldEditors[fieldIndex].find(
+          const internalNameInput = await fieldEditor.find(
             '.fw-field-editor-content-required-internal-name-input'
           );
           const internalNameValue = await internalNameInput.getProperty(
@@ -2656,13 +2696,13 @@ describe('fw-form-builder', () => {
             ['DROPDOWN', 'MULTI_SELECT'].includes(formattedType) &&
             !parsedDropdownFieldWithoutChoicesKey
           ) {
-            const fieldDropdown = await fieldEditors[fieldIndex].find(
+            const fieldDropdown = await fieldEditor.find(
               'fw-fb-field-dropdown'
             );
             expect(fieldDropdown).toBeTruthy();
             expect(await fieldDropdown.getProperty('disabled')).toBe(true);
           }
-          if (fieldIndex === fieldEditors.length - 1) {
+          if (fieldIndex === fieldDragDropItem.length - 1) {
             fieldIndex = 0;
           } else {
             fieldIndex++;
@@ -2692,7 +2732,9 @@ describe('fw-form-builder', () => {
             },
             {
               formValues: formValues.CUSTOM_OBJECTS,
-              currentFieldIndex: fieldIndex,
+              currentFieldIndex: {
+                [formValues.CUSTOM_OBJECTS.fields[fieldIndex].id]: fieldIndex,
+              },
               permission,
             }
           );
@@ -2700,10 +2742,15 @@ describe('fw-form-builder', () => {
           const rightPanel = await page.find(
             'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
           );
-          const fieldEditors = await rightPanel.findAll(
+
+          const fieldDragDropItem = await rightPanel.findAll(
+            'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+          );
+          const fieldEditor = await fieldDragDropItem[fieldIndex].find(
             'fw-field-editor >>> .fw-field-editor'
           );
-          const checkboxes = await fieldEditors[fieldIndex].findAll(
+
+          const checkboxes = await fieldEditor.findAll(
             '.fw-field-editor-content-checkbox-container > fw-checkbox'
           );
           expect(checkboxes.length).toBe(
@@ -2713,38 +2760,38 @@ describe('fw-form-builder', () => {
             expect(await checkbox.getProperty('disabled')).toBe(true);
           });
           if (field.type === 'RELATIONSHIP') {
-            const sourceInput = await fieldEditors[fieldIndex].find(
+            const sourceInput = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-input'
             );
             const sourceValue = await sourceInput.getProperty('value');
             expect(sourceValue).toBe(formValues.CUSTOM_OBJECTS.name);
             expect(await sourceInput.getProperty('disabled')).toBe(true);
-            const relationshipType = await fieldEditors[fieldIndex].find(
+            const relationshipType = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-relationship-select'
             );
             const typeValue = await relationshipType.getProperty('value');
             expect(typeValue).toBe('many_to_one');
             expect(await relationshipType.getProperty('disabled')).toBe(true);
-            const lookupTarget = await fieldEditors[fieldIndex].find(
+            const lookupTarget = await fieldEditor.find(
               'fw-fb-field-lookup >>> .fb-field-lookup-target-select'
             );
             expect(lookupTarget).toBeTruthy();
             expect(await lookupTarget.getProperty('disabled')).toBe(true);
           }
-          const labelInput = await fieldEditors[fieldIndex].find(
+          const labelInput = await fieldEditor.find(
             '.fw-field-editor-content-required-input'
           );
           const labelValue = await labelInput.getProperty('value');
           expect(labelValue).toBe(field.label);
           expect(await labelInput.getProperty('disabled')).toBe(true);
           if (['DROPDOWN', 'MULTI_SELECT'].includes(field.type)) {
-            const fieldDropdown = await fieldEditors[fieldIndex].find(
+            const fieldDropdown = await fieldEditor.find(
               'fw-fb-field-dropdown'
             );
             expect(fieldDropdown).toBeTruthy();
             expect(await fieldDropdown.getProperty('disabled')).toBe(true);
           }
-          if (fieldIndex === fieldEditors.length - 1) {
+          if (fieldIndex === fieldDragDropItem.length - 1) {
             fieldIndex = 0;
           } else {
             fieldIndex++;
@@ -2777,7 +2824,10 @@ describe('fw-form-builder', () => {
           },
           {
             formValues: formValues.CONVERSATION_PROPERTIES,
-            currentFieldIndex: fieldIndex,
+            currentFieldIndex: {
+              [formValues.CONVERSATION_PROPERTIES.fields[fieldIndex].id]:
+                fieldIndex,
+            },
             permission,
           }
         );
@@ -2785,10 +2835,14 @@ describe('fw-form-builder', () => {
         const rightPanel = await page.find(
           'fw-form-builder >>> .form-builder-right-panel-field-editor-list'
         );
-        const fieldEditors = await rightPanel.findAll(
+
+        const fieldDragDropItem = await rightPanel.findAll(
+          'fb-field-drag-drop-item >>> .fb-field-drag-drop-item'
+        );
+        const fieldEditor = await fieldDragDropItem[1].find(
           'fw-field-editor >>> .fw-field-editor'
         );
-        const deleteBtn = await fieldEditors[1].find(
+        const deleteBtn = await fieldEditor.find(
           '.fw-field-editor-delete-button'
         );
         expect(await deleteBtn.getProperty('disabled')).toBe(true);
