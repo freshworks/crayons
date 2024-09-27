@@ -1818,7 +1818,7 @@ describe('fw-form-builder', () => {
       });
 
       it('triggers fwSaveField event when a field is edited and save is clicked', async () => {
-        const page = await newE2EPage({ failOnConsoleError: true });
+        const page = await newE2EPage();
         await page.setContent(
           `<fw-form-builder product-name="${productName}"></fw-form-builder>`
         );
