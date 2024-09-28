@@ -448,6 +448,7 @@ describe('updateChoicesInFields', () => {
           },
         ],
         id: 'field1',
+        fields: [{ level: '2', choices: [], id: 'field2' }],
       },
     ];
 
