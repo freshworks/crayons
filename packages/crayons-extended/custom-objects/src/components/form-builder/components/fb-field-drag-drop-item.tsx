@@ -161,10 +161,13 @@ export class FormBuilderFieldDragDropItem {
       hasCustomProperty(this.dataProvider, objProductConfig.defaultTagKey) &&
       !this.dataProvider[objProductConfig.defaultTagKey];
 
+    const isCustomDropdownField =
+      !isDefaultNonCustomField && isDropdownField(this.dataProvider);
+
     const showDynamicFieldSections =
       this.dynamicSectionsBetaEnabled &&
-      !isDefaultNonCustomField &&
-      isDropdownField(this.dataProvider);
+      isCustomDropdownField &&
+      !this.sectionName;
 
     let choicesWithNoSectionCreated = [],
       noOfSections = 0,
