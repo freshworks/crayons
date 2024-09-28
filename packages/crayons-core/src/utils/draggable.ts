@@ -229,7 +229,12 @@ export class Draggable {
     this.dropped = true;
     const sortContainerId = dragElement.parentElement.id;
     const newElement = this.placeholder || dragElement;
-    const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
+
+    // Get all children except the empty section
+    const relevantChildren = [...this.dragContainer.children].filter(
+      (child) => !child.classList.contains('empty-section')
+    );
+    const droppedIndex = [...relevantChildren].indexOf(newElement);
     if (this.placeholder) {
       if (this.options.addOnDrop) {
         const clone = this.options.copy
