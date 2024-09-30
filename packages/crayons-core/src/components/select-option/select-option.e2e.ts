@@ -134,12 +134,16 @@ describe('fw-select-option', () => {
       `<fw-select-option 
           text="This is a select option description" 
           subText="This is selected option subtext" 
-          data-meta-text='{"name": "Author Name", "email": "author@example.com", "mobile": "123-456-7890"}'>
         </fw-select-option>`
     );
 
     await page.$eval('fw-select-option', (elm: any) => {
       elm.variant = 'icon';
+      elm.metaText = {
+        name: 'Author Name',
+        email: 'author@example.com',
+        mobile: '123-456-7890',
+      };
     });
     await page.waitForChanges();
 
