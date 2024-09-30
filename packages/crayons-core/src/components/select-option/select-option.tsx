@@ -205,7 +205,7 @@ export class SelectOption {
   }
 
   createDescription() {
-    if ((this.subText && this.metaText) || this.metaText) {
+    if (this.metaText) {
       const metaTextDetails = [];
       if (this.metaText?.name) metaTextDetails.push(this.metaText.name);
       if (this.metaText?.email) metaTextDetails.push(this.metaText.email);
