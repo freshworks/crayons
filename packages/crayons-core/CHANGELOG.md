@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.16...@freshworks/crayons@4.3.0-beta.17) (2024-09-30)
+
+### Bug Fixes
+
+- added the fix for ticket field ([34adfd9](https://github.com/freshworks/crayons/commit/34adfd94d656a855837494858162923f1f4de5f3))
+
 ## [4.3.0-beta.16](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.15...@freshworks/crayons@4.3.0-beta.16) (2024-09-17)
 
 ### Bug Fixes
