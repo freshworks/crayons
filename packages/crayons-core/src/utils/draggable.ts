@@ -80,7 +80,7 @@ export class Draggable {
           bubbles: false,
           detail: {
             droppedElement: dragElement,
-            dropToId: this.dragContainer.id, // Return the drop container ID
+            dragContainer: this.dragContainer, // Return the drop container ID
           },
         })
       );
@@ -99,7 +99,6 @@ export class Draggable {
 
   private isDropNotAllowed() {
     const inValidTypesForSection = [
-      'DROPDOWN',
       'DEPENDENT_FIELD',
       'MULTI_SELECT',
       'RELATIONSHIP',
@@ -107,10 +106,42 @@ export class Draggable {
     const dragId = this.dragContainer.id;
     const isSection = dragId.includes('sectionIdentifier-');
     const isFieldTypeNotAllowed = inValidTypesForSection.includes(
-      dragElement.dataProvider.type
+      dragElement.dataProvider?.type
     );
+
+    // Check if the DROPDOWN is default field
+    const isDropdownDefaultField =
+      dragElement.dataProvider?.type === 'DROPDOWN' &&
+      !dragElement.dataProvider.custom;
+
+    const isNewField =
+      dragElement.dataProvider?.choices?.length > 0 &&
+      dragElement.dataProvider?.choices[0]?.value === '';
+
+    // Allow dropping if it's a new DROPDOWN field
+    const isAllowedNewDropdown =
+      dragElement.dataProvider?.type === 'DROPDOWN' && isNewField;
+
+    // Check if the DROPDOWN has field_options with hasSections
+    const hasSectionsInFieldOptions =
+      dragElement.dataProvider?.type === 'DROPDOWN' &&
+      dragElement.dataProvider?.field_options &&
+      dragElement.dataProvider?.field_options.has_sections;
+
+    // Check if the section already has the maximum number of fields
+    const isSectionFieldLimitExceeded =
+      this.dragContainer?.children?.length > 15;
+
+    // Check if the field is required
     const isFieldRequired = dragElement.dataProvider.required;
-    return isSection && (isFieldTypeNotAllowed || isFieldRequired);
+    return (
+      isSection &&
+      (isFieldTypeNotAllowed ||
+        isFieldRequired ||
+        isSectionFieldLimitExceeded ||
+        (isDropdownDefaultField && !isAllowedNewDropdown) ||
+        hasSectionsInFieldOptions)
+    );
   }
 
   private onDragLeave = (e) => {
@@ -157,7 +188,7 @@ export class Draggable {
           bubbles: false,
           detail: {
             droppedElement: dragElement,
-            dropToId: this.dragContainer.id, // Return the drop container ID
+            dragContainer: this.dragContainer, // Return the drop container ID
           },
         })
       );
@@ -198,7 +229,12 @@ export class Draggable {
     this.dropped = true;
     const sortContainerId = dragElement.parentElement.id;
     const newElement = this.placeholder || dragElement;
-    const droppedIndex = [...this.dragContainer.children].indexOf(newElement);
+
+    // Get all children except the empty section
+    const relevantChildren = [...this.dragContainer.children].filter(
+      (child) => !child.classList.contains('empty-section')
+    );
+    const droppedIndex = [...relevantChildren].indexOf(newElement);
     if (this.placeholder) {
       if (this.options.addOnDrop) {
         const clone = this.options.copy
