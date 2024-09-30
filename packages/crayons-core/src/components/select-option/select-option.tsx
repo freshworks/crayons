@@ -246,11 +246,7 @@ export class SelectOption {
   }
 
   createConversationIcon() {
-    return (
-      <div class='conversation-icon'>
-        <fw-icon {...this.graphicsProps}></fw-icon>
-      </div>
-    );
+    return <div class='conversation-icon'>{this.createIcon()}</div>;
   }
 
   createIcon() {
