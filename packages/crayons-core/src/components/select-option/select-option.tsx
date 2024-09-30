@@ -189,7 +189,7 @@ export class SelectOption {
           <Fragment>
             {checkbox}
             {this.createConversationIcon()}
-            {this.createDescription()}
+            {description}
             {selectedIconContainer}
           </Fragment>
         );
