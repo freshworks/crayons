@@ -149,13 +149,13 @@ describe('fw-select-option', () => {
 
     const text = await page.find('fw-select-option >>> .description');
     expect(text).toBeTruthy();
-    expect(text.innerText).toBe('This is a select option description');
-
-    const metaText = await page.$eval('fw-select-option', (elm: any) =>
-      JSON.parse(elm.getAttribute('data-meta-text'))
+    const metaText = await page.find(
+      'fw-select-option >>> .description-metaText-details'
     );
-    expect(metaText.name).toBe('Author Name');
-    expect(metaText.email).toBe('author@example.com');
-    expect(metaText.mobile).toBe('123-456-7890');
+    expect(metaText).toBeTruthy();
+    expect(metaText.innerText).toBe(
+      'Author Name | author@example.com | 123-456-7890'
+    );
+    expect(text.innerText).toBe('This is a select option description');
   });
 });
