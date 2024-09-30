@@ -535,13 +535,15 @@ export class FormBuilder {
     const objDetail = event.detail,
       elField = objDetail.droppedElement;
     let elFieldType = elField.dataProvider.type;
-
+    if (objDetail.dragContainer.children.length > 15) {
+      elFieldType = 'MAX_LIMIT';
+    }
     if (elField.dataProvider.required) {
       elFieldType = 'REQUIRED';
     }
-
     if (!elField.dataProvider.custom && elField.dataProvider.label) {
-      elFieldType = 'DEFAULT';
+      elFieldType =
+        elFieldType === 'DEPENDENT_FIELD' ? 'DEPENDENT_FIELD' : 'DEFAULT';
     }
 
     this.dragErrorMessages = {

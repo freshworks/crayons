@@ -218,7 +218,8 @@
         "DEPENDENT_FIELD" : "Dependent fields cannot be added into sections",
         "RELATIONSHIP" : "Lookup fields cannot be added into sections",
         "REQUIRED" : "Fields marked as required cannot be added into sections",
-        "DEFAULT" : "Default fields cannot be added into sections"
+        "DEFAULT" : "Default fields cannot be added into sections",
+        "MAX_LIMIT": "Sections cannot contain more than 15 fields"
       }
     }
   },
