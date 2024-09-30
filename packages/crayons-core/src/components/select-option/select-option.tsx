@@ -189,7 +189,7 @@ export class SelectOption {
           <Fragment>
             {checkbox}
             {this.createConversationIcon()}
-            {this.createConversationDescription()}
+            {this.createDescription()}
             {selectedIconContainer}
           </Fragment>
         );
@@ -242,25 +242,6 @@ export class SelectOption {
       >
         {this.text}
       </span>
-    );
-  }
-
-  createConversationDescription() {
-    const metaTextDetails = [];
-    if (this.metaText.name) metaTextDetails.push(this.metaText.name);
-    if (this.metaText.email) metaTextDetails.push(this.metaText.email);
-    if (this.metaText.mobile) metaTextDetails.push(this.metaText.mobile);
-
-    return this.subText ? (
-      <div class={'description ' + 'icon-margin '}>
-        <span class='description-text'>{this.text}</span>
-        <span class='description-subText-conversation'>{this.subText}</span>
-        <span class='description-metaText-details'>
-          {metaTextDetails?.join(' | ')}
-        </span>
-      </div>
-    ) : (
-      <span class={'description ' + 'icon-margin'}>{this.text}</span>
     );
   }
 
