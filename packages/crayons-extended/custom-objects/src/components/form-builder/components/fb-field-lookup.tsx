@@ -16,7 +16,6 @@ import {
   isUniqueField,
 } from '../utils/form-builder-utils';
 import presetSchema from '../assets/form-builder-preset.json';
-import formMapper from '../assets/form-mapper.json';
 
 @Component({
   tag: 'fw-fb-field-lookup',
@@ -41,6 +40,10 @@ export class FbFieldDropdown {
    * source object value
    */
   @Prop({ mutable: true }) sourceObjectName = '';
+  /**
+   * flag to show relationshipTypeSelect dropdown or not
+   */
+  @Prop({ mutable: true }) showRelationshipTypeSelect = true;
   /**
    * array for target objects
    */
@@ -206,11 +209,6 @@ export class FbFieldDropdown {
     const boolShowDescription =
       strDescription && strDescription !== '' ? true : false;
 
-    const objProductPreset = formMapper[this.productName];
-    const objProductPresetConfig = objProductPreset?.config;
-    const boolShowRelationshipTypeSelect =
-      objProductPresetConfig?.boolShowRelationshipTypeSelect;
-
     return (
       <Host tabIndex='-1'>
         <div class={`${strBaseClassName}-root`}>
@@ -224,7 +222,7 @@ export class FbFieldDropdown {
               value={this.sourceObjectName}
               disabled
             ></fw-input>
-            {boolShowRelationshipTypeSelect ? (
+            {this.showRelationshipTypeSelect ? (
               <div class={`${strBaseClassName}-relationship-select-container`}>
                 <fw-select
                   readonly={true}

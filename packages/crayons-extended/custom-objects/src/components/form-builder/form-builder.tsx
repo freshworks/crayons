@@ -86,6 +86,10 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) showLookupField = true;
   /**
+   * flag to show relationshipTypeSelect dropdown or not
+   */
+  @Prop({ mutable: true }) showRelationshipTypeSelect = true;
+  /**
    * flag to show dependentField for CONVERSATION_PROPERTIES or not
    */
   @Prop({ mutable: true }) showDependentField = true;
@@ -1355,6 +1359,7 @@ export class FormBuilder {
         index={intIndex}
         keyProp={strKey}
         productName={this.productName}
+        showRelationshipTypeSelect={this.showRelationshipTypeSelect}
         dataProvider={dataItem}
         entityName={strEntityName}
         expanded={boolItemExpanded}

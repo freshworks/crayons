@@ -96,6 +96,10 @@ export class FieldEditor {
    */
   @Prop({ mutable: true }) formValues = null;
   /**
+   * flag to show relationshipTypeSelect dropdown or not
+   */
+  @Prop({ mutable: true }) showRelationshipTypeSelect = true;
+  /**
    * object to store the lookup target entities
    */
   @Prop({ mutable: true }) lookupTargetObjects = false;
@@ -1468,6 +1472,7 @@ export class FieldEditor {
         onFwChange={this.lookupChangeHandler}
         formValues={objFormValue}
         productName={this.productName}
+        showRelationshipTypeSelect={this.showRelationshipTypeSelect}
       ></fw-fb-field-lookup>
     );
   }
