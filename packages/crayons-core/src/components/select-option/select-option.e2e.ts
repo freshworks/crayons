@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { newE2EPage } from '@stencil/core/testing';
 
 describe('fw-select-option', () => {
@@ -130,32 +131,33 @@ describe('fw-select-option', () => {
   it('should render fw-select-option with conversation variant and verify attributes', async () => {
     const page = await newE2EPage();
 
-    await page.setContent(
-      `<fw-select-option 
-          text="This is a select option description" 
-          subText="This is selected option subtext" 
-        </fw-select-option>`
-    );
+    await page.setContent(`<fw-select-option></fw-select-option>`);
 
     await page.$eval('fw-select-option', (elm: any) => {
-      elm.variant = 'icon';
-      elm.metaText = {
+      elm.variant = 'conversation';
+      elm.text = 'This is a select option description';
+      elm.subText = 'This is selected option subtext';
+      elm.metaText = JSON.stringify({
         name: 'Author Name',
         email: 'author@example.com',
         mobile: '123-456-7890',
-      };
+      });
     });
     await page.waitForChanges();
 
     const text = await page.find('fw-select-option >>> .description');
     expect(text).toBeTruthy();
-    const metaText = await page.find(
-      'fw-select-option >>> .description-metaText-details'
+    expect(text.innerHTML).toBe('This is a select option description');
+
+    const subText = await page.find('fw-select-option >>> .subtext');
+    expect(subText).toBeTruthy();
+    expect(subText.innerHTML).toBe('This is selected option subtext');
+
+    const metaText = await page.$eval('fw-select-option', (elm: any) =>
+      JSON.parse(elm.metaText)
     );
-    expect(metaText).toBeTruthy();
-    expect(metaText.innerText).toBe(
-      'Author Name | author@example.com | 123-456-7890'
-    );
-    expect(text.innerText).toBe('This is a select option description');
+    expect(metaText.name).toBe('Author Name');
+    expect(metaText.email).toBe('author@example.com');
+    expect(metaText.mobile).toBe('123-456-7890');
   });
 });
