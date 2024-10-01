@@ -133,31 +133,46 @@ describe('fw-select-option', () => {
 
     await page.setContent(`<fw-select-option></fw-select-option>`);
 
-    await page.$eval('fw-select-option', (elm: any) => {
-      elm.variant = 'conversation';
-      elm.text = 'This is a select option description';
-      elm.subText = 'This is selected option subtext';
-      elm.metaText = JSON.stringify({
-        name: 'Author Name',
-        email: 'author@example.com',
-        mobile: '123-456-7890',
-      });
+    const selectOption = await page.find('fw-select-option');
+    await selectOption.setProperty('variant', 'conversation');
+    await selectOption.setProperty(
+      'text',
+      'This is a select option description'
+    );
+    await selectOption.setProperty(
+      'subText',
+      'This is selected option subtext'
+    );
+    await selectOption.setProperty('metaText', {
+      name: 'Author Name',
+      email: 'author@example.com',
+      mobile: '123-456-7890',
     });
     await page.waitForChanges();
 
-    const text = await page.find('fw-select-option >>> .description');
-    expect(text).toBeTruthy();
-    expect(text.innerHTML).toBe('This is a select option description');
+    const description = await page.find('fw-select-option >>> .description');
+    expect(description).toBeTruthy();
 
-    const subText = await page.find('fw-select-option >>> .subtext');
-    expect(subText).toBeTruthy();
-    expect(subText.innerHTML).toBe('This is selected option subtext');
-
-    const metaText = await page.$eval('fw-select-option', (elm: any) =>
-      JSON.parse(elm.metaText)
+    const descriptionText = await page.find(
+      'fw-select-option >>> .description-text'
     );
-    expect(metaText.name).toBe('Author Name');
-    expect(metaText.email).toBe('author@example.com');
-    expect(metaText.mobile).toBe('123-456-7890');
+    expect(descriptionText).toBeTruthy();
+    expect(descriptionText.textContent).toBe(
+      'This is a select option description'
+    );
+
+    const subText = await page.find(
+      'fw-select-option >>> .description-subText-conversation'
+    );
+    expect(subText).toBeTruthy();
+    expect(subText.textContent).toBe('This is selected option subtext');
+
+    const metaTextDetails = await page.find(
+      'fw-select-option >>> .description-metaText-details'
+    );
+    expect(metaTextDetails).toBeTruthy();
+    expect(metaTextDetails.textContent).toBe(
+      'Author Name | author@example.com | 123-456-7890'
+    );
   });
 });
