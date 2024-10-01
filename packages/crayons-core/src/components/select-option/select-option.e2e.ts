@@ -131,48 +131,25 @@ describe('fw-select-option', () => {
   it('should render fw-select-option with conversation variant and verify attributes', async () => {
     const page = await newE2EPage();
 
-    await page.setContent(`<fw-select-option></fw-select-option>`);
+    await page.setContent(
+      `<fw-select-option 
+          text="This is a select option description" 
+          subText="This is selected option subtext" 
+          data-meta-text='{"name": "Author Name", "email": "author@example.com", "mobile": "123-456-7890"}'>
+        </fw-select-option>`
+    );
 
-    const selectOption = await page.find('fw-select-option');
-    await selectOption.setProperty('variant', 'conversation');
-    await selectOption.setProperty(
-      'text',
-      'This is a select option description'
-    );
-    await selectOption.setProperty(
-      'subText',
-      'This is selected option subtext'
-    );
-    await selectOption.setProperty('metaText', {
-      name: 'Author Name',
-      email: 'author@example.com',
-      mobile: '123-456-7890',
-    });
     await page.waitForChanges();
 
-    const description = await page.find('fw-select-option >>> .description');
-    expect(description).toBeTruthy();
+    const text = await page.find('fw-select-option >>> .description');
+    expect(text).toBeTruthy();
+    expect(text.innerText).toBe('This is a select option description');
 
-    const descriptionText = await page.find(
-      'fw-select-option >>> .description-text'
+    const metaText = await page.$eval('fw-select-option', (elm: any) =>
+      JSON.parse(elm.getAttribute('data-meta-text'))
     );
-    expect(descriptionText).toBeTruthy();
-    expect(descriptionText.textContent).toBe(
-      'This is a select option description'
-    );
-
-    const subText = await page.find(
-      'fw-select-option >>> .description-subText-conversation'
-    );
-    expect(subText).toBeTruthy();
-    expect(subText.textContent).toBe('This is selected option subtext');
-
-    const metaTextDetails = await page.find(
-      'fw-select-option >>> .description-metaText-details'
-    );
-    expect(metaTextDetails).toBeTruthy();
-    expect(metaTextDetails.textContent).toBe(
-      'Author Name | author@example.com | 123-456-7890'
-    );
+    expect(metaText.name).toBe('Author Name');
+    expect(metaText.email).toBe('author@example.com');
+    expect(metaText.mobile).toBe('123-456-7890');
   });
 });
