@@ -128,7 +128,7 @@ describe('fw-select-option', () => {
     expect(metaText.mobile).toBe('123-456-7890');
   });
 
-  it('should render fw-select-option with conversation variant and verify attributes', async () => {
+  it('should render fw-select-option with no variant and verify attributes', async () => {
     const page = await newE2EPage();
 
     await page.setContent(
