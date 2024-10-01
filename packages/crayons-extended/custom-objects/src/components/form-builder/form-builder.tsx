@@ -124,7 +124,7 @@ export class FormBuilder {
   /*
    * Beta flag to enable Dynamic sections
    */
-  @Prop() dynamicSectionsBetaEnabled = true;
+  @Prop() dynamicSectionsBetaEnabled = false;
   /**
    * State to store the formValues as a state to transfer the field types
    */
