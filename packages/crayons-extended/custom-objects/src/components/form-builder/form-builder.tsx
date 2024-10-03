@@ -1311,15 +1311,8 @@ export class FormBuilder {
           'empty-section': true,
           'disabled': boolFieldEditingState,
         }}
+        id={sectionName}
       >
-        <div class='empty-section-icon' id={sectionName}>
-          <fw-icon
-            name='plus'
-            size='16'
-            slot='before-label'
-            color='#264966'
-          ></fw-icon>
-        </div>
         {TranslationController.t('formBuilder.sections.emptySection')}
       </div>
     );
