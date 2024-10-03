@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.18...@freshworks/crayons-custom-objects@1.4.0-beta.19) (2024-10-03)
-
+## [1.4.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.18...@freshworks/crayons-custom-objects@1.4.0-beta.19) (2024-10-03)
 
 ### Bug Fixes
 
-* removed the icon for dynamic sections ([#941](https://github.com/freshworks/crayons/issues/941)) ([2d19558](https://github.com/freshworks/crayons/commit/2d19558ccd3bbc154dc7373f90706d34ec883f13))
-
-
-
-
+- removed the icon for dynamic sections ([#941](https://github.com/freshworks/crayons/issues/941)) ([2d19558](https://github.com/freshworks/crayons/commit/2d19558ccd3bbc154dc7373f90706d34ec883f13))
 
 ## [1.4.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.17...@freshworks/crayons-custom-objects@1.4.0-beta.18) (2024-09-30)
 
