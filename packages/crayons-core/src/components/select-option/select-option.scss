@@ -133,3 +133,9 @@ $bg-color-disabled: $color-smoke-25;
   width: 1.25rem;
   height: 1.25rem;
 }
+
+.conversation-icon {
+  display: flex;
+  align-self: flex-start;
+  min-height: 30px;
+}
