@@ -106,6 +106,7 @@
     "nonCustomDefaultFieldTag": "Default",
     "lookupUniqueTag": "Unique",
     "primaryFieldTag": "Primary field",
+    "sectionFieldTag": "Section field",
     "primaryFieldHeader": "Primary field",
     "primaryFieldNameHint": "This is the object's primary field that uniquely represents each record and cannot be deleted.",
     "deleteFieldTitle": "Are you sure you want to delete the field, {{label}} ?",
