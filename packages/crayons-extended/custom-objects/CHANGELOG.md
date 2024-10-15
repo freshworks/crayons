@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0-beta.20](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.19...@freshworks/crayons-custom-objects@1.4.0-beta.20) (2024-10-15)
+
+
+### Bug Fixes
+
+* added the search for section fields ([#942](https://github.com/freshworks/crayons/issues/942)) ([d5c304f](https://github.com/freshworks/crayons/commit/d5c304fa6571dc72b258defb7284dfc928b0988c))
+
+
+
+
+
 ## [1.4.0-beta.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-beta.18...@freshworks/crayons-custom-objects@1.4.0-beta.19) (2024-10-03)
 
 ### Bug Fixes
