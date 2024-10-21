@@ -1548,9 +1548,17 @@ export namespace Components {
          */
         "buttonGroupLabel": string;
         /**
+          * hides page numbers in standard pagination variant. Defaults to false. Works only with `standard` variant.
+         */
+        "hidePageNumbers": boolean;
+        /**
           * Indicates if the records in current page are being fetched.
          */
         "isLoading": boolean;
+        /**
+          * represents the number of pages to be shown on both the margins. Defaults to 1. Works only with `standard` variant.
+         */
+        "marginPagesDisplayed": number;
         /**
           * Aria Label to be used for next button.
          */
@@ -1564,9 +1572,17 @@ export namespace Components {
          */
         "page": number;
         /**
+          * represents the range of pages to be shown. Defaults to 4. Works only with `standard` variant.
+         */
+        "pageRangeDisplayed": number;
+        /**
           * The number of records to be shown per page. Defaults to 10.
          */
         "perPage": number;
+        /**
+          * Specify the perPage options to be shown. Works only with `standard` variant.
+         */
+        "perPageOptions": number[];
         /**
           * Aria Label to be used for previous button.
          */
@@ -1579,6 +1595,10 @@ export namespace Components {
           * The total number of records. This is a mandatory parameter.
          */
         "total": number;
+        /**
+          * The variant of pagination to be displayed. Mini variant displays only previous and next buttons along with pagination information. Standard variant displays list of page numbers which can be selected along with previous and next buttons Defaults to 'mini'.
+         */
+        "variant": 'mini' | 'standard';
     }
     interface FwPill {
         /**
@@ -4666,25 +4686,45 @@ declare namespace LocalJSX {
          */
         "buttonGroupLabel"?: string;
         /**
+          * hides page numbers in standard pagination variant. Defaults to false. Works only with `standard` variant.
+         */
+        "hidePageNumbers"?: boolean;
+        /**
           * Indicates if the records in current page are being fetched.
          */
         "isLoading"?: boolean;
+        /**
+          * represents the number of pages to be shown on both the margins. Defaults to 1. Works only with `standard` variant.
+         */
+        "marginPagesDisplayed"?: number;
         /**
           * Aria Label to be used for next button.
          */
         "nextButtonLabel"?: string;
         /**
-          * Triggered when either previous or next button is clicked.
+          * Triggered when previous, next or page button is clicked.
          */
         "onFwChange"?: (event: FwPaginationCustomEvent<any>) => void;
+        /**
+          * Triggered when per page is changed from the dropdown. Works only with `standard` variant.
+         */
+        "onFwPerPageChange"?: (event: FwPaginationCustomEvent<any>) => void;
         /**
           * The current page number.
          */
         "page"?: number;
         /**
+          * represents the range of pages to be shown. Defaults to 4. Works only with `standard` variant.
+         */
+        "pageRangeDisplayed"?: number;
+        /**
           * The number of records to be shown per page. Defaults to 10.
          */
         "perPage"?: number;
+        /**
+          * Specify the perPage options to be shown. Works only with `standard` variant.
+         */
+        "perPageOptions"?: number[];
         /**
           * Aria Label to be used for previous button.
          */
@@ -4693,6 +4733,10 @@ declare namespace LocalJSX {
           * The total number of records. This is a mandatory parameter.
          */
         "total"?: number;
+        /**
+          * The variant of pagination to be displayed. Mini variant displays only previous and next buttons along with pagination information. Standard variant displays list of page numbers which can be selected along with previous and next buttons Defaults to 'mini'.
+         */
+        "variant"?: 'mini' | 'standard';
     }
     interface FwPill {
         /**

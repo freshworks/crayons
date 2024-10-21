@@ -59,7 +59,10 @@
     "buttonGroupLabel": "Pagination controls",
     "previousButtonLabel": "Previous",
     "nextButtonLabel": "Next",
-    "content": "<span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> of {{total}}"
+    "content": "<span class='record'>{{start}}</span> to <span class='record'>{{end}}</span> of {{total}}",
+    "pagePillLabel": "Go to page {{page}}",
+    "perPageLabel": "Showing <span class='per-page-text'>{{perPage}}</span> / page",
+    "perPageOptionLabel": "{{perPage}} / page"
   },
   "datatable": {
     "chooseColumns": "Choose columns",
