@@ -948,7 +948,10 @@ export class FieldEditor {
 
   private confirmDeleteFieldHandler = () => {
     this.isDeleting = true;
-    this.fwDelete.emit({ index: this.index });
+    this.fwDelete.emit({
+      index: this.index,
+      position: this.oldFormValues?.position,
+    });
     this.modalConfirmDelete?.close();
   };
 
