@@ -2010,6 +2010,21 @@ export class FieldEditor {
         } else {
           fwLabelItems.push(elDefaultCustomTag);
         }
+      } else if (
+        this.dataProvider.isSectionFieldMatch &&
+        this.dataProvider?.field_options?.is_section_field &&
+        this.disabledSort
+      ) {
+        const elDefaultCustomTag = this.renderFwLabel({
+          key: 'sectionField',
+          selected: true,
+          tag: 'sectionFieldTag',
+        });
+        if (!fwLabelItems) {
+          fwLabelItems = [elDefaultCustomTag];
+        } else {
+          fwLabelItems.push(elDefaultCustomTag);
+        }
       }
     }
 

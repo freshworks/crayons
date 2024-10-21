@@ -673,25 +673,47 @@ export class FormBuilder {
     event.stopImmediatePropagation();
     event.stopPropagation();
     const strInputText = event?.detail?.value?.trim() || '';
-
+    const arrFieldElements = this.localFormValues?.fields || [];
+    //function to clean up the Section field key
+    const cleanupSearchFlags = (fields) => {
+      fields.forEach((field) => {
+        delete field.isSectionFieldMatch; // Remove the flag if it exists
+        if (field?.fields?.length && field?.field_options?.has_sections) {
+          cleanupSearchFlags(field.fields); // Recursively clean up nested fields
+        }
+      });
+    };
     if (strInputText) {
-      const arrFieldElements =
-        this.localFormValues && this.localFormValues.fields
-          ? this.localFormValues.fields
-          : [];
+      const strSearchableText = strInputText.toLowerCase();
 
-      if (arrFieldElements && arrFieldElements.length > 0) {
-        const strSearchableText = strInputText.toLowerCase();
-        const arrResults = arrFieldElements.filter(function (dataItem) {
-          return dataItem.label.toLowerCase().indexOf(strSearchableText) !== -1;
-        });
-        this.searching = true;
-        this.arrSearchedFields = deepCloneObject(arrResults);
-        return;
-      }
+      // Recursive function to search within fields and section fields
+      const searchFields = (fields) => {
+        return fields.reduce((results, field) => {
+          // Check if the field label matches the search text
+          if (field.label.toLowerCase().includes(strSearchableText)) {
+            if (field?.field_options?.is_section_field) {
+              field.isSectionFieldMatch = true;
+            }
+            results.push(field);
+          }
+          // If the field has section fields, search recursively within them
+          if (field?.fields?.length && field?.field_options?.has_sections) {
+            results.push(...searchFields(field.fields));
+          }
+          return results;
+        }, []);
+      };
+      cleanupSearchFlags(arrFieldElements);
+      const arrResults = searchFields(arrFieldElements); // Get all matching results including those in nested sections
+      this.searching = arrResults.length > 0;
+      this.arrSearchedFields = arrResults.length
+        ? deepCloneObject(arrResults)
+        : null;
+    } else {
+      cleanupSearchFlags(arrFieldElements);
+      this.searching = false;
+      this.arrSearchedFields = null;
     }
-    this.searching = false;
-    this.arrSearchedFields = null;
   };
 
   private clearSearchHandler = (event: CustomEvent) => {
@@ -1311,15 +1333,8 @@ export class FormBuilder {
           'empty-section': true,
           'disabled': boolFieldEditingState,
         }}
+        id={sectionName}
       >
-        <div class='empty-section-icon' id={sectionName}>
-          <fw-icon
-            name='plus'
-            size='16'
-            slot='before-label'
-            color='#264966'
-          ></fw-icon>
-        </div>
         {TranslationController.t('formBuilder.sections.emptySection')}
       </div>
     );

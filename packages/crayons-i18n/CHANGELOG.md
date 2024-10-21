@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.2](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.3.0-beta.1...@freshworks/crayons-i18n@4.3.0-beta.2) (2024-10-15)
+
+### Bug Fixes
+
+- added the search for section fields ([#942](https://github.com/freshworks/crayons/issues/942)) ([d5c304f](https://github.com/freshworks/crayons/commit/d5c304fa6571dc72b258defb7284dfc928b0988c))
+
 ## [4.3.0-beta.0](https://github.com/freshworks/crayons/compare/@freshworks/crayons-i18n@4.2.1-beta.3...@freshworks/crayons-i18n@4.3.0-beta.0) (2024-09-17)
 
 ### Bug Fixes

@@ -126,4 +126,29 @@ describe('fw-select-option', () => {
     expect(metaText.email).toBe('author@example.com');
     expect(metaText.mobile).toBe('123-456-7890');
   });
+
+  it('should render fw-select-option with no variant and verify attributes', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      `<fw-select-option 
+          text="This is a select option description" 
+          subText="This is selected option subtext" 
+          data-meta-text='{"name": "Author Name", "email": "author@example.com", "mobile": "123-456-7890"}'>
+        </fw-select-option>`
+    );
+
+    await page.waitForChanges();
+
+    const text = await page.find('fw-select-option >>> .description');
+    expect(text).toBeTruthy();
+    expect(text.innerText).toBe('This is a select option description');
+
+    const metaText = await page.$eval('fw-select-option', (elm: any) =>
+      JSON.parse(elm.getAttribute('data-meta-text'))
+    );
+    expect(metaText.name).toBe('Author Name');
+    expect(metaText.email).toBe('author@example.com');
+    expect(metaText.mobile).toBe('123-456-7890');
+  });
 });

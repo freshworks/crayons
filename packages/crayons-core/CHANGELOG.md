@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.0-beta.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.17...@freshworks/crayons@4.3.0-beta.18) (2024-10-03)
+
+### Bug Fixes
+
+- changes to metaText from author for generic text in select option ([bce20c0](https://github.com/freshworks/crayons/commit/bce20c0e881beaf6998401a12c0f811360770568))
+- minor update on createDescription changes ([e280127](https://github.com/freshworks/crayons/commit/e28012769f712ca8fa27e0a5dbf2d78958065138))
+- test case changes for fw-select ([232a6ec](https://github.com/freshworks/crayons/commit/232a6ece0c6f3802dd276dd716f7273a104a6ccb))
+- text cases changes ([ef046bd](https://github.com/freshworks/crayons/commit/ef046bde665872275cd56abb8b5a47d3dcd4a255))
+
+### Features
+
+- addition of dropdownvariant conversations with interface defined ([54e5a0d](https://github.com/freshworks/crayons/commit/54e5a0dc4e60bfbace233345b6f9513902030664))
+- handle the scenario when imageSrc is present ([b455ffb](https://github.com/freshworks/crayons/commit/b455ffb9192ff586c6a22053fe41b11891898c01))
+- introduction of new variations - conversation to create new select option with author details ([8f3ff04](https://github.com/freshworks/crayons/commit/8f3ff040ca36faf589ac22393d02f32a305eb4d9))
+
 ## [4.3.0-beta.17](https://github.com/freshworks/crayons/compare/@freshworks/crayons@4.3.0-beta.16...@freshworks/crayons@4.3.0-beta.17) (2024-09-30)
 
 ### Bug Fixes
