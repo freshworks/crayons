@@ -1,3 +1,10 @@
+/**
+  @prop --fw-select-option-icon-margin-inline-start: to adjust margin in the icon variant
+  @prop --fw-select-option-standard-margin-inline-start: to adjust margin inline start in the standard variant
+  @prop --fw-select-option-color: to adjust color of select option
+  @prop --fw-select-option-font-weight: to adjust font weight of select option
+*/
+
 $primary-color: $color-elephant-900;
 $selected-color: $color-azure-800;
 $disabled-color: $color-smoke-300;
@@ -14,8 +21,9 @@ $bg-color-disabled: $color-smoke-25;
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: $primary-color;
-  font-size: $font-size-14;
+  color: var(--fw-select-option-color, $primary-color);
+  font-size: var(--fw-select-option-font-weight, $font-size-14);
+  font-weight: 400;
   border-radius: 4px;
   list-style: none;
   line-height: $line-height-label;
@@ -100,11 +108,17 @@ $bg-color-disabled: $color-smoke-25;
     }
 
     &.icon-margin {
-      margin-inline-start: 18px;
+      margin-inline-start: var(
+        --fw-select-option-icon-margin-inline-start,
+        18px
+      );
     }
 
     &.standard-margin {
-      margin-inline-start: 12px;
+      margin-inline-start: var(
+        --fw-select-option-standard-margin-inline-start,
+        12px
+      );
     }
   }
 

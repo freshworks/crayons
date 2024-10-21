@@ -147,6 +147,16 @@ Type: `Promise<any>`
 
 
 
+## CSS Custom Properties
+
+| Name                                              | Description                                           |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| `--fw-select-option-color`                        | to adjust color of select option                      |
+| `--fw-select-option-font-weight`                  | to adjust font weight of select option                |
+| `--fw-select-option-icon-margin-inline-start`     | to adjust margin in the icon variant                  |
+| `--fw-select-option-standard-margin-inline-start` | to adjust margin inline start in the standard variant |
+
+
 ## Dependencies
 
 ### Used by

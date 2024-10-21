@@ -285,7 +285,7 @@ export class SelectOption {
         class={
           'select-option ' +
           (this.selected && !this.checkbox ? 'selected ' : '') +
-          (this.disabled ? 'disabled ' : '') +
+          (this.disabled && !this.selected ? 'disabled ' : '') +
           (this.html
             ? ''
             : (this.subText ? 'multi-line ' : 'single-line ') +
