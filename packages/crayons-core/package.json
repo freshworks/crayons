@@ -30,8 +30,7 @@
     "loader/",
     "www/",
     "react/",
-    "css/",
-    "hydrate/"
+    "css/"
   ],
   "scripts": {
     "add:react": "npm run clean:react && npx mkdirp react",

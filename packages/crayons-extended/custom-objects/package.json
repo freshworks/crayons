@@ -18,8 +18,7 @@
   "files": [
     "dist/",
     "loader/",
-    "react/",
-    "hydrate/"
+    "react/"
   ],
   "scripts": {
     "add:css": "npm run clean:css && npx mkdirp css",
