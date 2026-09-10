@@ -147,6 +147,11 @@ export class FormBuilder {
    */
   @Prop({ mutable: true }) customizeWidgetFields = null;
   /**
+   * flag to show/hide the "Customize widget" button, independent of the
+   * productName preset's config.customizeWidget value
+   */
+  @Prop({ mutable: true }) showCustomizeWidgetOption = true;
+  /**
    * flag to notify if an api call is in progress
    */
   @Prop({ mutable: true }) isLoading = false;
@@ -1697,7 +1702,8 @@ export class FormBuilder {
       (this.searching && arrRenderedFieldElements.length === 0) ||
       (boolFilterApplied && arrRenderedFieldElements.length === 0);
     const boolHasCustomizeWidgetOption =
-      objProductPresetConfig?.customizeWidget || false;
+      (objProductPresetConfig?.customizeWidget || false) &&
+      this.showCustomizeWidgetOption;
     const fieldWidgetElements =
       this.showCustomizeWidget &&
       arrFieldElements &&
