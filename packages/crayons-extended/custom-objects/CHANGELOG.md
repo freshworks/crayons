@@ -3,16 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.4.0-dew.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.18...@freshworks/crayons-custom-objects@1.4.0-dew.19) (2026-09-12)
-
+## [1.4.0-dew.19](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0-dew.18...@freshworks/crayons-custom-objects@1.4.0-dew.19) (2026-09-12)
 
 ### Bug Fixes
 
-* **root:** node-sass to sass to support node 20 versions ([aa23cb9](https://github.com/freshworks/crayons/commit/aa23cb9945ec67aa9c4f717686ffa96a46c39e20))
-
-
-
-
+- **root:** node-sass to sass to support node 20 versions ([aa23cb9](https://github.com/freshworks/crayons/commit/aa23cb9945ec67aa9c4f717686ffa96a46c39e20))
 
 ## [1.4.0-dew.18](https://github.com/freshworks/crayons/compare/@freshworks/crayons-custom-objects@1.4.0...@freshworks/crayons-custom-objects@1.4.0-dew.18) (2026-02-18)
 
