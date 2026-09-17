@@ -1987,6 +1987,30 @@ describe('fw-form-builder', () => {
     expect(element).toBeFalsy();
   });
 
+  it('does not render customize widget button when showCustomizeWidgetOption is false', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-form-builder show-customize-widget-option="false"></fw-form-builder>'
+    );
+    const element = await page.find(
+      'fw-form-builder >>> #customizeWidgetFieldsBtn'
+    );
+    expect(element).toBeFalsy();
+  });
+
+  it('renders customize widget button when showCustomizeWidgetOption is true', async () => {
+    const page = await newE2EPage();
+
+    await page.setContent(
+      '<fw-form-builder show-customize-widget-option="true"></fw-form-builder>'
+    );
+    const element = await page.find(
+      'fw-form-builder >>> #customizeWidgetFieldsBtn'
+    );
+    expect(element).toBeTruthy();
+  });
+
   it('RELATIONSHIP field should not be shown when showLookupField is false', async () => {
     const page = await newE2EPage();
 
