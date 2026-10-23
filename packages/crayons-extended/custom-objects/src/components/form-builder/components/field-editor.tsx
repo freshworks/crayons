@@ -139,6 +139,12 @@ export class FieldEditor {
     subItemId: string
   ) => void | Promise<void>;
   /**
+   * Additional props (e.g. search, debounceTimer) passed through to the target-object fw-select inside
+   * fw-fb-field-lookup, for opting in to server-backed/async search on the target picker. Defaults to an
+   * empty object, so existing consumers who don't set this see no behavior change.
+   */
+  @Prop({ mutable: true }) targetSelectProps = {};
+  /**
    * flag to show dependentField resolve checkbox
    */
   @Prop({ mutable: true }) showDependentFieldResolveProp = false;
@@ -1732,6 +1738,7 @@ export class FieldEditor {
       <fw-fb-field-lookup
         ref={(el) => (this.dictInteractiveElements['relationship'] = el)}
         targetObjects={this.lookupTargetObjects}
+        targetSelectProps={this.targetSelectProps}
         sourceObjectName={this.entityName}
         showErrors={this.showErrors}
         disabled={boolDisableLookup}
